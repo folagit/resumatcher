@@ -14,8 +14,8 @@ def parsePage(page_content):
   #  aquo = summary =  soup.select(".aquo")
  #   print "aquo= %s " %aquo
   #  print "aquo.a= %s " %aquo.a
-    print "aquo.a.href= %s " %aquo.a['href']
-    summary =  soup.select(".summary")
+  #  print "aquo.a.href= %s " %aquo.a['href']
+  #  summary =  soup.select(".summary")
   #  print "summary = %s" %summary
 
 def main():
