@@ -40,7 +40,7 @@ class ApiClient:
         totalResults = int (json_data["totalResults"])
     #    print "totalResults=",totalResults
         end = int (json_data["end"])
-        print "end=",end                      
+    #    print "end=",end                      
     #    print json_data                 
     #    has_more = (end < totalResults )
     #    print "has_more= " , has_more        
@@ -84,26 +84,36 @@ class ApiClient:
          pg = 0
          last_end = -100
          end = 0
+         get_sum = 0
+         save_sum = 0
          while (last_end != end):
             last_end = end
             pg +=1
        #     print "--- getting page %d ---" %pg
             items, end = self.getPage(pg)
             
-            print "--- page %d has %d jobs ---" %(pg,len(items))
-             
+       #     print "--- page %d has %d jobs ---" %(pg,len(items))
+            get_sum +=  len(items)
             i = self.savePage(collection,items) 
-            print "--- page %d has save %d jobs " %(pg,i)
-     
-
+       #     print "--- page %d has save %d jobs " %(pg,i)
+            save_sum += i
+         print " %s get %d jobs, save %d jobs " %(_city, get_sum, save_sum)
+         return (get_sum, save_sum)
        
 def main():
      cities = ['MoutainView, CA', 'Seattle, WA', 'San Diego, CA', 'San Francisco, CA', 'Austin, TX',
-               'San Jose, CA','Portland, OR',' New York, NY','Houston, TX','Boston, MA' ]
+               'San Jose, CA','Portland, OR',' New York, NY','Houston, TX','Boston, MA', 
+               'Davis, CA', 'Palo Alto, CA', ' Irvine, CA', 'Olathe, KS', 'Columbia, MD', ' Atlanta, GA' ]
+     
+
+     cities = [ 'Austin, TX',
+               'San Jose, CA','Portland, OR',' New York, NY','Houston, TX','Boston, MA', 
+               'Davis, CA', 'Palo Alto, CA', ' Irvine, CA', 'Olathe, KS', 'Columbia, MD', ' Atlanta, GA' ]
+            
      _pageSize = 25 
-     _fromage = 3 
+     _fromage = 30 
      _location = 94040
-     _radius = 3
+     _radius = 25
      _query = "software engineer"
      
      collectionName = "job_se_10city"
