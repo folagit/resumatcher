@@ -1,0 +1,7 @@
+db.job_se_top_corps.find( {company: "Amazon Corporate LLC"} )
+
+
+db.job_se_top_corps.aggregate([ 
+    { $group : { _id : "$company" ,  number : { $sum : 1 } } },
+    { $sort : { "number" : -1 } }
+])

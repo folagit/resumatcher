@@ -28,13 +28,16 @@ def main():
      
      collectionName = "job_se_10city"
      infoCollectionName = "jobinfo_se_10city"
+     
+     collectionName="job_se_top_corps"
+     infoCollectionName = "jobinfo_se_top_corps"
     
      dbClient = DbClient('localhost', 27017, "jobaly")
      collection = dbClient.getCollection(collectionName)
      infoCollection = dbClient.getCollection(infoCollectionName)
      
      pageSize = 20 
-     pageNo = 240
+     pageNo = 1
      has_more = True
      pageNum = 10000
      find_sort = None
