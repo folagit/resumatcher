@@ -1,0 +1,2 @@
+dbname: jobaly
+collection:  jobinfo_se_top_corps
