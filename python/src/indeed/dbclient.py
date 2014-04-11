@@ -18,7 +18,7 @@ class DbClient:
         
     def getPage(self, collection, find_spec ,find_sort, pageSize, pageNo):
         _skip = (pageNo-1) * pageSize
-        page = collection.find(spec=find_spec, sort=None , skip = _skip, limit=pageSize)
+        page = collection.find(spec=find_spec, sort=find_sort , skip = _skip, limit=pageSize)
         return page  
         
         

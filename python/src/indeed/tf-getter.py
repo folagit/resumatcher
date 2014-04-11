@@ -96,7 +96,7 @@ def main():
     collectionName = "jobinfo_se_top_corps"     
     dbClient = DbClient('localhost', 27017, "jobaly")
     pageProcessor = CollectionPageProcessor(dbClient,collectionName )
-    pageProcessor.process(tfgetter.processPage, pageNo = 1, pageNum=100)
+    pageProcessor.process(tfgetter.processPage, pageNo = 1, pageNum=100, find_sort =  [("_id", 1)])
     
     printDict( tfgetter.term_num_docs, "term_idf.txt" )
   

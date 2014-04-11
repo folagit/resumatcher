@@ -26,13 +26,30 @@ class CollectionPageProcessor():
 def printPageCount(collection, page, pageNo):  
       count =  page.count(with_limit_and_skip = True)
       print "page %d havs count= %d" %(pageNo, count)
-    
+
+global _g        
+def addField(collection, page, pageNo):  
+     global _g  
+     i = 0
+     for jobitem in page:
+         jobitem["num"] = _g
+         _g+=1          
+         collection.save(jobitem)
+         i+=1
+                 
+     print "%d jobs has been saved for page %d " %(i, pageNo)
+   
+   
+   
+_g =1 
 def main():
      
      collectionName = "jobinfo_se_top_corps"     
      dbClient = DbClient('localhost', 27017, "jobaly")
      pageProcessor = CollectionPageProcessor(dbClient,collectionName )
-     pageProcessor.process(printPageCount, pageNo = 1,   pageNum=10)
+ #    pageProcessor.process(printPageCount, pageNo = 1,   pageNum=10  )
+     pageProcessor.process(addField, pageNo = 1,   pageNum=100 , pageSize = 100, find_sort =  [("_id", 1)] )
+     
     
 if __name__ == "__main__": 
     main()
