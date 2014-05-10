@@ -2,6 +2,7 @@
 
 from apiclient import ApiClient
 from dbclient import DbClient 
+import utils
 
 def getByLang():
     
@@ -10,7 +11,8 @@ def getByLang():
     param = { "q" : "software engineer", 
                "fromage" : "30"    }    
                
-    lang_names = ["java", "python", "javascript", "C++", "C", "C#", "ruby", "scala", "lisp" ]
+    lang_names = utils.loadArrayFromFile("pro_langs.txt")
+    corps_names = utils.loadArrayFromFile("topcorps.txt")
     
     indeedClient= ApiClient( param )
     # client.getPage(0)
@@ -18,7 +20,7 @@ def getByLang():
     collection = dbClient.getCollection(collectionName)
     
     
-    for corp in indeedClient.corps:
+    for corp in corps_names:
        for lang in lang_names:
            q = indeedClient.buildQuery(lang, {"company": corp })
            print "-----prcoss corp %s with language %s -------" % (corp, lang) 

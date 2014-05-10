@@ -35,8 +35,8 @@ class ApiClient:
         if _params is not None:
             self.base_params.update(_params)
         self.pageSize = int(self.base_params["limit"])    
-        self.loadCorpNames()
-          
+      
+                
     def setParam(self, key, value):
          self.base_params[key] = value
     
@@ -116,13 +116,4 @@ class ApiClient:
          print " %s get %d jobs, save %d jobs " %( value, get_sum, save_sum)
          return (get_sum, save_sum)
          
-    def loadCorpNames(self): 
-        self.corps = []  
-        fileName = "topcorps.txt"
-        with open(fileName, 'r') as the_file:
-            for line in the_file: 
-                word = line.strip()
-                if not len(word)==0:
-                   self.corps.append(word)      
-
- 
+   
