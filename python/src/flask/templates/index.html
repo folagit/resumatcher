@@ -41,10 +41,13 @@
 		<div id="page">
 			<div id="leftpart" >
 				<div id="leftcolumn">
-					<h2 class="left"><span class="left_h2">CSS</span> Tutorial</h2>
-					<a target="_top" href="default.asp" class="menu_default">CSS HOME</a>
-					<a target="_top" href="css_intro.asp" class="menu_css_intro">CSS Introduction</a>
-					<a target="_top" href="css_syntax.asp" class="menu_css_syntax">CSS Syntax</a>
+					<h2 class="left"> Current Resumes</h2>
+                    
+                    {% for item in resumes %}
+                        <a target="_top" href="default.asp" class="menu_default">{{ item._id }}</a>
+                    {% endfor %}
+                    
+					
 					<br>
 					<h2 class="left"><span class="left_h2">CSS3</span> Tutorial</h2>
 					<a target="_top" href="css3_intro.asp" class="menu_css3_intro">CSS3 Introduction</a>
@@ -53,12 +56,14 @@
 
 				</div>
 				<div id="main" >
-					<div id="main-bar" >
-						<a id="addbtn" class="tryitbtn" target="_blank" href="tryit.asp?filename=tryhtml5_video_bear">Try it yourself »</a>
-					</div>
-					<div >
-						<textarea id="resume_text"  class="code_input"   wrap="logical" rows="10" cols="50" value="" ></textarea>
-					</div>
+                    <form style="margin:0px" action="add_resume" method="post"  id="tryitform" name="tryitform" >                   
+                        <div id="main-bar" >
+                            <input id="addresume_btn" class="tryitbtn" type="submit" value="Add Resume " >
+                        </div>
+                        <div >
+                            <textarea id="resume_text"  class="code_input" name="resume_txt"  wrap="logical" rows="10" cols="50" value="" ></textarea>
+                        </div>
+                    </form>
 				</div>
 			</div>
 		</div>

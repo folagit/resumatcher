@@ -63,7 +63,7 @@ div.topLeftRectangle {float:left;width:170px;height:90px;margin-top:10px;margin-
 
 #pageads {height:100px;margin-bottom:10px;}
 
-#leftcolumn {width:170px;float:left;margin-right:4px;margin-left:10px; }
+#leftcolumn {width:200px;float:left;margin-right:4px;margin-left:10px; }
 
 #leftcolumn h2 {font-size:16px;font-weight:normal;color:#8AC007;}
 
@@ -76,7 +76,7 @@ div.topLeftRectangle {float:left;width:170px;height:90px;margin-top:10px;margin-
 	background-color:#ffffff;color:#000000;text-decoration:underline;
 }
 
-#main {width:822px;float:left;padding:7px;padding-top:0px;overflow:hidden;}
+#main {width:700px;float:left;padding:7px;padding-top:0px;overflow:hidden;}
 
 #rightcolumn h2{font-size:13px;font-weight:normal;color:#8AC007;margin-top:3px;margin-bottom:2px;}
 
@@ -155,9 +155,18 @@ background-color:#ffffff;
 .jobitem_0 { margin: 10px; padding:7px; background-color:#dddddd;}
 .jobitem_1 { margin: 10px; padding:7px; background-color:#cccccc;}
 
-#pager {margin-left: 50px; margin-top:20px;}
 
-.pager_block  
+input[type=text]
+{
+    background-color: #BFBDBD;
+    border:solid 1px #BFBDBD;
+    color: #979797;
+    height: 28px;
+    padding-left:10px;
+    width: 191px;
+    box-shadow: 2px 2px 0 #828181 inset;
+}
+input[type=button], input[type=submit]
 {
 display:inline-block;
 color:#FFFFFF;
@@ -180,6 +189,14 @@ border-radius:5px;
 white-space:nowrap;
 }
 
-.pager_block:hover,.pager_block:active,.pager_block:hover,.pager_block:active{
-background-color:#ffffff;color:#8AC007;
+input[type=button], input[type=submit], input[type=text]
+{
+    border: 0;
+    border-radius:5px;
+    font-family: Sansation,Arial;
+}
+
+#addresume_btn {
+float:right;
+margin-top:15px;
 }
