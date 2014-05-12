@@ -1,0 +1,15 @@
+<div id="leftcolumn">
+    <h2 class="left"> Current Resumes</h2>
+    
+    {% for item in resumes %}
+        <a target="_top" href="resume.html?reid={{ item._id }}" class="menu_default">{{ item._id }}</a>
+    {% endfor %}
+    
+    
+    <br>
+    <h2 class="left"><span class="left_h2">CSS3</span> Tutorial</h2>
+    <a target="_top" href="css3_intro.asp" class="menu_css3_intro">CSS3 Introduction</a>
+    <a target="_top" href="css3_borders.asp" class="menu_css3_borders">CSS3 Borders</a>
+    <a target="_top" href="css3_backgrounds.asp" class="menu_css3_backgrounds">CSS3 Backgrounds</a>
+
+</div>

@@ -6,11 +6,16 @@ from data_handler import DataHandler
 app = Flask(__name__)     
 dataHandler = DataHandler()
      
+     
+@app.route('/layout.html')
+def handle_layout():
+    return render_template('layout.html')
+     
 @app.route('/')
+@app.route('/index.html')
 def handle_index():     
     
-    resumes = dataHandler.get_resumes()
-    
+    resumes = dataHandler.get_resumes()    
     return render_template('index.html', resumes=resumes)
 
 @app.route('/add_resume',  methods=['POST', 'GET'])     
@@ -23,6 +28,13 @@ def add_resume():
              dataHandler.save_resume(resume_text)
          
     return handle_index()
+    
+@app.route('/resume.html')     
+def  handle_resume():    
+    re_id = request.form['reid'].strip()
+    print "re_id =" , re_id
+    resumes = dataHandler.get_resumes()       
+    return render_template('resume.html', resumes=resumes)
 
 if __name__ == '__main__':
     

@@ -19,7 +19,7 @@
 	</div>
 	<div id="topnav">
 		<div id="topnavTut" class="notranslate">
-			<a class="topnav" target="_top" href="/default.asp">HOME </a>
+			<a class="topnav" target="_top" href="/index.html">HOME </a>
 			<a class="topnav" target="_top" href="/html/default.asp">HTML </a>
 			<a class="topnav" target="_top" href="/css/default.asp">CSS </a>
 			<a class="topnav" target="_top" href="/js/default.asp">JAVASCRIPT </a>
@@ -39,23 +39,9 @@
     
     <div id="belowTopnav">
 		<div id="page">
-			<div id="leftpart" >
-				<div id="leftcolumn">
-					<h2 class="left"> Current Resumes</h2>
-                    
-                    {% for item in resumes %}
-                        <a target="_top" href="default.asp" class="menu_default">{{ item._id }}</a>
-                    {% endfor %}
-                    
-					
-					<br>
-					<h2 class="left"><span class="left_h2">CSS3</span> Tutorial</h2>
-					<a target="_top" href="css3_intro.asp" class="menu_css3_intro">CSS3 Introduction</a>
-					<a target="_top" href="css3_borders.asp" class="menu_css3_borders">CSS3 Borders</a>
-					<a target="_top" href="css3_backgrounds.asp" class="menu_css3_backgrounds">CSS3 Backgrounds</a>
-
-				</div>
-				<div id="main" >
+			<div id="leftpart" >	
+                {% include 'left_resumes.html' %}                
+                <div id="main" >
                     <form style="margin:0px" action="add_resume" method="post"  id="tryitform" name="tryitform" >                   
                         <div id="main-bar" >
                             <input id="addresume_btn" class="tryitbtn" type="submit" value="Add Resume " >
