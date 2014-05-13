@@ -2,6 +2,7 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, _app_ctx_stack
      
 from data_handler import DataHandler
+import json
 
 app = Flask(__name__)     
 dataHandler = DataHandler()
@@ -64,18 +65,10 @@ def  handle_match():
 def  ajax_getjob():    
 	
 	jobid = request.args.get('jobid', '').strip()
-	print " handle_match re_id=", jobid	 
-	resume =  dataHandler.get_resume(re_id)
-	if resume is None:
-		resume = { "_id":re_id , "content":"no_content"}
-	else: 
-		content = resume["content"]
-		resume["content"] = "<br />".join(content.split("\n"))
-		
-	jobs = dataHandler.get_jobs()
+	print " handle_match jobid=", jobid	 
+	job =  dataHandler.get_job(jobid)	
+	return  json.dumps(job) 
 	
-	return render_template('search_result.html', resume=resume, jobs=jobs)
-
 if __name__ == '__main__':
     
     app.run( host='0.0.0.0',  debug=True)

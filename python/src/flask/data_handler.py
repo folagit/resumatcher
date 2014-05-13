@@ -32,13 +32,15 @@ class DataHandler:
         return self.dbClient.getPage(self.jobCollection, find_spec,find_sort, page_size, page_no)
 
     def get_job(self, _id):
-        return self.jobCollection.find_one({'_id': ObjectId(_id)})
+        return self.jobCollection.find_one({'_id': _id })
 
 def main(): 
 
    dataHandler = DataHandler()
   # dataHandler.save_resume("dfasdfw dsfwedf")
-   item = dataHandler.get_resume('537178f841a0a20860278df4')
+  # item = dataHandler.get_resume('537178f841a0a20860278df4')
+   item = dataHandler.get_job('3eb8caa5add2996b')
+    
    print item 
     
 if __name__ == "__main__": 

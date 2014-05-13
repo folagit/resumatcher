@@ -152,8 +152,9 @@ background-color:#ffffff;
 
 #joblist  {  padding:7px;padding-top:0px;overflow:hidden;}
 
-.jobitem_0 { height: 60px; text-overflow: ellipsis; overflow: hidden; margin: 10px; padding:7px; background-color:#dddddd;}
-.jobitem_1 { height: 60px; text-overflow: ellipsis; overflow: hidden; margin: 10px; padding:7px; background-color:#cccccc;}
+.jobitem { height: 60px; text-overflow: ellipsis; overflow: hidden; margin: 10px; padding:7px; }
+.jobitem_0 { background-color:#cccccc;}
+.jobitem_1 { background-color:#dddddd;}
 
 
 input[type=text]
@@ -231,4 +232,24 @@ white-space:nowrap;
 
 .pager_block:hover,.pager_block:active,.pager_block:hover,.pager_block:active{
 background-color:#ffffff;color:#8AC007;
+}
+
+#resume_pop {
+display: none;
+position: absolute;
+top: 120px;
+left: 120px;
+width: 80%;
+
+padding: 2px;
+border: 2px solid black;
+background-color: white;
+z-index:1002;
+overflow: auto;
+}
+
+#resume_detail {
+display:block;
+margin: 10px;
+
 }
