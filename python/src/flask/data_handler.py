@@ -1,6 +1,7 @@
 
 
 from dbclient import DbClient 
+from bson.objectid import ObjectId
 import datetime
 
 class DataHandler:
@@ -20,11 +21,16 @@ class DataHandler:
         
     def get_resumes(self):
         return self.resumeCollection.find()
+        
+    def get_resume(self, _id):
+        return self.resumeCollection.find_one({'_id': ObjectId(_id)})
 
 def main(): 
 
    dataHandler = DataHandler()
-   dataHandler.save_resume("dfasdfw dsfwedf")
+  # dataHandler.save_resume("dfasdfw dsfwedf")
+   item = dataHandler.get_resume('537178f841a0a20860278df4')
+   print item 
     
 if __name__ == "__main__": 
     main()

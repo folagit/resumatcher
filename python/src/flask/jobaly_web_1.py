@@ -23,7 +23,7 @@ def add_resume():
     error = None
     if request.method == 'POST':
          resume_text = request.form['resume_txt'].strip()
-         print "resume_text:", resume_text
+    #     print "resume_text:", resume_text
          if len(resume_text) > 0 :
              dataHandler.save_resume(resume_text)
          
@@ -31,10 +31,15 @@ def add_resume():
     
 @app.route('/resume.html')     
 def  handle_resume():    
-    re_id = request.form['reid'].strip()
-    print "re_id =" , re_id
-    resumes = dataHandler.get_resumes()       
-    return render_template('resume.html', resumes=resumes)
+	
+	re_id = request.args.get('reid', '').strip()
+	print " handle_resume re_id=", re_id
+	resumes = dataHandler.get_resumes()   
+	resume =  dataHandler.get_resume(re_id)
+	if resume is None:
+		resume = { "_id":re_id , "content":"no_content"}
+	
+	return render_template('resume.html', resumes=resumes, resume=resume)
 
 if __name__ == '__main__':
     

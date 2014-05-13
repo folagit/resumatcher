@@ -148,7 +148,7 @@ font-size: 14px;
 background-color:#ffffff;
 }
 
-#resume_content {width:400px;float:left;margin-right:4px;margin-left:10px; }
+#resume_content { overflow:hidden;margin-right:10px;margin-left:10px; }
 
 #joblist  { overflow:hidden; padding:7px;padding-top:0px;overflow:hidden;}
 
