@@ -59,6 +59,22 @@ def  handle_match():
 	jobs = dataHandler.get_jobs()
 	
 	return render_template('search_result.html', resume=resume, jobs=jobs)
+	
+@app.route('/getjob.ajax')    
+def  ajax_getjob():    
+	
+	jobid = request.args.get('jobid', '').strip()
+	print " handle_match re_id=", jobid	 
+	resume =  dataHandler.get_resume(re_id)
+	if resume is None:
+		resume = { "_id":re_id , "content":"no_content"}
+	else: 
+		content = resume["content"]
+		resume["content"] = "<br />".join(content.split("\n"))
+		
+	jobs = dataHandler.get_jobs()
+	
+	return render_template('search_result.html', resume=resume, jobs=jobs)
 
 if __name__ == '__main__':
     

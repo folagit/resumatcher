@@ -31,6 +31,9 @@ class DataHandler:
         find_spec = None
         return self.dbClient.getPage(self.jobCollection, find_spec,find_sort, page_size, page_no)
 
+    def get_job(self, _id):
+        return self.jobCollection.find_one({'_id': ObjectId(_id)})
+
 def main(): 
 
    dataHandler = DataHandler()
