@@ -12,7 +12,8 @@ class DataHandler:
         else: 
           self.dbClient = dbclient
           
-        self.resumeCollection = self.dbClient.getCollection("test_resume")  
+        self.resumeCollection = self.dbClient.getCollection("test_resume") 
+        self.jobCollection = self.dbClient.getCollection("jobinfo_se_top_corps")  
 
     def save_resume(self, resume_text): 
         resume = {"content": resume_text, "date": datetime.datetime.utcnow()}
@@ -24,6 +25,11 @@ class DataHandler:
         
     def get_resume(self, _id):
         return self.resumeCollection.find_one({'_id': ObjectId(_id)})
+        
+    def get_jobs(self, page_no=1, page_size=20):
+        find_sort = None
+        find_spec = None
+        return self.dbClient.getPage(self.jobCollection, find_spec,find_sort, page_size, page_no)
 
 def main(): 
 

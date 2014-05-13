@@ -38,8 +38,27 @@ def  handle_resume():
 	resume =  dataHandler.get_resume(re_id)
 	if resume is None:
 		resume = { "_id":re_id , "content":"no_content"}
+	else: 
+		content = resume["content"]
+		resume["content"] = "<br />".join(content.split("\n"))
 	
 	return render_template('resume.html', resumes=resumes, resume=resume)
+	
+@app.route('/search_result.html')    
+def  handle_match():    
+	
+	re_id = request.args.get('reid', '').strip()
+	print " handle_match re_id=", re_id	 
+	resume =  dataHandler.get_resume(re_id)
+	if resume is None:
+		resume = { "_id":re_id , "content":"no_content"}
+	else: 
+		content = resume["content"]
+		resume["content"] = "<br />".join(content.split("\n"))
+		
+	jobs = dataHandler.get_jobs()
+	
+	return render_template('search_result.html', resume=resume, jobs=jobs)
 
 if __name__ == '__main__':
     

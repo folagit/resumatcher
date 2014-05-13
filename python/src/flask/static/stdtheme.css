@@ -150,10 +150,10 @@ background-color:#ffffff;
 
 #resume_content { overflow:hidden;margin-right:10px;margin-left:10px; }
 
-#joblist  { overflow:hidden; padding:7px;padding-top:0px;overflow:hidden;}
+#joblist  {  padding:7px;padding-top:0px;overflow:hidden;}
 
-.jobitem_0 { margin: 10px; padding:7px; background-color:#dddddd;}
-.jobitem_1 { margin: 10px; padding:7px; background-color:#cccccc;}
+.jobitem_0 { height: 60px; text-overflow: ellipsis; overflow: hidden; margin: 10px; padding:7px; background-color:#dddddd;}
+.jobitem_1 { height: 60px; text-overflow: ellipsis; overflow: hidden; margin: 10px; padding:7px; background-color:#cccccc;}
 
 
 input[type=text]
@@ -199,4 +199,36 @@ input[type=button], input[type=submit], input[type=text]
 #addresume_btn {
 float:right;
 margin-top:15px;
+}
+
+#resume_left  {width:500px;float:left;margin-right:4px;margin-left:10px; }
+
+
+#pager {margin-left: 50px; margin-top:20px;}
+
+.pager_block  
+{
+display:inline-block;
+color:#FFFFFF;
+background-color:#8AC007;
+font-weight:bold;
+font-size:12px;
+text-align:center;
+padding-left:10px;
+padding-right:10px;
+padding-top:3px;
+padding-bottom:4px;
+text-decoration:none;
+margin-left:0;
+/*margin-left:5px;*/
+margin-top:0px;
+margin-bottom:5px;
+border:1px solid #aaaaaa;
+border:1px solid #8AC007;
+border-radius:5px;
+white-space:nowrap;
+}
+
+.pager_block:hover,.pager_block:active,.pager_block:hover,.pager_block:active{
+background-color:#ffffff;color:#8AC007;
 }

@@ -8,6 +8,7 @@
 	<meta name="generator" content="Geany 1.23.1" />
 	
 	<link rel="stylesheet" type="text/css" href="static/stdtheme.css" />
+    {% block inhead %}{% endblock %} 
 </head>
 
 <body> 
@@ -15,10 +16,12 @@
     <div id="belowTopnav">
 		<div id="page">
 			<div id="leftpart" >
-				{% include 'left_resumes.html' %}
-				<div id="main" >
-                   {% block mainpart %}{% endblock %}
-				</div>
+				{% block leftpart %} 
+                    {% include 'left_resumes.html' %}
+                {% endblock %}
+				
+                {% block mainpart %}{% endblock %}
+				
 			</div>
 		</div>
 		<div id="rightcolumn" >

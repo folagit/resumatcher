@@ -1,13 +1,19 @@
 {% extends "layout.html" %}
 
 {% block mainpart %}
-<div id="main-bar" >
-						<a id="addbtn" class="tryitbtn" target="_blank" href="tryit.asp?filename=tryhtml5_video_bear">Try it yourself »</a>
-					</div>
-					<div  >
-						<div id="resume_content"   >
-						   {{resume.content}}
-						
-						</div>
-					</div>
+<div id="main" >
+    <div id="main-bar" >
+        <a id="addbtn" class="tryitbtn" 
+           href="search_result.html?reid={{resume._id}}">
+            Matching Jobs...
+        </a>
+    </div>
+    <div  >
+        <div id="resume_content"   >
+           {% autoescape false %}
+             {{resume.content}}
+           {% endautoescape %}
+        </div>
+    </div>
+</div>
 {% endblock %}
