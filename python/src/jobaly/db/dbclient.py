@@ -19,6 +19,16 @@ class DbClient:
     def getPage(self, collection, find_spec ,find_sort, pageSize, pageNo):
         _skip = (pageNo-1) * pageSize
         page = collection.find(spec=find_spec, sort=find_sort , skip = _skip, limit=pageSize)
+        return page          
+    
+    def getSimplePage(self, collection, pageSize, pageNo): 
+        _skip = (pageNo-1) * pageSize
+        page = collection.find(spec=None, sort=None , skip = _skip, limit=pageSize)
         return page  
         
+    def copyToCollection(self, srcColName, toColName, size):      
+        srcCol = self.getCollection(srcColName)
+        toCol = self.getCollection(toColName)
+        docs = self.getSimplePage(srcCol, size, 1)
+        toCol.insert(docs)
         
