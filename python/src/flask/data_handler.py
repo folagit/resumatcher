@@ -1,6 +1,4 @@
-import sys
-sys.path.append("..")
-from jobaly.db.dbclient import DbClient 
+from common import  * 
 from bson.objectid import ObjectId
 import datetime
 
@@ -12,8 +10,8 @@ class DataHandler:
         else: 
           self.dbClient = dbclient
           
-        self.resumeCollection = self.dbClient.getCollection("test_resume") 
-        self.jobCollection = self.dbClient.getCollection("jobinfo_lang_top_corps")  
+        self.resumeCollection = self.dbClient.getCollection(gConfig["webResumeColName"]) 
+        self.jobCollection = self.dbClient.getCollection(gConfig["webJobInfoCollName"])  
 
     def save_resume(self, resume_text): 
         resume = {"content": resume_text, "date": datetime.datetime.utcnow()}
