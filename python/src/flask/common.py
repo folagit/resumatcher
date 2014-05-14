@@ -1,6 +1,5 @@
 import sys
 sys.path.append("..")
-from jobaly.db.dbclient import DbClient 
 import ConfigParser
 
 gConfig = {}
