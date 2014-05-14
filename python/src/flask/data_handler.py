@@ -13,7 +13,7 @@ class DataHandler:
           self.dbClient = dbclient
           
         self.resumeCollection = self.dbClient.getCollection("test_resume") 
-        self.jobCollection = self.dbClient.getCollection("jobinfo_se_top_corps")  
+        self.jobCollection = self.dbClient.getCollection("jobinfo_lang_top_corps")  
 
     def save_resume(self, resume_text): 
         resume = {"content": resume_text, "date": datetime.datetime.utcnow()}

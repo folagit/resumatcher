@@ -29,8 +29,8 @@ def main():
      collectionName = "job_se_10city"
      infoCollectionName = "jobinfo_se_10city"
      
-     collectionName="job_se_top_corps"
-     infoCollectionName = "jobinfo_se_top_corps"
+     collectionName = "job_lang_top_corps"
+     infoCollectionName = "jobinfo_lang_top_corps"
     
      dbClient = DbClient('localhost', 27017, "jobaly")
      collection = dbClient.getCollection(collectionName)
