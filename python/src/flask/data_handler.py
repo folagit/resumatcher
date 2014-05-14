@@ -1,6 +1,6 @@
-
-
-from dbclient import DbClient 
+import sys
+sys.path.append("..")
+from jobaly.db.dbclient import DbClient 
 from bson.objectid import ObjectId
 import datetime
 
