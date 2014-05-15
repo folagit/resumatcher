@@ -5,8 +5,7 @@ from data_handler import DataHandler
 import json
 
 app = Flask(__name__)     
-dataHandler = DataHandler()
-     
+dataHandler = DataHandler()     
      
 @app.route('/layout.html')
 def handle_layout():
@@ -48,18 +47,19 @@ def  handle_resume():
 @app.route('/search_result.html')    
 def  handle_match():    
 	
-	re_id = request.args.get('reid', '').strip()
-	print " handle_match re_id=", re_id	 
-	resume =  dataHandler.get_resume(re_id)
-	if resume is None:
-		resume = { "_id":re_id , "content":"no_content"}
-	else: 
-		content = resume["content"]
-		resume["content"] = "<br />".join(content.split("\n"))
-		
-	jobs = dataHandler.get_jobs()
-	
-	return render_template('search_result.html', resume=resume, jobs=jobs)
+    re_id = request.args.get('reid', '').strip()
+    print " handle_match re_id=", re_id	 
+    resume =  dataHandler.get_resume(re_id)
+    content = "no_content"
+    if resume is None:
+        resume = { "_id":re_id , "content":"no_content"}
+    else: 
+        content = resume["content"]
+        resume["content"] = "<br />".join(content.split("\n"))
+        
+    jobs = dataHandler.matchResume(content)
+
+    return render_template('search_result.html', resume=resume, jobs=jobs)
 	
 @app.route('/getjob.ajax')    
 def  ajax_getjob():    

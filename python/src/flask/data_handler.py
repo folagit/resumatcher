@@ -1,6 +1,8 @@
 from common import  * 
 from bson.objectid import ObjectId
 import datetime
+from jobaly.db.dbclient import DbClient 
+from tfidf_match import TfIdfMatch
 
 class DataHandler:
     
@@ -12,6 +14,7 @@ class DataHandler:
           
         self.resumeCollection = self.dbClient.getCollection(gConfig["webResumeColName"]) 
         self.jobCollection = self.dbClient.getCollection(gConfig["webJobInfoCollName"])  
+        self.matcher = TfIdfMatch(self.jobCollection)
 
     def save_resume(self, resume_text): 
         resume = {"content": resume_text, "date": datetime.datetime.utcnow()}
@@ -31,6 +34,9 @@ class DataHandler:
 
     def get_job(self, _id):
         return self.jobCollection.find_one({'_id': _id })
+        
+    def matchResume(self, resume):
+        return self.matcher.matchResume(resume)
 
 def main(): 
 

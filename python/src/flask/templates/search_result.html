@@ -50,9 +50,14 @@ $(document).ready(function(){
             {% for item in jobs %}
                 {% set i=(i+1)%2 %} 
                 <div class="jobitem jobitem_{{i}}" jobid="{{item._id}}" >
-                    {% autoescape false %}
-                     {{item.summary}}
-                    {% endautoescape %}
+                    <div>
+                       <span>ID:</span>  {{item._id}} <span>Score:</span> {{item.score}}
+                    </div>
+                    <div>
+                        {% autoescape false %}
+                         {{item.summary}}
+                        {% endautoescape %}
+                    </div>
                 </div>
             {% endfor %}
              

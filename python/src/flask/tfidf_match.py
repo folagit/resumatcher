@@ -33,6 +33,7 @@ class TfIdfMatch():
         for key , value in resume_wtfidf.iteritems():
             if job_wtfidf.has_key(key):
                 sum_weight += value * job_wtfidf[key]
+     #           print key, value
                 
         return sum_weight / job['length']
         
