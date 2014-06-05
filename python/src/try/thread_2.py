@@ -12,7 +12,7 @@ import sys
 import time
   
 hosts = ["A","B","C","D","E","F","G","H"]
-hosts = range(100,110) 
+#hosts = range(100,110) 
   
 queue = Queue.Queue()
 lock = threading.Lock()
@@ -24,7 +24,8 @@ class ThreadUrl(threading.Thread):
       self.queue = queue
       
     def run(self):
-        while (not self.queue.empty()):
+     #   while (not self.queue.empty()):
+         while True:
             self.printOne()
     
     def printOne(self):
