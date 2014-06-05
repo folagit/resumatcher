@@ -1,0 +1,5 @@
+# every ten minute
+*/10 * * * * cd /home/frank/jobaly/python/src/cronjob; python cronjob.py # JOB_ID_1
+
+everyday 11pm
+* 23 * * * cd /home/frank/jobaly/python/src/cronjob; python cronjob.py # JOB_ID_1

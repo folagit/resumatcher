@@ -1,4 +1,16 @@
 MoutainView, CA
 Seattle, WA
+San Diego, CA
+San Francisco, CA
 Austin, TX
 San Jose, CA
+Portland, OR
+New York, NY
+Houston, TX
+Boston, MA
+Davis, CA
+Palo Alto, CA
+Irvine, CA
+Olathe, KS
+Columbia, MD
+Atlanta, GA 

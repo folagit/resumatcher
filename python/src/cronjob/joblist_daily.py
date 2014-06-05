@@ -12,8 +12,8 @@ def getJobList(listCollectionName):
     lang_names = jobaly.utils.loadArrayFromFile("lang_list.txt")  
     cities = jobaly.utils.loadArrayFromFile("loc_list.txt")  
     
-    lang_names = jobaly.utils.loadArrayFromFile("test_lang_list.txt")  
-    cities = jobaly.utils.loadArrayFromFile("test_loc_list.txt") 
+   # lang_names = jobaly.utils.loadArrayFromFile("test_lang_list.txt")  
+   # cities = jobaly.utils.loadArrayFromFile("test_loc_list.txt") 
     
     indeedClient= ApiClient(  { "fromage" : "1"    }   )
     # client.getPage(0)
