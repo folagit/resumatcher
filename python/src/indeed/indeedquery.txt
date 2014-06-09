@@ -1,0 +1,12 @@
+l = CA  fromage=3
+http://api.indeed.com/ads/apisearch?publisher=3139916985086815&q=java&l=CA&sort=&radius=&st=&jt=&start=&limit=&fromage=3&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2
+
+l = TX  fromage=3 
+http://api.indeed.com/ads/apisearch?publisher=3139916985086815&q=java&l=TX&sort=&radius=&st=&jt=&start=&limit=&fromage=3&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2
+
+l = NY  fromage=3 
+http://api.indeed.com/ads/apisearch?publisher=3139916985086815&q=java&l=NY&sort=&radius=&st=&jt=&start=&limit=&fromage=3&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2
+
+
+l = CA  fromage=3 q=C++
+http://api.indeed.com/ads/apisearch?publisher=3139916985086815&q=C%2B%2B&l=CA&sort=&radius=&st=&jt=&start=&limit=&fromage=3&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2

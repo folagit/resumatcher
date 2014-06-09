@@ -38,6 +38,9 @@ class ApiClient:
       
     def setLocation(self, _loc):
          self.base_params["l"] = _loc
+         
+    def setFromAge(self, _age):
+         self.base_params["fromage"] = _age
                 
     def setParam(self, key, value):
          self.base_params[key] = value
@@ -121,4 +124,9 @@ class ApiClient:
          print " %s get %d jobs, save %d jobs " %( value, get_sum, save_sum)
          return (get_sum, save_sum)
          
-   
+    def getQueryResultNum(self, key, value ):
+        self.setParam(key,value)             
+        content = self.makeRequest(self.base_params)        
+        json_data = json.loads(content)   
+        totalResults = int (json_data["totalResults"])
+        return totalResults
