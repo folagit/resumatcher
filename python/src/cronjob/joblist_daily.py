@@ -10,7 +10,7 @@ def getJobList(listCollectionName):
     print " --- get daily job by language and top cities---"
                
     lang_names = jobaly.utils.loadArrayFromFile("lang_list.txt")  
-    cities = jobaly.utils.loadArrayFromFile("loc_list.txt")  
+    cities = jobaly.utils.loadArrayFromFile("state_list.txt")  
     
    # lang_names = jobaly.utils.loadArrayFromFile("test_lang_list.txt")  
    # cities = jobaly.utils.loadArrayFromFile("test_loc_list.txt") 
