@@ -7,6 +7,7 @@ Created on Fri Jun 13 23:51:05 2014
 
 from bs4 import BeautifulSoup 
 import sys
+import pytz, datetime
 
 class IndeedParser: 
     
@@ -79,6 +80,29 @@ class IndeedParser:
             
         job["country"] = "US"
         
+        
+    def parseDate(self, jobdiv, job ):
+        datespan = jobdiv.find("span", { "class" : "date" })
+        job["formattedRelativeTime"] = datespan.text
+  #      print job["formattedRelativeTime"]
+        strs = datespan.text.split()
+        if (strs[0][-1] == "+") :
+            strs[0] = strs[0][:-1]
+      #  print  " inpage = ", strs[0]
+        num = int(strs[0])
+        
+        if strs[1].find("minute") != -1 :
+            minutes = num
+        if strs[1].find("hour") != -1 :
+            minutes = num * 60 
+        elif strs[1].find("day") != -1 :
+            minutes = num * 24 * 60
+        timezone = -6
+        t = datetime.datetime.now() - datetime.timedelta(minutes=minutes)
+        t = t - datetime.timedelta(hours=timezone)
+        job["date"] =  t.strftime("%a, %d %b %Y %H:%M:%S GMT")
+   #     print job["date"]
+        
     def parseJobDiv(self, jobdiv):
        # print type(jobdiv)
        # jobId = jobdiv["class"]
@@ -114,6 +138,8 @@ class IndeedParser:
         summspan = jobdiv.find("span", { "class" : "summary" })
         job["snippet"] = summspan.text
     #    print "snippet=" , job["snippet"]
+    
+        self.parseDate(jobdiv, job)        
         return job    
      
     def parseAdJobDiv(self, jobdiv):
@@ -153,11 +179,14 @@ class IndeedParser:
         summspan = jobdiv.find("span", { "class" : "summary" })
         job["snippet"] = summspan.text
      #   print "snippet=" ,job["snippet"]
+     
+        self.parseDate(jobdiv, job)        
         return job
       
       
 def main(): 
-    with open ("page1.html", "r") as htmlfile:
+  #  with open ("page1.html", "r") as htmlfile:
+    with open ("page2.html", "r") as htmlfile:
         htmldoc = htmlfile.read()
         parser = IndeedParser(htmldoc)
         print "result num =",parser.totalResultNum 

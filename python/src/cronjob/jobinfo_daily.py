@@ -42,7 +42,7 @@ def getJobInfo(listCollectionName, infoCollectionName):
      find_sort = None
      find_spec=None
 
-     threadNum = 20
+     threadNum = 10
      queue = Queue.Queue()
      for i in range(threadNum):
         t = JobGetter(queue,infoCollection)
