@@ -30,7 +30,7 @@ class IndeedPageGetter():
            #          print job["_id"]
                      self.collection.insert(job)
                      i+=1
-         print "%d jobs has been saved for page %d " %(i, pageNo)
+         print "--- job info: %d jobs has been saved for page %d " %(i, pageNo)
              
      def processJob(self, parser, jobItem):
          url = jobItem["url"]

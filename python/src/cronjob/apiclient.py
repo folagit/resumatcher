@@ -20,7 +20,7 @@ class ApiClient:
     def __init__(self,  _params=None  ):
            
         self.url_pre = 'http://api.indeed.com/ads/apisearch?%s'
-        self.base_params = {'publisher' : '3139916985086815',
+        self.base_params = {'publisher' : '3536656359522845',
           'v' : '2',
           'format' : "json",
           'sort' : "date",
@@ -76,7 +76,7 @@ class ApiClient:
         param_str = urllib.urlencode(params)  
         url = self.url_pre % param_str
         retry = True
-      #  print 'url =', url
+        print 'url =', url
         while (retry):
             try : 
                 response = urllib.urlopen(url)

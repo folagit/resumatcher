@@ -24,7 +24,7 @@ def getJobList(listCollectionName):
        indeedClient.setLocation(city) 
        for lang in lang_names:
            q = indeedClient.buildQuery(lang)
-           print "-----prcoss city %s with language %s -------" % (city, lang) 
+           print "-----prcoss location %s with language %s -------" % (city, lang) 
            indeedClient.processQuery(collection, "q", q)
 
 def main(): 
