@@ -29,12 +29,8 @@ class JobGetter(threading.Thread):
          self.getter.processPage(page,pageNo)
          self.queue.task_done()       
 
-def getJobInfo(listCollectionName, infoCollectionName):
-    
-     dbClient = DbClient('localhost', 27017, "jobaly_daily")
-     collection = dbClient.getCollection(listCollectionName)
-     infoCollection = dbClient.getCollection(infoCollectionName)
-     
+def getJobInfo(dbClient, listCollection, infoCollection):
+   
      pageSize = 20 
      pageNo = 1
      has_more = True
@@ -50,7 +46,7 @@ def getJobInfo(listCollectionName, infoCollectionName):
         t.start()     
      
      while has_more and pageNo <= pageNum :
-        page = dbClient.getPage(collection, find_spec,find_sort, pageSize, pageNo)    
+        page = dbClient.getPage(listCollection, find_spec,find_sort, pageSize, pageNo)    
         queue.put( (page,pageNo) )       
         pageNo+=1 
         count =  page.count(with_limit_and_skip = True)

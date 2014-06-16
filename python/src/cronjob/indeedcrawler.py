@@ -169,6 +169,19 @@ def simpleResultFunc(pageNo, totalNum,joblist):
     for job in  sorted(joblist, key=lambda job: job["id"]) :
         print job["id"]
 
+def crawlIndeed(collection, keyList, locList, days=1):
+    crawler = IndeedCrawler()
+    crawler.setPageSize(50)
+    crawler.setCollection(collection)
+    crawler.setFromAge(days)
+    
+    for city in locList:
+       crawler.setLocation(city) 
+       for lang in keyList:
+           crawler.setKeyword(lang)
+           print "-----prcoss location %s with keyword %s -------" % (city, lang) 
+           crawler.makeOneQuery(crawler.saveToDb)        
+    
 
 
 def getJobList_sync(listCollectionName):
@@ -180,20 +193,10 @@ def getJobList_sync(listCollectionName):
     
   #  lang_names = jobaly.utils.loadArrayFromFile("test_lang_list.txt")  
   #  cities = jobaly.utils.loadArrayFromFile("test_loc_list.txt") 
-    
-    crawler = IndeedCrawler()
-    crawler.setPageSize(50)
-    # client.getPage(0)
+
     dbClient = DbClient('localhost', 27017, "jobaly_daily")
     collection = dbClient.getCollection(listCollectionName)  
-    crawler.setCollection(collection)
-    
-    for city in cities:
-       crawler.setLocation(city) 
-       for lang in lang_names:
-           crawler.setKeyword(lang)
-           print "-----prcoss city %s with language %s -------" % (city, lang) 
-           crawler.makeOneQuery(crawler.saveToDb) 
+    crawlIndeed(collection, lang_names, cities )  
 
 def getJobList(listCollectionName):
     
