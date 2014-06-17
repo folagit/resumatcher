@@ -6,15 +6,15 @@ from indeedcrawler import *
 import time
 
 def main():
-     
+     days = 4
      today = datetime.date.today()  
-     today = "2014-06-15_p3"
+     today = "2014-06-15_p4"
      listCollectionName = "daily_job_list_"+str(today)
      print "list collection name:", listCollectionName
      infoCollectionName = "daily_job_info_"+str(today)
      print "info collection name:", infoCollectionName
      
-     days = 3
+     
   #   lang_names = jobaly.utils.loadArrayFromFile("test_lang_list.txt")  
   #   cities = jobaly.utils.loadArrayFromFile("test_loc_list.txt") 
      lang_names = jobaly.utils.loadArrayFromFile("lang_list.txt")  

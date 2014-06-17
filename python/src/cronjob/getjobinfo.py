@@ -55,13 +55,14 @@ class IndeedPageGetter():
             try:
                 response = urllib2.urlopen(url) 
                 the_page = response.read()
+                return the_page
             except urllib2.HTTPError as e:
                 print "getjobinfo urllib2.HTTPError", e 
             except urllib2.URLError as e:
                 print "getjobinfo urllib2.URLError", e
             except  Exception as e:
                  print "getjobinfo  Unexpected error:", e
-            return the_page
+            
             i+=1
         return "ERROR"
      
