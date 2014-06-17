@@ -16,7 +16,7 @@ def main():
      lang_names = jobaly.utils.loadArrayFromFile("lang_list.txt")  
      cities = jobaly.utils.loadArrayFromFile("loc_list.txt")  
   
-     dbClient = DbClient('localhost', 27017, "jobaly_daily_test")
+     dbClient = DbClient('localhost', 27017, "jobaly_daily")
      listCollection = dbClient.getCollection(listCollectionName)  
     
      start_time = time.time()
