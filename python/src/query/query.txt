@@ -1,7 +1,16 @@
 db.job_se_top_corps.find( {company: "Amazon Corporate LLC"} )
 
-
+// aggregate company name
 db.job_se_top_corps.aggregate([ 
     { $group : { _id : "$company" ,  number : { $sum : 1 } } },
     { $sort : { "number" : -1 } }
 ])
+
+// aggregate job title 
+db.job_list_merge.aggregate([ 
+    { $group : { _id : "$jobtitle" ,  number : { $sum : 1 } } },
+    { $sort : { "number" : -1 } }
+])
+
+// find by job title
+db.job_list_merge.find({jobtitle: "Diesel Mechanic"})

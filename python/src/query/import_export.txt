@@ -1,0 +1,11 @@
+//export json
+
+mongoexport -d jobaly_daily_test -c daily_job_list_2014-06-16 -o daily_job_list_2014-06-16.json
+
+mongoexport -d jobaly_daily_test -c daily_job_info_2014-06-16 -o daily_info_list_2014-06-16.json
+
+// import json
+
+mongoimport -d jobaly_daily -c daily_job_list_2014-06-16 --file daily_job_list_2014-06-16.json
+
+mongoimport -d jobaly_daily -c daily_job_info_2014-06-16 --file daily_job_info_2014-06-16.json
