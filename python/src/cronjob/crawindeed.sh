@@ -21,9 +21,10 @@ mongoexport -d jobaly_daily -c $INFO_COLL_NAME -o ./data/$INFO_COLL_NAME.json
 #tar -cvzf ./data/$LIST_COLL_NAME.tar.gz  ./data/$LIST_COLL_NAME.json --remove-files
 #tar -cvzf ./data/$INFO_COLL_NAME.tar.gz  ./data/$INFO_COLL_NAME.json --remove-files
 
-tar -cvzf ./data/$LIST_COLL_NAME.tar.gz  ./data/$LIST_COLL_NAME.json  
-tar -cvzf ./data/$INFO_COLL_NAME.tar.gz  ./data/$INFO_COLL_NAME.json  
+cd data
+tar -cvzf $LIST_COLL_NAME.tar.gz  $LIST_COLL_NAME.json  
+tar -cvzf $INFO_COLL_NAME.tar.gz  $INFO_COLL_NAME.json  
 
-mv ./data/$LIST_COLL_NAME.tar.gz    /home/frank/Dropbox/jobaly_daily
-mv ./data/$INFO_COLL_NAME.tar.gz    /home/frank/Dropbox/jobaly_daily
+mv $LIST_COLL_NAME.tar.gz    /home/frank/Dropbox/jobaly_daily
+mv $INFO_COLL_NAME.tar.gz    /home/frank/Dropbox/jobaly_daily
 echo "cron job completed"
