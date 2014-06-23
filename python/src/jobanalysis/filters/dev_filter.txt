@@ -1,0 +1,26 @@
+Software Engineer 
+Software Developer
+Application|Software,Engineer|Architect|Development|Developer
+Development,Engineer
+Software Development
+Programmer
+
+Java|J2EE|JSP,Developer|Engineer|Architect|Development|Dev
+ASP|PHP,Developer|Engineer|Architect|Development|Dev
+C++,Developer|Engineer|Architect|Development|Dev
+Web,Developer|Engineer|Architect|Development|Dev
+VB|C#|.NET|DotNet,Developer|Engineer|Architect|Development|Dev
+RoR|Ruby|Rail,Developer|Engineer|Architect|Development|Dev
+Python,Developer|Engineer|Architect|Development|De
+
+Full Stack|Full-Stack|FullStack,Developer|Engineer|Architect|Development|Dev
+Back End|Back-End|BackEnd,Developer|Engineer|Architect|Development|Dev
+Front End|Front-End|FrontEnd,Developer|Engineer|Architect|Development|Dev
+
+iPad|iPhone|Android|iOS|Mobile,Developer|Engineer|Architect|Development|Dev
+Javascript|Flex|DHTML|HTML|XML,Developer|Engineer|Architect|Development|Dev
+
+Cloud|Hadoop|Map Resuce,Developer|Engineer|Architect|Development
+Data Warehouse,Developer|Engineer|Architect|Development
+Linux|UNIX,Developer|Engineer|Architect|Development|Dev
+NoSQL,Developer|Engineer|Architect|Development

@@ -1,0 +1,3 @@
+DBA
+Database,Administrator|Architect|admin|Manager
+Oracle|SQL Server|DB2|MySQL,Administrator|Architect|admin|Manager|Developer
