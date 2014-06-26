@@ -1,0 +1,77 @@
+Computer Programmer
+Application
+Software
+
+ASP
+PHP
+Java
+J2EE
+JSP 
+JBoss
+
+ 
+C++ 
+Web 
+VB
+C#
+.NET
+DotNet 
+RoR
+Ruby
+Rail 
+Python 
+
+Full Stack
+Full-Stack
+FullStack
+Back End
+Back-End
+BackEnd
+Backbone
+Front End
+Front-End
+FrontEnd
+
+iPad
+iPhone
+Android
+iOS
+Mobile
+Javascript
+Flex
+DHTML
+HTML
+XML
+Cloud
+Hadoop
+Map Resuce
+Data Warehouse
+Linux
+UNIX
+NoSQL
+PL/SQL
+
+ETL
+Database
+BI
+SharePoint
+Jive
+JS
+EXT
+Lucene
+HL7
+
+SERVER
+client
+Services
+web service
+sql
+OpenGL
+Development
+Groovy
+Scala
+
+Implementation
+
+Oracle
+Web Site

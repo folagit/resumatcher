@@ -5,7 +5,36 @@ Created on Sun Jun 22 22:25:07 2014
 @author: dlmu__000
 """
 import re
-from nltk import word_tokenize, wordpunct_tokenize
+
+def containInList(string, containList):
+    
+    for item in containList:
+        item = item.lower()    
+        i = string.find(item)
+        if   i!= -1 :            
+            return True         
+    return False
+    
+def containAllList(string, lists):
+    for onelist in lists:
+        if not containInList(string, onelist):
+            return False
+    return True
+    
+def countContains(string, containList):
+     result = 0
+     for item in containList:
+        item = item.lower()    
+        i = string.find(item)
+        if   i!= -1 :            
+            result +=1        
+     return result
+    
+def containTimes(string, containList, times):
+    if countContains(string, containList) > times:
+        return True
+    return False
+        
     
 def orContains(string, containList):
     
@@ -109,17 +138,8 @@ def test_contains():
   #   print contains("Java Developer- mid-level", "Java|Python|Ruby,Developer|Engineer|Architect|Development" )     
   #   print contains("Java Developer- mid-level", "Java|Python|Ruby,Developer" )     
       print contains( "Java/J2EE Developer", "Java|Python|Ruby,Developer" )   
-
-def testTokenize():
-    title = "Java Developer- mid-level"
-    tokens = word_tokenize(title)    
-    print tokens
-    
-    tokens =wordpunct_tokenize(title)
-    print tokens
-
 def main():   
-    testTokenize() 
+    test_contains() 
     
 if __name__ == "__main__": 
     main()
