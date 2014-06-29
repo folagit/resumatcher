@@ -13,19 +13,19 @@ import stringfilter
  
 dev_terms=jobaly.utils.loadArrayFromFile("filters/devterms.txt")
 dev_roles=["Intern","Engineer","Architect","Development","Developer",
-       "Programmer","dev","Computer Programmer","lead","CONSULTANT"]
+       "Programmer","dev","Computer Programmer","lead","CONSULTANT","Eng."]
 
 dba_terms=["Oracle","SQL Server","DB2","MySQL","DBA"]
 dba_roles=["Intern","DBA","Administrator","Architect","admin","Manager"]
 
 dba_terms=["Oracle","SQL Server","DB2","MySQL","DBA"]
-dba_roles=["Intern","DBA","Administrator","Architect","admin","Manager"]
+dba_roles=["Consultant","Intern","DBA","Administrator","Architect","admin","Manager"]
 
 qa_terms=["QA","Software Quality","Software","Test","Quality Assurance"]
-qa_roles=["Intern","QA","Engineer","Manager","Lead","Tester","Technician","testing"]
-
+qa_roles=["Consultant","Intern","QA","Engineer","Manager","Lead","Tester","Technician","testing"]
+                         
 data_terms=["Data"]
-data_roles=["Intern","Scientist","Architect","Analytics","Engineer","Analyst","Anaylt"]
+data_roles=["Consultant","Intern","Scientist","Architect","Analytics","Engineer","Analyst","Anaylt"]
 
 programman_terms=["Program"]
 programman_roles=["Intern","Manager"]
@@ -36,10 +36,10 @@ productman_roles=["Intern","Product Manager"]
 projectman_terms=["Project Manager"]
 projectman_roles=["Intern","Project Manager"]
 
-support_terms=["IT","Software","System","Network","Production","Product","Linux","UNIX","Application","Support Engineer"]
+support_terms=["Cloud","IT","Software","System","Network","Production","Product","Linux","UNIX","Application","Support Engineer","Mainframe"]
 support_roles=["Intern","Support","Administration","Administrator","Support","Support Engineer","admin"]
 
-DevOps_terms=["DevOps"]
+DevOps_terms=["DevOps","Dev/Ops", "Dev Ops"]
 DevOps_roles=["Intern","Engineer","Manager"]
 
 UI_terms=["UI"]

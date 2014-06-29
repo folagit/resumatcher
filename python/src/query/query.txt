@@ -14,3 +14,5 @@ db.job_list_merge.aggregate([
 
 // find by job title
 db.job_list_merge.find({jobtitle: "Diesel Mechanic"})
+
+db['daily_job_list_2014-06-16'].find({jobtitle:"Principal Software Engineer"})

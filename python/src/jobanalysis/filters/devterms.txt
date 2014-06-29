@@ -1,6 +1,7 @@
 Computer Programmer
 Application
 Software
+SW
 
 ASP
 PHP
@@ -75,3 +76,7 @@ Implementation
 
 Oracle
 Web Site
+UI
+Perl
+
+Magento 
