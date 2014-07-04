@@ -1,0 +1,599 @@
+@prefix : <http://jobaly.com/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://jobaly.com/ontology/> .
+
+<http://jobaly.com/ontology/> rdf:type owl:Ontology .
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://jobaly.com/ontology/ApplicationSystem
+
+:ApplicationSystem rdf:type owl:Class .
+
+
+
+###  http://jobaly.com/ontology/BigData
+
+:BigData rdf:type owl:Class ;
+         
+         rdfs:subClassOf :DevArea .
+
+
+
+###  http://jobaly.com/ontology/BuildingTools
+
+:BuildingTools rdf:type owl:Class ;
+               
+               rdfs:subClassOf :DevTools .
+
+
+
+###  http://jobaly.com/ontology/CIS
+
+:CIS rdf:type owl:Class ;
+     
+     rdfs:subClassOf :ApplicationSystem .
+
+
+
+###  http://jobaly.com/ontology/CMS
+
+:CMS rdf:type owl:Class ;
+     
+     rdfs:subClassOf :ApplicationSystem .
+
+
+
+###  http://jobaly.com/ontology/CloudComputing
+
+:CloudComputing rdf:type owl:Class ;
+                
+                rdfs:subClassOf :DevArea .
+
+
+
+###  http://jobaly.com/ontology/Column
+
+:Column rdf:type owl:Class ;
+        
+        rdfs:subClassOf :NOSQL .
+
+
+
+###  http://jobaly.com/ontology/DBA
+
+:DBA rdf:type owl:Class ;
+     
+     rdfs:subClassOf :Role .
+
+
+
+###  http://jobaly.com/ontology/DataScientist
+
+:DataScientist rdf:type owl:Class ;
+               
+               rdfs:subClassOf :Role .
+
+
+
+###  http://jobaly.com/ontology/Database
+
+:Database rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Software .
+
+
+
+###  http://jobaly.com/ontology/DevArea
+
+:DevArea rdf:type owl:Class .
+
+
+
+###  http://jobaly.com/ontology/DevTools
+
+:DevTools rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Software .
+
+
+
+###  http://jobaly.com/ontology/DevelopmentEnviroment
+
+:DevelopmentEnviroment rdf:type owl:Class ;
+                       
+                       rdfs:subClassOf :DevTools .
+
+
+
+###  http://jobaly.com/ontology/Document
+
+:Document rdf:type owl:Class ;
+          
+          rdfs:subClassOf :NOSQL .
+
+
+
+###  http://jobaly.com/ontology/Embed
+
+:Embed rdf:type owl:Class ;
+       
+       rdfs:subClassOf :OperatingSystem .
+
+
+
+###  http://jobaly.com/ontology/Functional
+
+:Functional rdf:type owl:Class ;
+            
+            rdfs:subClassOf :ProgrammingLanguage .
+
+
+
+###  http://jobaly.com/ontology/FuntionalLibraty
+
+:FuntionalLibraty rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :Library .
+
+
+
+###  http://jobaly.com/ontology/Graph
+
+:Graph rdf:type owl:Class ;
+       
+       rdfs:subClassOf :NOSQL .
+
+
+
+###  http://jobaly.com/ontology/J2EE
+
+:J2EE rdf:type owl:Class ;
+      
+      rdfs:subClassOf :DevArea .
+
+
+
+###  http://jobaly.com/ontology/J2EEServer
+
+:J2EEServer rdf:type owl:Class ;
+            
+            rdfs:subClassOf :NetworkServer .
+
+
+
+###  http://jobaly.com/ontology/JavaLibrary
+
+:JavaLibrary rdf:type owl:Class ;
+             
+             rdfs:subClassOf :ProgrameLanguageLibrary .
+
+
+
+###  http://jobaly.com/ontology/JavascriptLibrary
+
+:JavascriptLibrary rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf :ProgrameLanguageLibrary .
+
+
+
+###  http://jobaly.com/ontology/Key-value
+
+:Key-value rdf:type owl:Class ;
+           
+           rdfs:subClassOf :NOSQL .
+
+
+
+###  http://jobaly.com/ontology/Library
+
+:Library rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Software .
+
+
+
+###  http://jobaly.com/ontology/Linux
+
+:Linux rdf:type owl:Class ;
+       
+       rdfs:subClassOf :UNIXSeries .
+
+
+
+###  http://jobaly.com/ontology/MIS
+
+:MIS rdf:type owl:Class ;
+     
+     rdfs:subClassOf :ApplicationSystem .
+
+
+
+###  http://jobaly.com/ontology/Middelware
+
+:Middelware rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Software .
+
+
+
+###  http://jobaly.com/ontology/Mobile
+
+:Mobile rdf:type owl:Class ;
+        
+        rdfs:subClassOf :OperatingSystem .
+
+
+
+###  http://jobaly.com/ontology/NOSQL
+
+:NOSQL rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Database .
+
+
+
+###  http://jobaly.com/ontology/NetworkServer
+
+:NetworkServer rdf:type owl:Class ;
+               
+               rdfs:subClassOf :Software .
+
+
+
+###  http://jobaly.com/ontology/ObjectOriented
+
+:ObjectOriented rdf:type owl:Class ;
+                
+                rdfs:subClassOf :ProgrammingLanguage .
+
+
+
+###  http://jobaly.com/ontology/OperatingSystem
+
+:OperatingSystem rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf :Software .
+
+
+
+###  http://jobaly.com/ontology/ProductManager
+
+:ProductManager rdf:type owl:Class ;
+                
+                rdfs:subClassOf :Role .
+
+
+
+###  http://jobaly.com/ontology/ProgramManager
+
+:ProgramManager rdf:type owl:Class ;
+                
+                rdfs:subClassOf :Role .
+
+
+
+###  http://jobaly.com/ontology/ProgrameLanguageLibrary
+
+:ProgrameLanguageLibrary rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf :Library .
+
+
+
+###  http://jobaly.com/ontology/ProgrammingLanguage
+
+:ProgrammingLanguage rdf:type owl:Class .
+
+
+
+###  http://jobaly.com/ontology/ProjectManager
+
+:ProjectManager rdf:type owl:Class ;
+                
+                rdfs:subClassOf :Role .
+
+
+
+###  http://jobaly.com/ontology/PythonLibrary
+
+:PythonLibrary rdf:type owl:Class ;
+               
+               rdfs:subClassOf :ProgrameLanguageLibrary .
+
+
+
+###  http://jobaly.com/ontology/RDBS
+
+:RDBS rdf:type owl:Class ;
+      
+      rdfs:subClassOf :Database .
+
+
+
+###  http://jobaly.com/ontology/Researcher
+
+:Researcher rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Role .
+
+
+
+###  http://jobaly.com/ontology/Role
+
+:Role rdf:type owl:Class .
+
+
+
+###  http://jobaly.com/ontology/Software
+
+:Software rdf:type owl:Class .
+
+
+
+###  http://jobaly.com/ontology/SoftwareDeveloper
+
+:SoftwareDeveloper rdf:type owl:Class ;
+                   
+                   rdfs:label "Software Dev" ,
+                              "Software Engineer" ,
+                              "Software Developer" ;
+                   
+                   rdfs:subClassOf :Role .
+
+
+
+###  http://jobaly.com/ontology/TechnicalSupport
+
+:TechnicalSupport rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :Role .
+
+
+
+###  http://jobaly.com/ontology/UIDesigner
+
+:UIDesigner rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Role .
+
+
+
+###  http://jobaly.com/ontology/UNIX
+
+:UNIX rdf:type owl:Class ;
+      
+      rdfs:subClassOf :UNIXSeries .
+
+
+
+###  http://jobaly.com/ontology/UNIXSeries
+
+:UNIXSeries rdf:type owl:Class ;
+            
+            rdfs:subClassOf :OperatingSystem .
+
+
+
+###  http://jobaly.com/ontology/Web
+
+:Web rdf:type owl:Class ;
+     
+     rdfs:subClassOf :DevArea .
+
+
+
+###  http://jobaly.com/ontology/WebServer
+
+:WebServer rdf:type owl:Class ;
+           
+           rdfs:subClassOf :NetworkServer .
+
+
+
+###  http://jobaly.com/ontology/WindowsSeries
+
+:WindowsSeries rdf:type owl:Class ;
+               
+               rdfs:subClassOf :OperatingSystem .
+
+
+
+###  http://jobaly.com/ontology/C++Library
+
+<http://jobaly.com/ontology/C++Library> rdf:type owl:Class ;
+                                        
+                                        rdfs:subClassOf :ProgrameLanguageLibrary .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  http://jobaly.com/ontology/Android
+
+:Android rdf:type :Mobile ,
+                  owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/Ant
+
+:Ant rdf:type :BuildingTools ,
+              owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/Eclipse
+
+:Eclipse rdf:type :DevelopmentEnviroment ,
+                  owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/JAVA
+
+:JAVA rdf:type :ObjectOriented ,
+               owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/JQuery
+
+:JQuery rdf:type :JavaLibrary ,
+                 owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/JSP
+
+:JSP rdf:type :J2EE ,
+              owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/Linux
+
+:Linux rdf:type :OperatingSystem ,
+                owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/Lisp
+
+:Lisp rdf:type :Functional ,
+               owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/MSSQL
+
+:MSSQL rdf:type :RDBS ,
+                owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/Maven
+
+:Maven rdf:type :BuildingTools ,
+                owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/Mysql
+
+:Mysql rdf:type :RDBS ,
+                owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/Oracle
+
+:Oracle rdf:type :RDBS ,
+                 owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/Python
+
+:Python rdf:type :Functional ,
+                 :ObjectOriented ,
+                 owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/Scala
+
+:Scala rdf:type :Functional ,
+                owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/UNIX
+
+:UNIX rdf:type :OperatingSystem ,
+               owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/WindowsMobile
+
+:WindowsMobile rdf:type :Mobile ,
+                        owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/WindowsNT
+
+:WindowsNT rdf:type :WindowsSeries ,
+                    owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/WindowsServer
+
+:WindowsServer rdf:type :WindowsSeries ,
+                        owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/Windows_8
+
+:Windows_8 rdf:type :OperatingSystem ,
+                    owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/iOS
+
+:iOS rdf:type :Mobile ,
+              owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/C++
+
+<http://jobaly.com/ontology/C++> rdf:type :ObjectOriented ,
+                                          owl:NamedIndividual .
+
+
+
+
+
+#################################################################
+#
+#    General axioms
+#
+#################################################################
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Embed
+                :Mobile
+                :UNIXSeries
+                :WindowsSeries
+              )
+] .
+
+
+
+
+###  Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net
+
