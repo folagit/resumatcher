@@ -7,7 +7,10 @@ from tfidf_match import TfIdfMatch
 class DataHandler:
     
     def __init__(self , dbclient=None ):
-        if ( dbclient is None):
+        self.dbclient = dbclient
+   
+    def setup_tfidfMatcher(self):
+        if ( self.dbclient is None):
           self.dbClient = DbClient('localhost', 27017, "jobaly")               
         else: 
           self.dbClient = dbclient
@@ -37,7 +40,12 @@ class DataHandler:
         
     def matchResume(self, resume):
         return self.matcher.matchResume(resume)
-
+        
+    def connectJobColl(self, dbName, collName):
+        self.dbClient = DbClient('localhost', 27017, dbName)               
+        self.jobCollection = self.dbClient.getCollection(collName)  
+        
+        
 def main(): 
 
    dataHandler = DataHandler()

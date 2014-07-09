@@ -4,8 +4,10 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
 from data_handler import DataHandler
 import json
 
-app = Flask(__name__)     
 dataHandler = DataHandler()     
+dataHandler.setup_tfidfMatcher()
+app = Flask(__name__)     
+
      
 @app.route('/layout.html')
 def handle_layout():
