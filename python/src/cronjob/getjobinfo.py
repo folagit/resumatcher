@@ -28,6 +28,7 @@ class IndeedPageGetter():
                  job = self.processJob(parser, jobitem)
                  if job != None :
            #          print job["_id"]
+                     job.update(jobitem)
                      self.collection.insert(job)
                      i+=1
          print "--- job info: %d jobs has been saved for page %d " %(i, pageNo)
