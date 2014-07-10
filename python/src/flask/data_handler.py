@@ -42,18 +42,27 @@ class DataHandler:
         return self.matcher.matchResume(resume)
         
     def connectJobColl(self, dbName, collName):
+        
+        self.dbname = dbName 
+        self.collname = collName        
+        
         self.dbClient = DbClient('localhost', 27017, dbName)               
         self.jobCollection = self.dbClient.getCollection(collName)  
+        self.collSize = self.dbClient.getCollectionSize(collName)     
         
-        
+    def getJobsByPage(self, page_size ,  page_no ):
+        find_sort = None
+        find_spec = None        
+        return self.dbClient.getPage(self.jobCollection, find_spec,find_sort, page_size, page_no)        
+  
+   
+     
 def main(): 
 
-   dataHandler = DataHandler()
-  # dataHandler.save_resume("dfasdfw dsfwedf")
-  # item = dataHandler.get_resume('537178f841a0a20860278df4')
-   item = dataHandler.get_job('3eb8caa5add2996b')
-    
-   print item 
-    
+  
+   dataHandler = DataHandler()     
+   dataHandler.connectJobColl("jobaly_daily_test","daily_job_2014-06-05")
+   print  dataHandler.collSize
+   
 if __name__ == "__main__": 
     main()

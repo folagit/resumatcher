@@ -44,6 +44,14 @@ font-family:"Times New Roman", Monospace;
 font-weight:bold;
 }
 
+#topLogo {
+float:left;
+}
+
+#connectdiv {
+float:right;
+}
+
 #topnav {height:25px;background-color:#d3d3d3;}
 
 #topnavTut {height:20px;width:1190px;margin:auto;word-spacing:12px;font-size:12px;padding-left:10px;padding-right:20px;padding-top:5px;background-color:#d3d3d3;}

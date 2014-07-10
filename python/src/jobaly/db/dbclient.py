@@ -32,3 +32,6 @@ class DbClient:
         docs = self.getSimplePage(srcCol, size, 1)
         toCol.insert(docs)
         
+    def getCollectionSize(self, collection_name):      
+           result = self.db.command("collstats", collection_name)       
+           return result["count"]

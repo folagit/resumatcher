@@ -36,7 +36,7 @@ class JobDataProcessor:
                      f.write(line.encode('utf8'))
                  
 def main(): 
-    listCollectionName = "daily_job_list_2014-06-16"
+    listCollectionName = "daily_job_list_2014-06-10"
     dbClient = DbClient('localhost', 27017, "jobaly_daily")
     collection = dbClient.getCollection(listCollectionName) 
     dataProcessor = JobDataProcessor(collection)
