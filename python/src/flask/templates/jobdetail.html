@@ -1,0 +1,22 @@
+{% extends "simple_layout.html" %}
+
+{% block mainpart %}
+
+    
+       <div id="jobdetail" >
+            <div   >
+                <div id="detail_jobtitle" > {{job.jobtitle}} </div>
+                <div> 
+                    <span> {{job.location}}   </span> 
+                    <span>  {{job.company}}   </span> 
+                </div>
+                <div> 
+                  {% autoescape false %}
+                      {{job.summary}}
+                  {% endautoescape %}
+                </div>
+            </div>     
+       </div> 
+    
+
+{% endblock %}

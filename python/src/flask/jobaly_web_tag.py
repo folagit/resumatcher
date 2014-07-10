@@ -56,16 +56,7 @@ def getPagerInfo(pageno):
         pagerInfo["end"]  =  pageno + 4
     
     return pagerInfo
-
-@app.route('/a.html', methods=['POST', 'GET']) 
-def a():
- #   dbinfo['dbname'] = request.form['dbname'].strip()
-    print request
-   
-    dbinfo['dbname'] = request.args.get('dbname', '')
-    print "dbname=", dbinfo['dbname']
-    return handle_index() 
-         
+          
 @app.route('/connectcoll.html')      
 def connect_coll():
     dbinfo['dbname'] = request.args.get('dbname','').strip()
@@ -74,6 +65,15 @@ def connect_coll():
     
     dataHandler.connectJobColl(dbinfo['dbname'],dbinfo['collname']) 
     return handle_index()
+
+@app.route('/jobdetail.html')    
+def  jobdetail():    
+	
+	jobid = request.args.get('jobid', '').strip()
+	print " handle_match jobid=", jobid	 
+	job =  dataHandler.get_job(jobid)	
+	return render_template('jobdetail.html', dbinfo=dbinfo, job=job )
+
 
 @app.route('/add_resume',  methods=['POST', 'GET'])     
 def add_resume():    

@@ -36,7 +36,11 @@ class DataHandler:
         return self.dbClient.getPage(self.jobCollection, find_spec,find_sort, page_size, page_no)
 
     def get_job(self, _id):
-        return self.jobCollection.find_one({'_id': _id })
+        result=list(self.jobCollection.find({'_id': _id }))
+        if len(result) > 0:
+            return result[0]
+        else :
+            return None
         
     def matchResume(self, resume):
         return self.matcher.matchResume(resume)

@@ -1,118 +1,38 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+{% extends "simple_layout.html" %}
 
-<head>
-	<title>jobaly</title>
-	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-	<meta name="generator" content="Geany 1.23.1" />
-	
-	<link rel="stylesheet" type="text/css" href="static/stdtheme.css" />
-</head>
-<script src="static/jquery-1.11.1.js"></script>
-<script type="text/javascript">
+{% block headerpart %}
+    {% include "header_withconn.html" %}    
+{% endblock %}	
 
-$(document).ready(function() {
+{% block mainpart %}
 
-    $("#___connectdb_btn").click(function() {
-         dbname = $("#dbname").val();
-         collname = $("#collname").val();
-         qstr = "/connectdb.ajax?dbname="+dbname+"&collname="+collname;
-     //    alert(qstr);
-         $.get(qstr,function(data,status){
-         var json_job = JSON.parse(data);
-      //   alert(json_job._id)
-         $("#job_id").text(json_job._id);
-         $("#company").text(json_job.company);
-         $("#location").text(json_job.location); 
-         
-     });
-
-    });
-
-    }
-);
-
-</script>
-
-<body> 
-	
-	<div id="top"  >
-		<div id="topLogo"  style="float:left;" >
-			<div id="logo_text">Jobaly</div>
-		</div>
-        <div id="connectDiv"  style="float:right;padding-top:5px" >
-			 <form action="/connectcoll.html" >
-                <span style="float:left;" >Database Name: </span>
-                <input id="dbname" name="dbname" type="input" style="float:left;" value="jobaly_daily_test" />     
-                <span style="float:left;"  >Collection Name: </span>
-                <input id="collname" name="collname" type="input" style="float:left;"  value="daily_job_2014-06-05" />                
-                <input id="connectdb_btn"   type="submit" value="Connect DB" />
-             </form>
-           <div  > 
-               <span>Connected to db: <b>{{ dbinfo.dbname }} </b> Collection:  <b>{{ dbinfo.collname }}   </b>  </span>
-           </div>
-		</div>       
-	</div>
-    
-	<div id="topnav">
-		<div id="topnavTut" class="notranslate">
-			<a class="topnav" target="_top" href="/index.html">HOME </a>
-			<a class="topnav" target="_top" href="/html/default.asp">HTML </a>
-			<a class="topnav" target="_top" href="/css/default.asp">CSS </a>
-			<a class="topnav" target="_top" href="/js/default.asp">JAVASCRIPT </a>
-			<a class="topnav" target="_top" href="/sql/default.asp">SQL </a>			
-			<a class="topnav" target="_top" href="/sitemap/default.asp">MORE...</a>
-			<div style="float:right;word-spacing:0;">
-               
-                    <a class="topnav" target="_top" href="/sitemap/sitemap_references.asp">REFERENCES</a>
-                    <span style="letter-spacing:14px;"> |</span>
-                    <a class="topnav" target="_top" href="/sitemap/sitemap_examples.asp"> EXAMPLES</a>
-                    <span style="letter-spacing:14px;"> |</span>
-                    <a class="topnav" target="_blank" href="/forum/default.asp"> FORUM</a>
-                    <span style="letter-spacing:14px;"> |</span>
-                    <a class="topnav" target="_top" href="/about/default.asp"> ABOUT</a>
-                 
-			</div>
-		</div>
-	</div>
-    
-    <div id="belowTopnav">
-		<div id="page">
-			<div id="leftpart" >	
-                 {% include 'pager.html' %} 
-                <div id="main" >
-                      
-                   <div id="joblist" >
-                        <div   >
-                            {% set i = 0 %}
-                            {% for item in jobs %}
-                                {% set i=(i+1)%2 %} 
-                                <div class="jobitem jobitem_{{i}}" jobid="{{item._id}}" >
-                                    <div>
-                                       <span>ID:</span>  {{item._id}} <span>Score:</span> {{item.score}}
-                                    </div>
-                                    <div>
-                                        {% autoescape false %}
-                                         {{item.summary}}
-                                        {% endautoescape %}
-                                    </div>
-                                </div>
-                            {% endfor %}
-                             
+   {% include "pager.html" %}    
+       <div id="joblist" >
+            <div   >
+                {% set i = 0 %}
+                {% for item in jobs %}
+                    {% set i=(i+1)%2 %} 
+                    <div class="jobitem " jobid="{{item._id}}" >
+                        <div>
+                         
+                           <a class="jobtitle_a" target="_blank" href="jobdetail.html?jobid={{item._id}}" >{{item.jobtitle}}</a>
+                           
+                           <span style="float:right">ID: {{item._id}}   </span>  
                         </div>
-        
-                     
-                   </div> 
-                      
-				</div>
-                
-                 {% include 'pager.html' %}
-			</div>
-		</div>
-		<div id="rightcolumn" >
-		</div>
-	</div>
-</body>
+                        <div>
+                            <span style="width:200;"> Company: <b>{{item.company}} </b> </span>  
+                            <span style="width:200;"> &nbsp;  &nbsp; &nbsp; Location : <b>{{item.location}}</b>  </span>  
+                        </div>
+                        <div>
+                            {% autoescape false %}
+                             {{item.summary}}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                {% endfor %}
+                 
+            </div>     
+       </div> 
+   {% include 'pager.html' %}   
 
-</html>
+{% endblock %}
