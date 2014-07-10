@@ -1,6 +1,6 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, _app_ctx_stack
-     
+from flask import request     
 from data_handler import DataHandler
 import json
 import math
@@ -13,7 +13,7 @@ dbinfo['collname']   = "daily_job_2014-06-05"
 app = Flask(__name__)     
 dataHandler = DataHandler()     
 dataHandler.connectJobColl(dbinfo['dbname'] , dbinfo['collname'])
-dbinfo['collsize'] =  dataHandler.collSize    
+  
      
 @app.route('/layout.html')
 def handle_layout():
@@ -29,10 +29,11 @@ def handle_index():
     else :
          pageno = int( pageno.strip() )
     jobs = list( dataHandler.getJobsByPage(dbinfo["pagesize"], pageno))
-    for item in jobs:
-        print item["_id"]
+  #  for item in jobs:
+  #      print item["_id"]
         
     dbinfo["pageno"] = pageno
+    dbinfo['collsize'] =  dataHandler.collSize  
     pagerInfo=getPagerInfo(pageno)
     return render_template('tag_index.html', dbinfo=dbinfo, pagerInfo=pagerInfo,  jobs=jobs)
 
@@ -55,14 +56,23 @@ def getPagerInfo(pageno):
         pagerInfo["end"]  =  pageno + 4
     
     return pagerInfo
-            
+
+@app.route('/a.html', methods=['POST', 'GET']) 
+def a():
+ #   dbinfo['dbname'] = request.form['dbname'].strip()
+    print request
+   
+    dbinfo['dbname'] = request.args.get('dbname', '')
+    print "dbname=", dbinfo['dbname']
+    return handle_index() 
+         
 @app.route('/connectcoll.html')      
 def connect_coll():
-    dbinfo['dbname'] = request.form['dbname'].strip()
-    dbinfo['collname'] = request.form['collname'].strip()    
+    dbinfo['dbname'] = request.args.get('dbname','').strip()
+    dbinfo['collname'] = request.args.get('collname','').strip()    
     print "dbname=", dbinfo['dbname'], "collname=", dbinfo['collname']   
     
-    dataHandler.connectJobColl(dbname,collname) 
+    dataHandler.connectJobColl(dbinfo['dbname'],dbinfo['collname']) 
     return handle_index()
 
 @app.route('/add_resume',  methods=['POST', 'GET'])     
