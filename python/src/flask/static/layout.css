@@ -16,7 +16,7 @@ img		{border:0;}
 
 #belowTopnav {width:1220px;margin:auto;}
 
-#page {width:1024px;float:left; }
+#page {float:left; }
 
 #top {width:1220px; margin:auto;height:60px;}
 
@@ -24,25 +24,25 @@ img		{border:0;}
 float:right;
 }
 
-#main {width:820px;float:left;padding:7px;padding-top:0px;overflow:hidden;}
-
-#main {
-margin-left:10px;
-margin-top:10px;
-padding-top:10px;
-padding-bottom:20px;
-padding-left:40px;
-padding-right:20px;
-box-shadow: 0px 0px 20px 3px #d3d3d3; 
-border-radius:4px;
-background-color:#ffffff; 
-}
+#main {float:left;padding:7px;padding-top:0px; }
 
 #resume_content { overflow:hidden;margin-right:10px;margin-left:10px; }
 
 #pager {margin-left: 50px; margin-top:5px;}
 
 #joblist  { padding:7px;padding-top:0px; }
+
+#jobdetail {
+float:left;
+}
+
+#tagslist {
+float:left;
+width: 150px;
+padding-top:20px; 
+margin-left:10px;
+background-color:#f1f1f1;
+}
 
 #resume_left  {width:500px;float:left;margin-right:4px;margin-left:10px; }
 

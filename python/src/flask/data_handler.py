@@ -59,14 +59,34 @@ class DataHandler:
         find_spec = None        
         return self.dbClient.getPage(self.jobCollection, find_spec,find_sort, page_size, page_no)        
   
-   
-     
+    def searchjobs(self,query,qtype )	:        
+        if qtype == "jid" :
+            result=list(self.jobCollection.find({'_id': query }))
+            pageno = 1  
+        elif  qtype == "jobtitle" :   
+            result=list(self.jobCollection.find({'jobtitle': query }))
+            pageno = 1              
+            
+        resultnum = len(result)
+        return (result, pageno, resultnum)
+        
+        
 def main(): 
 
   
    dataHandler = DataHandler()     
    dataHandler.connectJobColl("jobaly_daily_test","daily_job_2014-06-05")
    print  dataHandler.collSize
+   qtype = "jid"
+   query = "49d46bcba36a9767"
    
+   qtype = "jobtitle"
+   query = "Web Developer"
+   
+   jobs, pageno, resultnum =  dataHandler.searchjobs(query,qtype )	
+  # print jobs 
+   print pageno, resultnum
+ 
+ 
 if __name__ == "__main__": 
     main()

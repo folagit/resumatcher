@@ -74,6 +74,20 @@ def  jobdetail():
 	job =  dataHandler.get_job(jobid)	
 	return render_template('jobdetail.html', dbinfo=dbinfo, job=job )
 
+@app.route('/searchjobs.html')    
+def  searchjob():    
+   query = request.args.get('query', '').strip()
+   qtype = request.args.get('qtype', '').strip()
+	 
+   jobs, pageno, resultnum =  dataHandler.searchjobs(query,qtype )	
+       
+   dbinfo["pageno"] = pageno
+   dbinfo['collsize'] =  resultnum
+   pagerInfo= {}
+   pagerInfo["start"] = 1
+   pagerInfo["end"]  =  1  
+  
+   return render_template('tag_index.html', dbinfo=dbinfo, pagerInfo=pagerInfo,  jobs=jobs)
 
 @app.route('/add_resume',  methods=['POST', 'GET'])     
 def add_resume():    
