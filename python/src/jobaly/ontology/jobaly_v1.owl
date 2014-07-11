@@ -74,6 +74,9 @@
 
 :DBA rdf:type owl:Class ;
      
+     rdfs:label "DBA" ,
+                "Database Administrator" ;
+     
      rdfs:subClassOf :Role .
 
 
@@ -81,6 +84,8 @@
 ###  http://jobaly.com/ontology/DataScientist
 
 :DataScientist rdf:type owl:Class ;
+               
+               rdfs:label "Data Scientist" ;
                
                rdfs:subClassOf :Role .
 
@@ -272,6 +277,8 @@
 
 :ProductManager rdf:type owl:Class ;
                 
+                rdfs:label "Product Manager" ;
+                
                 rdfs:subClassOf :Role .
 
 
@@ -279,6 +286,8 @@
 ###  http://jobaly.com/ontology/ProgramManager
 
 :ProgramManager rdf:type owl:Class ;
+                
+                rdfs:label "Program Manager" ;
                 
                 rdfs:subClassOf :Role .
 
@@ -301,6 +310,8 @@
 ###  http://jobaly.com/ontology/ProjectManager
 
 :ProjectManager rdf:type owl:Class ;
+                
+                rdfs:label "Project Manager" ;
                 
                 rdfs:subClassOf :Role .
 
@@ -358,6 +369,8 @@
 
 :TechnicalSupport rdf:type owl:Class ;
                   
+                  rdfs:label "Technical Support" ;
+                  
                   rdfs:subClassOf :Role .
 
 
@@ -365,6 +378,8 @@
 ###  http://jobaly.com/ontology/UIDesigner
 
 :UIDesigner rdf:type owl:Class ;
+            
+            rdfs:label "UI Designer" ;
             
             rdfs:subClassOf :Role .
 
@@ -451,7 +466,9 @@
 ###  http://jobaly.com/ontology/JAVA
 
 :JAVA rdf:type :ObjectOriented ,
-               owl:NamedIndividual .
+               owl:NamedIndividual ;
+      
+      rdfs:label "Java" .
 
 
 
@@ -479,7 +496,9 @@
 ###  http://jobaly.com/ontology/Lisp
 
 :Lisp rdf:type :Functional ,
-               owl:NamedIndividual .
+               owl:NamedIndividual ;
+      
+      rdfs:label "Lisp" .
 
 
 
@@ -515,14 +534,18 @@
 
 :Python rdf:type :Functional ,
                  :ObjectOriented ,
-                 owl:NamedIndividual .
+                 owl:NamedIndividual ;
+        
+        rdfs:label "Python" .
 
 
 
 ###  http://jobaly.com/ontology/Scala
 
 :Scala rdf:type :Functional ,
-                owl:NamedIndividual .
+                owl:NamedIndividual ;
+       
+       rdfs:label "Scala" .
 
 
 
@@ -561,17 +584,19 @@
 
 
 
+###  http://jobaly.com/ontology/cplusplus
+
+:cplusplus rdf:type :ObjectOriented ,
+                    owl:NamedIndividual ;
+           
+           rdfs:label "C++" .
+
+
+
 ###  http://jobaly.com/ontology/iOS
 
 :iOS rdf:type :Mobile ,
               owl:NamedIndividual .
-
-
-
-###  http://jobaly.com/ontology/C++
-
-<http://jobaly.com/ontology/C++> rdf:type :ObjectOriented ,
-                                          owl:NamedIndividual .
 
 
 

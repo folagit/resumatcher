@@ -28,7 +28,16 @@ class OntologyLib:
         
     def getLabels(self, ref):
         return self.g.objects(ref, predicate=RDFS.label)
+        
+    def getAllLabels(self):
+        return self.g.subject_objects( predicate=RDFS.label)
     
+    def getLabelDict(self):   
+        termDict = {}
+        result = self.getAllLabels()    
+        for entity, label  in result:           
+            termDict[str(label)] = entity
+        return termDict
         
 def listGraph(g):
     for stmt in g:
@@ -58,8 +67,7 @@ def findNode(g):
     result = g.preferredLabel(NS.SoftwareDeveloper)
     
     result = g.objects(NS.SoftwareDeveloper, predicate=RDFS.label)
-    
-    
+
     for o  in result:
         print o
 
@@ -85,8 +93,13 @@ def testGetSubClasses():
 def testGetLabels():
      ontology = OntologyLib()    
      result = ontology.getLabels(ontology.ns.SoftwareDeveloper)
-     for o  in result:
-         print type(o), ":" , o
+    
+     result = ontology.getAllLabels()    
+     #for entity, label  in result:
+     #    print type(label), ":" , label
+     
+     termdict = ontology.getLabelDict()
+     print termdict
 
 def main():
    testGetLabels()
