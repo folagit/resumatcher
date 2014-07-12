@@ -5,14 +5,13 @@ Created on Fri Apr 04 01:18:11 2014
 @author: dlmu__000
 """
 
-import sys
-sys.path.append("..")
-from jobaly.db.dbclient import DbClient 
+
+
 from bs4 import BeautifulSoup
 import urllib2
-import Queue
-import threading
-import datetime
+import traceback
+import sys
+import httplib
 
 class DiceParser():
     
@@ -22,9 +21,8 @@ class DiceParser():
         # self.findJobTitle(job)
         # self.parseLink(job)
          result  = self.parseContent(job)
-         if not result :
-             print "not find div:", job["detailUrl"]
-             
+         return result           
+         
      def findJobTitle(self, job ):          
           div = self.soup.find("div", id="job_header")
           job["job_title"] = div.b.font.string
@@ -46,29 +44,33 @@ class DiceParser():
       #  print "aquo.a.href= %s " %aquo.a['href']         
          
      def parseContent(self, job):
-        
-        result = self.soup.select(".job_description")
-        if len(result) > 0 :
-           jobdiv =  result[0]
-           job["div"] = "class=.job_description"
-           job["summary"] = str(jobdiv )            
-           return True
          
-        result = self.soup.find("div", id="detailDescription")
-        if result is not None:
-           jobdiv =  result
-           job["div"] = "id=detailDescription"
-           job["summary"] = str(jobdiv )  
-           return True   
+        divclasses = [".content",".dc_content", ".job_desc",".jobDesc" ]
+        divids = ["detailDescription","jobdesc","job","positionDetails","jobDesc"] 
         
-        result = self.soup.select(".job_desc")
-        if len(result) > 0 :
-           jobdiv =  result[0]
-           job["div"] = "class=.job_desc"
-           job["summary"] = str(jobdiv )            
-           return True
-       
-       
+        for  divid in divids:
+            result = self.soup.find("div", id=divid)
+            if result is not None:
+               jobdiv =  result
+               job["div"] = "id="+divid
+               job["summary"] = str(jobdiv )  
+               return True  
+        
+        for  divclass in divclasses:
+            result = self.soup.select(divclass)
+            if len(result) > 0 :
+               jobdiv =  result[0]
+               job["div"] = "class="+divclass
+               job["summary"] = str(jobdiv )  
+               return True          
+     
+        result = self.soup.find("input", id="searchTerms")
+        if result is not None:
+            job["div"] = "id="+"searchTerms"
+            job["summary"]="BE_REMOVED"
+            return False        
+        
+        print "not find div:", job["detailUrl"]
         return False  
 
 class DicePageGetter():
@@ -87,10 +89,10 @@ class DicePageGetter():
                  job = self.processJob(parser, jobitem)
                  if job != None :
            #          print job["_id"]
-                 #    job.update(jobitem)
+                     job["jobtitle"] = job["jobTitle"] 
                      self.collection.insert(job)
                      i+=1
-         print "--- job info: %d jobs has been saved for page %d " %(i, pageNo)
+       #  print "--- job info: %d jobs has been saved for page %d " %(i, pageNo)
              
      def processJob(self, parser, jobItem):
          url = jobItem["detailUrl"]
@@ -103,8 +105,10 @@ class DicePageGetter():
              print "-- cannot get page --- "
          else: 
              try:
-                 parser.parsePage(page, jobItem)
-                 return jobItem
+                 if parser.parsePage(page, jobItem):
+                     return jobItem
+                 else :
+                     return None
              except Exception as e:
                  print "job: ", jobkey , "has error:" ,e
          
@@ -116,95 +120,24 @@ class DicePageGetter():
                 the_page = response.read()
                 return the_page
             except urllib2.HTTPError as e:
-                print "getjobinfo urllib2.HTTPError", e 
+                print "getjobinfo urllib2.HTTPError, url=", url 
+                traceback.print_exc(file=sys.stdout)
             except urllib2.URLError as e:
-                print "getjobinfo urllib2.URLError", e
+                print "getjobinfo urllib2.URLError, url=", url 
+                traceback.print_exc(file=sys.stdout)
+            
+            except  httplib.BadStatusLine as e:
+                pass                
+                
             except  Exception as e:
-                 print "getjobinfo  Unexpected error:", e
+                 print "getjobinfo  Unexpected error, url=", url 
+                 traceback.print_exc(file=sys.stdout)
             
             i+=1
         return "ERROR"
 
-class JobGetter(threading.Thread):
-    """Threaded Url Grab"""
-    def __init__(self, queue, infoCollection):
-       threading.Thread.__init__(self)
-       self.queue = queue
-       self.getter = DicePageGetter(infoCollection)
-       
-    def run(self):
-      while True:
-        #grabs host from queue
-         page,pageNo = self.queue.get()
-         self.getter.processPage(page,pageNo)
-         self.queue.task_done()       
 
-def getJobInfo(dbClient, listCollection, infoCollection):
-   
-     pageSize = 20 
-     pageNo = 1
-     has_more = True
-     pageNum = 10000
-     find_sort = None
-     find_spec=None
 
-     threadNum = 10
-     queue = Queue.Queue()
-     for i in range(threadNum):
-        t = JobGetter(queue,infoCollection)
-        t.setDaemon(True)
-        t.start()     
-     
-     while has_more and pageNo <= pageNum :
-        page = dbClient.getPage(listCollection, find_spec,find_sort, pageSize, pageNo)    
-        queue.put( (page,pageNo) )       
-        pageNo+=1 
-        count =  page.count(with_limit_and_skip = True)
-     #   print "count=",count
-        if ( count < pageSize ) :
-            has_more = False            
-     queue.join()   
-         
-def testGetJobInfo():
-     
-     dbClient = DbClient('localhost', 27017, "jobaly_daily")
-     today = datetime.date.today()    
-     listCollectionName = "daily_dice_list_"+str(today)
-     print listCollectionName
-     infoCollectionName = "daily_dice_info_"+str(today)
-     print infoCollectionName
-     listCollection = dbClient.getCollection(listCollectionName)   
-     infoCollection = dbClient.getCollection(infoCollectionName)
-   
-     getJobInfo(dbClient,listCollection, infoCollection)
-     
-    
-
-def testProcessPage():
-     
-     listCollectionName = "daily_dice_list_2014-07-12"
-     infoCollectionName = "daily_dice_info_2014-07-12"
-    
-     dbClient = DbClient('localhost', 27017, "jobaly_daily")
-     listCollection = dbClient.getCollection(listCollectionName)
-     infoCollection = dbClient.getCollection(infoCollectionName)
-     getter = DicePageGetter(infoCollection)
-
-     pageSize = 100 
-     pageNo = 1
-     has_more = True
-     pageNum = 10000
-     find_sort = None
-     find_spec=None
-     while has_more and pageNo <= pageNum :
-        page = dbClient.getPage(listCollection, find_spec,find_sort, pageSize, pageNo)    
-        getter.processPage(page,pageNo)        
-        pageNo+=1 
-        count =  page.count(with_limit_and_skip = True)
-     #   print "count=",count
-        if ( count < pageSize ) :
-            has_more = False
-          
     
 def testParser():
    url = "http://www.dice.com/job/result/cybercod/KM-11540593?src=19"
@@ -212,15 +145,18 @@ def testParser():
  #  url = "http://www.dice.com/job/result/10290916/Acess_AL"
  #  url = "http://www.dice.com/job/result/10203814/657891"   
    url = "http://www.dice.com/job/result/rhalfint/03931-000010"
+   url = "http://www.dice.com/job/result/yohbot/1042161"
+   url = "http://www.dice.com/job/result/kforcecx/ITWQG1341670"
+   url = "http://www.dice.com/job/result/10117616/14029161"
+   url = "http://www.dice.com/job/result/10103934/DC46451DDP6?src=19"  
    pageGetter =  DicePageGetter(None)
    page = pageGetter.makeHttpRequest(url)
-   print page
+ #  print page
    parser = DiceParser()    
-   parser.parsePage(page,{})
+   parser.parsePage(page,{"detailUrl":url})
    
-def main():   
-    testGetJobInfo()
-  #  testParser()
+def main():     
+     testParser()
     
 if __name__ == "__main__": 
     main()
