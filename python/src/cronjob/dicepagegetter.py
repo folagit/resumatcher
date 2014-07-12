@@ -10,7 +10,9 @@ sys.path.append("..")
 from jobaly.db.dbclient import DbClient 
 from bs4 import BeautifulSoup
 import urllib2
-
+import Queue
+import threading
+import datetime
 
 class DiceParser():
     
@@ -85,7 +87,7 @@ class DicePageGetter():
                  job = self.processJob(parser, jobitem)
                  if job != None :
            #          print job["_id"]
-                     job.update(jobitem)
+                 #    job.update(jobitem)
                      self.collection.insert(job)
                      i+=1
          print "--- job info: %d jobs has been saved for page %d " %(i, pageNo)
@@ -93,8 +95,7 @@ class DicePageGetter():
      def processJob(self, parser, jobItem):
          url = jobItem["detailUrl"]
          jobkey = jobItem["jobkey"]
-         job = {}
-         job["_id"] = jobkey         
+               
       #   print "jobkey=", jobkey
          page = self.makeHttpRequest(url)
          
@@ -102,8 +103,8 @@ class DicePageGetter():
              print "-- cannot get page --- "
          else: 
              try:
-                 parser.parsePage(page, job)
-                 return job
+                 parser.parsePage(page, jobItem)
+                 return jobItem
              except Exception as e:
                  print "job: ", jobkey , "has error:" ,e
          
@@ -123,6 +124,61 @@ class DicePageGetter():
             
             i+=1
         return "ERROR"
+
+class JobGetter(threading.Thread):
+    """Threaded Url Grab"""
+    def __init__(self, queue, infoCollection):
+       threading.Thread.__init__(self)
+       self.queue = queue
+       self.getter = DicePageGetter(infoCollection)
+       
+    def run(self):
+      while True:
+        #grabs host from queue
+         page,pageNo = self.queue.get()
+         self.getter.processPage(page,pageNo)
+         self.queue.task_done()       
+
+def getJobInfo(dbClient, listCollection, infoCollection):
+   
+     pageSize = 20 
+     pageNo = 1
+     has_more = True
+     pageNum = 10000
+     find_sort = None
+     find_spec=None
+
+     threadNum = 10
+     queue = Queue.Queue()
+     for i in range(threadNum):
+        t = JobGetter(queue,infoCollection)
+        t.setDaemon(True)
+        t.start()     
+     
+     while has_more and pageNo <= pageNum :
+        page = dbClient.getPage(listCollection, find_spec,find_sort, pageSize, pageNo)    
+        queue.put( (page,pageNo) )       
+        pageNo+=1 
+        count =  page.count(with_limit_and_skip = True)
+     #   print "count=",count
+        if ( count < pageSize ) :
+            has_more = False            
+     queue.join()   
+         
+def testGetJobInfo():
+     
+     dbClient = DbClient('localhost', 27017, "jobaly_daily")
+     today = datetime.date.today()    
+     listCollectionName = "daily_dice_list_"+str(today)
+     print listCollectionName
+     infoCollectionName = "daily_dice_info_"+str(today)
+     print infoCollectionName
+     listCollection = dbClient.getCollection(listCollectionName)   
+     infoCollection = dbClient.getCollection(infoCollectionName)
+   
+     getJobInfo(dbClient,listCollection, infoCollection)
+     
+    
 
 def testProcessPage():
      
@@ -163,7 +219,7 @@ def testParser():
    parser.parsePage(page,{})
    
 def main():   
-    testProcessPage()
+    testGetJobInfo()
   #  testParser()
     
 if __name__ == "__main__": 
