@@ -181,6 +181,8 @@ def testgetPage():
 def testProcessQuery():
     today = datetime.date.today()    
     listCollectionName = "daily_dice_list_"+str(today)
+    listCollectionName = "daily_dice_list_"+"test"
+    
     print listCollectionName 
     dbClient = DbClient('localhost', 27017, "jobaly_daily")
     collection = dbClient.getCollection(listCollectionName) 

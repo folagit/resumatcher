@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+
+<!--
+ * $RCSfile: common.jsp,v $
+ * $Author: zacd $
+ * $Date: 2009/06/10 20:56:47 $
+-->
+<!--
+NOTE:  IF YOU CHANGE THIS FILE, PLEASE ALSO MAKE THE CORRESPONDING CHANGE TO JOBMIRRORCOMMON.JSP!!!
+
+The only difference between this(common.jsp) and jobMirrorCommon.jsp is that we are NOT passing true
+into the argument list in the JSP Initializer.
+-->
+<!-- START JSTL_INITIALIZATION -->
+
+
+
+
+
+
+
+<!-- FINISH JSTL_INITIALIZATION -->
+
+
+
+
+
+
+
+<!--
+ * $RCSfile: Level2EJVMercuryJSTLVariableSection.jsp,v $
+ * $Author: boeb $
+ * $Date: 2012/07/26 20:07:51 $
+-->
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+    
+
+
+
+
+<!-- Pre-select the appropriate rating radio button. -->
+
+
+
+
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+	<!--
+* $RCSfile: Level2EJVMercuryHeadTagCommonLinks.jsp,v $
+* $Author: duket $
+* $Date: 2011/11/10 21:28:49 $
+-->
+
+<link rel="stylesheet" href="/assets/diceYUI/assets/skins/dice/skin2.css" type="text/css" />
+<link rel="stylesheet" href="/assets/stylesheets/mercury3.css" type="text/css" />
+<link rel="stylesheet" href="/jobsearch/content/ejv_mercury/jackhenry/jack_henry_template.css" type="text/css" />
+
+
+    <script type="text/javascript" src="http://assets.dice.com/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+    <script type="text/javascript" src="http://assets.dice.com/yui/build/element/element-min.js"></script>
+    <script type="text/javascript" src="http://assets.dice.com/yui/build/button/button.js"></script>
+    <script type="text/javascript" src="http://assets.dice.com/yui/build/button/button-min.js"></script>
+    <script type="text/javascript" src="http://assets.dice.com/yui/build/container/container.js"></script>
+    <script type="text/javascript" src="http://assets.dice.com/yui/build/connection/connection-min.js"></script>
+
+
+<style media="print" type="text/css">
+	.noPrint,#hd,#ft,#jobPanel,#companyButtons,#applyNowButton,#container,.wrapper,#fade,dl.buttons{display:none;}
+	body{font-size:15px;width:7in;background-color:#FFF;color:#000;margin:auto;padding:0;}a,a:link,a:visited{color:#000;}
+	.job_overview dl,.contact_info dl{display:block;float:none;clear:both;color:#000 !important;padding:.5em 0;margin:0;width:100%;}
+	h1,.job_overview h1,.contact_info h1,.job_description h1{display:block;width:100%;float:none;color:#000 !important;}
+	.job_overview dt,.job_overview dd,.job_overview dd a,.job_overview dd a:visited,.contact_info dt,.contact_info dt a,.contact_info dt a:visited{color:#000 !important;}
+	#overviewCol,#descriptionCol{float:none;margin:1em 0;padding:0;}
+	#light.white_content{border:0 none;width:7in;height:100%;top:0;left:0;right:0;overflow:visible;}#light.white_content .stepRow{display:none;}
+	#light.white_content iframe{height:100%;overflow:visible;width:7in;}
+	#fade .black_overlay{width:7in;background-color:#FFF;}
+	#doc3,#doc3 #bd,#doc3 #bd .yui-g,#doc3 #bd .yui-g #wrapper,#doc3 #bd .yui-g #wrapper #overview_col,#doc3 #bd .yui-g #wrapper #overview_col .job_overview,#doc3 #bd .yui-g #wrapper #overview_col .contact_info,#doc3 #bd .yui-g #wrapper #description_col,.job_description,.company_overview{float:none;width:7in;margin:0;padding:0;}
+	#doc3,#doc3 #bd,#doc3 #bd .yui-g,#doc3 #bd .yui-g .colContainer{height:100%;overflow:visible;}
+</style>
+<style type="text/css">
+
+	html,body{background-color:#FFF;}
+
+	#loginPanelDiv,#container{font-size:13px;text-align:left;}
+	span#emailFriend1 span.first-child {  }
+	/*
+	a.applyNow, a.applyNow:link, a.applyNow:visited { cursor:pointer; border:0 none; color: #FFF; background: transparent url(/assets/stylesheets/images/applyNowButton.gif) no-repeat left top; display: block; width:100px; text-align:left; margin: 0; height: 26px; font-size: 12px; font-weight: bold; line-height: 26px; vertical-align: middle; text-align: center; text-decoration: none; overflow:hidden; }
+	a.applyNow:hover { background-position: left bottom; }
+	*/
+	#detailDescription ul { margin: 0 0 .5em 1.25em; }
+	#detailDescription ul, #detailDescription li, #detailDescription ul li { list-style-type: disc; list-style-position: outside; }
+	#container ul, #container ul li { list-style: none;}
+
+	#basicjvUL1 .yui-button, #basicjvUL2 .yui-button {display:block !important;background-color: transparent; background-image: url(/assets/stylesheets/images/BasicJV_menuBG.gif) !important; background-repeat: repeat-x !important; background-position: 0 0 !important; border-style: none !important; border-width: 0 0 0 0 !important; margin: 0 0 0 0 !important; line-height: 30px !important; vertical-align:middle !important; color: #0058A5 !important;}
+	#basicjvUL1 .yui-button-hover, #basicjvUL1 .yui-link-button-hover, #basicjvUL2 .yui-button-hover, #basicjvUL2 .yui-link-button-hover { background-position: 0 100% !important; color #003366 !important; }
+	#basicjvUL1 .yui-button .first-child, #basicjvUL2 .yui-button .first-child {border-style: none !important; border-width: 0 0 0 0 !important; margin: 0 0 0 0 !important; line-height: 30px !important; background: transparent none !important; vertical-align: middle !important; color: #0058A5 !important;}
+	#basicjvUL1 .yui-button button, #basicjvUL1 .yui-button a, #basicjvUL1 .yui-button a:link, #basicjvUL1 .yui-button a:visited, #basicjvUL2 .yui-button button, #basicjvUL2 .yui-button a, #basicjvUL2 .yui-button a:link, #basicjvUL2 .yui-button a:visited {color: #0058A5 !important;font-size:13px !important; line-height:30px !important; vertical-align: middle !important; min-height: 29px !important; padding: 0 15px 0 15px !important;}
+	#basicjvUL1 .yui-button a a, #basicjvUL1 .yui-button a:link a, #basicjvUL1 .yui-button a:visited a, #basicjvUL1 .yui-button a a:visited, #basicjvUL2 .yui-button a a, #basicjvUL2 .yui-button a:link a, #basicjvUL2 .yui-button a:visited a, #basicjvUL2 .yui-button a a:visited { padding: 0 0 0 0 !important;}
+	#basicjvUL1 .yui-button a:hover, #basicjvUL2 .yui-button a:hover {color:#003366 !important;}
+
+	#rateWidgetArea {padding: 5px 0; background: #AAA none;font-size:13px;}
+	.widgetContent {background: #EEE none;margin: 0 5px; padding: 5px 0;}
+	#rateWidgetArea .widgetContent #rateJobChoices {margin: 0 5em 0 0;}
+	#rateWidgetArea .widgetContent #rateJobChoices ul, #reportWidgetArea .widgetContent #reportJobChoices ul {display:block;margin:0;}
+	#rateWidgetArea .widgetContent #rateJobChoices ul li, #reportWidgetArea .widgetContent #reportJobChoices ul li {display:block; margin: 0 0 0 .5em; float:none; font-size:1em; line-height: 2em;}
+	#rateWidgetArea .widgetContent #rateJobSubmit {display:block;float:right;margin: 0 .75em 0 0;padding: 1.5em 0 0 0;}
+
+	#reportWidgetArea, #reportWidgetAreaReported {padding: 5px 0; background: #AAA none;font-size:13px;}
+	#reportWidgetAreaReported .info { border-color: #AAA; border-width: 2px; margin: 0 .5em;}
+	#reportWidgetArea .widgetContent #reportJobChoices { margin: 0 .5em; }
+	#reportWidgetArea .widgetContent #reportJobExplanation {margin:0 .5em;padding: 0 0 .5em 0;}
+	#reportWidgetArea .widgetContent #reportJobExplanation label {display:block;margin:0;padding: .75em 0 .25em 0;line-height:1;}
+	#reportWidgetArea .widgetContent #reportJobExplanation textarea {display:block;width:100%;border:1px solid #888;background: #FFF;padding: 0; font-size: 1em;line-height:1.2em;height: 3.6em;}
+	#reportWidgetArea .widgetContent fieldset.topLine {border-width: 1px 0 0 0;border-style:solid none none none; border-color:#CCC;background:transparent none;margin: 0 .5em;}
+	#reportWidgetArea .widgetContent fieldset.topLine div#reportCaptcha {display:block;float:left;width:170px;height:60px;background:#AAA none;border:1px solid #999;overflow:hidden;}
+	#reportWidgetArea .widgetContent fieldset.topLine div#reportCaptcha img {border:0 none;outline:none;width:170px;height:60px;}
+	#reportWidgetArea .widgetContent fieldset.topLine div#reportCaptchaRefresh { margin:0 0 0 45px; }
+	#reportWidgetArea .widgetContent fieldset.topLine div#reportCaptchaNote { margin:0 0 0 180px; font-size: 10px; line-height: 12px; color: #555; }
+	#reportWidgetArea .widgetContent fieldset.topLine div#reportCaptchaInput {clear:both;padding: .5em 0 0 0;}
+	#reportWidgetArea .widgetContent fieldset.topLine div#reportCaptchaInput input.captchaText { width: 170px; border: 1px solid #888; background: #FFF none; padding: 2px 0; margin: 0 .25em 0 0; }
+	#reportWidgetArea .widgetContent fieldset.topLine div#reportCaptchaInput span#captchaSubmit { margin-bottom: -4px !important;}
+	#reportJobSecurity #reportCaptcha{padding:.25em 0;}
+	#reportJobSecurity .captchaArea{border-top:1px solid #DDD;padding:.25em 0;}
+	#reportJobSecurity #reportCaptchaNote{padding:.5em 0;color:#444;}
+	#reportJobSecurity #reportCaptchaNote b{color:#222;font-weight:bold;}
+	#reportJobSecurity #reportCaptchaInput{clear:both;vertical-align:middle;}
+	#reportJobSecurity #reportCaptchaInput input#captcha.captchaText{width:200px;margin:0 .5em 0 0;padding:.25em 0;vertical-align:middle;border:1px solid #666;}
+	/*** BEGIN EXT STYLING ***/
+	.extjvmenu{background:transparent none;height:40px;line-height:40px;vertical-align:middle;font-size:12px;}
+	.extjvmenu a.extjvbutton,.extjvmenu a.extjvbutton:link,.extjvmenu a.extjvbutton:visited{cursor:pointer;white-space:nowrap;display:block;background:#101010 url(/assets/diceYUI/assets/skins/dice/Dice_topNavBG2.gif) no-repeat 0 0;margin:0;padding:0 10px;text-decoration:none;height:40px;font-weight:normal;line-height:40px;vertical-align:middle;text-decoration:none;color:#F6F6F6;border-left:0 none !important;border-right:0 none !important;}
+	.extjvmenu a.extjvbutton:hover,.extjvmenu a.extjvbutton:active{background-position:0 -60px;color:#FFF;}
+
+	.extjvmenu ul#extjvUL1 {display:block;float:left;text-align:left;width:45%;}
+	.extjvmenu ul#extjvUL2{display:block;float:right;text-align:left;padding:0;}
+	.extjvmenu ul li {display:block;float:left;white-space:nowrap;line-height:40px;vertical-align:middle;padding:0 !important;}
+	.extjvmenu li a div,.extjvmenu li a span{height:40px;line-height:40px;padding:1px 0 0 20px;vertical-align:middle;}
+	.extjvmenu li a span.saveJobButton { background: transparent url(/assets/stylesheets/images/ICO16px_save.gif) no-repeat 0 50%;}
+	.extjvmenu li a span.emailJobButton { background: transparent url(/assets/stylesheets/images/ICO16px_contact.gif) no-repeat 0 50%;}
+	.extjvmenu li a span.applyJobButton { background: transparent url(/assets/stylesheets/images/ICO16px_applied.gif) no-repeat 0 50%;}
+	.extjvmenu li a span.rateJobButton{background:transparent url(/assets/stylesheets/images/DJVnavSprite.gif) no-repeat 0 -200px;}
+	.extjvmenu li a:hover span.rateJobButton,.extjvmenu li a:active span.rateJobButton{background-position:0 -250px;}
+	.extjvmenu li a span.hideJobButton { background: transparent url(/assets/stylesheets/images/ICO16px_hidden.gif) no-repeat 0 50%;}
+	.extjvmenu li a span.DTNfollowButton,.extjvmenu li a:hover span.DTNnoButton{ background: transparent url(/assets/stylesheets/images/DJVnavSprite.gif) no-repeat 0 -148px;}
+	.extjvmenu li a span.DTNnoButton { background: transparent url(/assets/stylesheets/images/DJVnavSprite.gif) no-repeat 0 -98px;}
+	.extjvmenu li a span.reportJobButton{background:transparent url(/assets/stylesheets/images/DJVnavSprite.gif) no-repeat 0 -300px;}
+	.extjvmenu li a:hover span.reportJobButton,.extjvmenu li a:active span.reportJobButton{background-position:0 -350px;}
+	.extjvmenu li a span.backToSearchButton { background: transparent url(/assets/stylesheets/images/ICO16px_backV2.gif) no-repeat 0 50%;}
+	.extjvmenu li a span.searchJobsButton { background: transparent url(/assets/stylesheets/images/ICO16px_search.gif) no-repeat 0 50%;}
+	.extjvmenu li a span.viewCoProfButton { background: transparent url(/assets/stylesheets/images/DJVnavSprite.gif) no-repeat 0 0;}
+	.extjvmenu li a:hover span.viewCoProfButton,.extjvmenu li a:active span.viewCoProfButton{background-position:0 -50px;}
+	/*** END EXT STYLING ***/
+	/*** BEGIN DICE HEADER STYLING ***/
+	#navSearch{float:right;width:190px;height:40px;margin:0;padding:0 0 0 12px;background:#101010 url(/assets/diceYUI/assets/skins/dice/Dice_topNavBG2.gif) no-repeat 0 0;}
+	#navSearch input.navSearchKeyword{display:block;float:left;width:150px;height:23px;line-height:23px;border:0 none;text-align:left;margin:8px 4px 0 0;}
+	#navSearch input#navSearchSubmit{cursor:pointer;display:block;width:20px;height:23px;background:#8CBD5B url(/assets/stylesheets/images/ICO16px_arrowRight.gif) no-repeat 50% 50%;border:0 none;margin:8px 0 0 0;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
+	#navSearch input#navSearchSubmit:focus,#navSearch input#navSearchSubmit:hover,#navSearch input#navSearchSubmit:active{background-color:#A4CB7C;}
+	#diceHeader_wrapper{height:40px;line-height:40px;vertical-align:middle;text-align:center;background:#101010 url(/assets/diceYUI/assets/skins/dice/Dice_topNavBG2.gif) no-repeat -1px 0;}
+	.diceHeader{width:974px;height:40px;margin:0 auto;background:transparent none !important; }
+	.diceHeader a.diceLogo,.diceHeader a.diceLogo:visited{display:block;float:left;margin:0;padding:0;width:60px;height:40px;text-indent:-9999px;overflow:hidden;background:transparent url(/assets/images/detail/default/diceLogo.gif) no-repeat 0 50%;}
+	.diceHeader .rateWidget { display:block;float:left;width:360px;height:25px;line-height:25px;text-align:right;vertical-align:middle;margin: 0 0 0 80px;padding:0; }
+	.diceHeader .widgetButtons { display:block;float:left;width:100px;height:25px;text-align:left; }
+	.diceHeader img { border: 0 none; line-height: 25px; vertical-align: middle; }
+	.diceHeader p { float: right; margin: 2px 0 0 0; padding: 0; }
+	a.back, a.back:link, a.back:visited { display: block; float: right; height: 25px; line-height: 25px; vertical-align: middle; padding: 0 5px 0 18px; color: #666; font-size: 11px; text-decoration: none; background: transparent url(/assets/images/detail/default/back_16x16.gif ) no-repeat 0 50%; }
+	a.back:hover { color: #333; }
+	.diceHeader label.mainLabel { display: inline; font-size: 11px; font-weight:bold; color: #720000; margin: 0 .25em; padding: 0 0 0 0; line-height: 25px; vertical-align: middle; }
+	.diceHeader input.rate, .diceHeader label.rate { line-height: 25px; vertical-align: middle; }
+	.diceHeader label.rate { font-size: 10px; color: #888; margin-right:.5em; }
+
+	#doc3, .yui-t7 {margin: 0 0 0 0 !important;}
+	.widgetContent .error {margin: 0 .5em .5em .5em;font-weight:bold;border-width:2px;font-size:13px;}
+	#companyNetworkPanel ul {display:block;margin:0;padding:0;font-size:12px;line-height:20px;list-style:none;background: #CCC none;}
+	#companyNetworkPanel ul li {display:block;height:21px;line-height:20px;margin:0;padding:0;background: transparent none;}
+	#companyNetworkPanel ul li a, #companyNetworkPanel ul li a:visited {display:block;height:20px;font-size:12px;line-height:20px;margin: 0 1px;padding: 0 0 0 20px;background-color: #DDD;text-decoration:none;color:#666;border-bottom: 1px solid #CCC;}
+	#companyNetworkPanel ul li a:hover, #companyNetworkPanel ul li a:active {background-color:#FFF;color:#06C;}
+</style>
+<script type="text/javascript">
+    
+        var init = function () {
+            var submitAsyncRequest = function(type, url, callBack, postData){
+                var d = new Date();
+                var bigNumber = " " + d.getYear() + d.getDay() + d.getHours() + d.getMinutes() + d.getSeconds() + d.getMilliseconds();
+                if(postData == ""){
+                    postData = 'random=' + (Math.floor(Math.random() * bigNumber));
+                }else{
+                    postData += '&random=' + (Math.floor(Math.random() * bigNumber));
+                }
+                if(type == 'POST'){
+                    YAHOO.util.Connect.asyncRequest(type, url, callBack, postData);
+                }else{
+                    YAHOO.util.Connect.asyncRequest(type, url, callBack);
+                }
+            }
+
+            var receivedRefreshedCaptchaCallback = {
+                cache:false,
+                success: function(o) {
+                    if(o.responseXML){
+                        if(o.responseXML.getElementsByTagName("error")[0].firstChild.nodeValue == 1 || o.responseXML.getElementsByTagName("error")[0].firstChild == null){
+                            alert("There has been an error retrieving your new question.  We apologize for the inconvenience.");
+                        } else {
+                            var newQuestion;
+                            var newCaptchaQuestionXML = o.responseXML;
+                            if (newCaptchaQuestionXML.getElementsByTagName("question").length > 0) {
+                                document.getElementById("reportCaptcha").innerHTML = newCaptchaQuestionXML.getElementsByTagName("question")[0].firstChild.nodeValue;
+                            }
+                        }
+                    }
+                },
+                failure: function(o) {}
+            };
+
+            function refreshCaptcha(p_oEvent) {
+                submitAsyncRequest('POST', '/common/servlet/CommonController', receivedRefreshedCaptchaCallback, 'op=9857');
+            }
+
+            YAHOO.util.Event.onContentReady("mainBody", function() {
+                var oLinkButton1 = new YAHOO.widget.Button("captchaSubmit");
+                var oLinkButton2 = new YAHOO.widget.Button("rateJob");
+                var oLinkButton3 = new YAHOO.widget.Button("captchaRefresh", { onclick: { fn: refreshCaptcha } });
+                YAHOO.util.Event.addListener("rateJob", "click", rateJobClicked);
+            });
+
+            // Handle a rate button click on the originating page. Set up some fields for later use and show the panel.
+            // NOTE: This is when the rate button is clicked from within the YUI dropdown, not the rate button that displays the dropdown.
+            function rateJobClicked(p_oEvent) {
+                YAHOO.util.Event.stopEvent(p_oEvent);
+            
+                var r = Math.floor(Math.random()*10000);
+                for (i = 1; i <= 3; i++) {
+                    var ratingID = "rating" + i;
+                    if (document.getElementById(ratingID).checked) {
+                        var rating = document.getElementById(ratingID).value;
+                    }
+                }
+
+                document.location.href = "/jobsearch/servlet/JobSearch?op=306&dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex&source=0&currdoc=1&queryString=&r=" + r + "&rating=" + rating;
+            
+            }
+        }();
+
+        // Limit the number of characters the user can enter in the report job comments textarea.
+        function limitChars() {
+            var text1 = document.getElementById('reportExplain');
+            var max = 400;
+            if(text1.value.length >= max) {
+                text1.value = text1.value.substring(0, max - 1);
+            }
+        }
+    
+
+    function openPrinterFriendly() {
+        
+            var opStuff = "op=302&dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex";
+            var printView = "&printView=1";
+            var force = "&force=1";
+            var jobsearchServlet = "/jobsearch/servlet/JobSearch?";
+            var fullOnUrl = jobsearchServlet + opStuff + printView + force;
+
+            window.open(fullOnUrl, 'PrintView', 'width=600, height=600, toolbar=0, scrollbars=1, menubar=0, location=0');
+        
+    }
+</script>
+
+
+
+
+    
+        <title>Network Engineer - CCNA/CCNP - Jack Henry - Birmingham, AL | dice.com - 7-11-2014</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="generator" content="Dice.com JobSearch" />
+        <meta name="description" content="Network Engineer - CCNA/CCNP jobs available in Birmingham for immediate consideration on Dice.com"/>
+        <meta name="keywords" content="Network Engineer - CCNA/CCNP Jack Henry jobs, Birmingham jobs, AL jobs, tech jobs, it jobs, careers, job search, employment Dice.com" />
+
+        <meta property="og:title" content="Network Engineer - CCNA/CCNP - Jack Henry - Birmingham, AL | dice.com">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="http://assets.dice.com/assets/images/DiceOpenLogo512.png">
+        <meta property="og:url" content="http://www.dice.com/jobsearch/result/RTL86097/8868-1AC3184360951/DiceId_RTL86097/Jack+Henry">
+        <meta property="og:site_name" content="Dice.com">
+        <meta property="og:description" content="7-11-2014 - Job Description &amp;#xa0; Jack Henry is seeking a Network Engineer for our iTalk Install/Support department. The position will&amp;#xa0;provide&amp;#xa0;assistance in&amp;#xa0;installing and configuring Cisco Voice Gateways&amp;#xa0;and/or CUCM SIP trunks in a customers voice network for a VOIP-based telephone banking product.&amp;#xa0;&amp;#xa0;&amp;#xa0; Relocation is available for the right candidate and position can be located at other JHA offices. MINIMUM QUALIFICATIONS  Bachelors degree and&amp;#xa0; two&amp;#xa0;CISCO certifications&amp;#xa0;(or currently pursuing certifications) - CCNA (Voice) &amp; CCNP Minimum of 18 months&amp;#xa0; in network engineering or related field; or Working Cisco knowledge&amp;#xa0;on 2900 ISRG2&amp;#xa0;Voice Gateway configurations and setup Working Cisco knowledge on CUCM configurations and setup Working knowledge and troubleshooting of Session Initiation Protocol (SIP), Cisco Unified Border Elements, Digital (PRI,CAS) and Analog voice circuits.  Preferred:  Windows server 2008 or higher knowledge Working Knowledge of Wireshark and packet analysis  JOB RESPONSIBILITIES  Installs current OS on new or existing devices and/or installs communication equipment including routers, switches and firewalls. Installs software on networking devices. Provides phone support to employees or customers relative to networking technology. Analyzes network topologies to determine potential issues and makes suggestions for recommended changes. Assists with the preparation of network assessments and certifications.  Customer Site:  Installs current network operating server software on new or existing server-class hardware and/or installs communication equipment including routers, terminal servers, switches and firewalls. Installs supporting applications and peripherals on servers including tape backup hardware and software, email software, anti-virus software, etc. and/or implement technologies. Installs operating software and various application software and/or pre-configured equipment. Configures user IDs and customer-specific settings on servers and transfers data from the old environment to the new environment. Corresponds with customer and other divisions within the company to insure all customer concerns and issues are resolved in a timely manner. Prepares statements of work relative to upcoming network installations and general preparations for installations.  &amp;#xa0; Equal Employment Opportunity &amp;#xa0; Jack Henry &amp; Associates, Inc. is an Equal Employment Opportunity/Affirmative Action Employer and maintains a Drug-Free Workplace. EOE-M/F/Vet/Disability &amp;#xa0;">
+
+        <meta name="twitter:card" content="2427656750:dice_job">
+        <meta name="twitter:site" content="@DiceTechJobs">
+        <meta name="twitter:domain" content="dice.com"/>
+        <meta name="twitter:text:job_title" content="Network Engineer - CCNA/CCNP">
+        <meta name="twitter:text:company" content="Jack Henry">
+        <meta name="twitter:text:city" content="Birmingham">
+        <meta name="twitter:text:state" content="AL">
+        
+            
+                <meta id="payRateMeta" name="twitter:text:salary" content="market">
+            
+            
+        
+        <meta name="twitter:text:skills" content="&lt;br&gt;">
+        <meta name="twitter:text:job_description_web" content="Job Description &amp;#xa0; Jack Henry is seeking a Network Engineer for our iTalk Install/Support department. The position will&amp;#xa0;provide&amp;#xa0;assistance in&amp;#xa0;installing and configuring Cisco Voice Gateways&amp;#xa0;and/or CUCM SIP trunks in a customers voice network for a VOIP-based telephone banking product.&amp;#xa0;&amp;#xa0;&amp;#xa0; Relocation is available for the right candidate and position can be located at other JHA offices. MINIMUM QUALIFICATIONS  Bachelors degree and&amp;#xa0; two&amp;#xa0;CISCO certifications&amp;#xa0;(or currently pursuing certifications) - CCNA (Voice) &amp; CCNP Minimum of 18 months&amp;#xa0; in network engineering or related field; or Working Cisco knowledge&amp;#xa0;on 2900 ISRG2&amp;#xa0;Voice Gateway configurations and setup Working Cisco knowledge on CUCM configurations and setup Working knowledge and troubleshooting of Session Initiation Protocol (SIP), Cisco Unified Border Elements, Digital (PRI,CAS) and Analog voice circuits.  Preferred:  Windows server 2008 or higher knowledge Working Knowledge of Wireshark and packet analysis  JOB RESPONSIBILITIES  Installs current OS on new or existing devices and/or installs communication equipment including routers, switches and firewalls. Installs software on networking devices. Provides phone support to employees or customers relative to networking technology. Analyzes network topologies to determine potential issues and makes suggestions for recommended changes. Assists with the preparation of network assessments and certifications.  Customer Site:  Installs current network operating server software on new or existing server-class hardware and/or installs communication equipment including routers, terminal servers, switches and firewalls. Installs supporting applications and peripherals on servers including tape backup hardware and software, email software, anti-virus software, etc. and/or implement technologies. Installs operating software and various application software and/or pre-configured equipment. Configures user IDs and customer-specific settings on servers and transfers data from the old environment to the new environment. Corresponds with customer and other divisions within the company to insure all customer concerns and issues are resolved in a timely manner. Prepares statements of work relative to upcoming network installations and general preparations for installations.  &amp;#xa0; Equal Employment Opportunity &amp;#xa0; Jack Henry &amp; Associates, Inc. is an Equal Employment Opportunity/Affirmative Action Employer and maintains a Drug-Free Workplace. EOE-M/F/Vet/Disability &amp;#xa0;">
+        <meta name="twitter:text:job_description" content="Job Description &amp;#xa0; Jack Henry is seeking a Network Engineer for our iTalk Install/Support department. The position will&amp;#xa0;provide&amp;#xa0;assistance in&amp;#xa0;installing and configuring Cisco Voice Gateways&amp;#xa0;and/or CUCM SIP trunks in a customers voice network for a VOIP-based telephone banking product.&amp;#xa0;&amp;#xa0;&amp;#xa0; Relocation is available for the right candidate and position can be located at other JHA offices. MINIMUM QUALIFICATIONS  Bachelors degree and&amp;#xa0; two&amp;#xa0;CISCO certifications&amp;#xa0;(or currently pursuing certifications) - CCNA (Voice) &amp; CCNP Minimum of 18 months&amp;#xa0; in network engineering or related field; or Working Cisco knowledge&amp;#xa0;on 2900 ISRG2&amp;#xa0;Voice Gateway configurations and setup Working Cisco knowledge on CUCM configurations and setup Working knowledge and troubleshooting of Session Initiation Protocol (SIP), Cisco Unified Border Elements, Digital (PRI,CAS) and Analog voice circuits.  Preferred:  Windows server 2008 or higher knowledge Working Knowledge of Wireshark and packet analysis  JOB RESPONSIBILITIES  Installs current OS on new or existing devices and/or installs communication equipment including routers, switches and firewalls. Installs software on networking devices. Provides phone support to employees or customers relative to networking technology. Analyzes network topologies to determine potential issues and makes suggestions for recommended changes. Assists with the preparation of network assessments and certifications.  Customer Site:  Installs current network operating server software on new or existing server-class hardware and/or installs communication equipment including routers, terminal servers, switches and firewalls. Installs supporting applications and peripherals on servers including tape backup hardware and software, email software, anti-virus software, etc. and/or implement technologies. Installs operating software and various application software and/or pre-configured equipment. Configures user IDs and customer-specific settings on servers and transfers data from the old environment to the new environment. Corresponds with customer and other divisions within the company to insure all customer concerns and issues are resolved in a timely manner. Prepares statements of work relative to upcoming network installations and general preparations for installations.  &amp;#xa0; Equal Employment Opportunity &amp;#xa0; Jack Henry &amp; Associates, Inc. is an Equal Employment Opportunity/Affirmative Action Employer and maintains a Drug-Free Workplace. EOE-M/F/Vet/Disability &amp;#xa0;">
+        <meta name="twitter:text:collapse_text" content="Collapse">
+        <meta name="twitter:image:briefcase_img" content="http://www.dice.com/content/assets/twitter-assets/briefcase.png">
+        <meta name="twitter:image:location_img" content="http://www.dice.com/content/assets/twitter-assets/location.png">
+        <meta name="twitter:image:salary_img" content="http://www.dice.com/content/assets/twitter-assets/salary.png">
+        <meta name="twitter:image:skills_img" content="http://www.dice.com/content/assets/twitter-assets/skills.png">
+        <meta name="twitter:image:info_img" content="http://www.dice.com/content/assets/twitter-assets/info.png">
+        <meta name="twitter:iconwidth" content="44">
+        <meta name="twitter:iconheight" content="44">
+        <meta name="twitter:url:card_url" content="http://www.dice.com/job/result/10109334/4368-Scala-NY?src=19&q=scala"/>
+        
+        
+        
+            
+            
+                <meta name="twitter:url:card_url" content="http://www.dice.com/jobsearch/result/RTL86097/8868-1AC3184360951/DiceId_RTL86097/Jack+Henry?dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex&CMPID=SM_TW_UP_JS_AV_OG_TCRD_&utm_source=Twitter&utm_medium=Social%2BMedia&utm_content=&utm_campaign=Advocacy_Ongoing">
+            
+        
+        <meta name="twitter:app:url:iphone" content="dicejobs://876d4debcd5d0693c92ea3a839e0e2cf">
+        <meta name="twitter:app:id:iphone" content="794201100">
+
+        <meta id="twitterURL" name="twitter:url" content="http://www.dice.com/jobsearch/result/RTL86097/8868-1AC3184360951/DiceId_RTL86097/Jack+Henry">
+        <meta name="jobId" content="8868-1AC3184360951">
+        <meta name="groupId" content="RTL86097">
+
+        <link rel="canonical" href="http://www.dice.com/jobsearch/result/RTL86097/8868-1AC3184360951/DiceId_RTL86097/Jack+Henry" />
+
+        <script type="text/javascript">
+            function _dice_onDomReady (fn) {
+                // Mozilla, Opera, Webkit
+                if (document.addEventListener) {
+                    document.addEventListener("DOMContentLoaded", function () {
+                        document.removeEventListener("DOMContentLoaded", arguments.callee, false);
+                        fn();
+                    }, false);
+
+                // If IE event model is used
+                } else if (document.attachEvent) {
+                    // ensure firing before onload
+                    document.attachEvent("onreadystatechange", function () {
+                        if (document.readyState === "complete") {
+                            document.detachEvent("onreadystatechange", arguments.callee);
+                            fn();
+                        }
+                    });
+                }
+            }
+
+            _dice_onDomReady(function () {
+                var skillList;
+                var companyName;
+                var municipality;
+                var region;
+
+                    skillList = "&lt;br&gt;";
+                    companyName = "Jack Henry";
+                    municipality = "Birmingham";
+                    region = "AL";
+
+                var hashtag = "";
+                var skill1;
+                var skill2;
+                if(skillList.split(",")[0] != undefined) {
+                    skill1 =  skillList.split(",")[0].replace(/\s+/g, '');
+                    if(skill1.length > 0) {
+                        hashtag = "#" + skill1;
+                    }
+                }
+                if(skillList.split(",")[1] != undefined) {
+                    skill2 =  skillList.split(",")[1].replace(/\s+/g, '');
+                    if(skill2.length > 0) {
+                        hashtag += " #" + skill2;
+                    }
+                }
+                if(hashtag.length > 0) {
+                    hashtag += " ";
+                }
+                hashtag += "#Dice141";
+
+                var jobTitle = companyName + " is hiring in " + municipality + ", " + region + " " + hashtag;
+                var metaTag=document.createElement('meta');
+                metaTag.name = "twitterTweet";
+                metaTag.content = jobTitle;
+                metaTag.id = "tweetText";
+                document.getElementsByTagName('head')[0].appendChild(metaTag);
+            });
+        </script>
+    
+    
+
+
+<!-- Start of rdfaData.jsp -->
+
+
+    
+        <div vocab="http://schema.org/" typeof="JobPosting" style="display: none;">
+            <span property="title" content="Network Engineer - CCNA/CCNP - Jack Henry - Birmingham, AL | dice.com - 7-11-2014"></span>
+            <span property="industry" content="IT"></span>
+            <span property="description" content="7-11-2014 - Job Description &amp;#xa0; Jack Henry is seeking a Network Engineer for our iTalk Install/Support department. The position will&amp;#xa0;provide&amp;#xa0;assistance in&amp;#xa0;installing and configuring Cisco Voice Gateways&amp;#xa0;and/or CUCM SIP trunks in a customers voice network for a VOIP-based telephone banking product.&amp;#xa0;&amp;#xa0;&amp;#xa0; Relocation is available for the right candidate and position can be located at other JHA offices. MINIMUM QUALIFICATIONS  Bachelors degree and&amp;#xa0; two&amp;#xa0;CISCO certifications&amp;#xa0;(or currently pursuing certifications) - CCNA (Voice) &amp; CCNP Minimum of 18 months&amp;#xa0; in network engineering or related field; or Working Cisco knowledge&amp;#xa0;on 2900 ISRG2&amp;#xa0;Voice Gateway configurations and setup Working Cisco knowledge on CUCM configurations and setup Working knowledge and troubleshooting of Session Initiation Protocol (SIP), Cisco Unified Border Elements, Digital (PRI,CAS) and Analog voice circuits.  Preferred:  Windows server 2008 or higher knowledge Working Knowledge of Wireshark and packet analysis  JOB RESPONSIBILITIES  Installs current OS on new or existing devices and/or installs communication equipment including routers, switches and firewalls. Installs software on networking devices. Provides phone support to employees or customers relative to networking technology. Analyzes network topologies to determine potential issues and makes suggestions for recommended changes. Assists with the preparation of network assessments and certifications.  Customer Site:  Installs current network operating server software on new or existing server-class hardware and/or installs communication equipment including routers, terminal servers, switches and firewalls. Installs supporting applications and peripherals on servers including tape backup hardware and software, email software, anti-virus software, etc. and/or implement technologies. Installs operating software and various application software and/or pre-configured equipment. Configures user IDs and customer-specific settings on servers and transfers data from the old environment to the new environment. Corresponds with customer and other divisions within the company to insure all customer concerns and issues are resolved in a timely manner. Prepares statements of work relative to upcoming network installations and general preparations for installations.  &amp;#xa0; Equal Employment Opportunity &amp;#xa0; Jack Henry &amp; Associates, Inc. is an Equal Employment Opportunity/Affirmative Action Employer and maintains a Drug-Free Workplace. EOE-M/F/Vet/Disability &amp;#xa0;"></span>
+            <span property="datePosted" content="7-11-2014"></span>
+            <span property="image" content="http://assets.dice.com/assets/images/DiceOpenLogo512.png"></span>
+            <span property="url" content="http://www.dice.com/jobsearch/servlet/JobSearch?op=302&dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf"></span>
+            <span property="skills" content="&lt;br&gt;"></span>
+            <span property="baseSalary" content="market"></span>
+            <span property="employmentType" content="FULLTIME"></span>
+
+            <span property="jobLocation" typeof="http://schema.org/Place">
+                <span property="addressLocality" content="Birmingham"></span>
+                <span property="addressRegion" content="AL"></span>
+             </span>
+
+            <span property="hiringOrganization" typeof="http://schema.org/Organization">
+                <span property="Organization" content="Jack Henry"></span>
+                <span property="url" content="http://www.dice.com/jobsearch/company/DiceId_RTL86097/Jack+Henry"></span>
+             </span>
+        </div>
+    
+    
+
+
+<!-- End of rdfaData.jsp -->
+
+
+
+<script src="//s3.amazonaws.com/searchdiscovery-satellite-production/8c06f57f0590fbbe830e2dd0366687c0599684e7/satelliteLib-73044e29039c50f90968e5135f6f50a83641e7f0.js"></script>
+
+
+</head>
+
+<body id="mainBody" class="yui-skin-sam">
+
+<!--
+* $RCSfile: Level2EJVMercuryRatingSection.jsp,v $
+* $Author: rebeccas $
+* $Date: 2011/11/30 20:52:39 $
+-->
+<script type="text/javascript">
+    function clearText(textField) {
+        textField.value = "";
+    }
+</script>
+<!-- Begin Monetate tag v6. Place at start of document head. DO NOT ALTER. -->
+<script type="text/javascript">
+    var monetateT = new Date().getTime();
+    (function() {
+        var p = document.location.protocol;
+        if (p == "http:" || p == "https:") {
+            var m = document.createElement('script'); m.type = 'text/javascript'; m.async = true; m.src = (p == "https:" ? "https://s" : "http://") + "b.monetate.net/js/1/a-49445784/p/dice.com/" + Math.floor((monetateT + 1615620) / 3600000) + "/g";
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(m, s);
+        }
+    })();
+</script>
+<!-- End Monetate tag. -->
+
+
+
+    <input id="hiddenApplyLink" type="hidden" value="/jobsearch/servlet/JobSearch?op=310&amp;diceid=RTL86097&amp;jobid=8868-1AC3184360951&amp;url=http%3A%2F%2Fpost.talemetry.com%2Frespond.cfm%3Fposting%3D1000039653%26bid%3D63&amp;jobtitle=Network+Engineer+-+CCNA%2FCCNP&amp;source=0&amp;ral=JobSearch?
+        
+            
+                
+                    op=302
+                
+                
+            
+        
+            
+                
+                
+                    %26source=0
+                
+            
+        
+            
+                
+                
+                    %26dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex
+                
+            
+        
+            
+                
+                
+                    %26rating=
+                
+            
+        
+            
+                
+                
+                    %26FREE_TEXT="/>
+    <div id="diceHeader_wrapper">
+        <div class="diceHeader">
+            <div class="extjvmenu">
+                <a class="diceLogo" href="http://www.dice.com">Dice</a>
+                    <form method="get" action="/jobsearch/servlet/JobSearch">
+                        <div id="navSearch">
+                            <input type="text" name="FREE_TEXT" class="navSearchKeyword" value="Search Tech Jobs" onclick="clearText(this);" />
+                            <input type="submit" id="navSearchSubmit" value="" />
+                        </div>
+                        <input type="hidden" name="caller" value="0" />
+                        <input type="hidden" name="LOCATION_OPTION" value="2" />
+                        <input type="hidden" name="EXTRA_STUFF" value="0" />
+                        <input type="hidden" name="N" value="0" />
+                        <input type="hidden" name="Hf" value="0" />
+                        <input type="hidden" name="Ntk" value="JobSearchRanking" />
+                        <input type="hidden" name="op" value="300" />
+                        <input type="hidden" name="values" value="" />
+                        <input type="hidden" name="FRMT" value="0"/>
+                        <input type="hidden" name="icid" value="SNS1"/>
+                        <input type="hidden" name="NUM_PER_PAGE" value="30"/>
+                    </form>
+                <ul id="extjvUL2">
+                    
+                        
+                        
+                            
+                                
+                                
+                                    <!--
+                                    <li><a href="/jobsearch/genthree/index.jsp" class="extjvbutton"><span class="searchJobsButton">Search Jobs</span></a></li>
+                                    -->
+                                
+                            
+                        
+                    
+                    
+                    
+                    <li><a class="extjvbutton" href="/jobsearch/company/DiceId_RTL86097/Jack+Henry"><span class="viewCoProfButton">Company Profile</span></a></li>
+                    
+                    <li><a class="extjvbutton" id="rateJobJS" href="#"><span class="rateJobButton">Rate</span></a></li>
+                    <li><a class="extjvbutton" id="reportJobJS" name="reportLink" href="#"><span class="reportJobButton">Report</span></a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+
+
+	
+	
+	
+    
+
+
+
+<div id="doc3" class="yui-t7">
+	<div id="bd">
+		<div class="yui-g">
+
+<!--BEGIN CUSTOM EJV CONTENT-->
+<div id="wrapper">
+	<div id="header">
+		<div id="logo"><img src="/jobsearch/content/ejv_mercury/jackhenry/images/logo.png" alt="Jack Henry"></div>
+	</div>
+	<div id="content">
+		<!-- BEGIN overview_col - contains: Job Overview, Contact Info -->
+		<div id="overview_col">
+			<div class="job_overview">
+				<h1>Job Overview</h1>
+				<dl>
+					<dt>Company:</dt>
+					<dd><a href="/jobsearch/company/DiceId_RTL86097/Jack+Henry+%26+Associates" target="_top">Jack Henry</a></dd>
+
+					<dt>Title:</dt>
+					<dd>Network Engineer - CCNA/CCNP</dd>
+
+					
+						<dt>Skills:</dt>
+						<dd><br></dd>
+					
+
+					
+						<dt>Date Posted:</dt>
+						<dd>7-4-2014</dd>
+					
+
+					<dt>Location:</dt>
+					<dd>Birmingham, AL</dd>
+
+					
+						<dt>Area Code:</dt>
+						<dd>205</dd>
+					
+
+					
+						<dt>Employ. Type:</dt>
+						<dd>FULLTIME</dd>
+					
+
+					
+						<dt>Pay Rate:</dt>
+						<dd>market</dd>
+					
+
+					
+						<dt>Job Length:</dt>
+						<dd>Permanent</dd>
+					
+
+					<dt>Position ID:</dt>
+					<dd>8868-1AC3184360951</dd>
+
+					<dt>Dice ID:</dt>
+					<dd>RTL86097</dd>
+
+					
+						<dt>Travel Required:</dt>
+						<dd>unspecified</dd>
+					
+
+					
+						<dt>Telecommute:</dt>
+						<dd>no</dd>
+					
+				</dl>
+			</div>
+			
+				<div class="contact_info">
+					<h1>Contact Information</h1>
+					<dl>
+						
+
+						
+							<dt>Address:</dt>
+							<dd>
+								663 W. Hwy. 60
+								
+							</dd>
+						
+
+						
+							<dt>City:</dt>
+							<dd>Monett, MO 65708-8215</dd>
+						
+
+						
+
+						
+
+						
+
+						
+					</dl>
+				</div>
+			
+			<div class="video">
+				<iframe src="//c.brightcove.com/services/viewer/federated_f9?&amp;width=256&amp;height=100%25&amp;flashID=myExperience&amp;bgcolor=%23FFFFFF&amp;playerKey=AQ~~%2CAAAABI8vj4E~%2CgrBfPD3eLB1be_i9nBoAhmVoMMXQucmR&amp;isVid=true&amp;isUI=true&amp;dynamicStreaming=true&amp;wmode=opaque&amp;%40videoPlayer=2134815589001&amp;autoStart=&amp;debuggerID=&amp;startTime=1399967416355" width="249" height="200" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+			</div>
+		</div>
+		<!-- END overview_col -->
+		<!-- BEGIN description_col - contains: Job Description, Company Overview, Apply buttons -->
+		<div id="description_col">
+			<dl class="buttons">
+				<dd class="save"><a id="saveJob" href="javascript:void(0);">Save this job</a></dd>
+				<dd class="email"><a href="/jobsearch/servlet/JobSearch?op=305&amp;dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex&amp;source=0&amp;ral=JobSearch?
+        
+            
+                
+                    op=302
+                
+                
+            
+        
+            
+                
+                
+                    %26source=0
+                
+            
+        
+            
+                
+                
+                    %26dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex
+                
+            
+        
+            
+                
+                
+                    %26rating=
+                
+            
+        
+            
+                
+                
+                    %26FREE_TEXT=">Email to a friend</a></dd>
+				
+					
+						
+							<dt><a id="APPLY_FOR_JOB" target="_blank" href="/jobsearch/servlet/JobSearch?op=310&amp;diceid=RTL86097&amp;jobid=8868-1AC3184360951&amp;url=http%3A%2F%2Fpost.talemetry.com%2Frespond.cfm%3Fposting%3D1000039653%26bid%3D63&amp;jobtitle=Network+Engineer+-+CCNA%2FCCNP&amp;source=0&amp;ral=JobSearch?
+        
+            
+                
+                    op=302
+                
+                
+            
+        
+            
+                
+                
+                    %26source=0
+                
+            
+        
+            
+                
+                
+                    %26dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex
+                
+            
+        
+            
+                
+                
+                    %26rating=
+                
+            
+        
+            
+                
+                
+                    %26FREE_TEXT=">Apply Now</a></dt>
+						
+					
+					
+				
+			</dl>
+			<div class="job_description">
+				<a class="printerFriendly" href="#" onclick="window.open(&#039;/jobsearch/servlet/JobSearch?op=302&amp;printView=1&amp;force=1&amp;dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex&#039;, &#039;PrintView&#039;, &#039;width=600, height=600, toolbar=0, scrollbars=1, menubar=0, location=0&#039;);return false;">Printer-Friendly</a>
+				<h1>Job Description</h1>
+				<div class="dc_content">
+					<ul class="job_details">
+						<li class="position">Network Engineer - CCNA/CCNP</li>
+						<li class="location">Birmingham, AL</li>
+					</ul>
+					<br><br><b>Job Description</b> <br>&#xa0; <br>Jack Henry is seeking a Network Engineer for our iTalk Install/Support department. <br>The position will&#xa0;provide&#xa0;assistance in&#xa0;installing and configuring Cisco Voice Gateways&#xa0;and/or CUCM SIP trunks in a customer's voice network for a VOIP-based telephone banking product.&#xa0;&#xa0;&#xa0; <br>Relocation is available for the right candidate and position can be located at other JHA offices. <br><strong>MINIMUM QUALIFICATIONS</strong> <ul> <li>Bachelor's degree and&#xa0; two&#xa0;CISCO certifications&#xa0;(or currently pursuing certifications) - CCNA (Voice) & CCNP</li> <li>Minimum of 18 months&#xa0; in network engineering or related field; or</li> <li>Working Cisco knowledge&#xa0;on 2900 ISRG2&#xa0;Voice Gateway configurations and setup</li> <li>Working Cisco knowledge on CUCM configurations and setup</li> <li>Working knowledge and troubleshooting of Session Initiation Protocol (SIP), Cisco Unified Border Elements, Digital (PRI,CAS) and Analog voice circuits.</li> </ul> <br><strong>Preferred:</strong> <ul> <li>Windows server 2008 or higher knowledge</li> <li>Working Knowledge of Wireshark and packet analysis</li> </ul> <br><strong>JOB RESPONSIBILITIES</strong> <ul> <li>Installs current OS on new or existing devices and/or installs communication equipment including routers, switches and firewalls.</li> <li>Installs software on networking devices.</li> <li>Provides phone support to employees or customers relative to networking technology.</li> <li>Analyzes network topologies to determine potential issues and makes suggestions for recommended changes.</li> <li>Assists with the preparation of network assessments and certifications.</li> </ul> <br>Customer Site: <ul> <li>Installs current network operating server software on new or existing server-class hardware and/or installs communication equipment including routers, terminal servers, switches and firewalls.</li> <li>Installs supporting applications and peripherals on servers including tape backup hardware and software, email software, anti-virus software, etc. and/or implement technologies.</li> <li>Installs operating software and various application software and/or pre-configured equipment.</li> <li>Configures user IDs and customer-specific settings on servers and transfers data from the old environment to the new environment.</li> <li>Corresponds with customer and other divisions within the company to insure all customer concerns and issues are resolved in a timely manner.</li> <li>Prepares statements of work relative to upcoming network installations and general preparations for installations.</li> </ul> <br>&#xa0; <br><b>Equal Employment Opportunity</b> <br>&#xa0; <br><em>Jack Henry & Associates, Inc. is an Equal Employment Opportunity/Affirmative Action Employer and maintains a Drug-Free Workplace.</em> <br><em>EOE-M/F/Vet/Disability</em> <br>&#xa0; <br>
+				</div><!-- end dc_content -->
+			</div>
+			<div class="company_overview">
+				<h1>Company Overview</h1>
+				<h2><a href="http://www.dice.com/job/results/jack-henry-associates-rtl86097?x=all&amp;p=d">find more jobs with this company</a></h2>
+				<div class="dc_content">
+					<p>Jack Henry & Associates, Inc. (NASDAQ: JKHY) was founded in 1976 as a provider of core information processing solutions for community banks. Today, the company抯 extensive array of products and services are processing transactions, automating business processes, and managing mission-critical information for more than 11,900 financial institutions and corporate entities. 
+<br/>
+<br/>We recognize and respect that it is the collective, day-to-day contribution of our associates that enables Jack Henry & Associates to keep our corporate promises to do the right thing and do whatever it takes to maintain the industry抯 highest levels of client satisfaction.  We also rely on our associates to develop quality solutions for our clientsbusiness opportunities and challenges, to aggressively earn and support new clients, and to ultimately sustain our competitive distinctions and industry-leading position.
+<br/>
+<br/>Retaining and recruiting outstanding associates is a mission-critical component of our ongoing success, so we dedicate significant effort and resources to maintaining a work environment that is professional, financially rewarding, and enjoyable.  Competitive salaries, excellent benefits, a work environment that encourages collaboration, comfortable facilities, appropriate business tools, comprehensive initial and ongoing training, benevolent and morale-building activities and events, ongoing communication opportunities with executive management, and a formal annual employee satisfaction survey encourage the work ethic and atmosphere established by our founders.</p>
+				</div>
+			</div>
+			<dl class="buttons">
+				<dd class="save"><a id="saveJob2" href="javascript:void(0);">Save this job</a></dd>
+				<dd class="email"><a href="/jobsearch/servlet/JobSearch?op=305&amp;dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex&amp;source=0&amp;ral=JobSearch?
+        
+            
+                
+                    op=302
+                
+                
+            
+        
+            
+                
+                
+                    %26source=0
+                
+            
+        
+            
+                
+                
+                    %26dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex
+                
+            
+        
+            
+                
+                
+                    %26rating=
+                
+            
+        
+            
+                
+                
+                    %26FREE_TEXT=">Email to a friend</a></dd>
+				
+					
+						
+							<dt><a id="APPLY_FOR_JOB2" target="_blank" href="/jobsearch/servlet/JobSearch?op=310&amp;diceid=RTL86097&amp;jobid=8868-1AC3184360951&amp;url=http%3A%2F%2Fpost.talemetry.com%2Frespond.cfm%3Fposting%3D1000039653%26bid%3D63&amp;jobtitle=Network+Engineer+-+CCNA%2FCCNP&amp;source=0&amp;ral=JobSearch?
+        
+            
+                
+                    op=302
+                
+                
+            
+        
+            
+                
+                
+                    %26source=0
+                
+            
+        
+            
+                
+                
+                    %26dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex
+                
+            
+        
+            
+                
+                
+                    %26rating=
+                
+            
+        
+            
+                
+                
+                    %26FREE_TEXT=">Apply Now</a></dt>
+						
+					
+					
+				
+			</dl>
+			<ul class="social-job-share">
+				<li class="facebookShare"><span class="facebookShareLink"><div class="fb-like" layout="button_count" data-send="false" data-width="50" data-show-faces="false"></div></span></li>
+				<li class="gplusShare"><span class="gplusShareLink"><div class="g-plusone" data-size="medium" data-annotation="none" data-width="120"></div></span></li>
+				<li id="twitterShare" name="twitterShare"></li>
+				<li class="suShare"><span class="suShareLink"><su:badge layout="4"></su:badge></span></li>
+				<li class="linkedinShare"><span class="linkedinShareLink">
+					<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+					<script type="IN/Share" data-counter="none"></script>
+				</span></li>
+			</ul>
+		</div>
+		<!-- END description_col -->
+		<div class="clear"></div>
+	</div>
+	<div id="footer"><span><!--originally set up to contain links--></span></div>
+</div>
+<!--END CUSTOM EJV CONTENT-->
+
+
+
+		</div>
+	</div>
+	<div id="ft"></div>
+</div>
+
+<script>
+    (function () {
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+
+        (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+
+        (function() {
+            var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true;
+            li.src = 'https://platform.stumbleupon.com/1/widgets.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s);
+        })();
+        window.onload = function () {
+            var twitterShareButtonShow = true;
+            window.fbAsyncInit = function() {
+                // init the FB JS SDK
+                FB.init({
+                  appId      : 'YOUR_APP_ID',                        // App ID from the app dashboard
+                  status     : true,                                 // Check Facebook Login status
+                  xfbml      : true                                  // Look for social plugins on the page
+                });
+                // Additional initialization code such as adding Event Listeners goes here
+            };
+            // Load the SDK asynchronously
+            (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "//connect.facebook.net/en_US/all.js";
+             fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            if (twitterShareButtonShow) {
+                var tweetText = encodeURI(document.getElementById("tweetText").content);
+                var tweetURL = encodeURI(document.getElementById("twitterURL").content);
+                var twitterShareButton = document.getElementById("twitterShare");
+                twitterShareButton.innerHTML += "<a class='twitter-share-button' data-count='none' href='https://twitter.com/share?text=" + tweetText.replace(/'/g, "%27") + "&url=" + tweetURL + "'>Tweet</a><script src='//platform.twitter.com/widgets.js' type='text/javascript'/>";
+                twttr.widgets.load(twitterShareButton);
+                twitterShareButtonShow = false;
+            }
+        };
+    }());
+</script>
+
+<!--
+ * $RCSfile: Level2EJVMercuryYUIDialogImport.jsp,v $
+ * $Author: jenniferp $
+ * $Date: 2011/04/22 18:53:00 $
+-->
+
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    <!--
+* $RCSfile: loginDialogIncludeJS.jsp,v $
+* $Author: jenniferp $
+* $Date: 2012/04/22 17:56:45 $
+-->
+
+
+
+<input type="hidden" id="destinationLink" name="destinationLink"/>
+<script type="text/javascript">
+var rateJobPanel = null;
+var reportJobPanel = null;
+var matchJobAlertPanel = null;
+var matchJobAlertInfoPanel = null;
+var reportJobPanelReported = null;
+var connectPanel = null;
+var companyConnectClicked  = null;
+var recruiterConnectClicked = null;
+var talentConnection = false;
+var logMeIn;
+
+
+
+var init = function () {
+    var loginPanel;
+    var validLogin;
+    var submitAfterLogin;
+    var isAuthenticated = "false";
+    var jobReportedDate = "";
+
+    var r = Math.floor(Math.random()*10000);
+    var joinNetworkHref = "/jobsearch/servlet/JobSearch?op=327&dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex&source=0&currdoc=1&queryString=&diceID=RTL86097&joinNetwork=1&r=" + r;
+    var rateJobHref ="/jobsearch/servlet/JobSearch?op=306&dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex&source=0&currdoc=1&queryString=&r=" + r;
+    var reportJobHref ="/jobsearch/servlet/JobSearch?op=2006&dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex&source=0&currdoc=1&queryString=&r=" + r;
+    var matchJobAlertHref ="&r=" + r;
+    var companyConnectHref = "&r=" + r;
+	var recruiterConnectHref;
+
+    if (talentConnection) {
+        recruiterConnectHref = "/daf/servlet/DAFctrl?op=2010&pid=0&fromDJV=1";
+    } else {
+        recruiterConnectHref = "/daf/servlet/DAFctrl?op=2010&pid=0&fromDJV=1&r=" + r;
+    }
+    var recruiterViewHref = "&r=" + r;
+
+    
+
+    // Load up any parameters we may have been handed and build the login panel.
+    YAHOO.util.Event.onContentReady("mainBody", function() {
+    
+    
+    
+    
+        YAHOO.util.Event.addListener("APPLY_FOR_JOB", "click", applyForJobClicked);
+    
+    
+        YAHOO.util.Event.addListener("APPLY_FOR_JOB2", "click", applyForJobClicked);
+    
+    
+        YAHOO.util.Event.addListener("APPLY_FOR_JOB3", "click", applyForJobClicked);
+    
+    
+        YAHOO.util.Event.addListener("APPLY_FOR_JOB4", "click", applyForJobClicked);
+    
+    
+        YAHOO.util.Event.addListener("APPLY_FOR_JOB5", "click", applyForJobClicked);
+    
+    
+    
+    
+    
+        
+    
+    
+        
+    
+    
+    
+        YAHOO.util.Event.addListener("saveJob", "click", saveJobClicked);
+    
+    
+    
+        YAHOO.util.Event.addListener("saveJob2", "click", saveJobClicked);
+    
+    
+    
+        YAHOO.util.Event.addListener("rateJobJS", "click", rateThisJobClicked);
+    
+    
+        YAHOO.util.Event.addListener("connectNetworkJS", "click", connectClicked);
+    
+    
+        YAHOO.util.Event.addListener("joinNetworkJS", "click", joinThisNetworkClicked);
+    
+    
+    
+        YAHOO.util.Event.addListener("reportJobJS", "click", reportThisJobClicked);
+    
+    
+		
+		YAHOO.util.Event.addListener("connectJS", "click", recruiterConnectClicked);
+	
+        
+    
+    
+
+        loginPanel = new YAHOO.widget.Panel("loginPanelDiv", { width:"450px", visible:false, fixedcenter : true, constraintoviewport: false, modal : true, y: 25 });
+        loginPanel.hide();
+        loginPanel.render();
+
+	
+		
+		
+			
+				rateJobPanel = new YAHOO.widget.Overlay("rateJobPanel", { width: "20em",
+					close : true,
+					fixedcenter : false,
+					context : ["rateJobJS", "tr", "br"],
+					modal : false,
+					visible : false,
+					draggable : false,
+					hideaftersubmit : true});
+				rateJobPanel.render();
+				if (false) {
+					rateJobPanelShow();
+				}
+			
+			
+				reportJobPanel = new YAHOO.widget.Overlay("reportJobPanel", { width: "30em",
+					close : true,
+					fixedcenter : false,
+					context : ["reportJobJS", "tr", "br"],
+					modal : false,
+					visible : false,
+					draggable : false,
+					hideaftersubmit : true});
+				reportJobPanel.render();
+				if (false) {
+					reportJobPanelShow();
+				}
+			
+			
+				reportJobPanelReported = new YAHOO.widget.Overlay("reportJobPanelReported", { width: "27em",
+					close : true,
+					fixedcenter : false,
+					context : ["reportJobJS", "tr", "br"],
+					modal : false,
+					visible : false,
+					draggable : false,
+					hideaftersubmit : true});
+				reportJobPanelReported.render();
+			
+        
+		
+	
+
+    
+        connectPanel = new YAHOO.widget.Overlay("companyNetworkPanel", { width: "20em",
+            close : true,
+            fixedcenter : false,
+            context : ["connectNetworkJS", "tr", "br"],
+            modal : false,
+            visible : false,
+            draggable : false,
+            hideaftersubmit : true});
+        connectPanel.render();
+    
+    });
+
+    // Load up the buttons on the login panel.
+    YAHOO.util.Event.onContentReady("loginPanelDiv", function() {
+        var oLinkButton1 = new YAHOO.widget.Button("loginPanelButton");
+        var oLinkButton2 = new YAHOO.widget.Button("signUpNowPanelButton");
+
+        YAHOO.util.Event.addListener("loginPanelButton", "click", logMeIn);
+        YAHOO.util.Event.addListener("signUpNowPanelButton", "click", signUpNowClicked);
+    });
+
+    // Determine the rating and add it to the URL.
+    function getRateUrl() {
+        var rating;
+        for (i = 1; i <= 3; i++) {
+            if (document.getElementById("rating" + i).checked) {
+                rating = document.getElementById('rating' + i).value;
+            }
+        }
+        return rateJobHref + "&rating=" + rating;
+    }
+
+    // Handle a login button click. Set up some fields for later use and show the login panel.
+    function loginClicked(p_oEvent) {
+        YAHOO.util.Event.stopEvent(p_oEvent);
+        document.getElementById("destinationLink").value = "";
+        document.getElementById("loginError").innerHTML = "";
+        document.getElementById("loginPanelDiv").style.display = "block";
+        loginPanel.show();
+    }
+	// Handle a login link click. Set up some fields for later use and show the login panel.
+	function loginLinkClicked(p_oEvent) {
+		YAHOO.util.Event.stopEvent(p_oEvent);
+		submitAfterLogin = 5;
+		document.getElementById("destinationLink").value = "";
+		document.getElementById("loginError").innerHTML = "";
+		document.getElementById("loginPanelDiv").style.display = "block";
+		loginPanel.show();
+	}
+
+    function applyForJobClicked(p_oEvent) {
+        YAHOO.util.Event.stopEvent(p_oEvent);
+    
+    
+    
+    
+        var linkObj= document.getElementById("APPLY_FOR_JOB");
+        var popUp = window.open(linkObj.href, '', '');
+        if (popUp == null || typeof(popUp) == 'undefined') {
+            alert('Please disable your pop-up blocker and click the "Apply" link again.');
+        } else {
+            wa.fnApplyToUrl(linkObj);
+            document.location.href = "/jobsearch/servlet/JobSearch?op=322&applicationURL=1&dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex";
+        }
+    
+    
+    
+    
+    }
+
+    // Handle a hide job button click. Set up some fields for later use and call the processor.
+    function hideJobClicked(p_oEvent) {
+        YAHOO.util.Event.stopEvent(p_oEvent);
+    
+        submitAfterLogin = 1;
+        //commented out/deleted since google spiders were grabbing it and this code shouldn't be running
+        //document.location.href = '';
+        return true;
+    
+    }
+
+    // Handle a save job button click. Set up some fields for later use and either call the processor or show the login panel.
+    function saveJobClicked(p_oEvent) {
+        YAHOO.util.Event.stopEvent(p_oEvent);
+    
+        if (isAuthenticated == "true") {
+            var r = Math.floor(Math.random()*10000);
+            document.location.href = "/jobsearch/servlet/JobSearch?op=303&pv=3&dk=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex&jt=Network+Engineer+-+CCNA%2FCCNP&source=0&r=" + r;
+        }
+        else {
+            submitAfterLogin = 1;
+            document.getElementById("destinationLink").value = "/jobsearch/servlet/JobSearch?op=303&pv=3&dk=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex&jt=Network+Engineer+-+CCNA%2FCCNP&source=0";
+            document.getElementById("loginError").innerHTML = "";
+            document.getElementById("loginPanelDiv").style.display = "block";
+            loginPanel.show();
+        }
+    
+    }
+
+    // Handle a rate button click. Set up some fields for later use and either call the processor or show the login panel.
+    // NOTE: This is when the rate button is clicked from within the YUI dropdown, not the rate button that displays the dropdown.
+    function rateThisJobClicked(p_oEvent) {
+        YAHOO.util.Event.stopEvent(p_oEvent);
+    
+        if (isAuthenticated == "true") {
+            rateJobPanelShow();
+        }
+        else {
+            submitAfterLogin = 2;
+            document.getElementById("destinationLink").value = getRateUrl();
+            document.getElementById("loginError").innerHTML = "";
+            document.getElementById("loginPanelDiv").style.display = "block";
+            loginPanel.show();
+        }
+    
+    }
+
+    // Handle a connect company button click. Set up some fields for later use and either call the processor or show the login panel.
+	function companyConnectClicked(p_oEvent) {
+		YAHOO.util.Event.stopEvent(p_oEvent);
+	
+		if (isAuthenticated == "true") {
+            document.location.href = companyConnectHref;
+		}
+		else {
+			submitAfterLogin = 4;
+			document.getElementById("destinationLink").value = companyConnectHref;
+			document.getElementById("loginError").innerHTML = "";
+			document.getElementById("loginPanelDiv").style.display = "block";
+			loginPanel.show();
+		}
+	
+	}
+
+    // Handle a connect recruiter button click. Set up some fields for later use and either call the processor or show the login panel.
+	function recruiterConnectClicked(p_oEvent) {
+		YAHOO.util.Event.stopEvent(p_oEvent);
+		if (isAuthenticated == "true") {
+			document.location.href = recruiterConnectHref;
+		}
+		else {
+			submitAfterLogin = 4;
+			document.getElementById("destinationLink").value = recruiterConnectHref;
+			document.getElementById("loginError").innerHTML = "";
+			document.getElementById("loginPanelDiv").style.display = "block";
+			loginPanel.show();
+		}
+	}
+
+    // Handle a view recruiter button click. Set up some fields for later use and either call the processor or show the login panel.
+    function recruiterViewClicked(p_oEvent) {
+        YAHOO.util.Event.stopEvent(p_oEvent);
+        if (isAuthenticated == "true") {
+            document.location.href = recruiterViewHref;
+        }
+        else {
+            submitAfterLogin = 4;
+            document.getElementById("destinationLink").value = recruiterViewHref;
+            document.getElementById("loginError").innerHTML = "";
+            document.getElementById("loginPanelDiv").style.display = "block";
+            loginPanel.show();
+        }
+    }
+
+    // Handle a join network button click. Set up some fields for later use and either call the processor or show the login panel.
+    function joinThisNetworkClicked(p_oEvent) {
+        YAHOO.util.Event.stopEvent(p_oEvent);
+    
+        if (isAuthenticated == "true") {
+            document.location.href = joinNetworkHref;
+        }
+        else {
+            submitAfterLogin = 4;
+            document.getElementById("destinationLink").value = joinNetworkHref;
+            document.getElementById("loginError").innerHTML = "";
+            document.getElementById("loginPanelDiv").style.display = "block";
+            loginPanel.show();
+        }
+    
+    }
+
+    function connectClicked(p_oEvent) {
+        YAHOO.util.Event.stopEvent(p_oEvent);
+        connectPanelShow();
+    }
+
+    // Handle a report job button click. Set up some fields for later use and either call the processor or  show the login panel.
+    // NOTE: This is when the report job button is clicked from within the YUI dropdown, not the report job button that displays the dropdown.
+    function reportThisJobClicked(p_oEvent) {
+        YAHOO.util.Event.stopEvent(p_oEvent);
+    
+        if (isAuthenticated == "true") {
+            if (jobReportedDate == null || jobReportedDate == "") {
+                reportJobPanelShow();
+            }
+            else {
+                reportJobPanelReportedShow();
+            }
+        }
+        else {
+            submitAfterLogin = 3;
+            document.getElementById("destinationLink").value = reportJobHref;
+            document.getElementById("loginError").innerHTML = "";
+            document.getElementById("loginPanelDiv").style.display = "block";
+            loginPanel.show();
+        }
+    
+    }
+
+    // Handle a burning glass job alert button click. Set up some fields for later use and either call the processor or  show the login panel.
+    function matchJobAlertClicked(p_oEvent) {
+        YAHOO.util.Event.stopEvent(p_oEvent);
+    
+        if (isAuthenticated == "true") {
+                matchJobAlertPanelShow();
+        }
+        else {
+            submitAfterLogin = 6;
+            document.getElementById("destinationLink").value = matchJobAlertHref;
+            document.getElementById("loginError").innerHTML = "";
+            document.getElementById("loginPanelDiv").style.display = "block";
+            loginPanel.show();
+        }
+    
+    }
+
+    // Handle a registration button click on the login panel. Route the user to the original destination link
+    // (rate job processor, for example) and let RTS handle registration.
+    function signUpNowClicked(p_oEvent) {
+        // If a form name is provided then simply submit that form.
+    
+    
+    
+        // Call the appropriate processor based on which button was clicked to bring up the login dialog in the first place.
+        document.location.href = document.getElementById("destinationLink").value + "&rts=1&ml=1";
+    
+    
+    }
+
+    // User clicked the login button on the panel. Send request to server for authentication.
+    logMeIn = function(p_oEvent) {
+        var sjt_user_name = document.getElementById("SJT_USER_NAME").value;
+        var sjt_password = document.getElementById("SJT_PASSWD").value;
+        var xmlhttp = null;
+        if (window.XMLHttpRequest) {
+            // code for Firefox, Opera, IE7, etc.
+            xmlhttp = new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject) {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        if (xmlhttp != null) {
+            // Generate random to prevent caching.
+            var d = new Date();
+            var bigNumber = " " + d.getYear() + d.getDay() + d.getHours() + d.getMinutes() + d.getSeconds() + d.getMilliseconds();
+            var randomNumber = (Math.floor(Math.random() * bigNumber));
+
+            xmlhttp.onreadystatechange = logMeInResponded(xmlhttp, processLogMeInResponse);
+
+            // Note: The dockey may not be populated. If it is populated the report and rate job information is included in the response.
+            xmlhttp.open("GET", "http://www.dice.com/profman/servlet/ProfMan?op=2000&ajax=1&SUBMIT=1&SJT_USER_NAME=" + sjt_user_name + "&SJT_PASSWD=" + sjt_password + "&dockey=xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex" + "&random=" + randomNumber, true);
+            xmlhttp.send(null);
+        }
+        else {
+            //alert("Your browser does not support XMLHTTP.");
+        }
+    }
+
+    // Server responded to out request for authentication. Check status codes.
+    function logMeInResponded(xmlhttp, responseXmlHandler) {
+        return function () {
+
+            if (xmlhttp.readyState == 4) {
+                // 4 = "loaded"
+                if (xmlhttp.status == 200) {
+                    // 200 = "OK"
+                    responseXmlHandler(xmlhttp.responseXML);
+
+                }
+                else {
+                    //alert("Problem retrieving data:" + xmlhttp.statusText);
+                }
+            }
+        }
+    }
+
+    // Process the server's response to our request for authentication.
+    function processLogMeInResponse(locations) {
+        var locationsVals = locations.getElementsByTagName("locations")[0];
+        // If we didn't get anything back from the server,
+        // exit here or risk the wrath of IE's stellar javascript error detection.
+        if (locationsVals == null) {
+            return;
+        }
+
+        // if password doesn't meet compliance send them to change their password
+        var passwordComplianceNotMet = locationsVals.getElementsByTagName("passwordComplianceNotMet")[0].firstChild.nodeValue;
+        if (typeof passwordComplianceNotMet != 'undefined' && passwordComplianceNotMet == '1') {
+            document.location.href = document.getElementById("destinationLink").value + "&rts=4&ml=1";
+        }
+
+        var items = locationsVals.getElementsByTagName("item");
+
+        for (var I = 0; I < items.length; I++) {
+            var item = items[I];
+            validLogin = item.getElementsByTagName("validLogin")[0].firstChild.nodeValue;
+
+            if (validLogin == 1) {
+                //var loginPanel = new YAHOO.widget.Panel("loginPanelDiv").hide();
+
+                document.body.className = "yui-skin-sam";
+
+                var jobRating;
+                var applicationDate;
+                var jobInfoPresent = item.getElementsByTagName("jobInfoPresent")[0].firstChild.nodeValue;
+                if (jobInfoPresent == "1") {
+                    if (item.getElementsByTagName("jobRating")[0].firstChild != null) {
+                        jobRating = item.getElementsByTagName("jobRating")[0].firstChild.nodeValue;
+                    }
+                    if (item.getElementsByTagName("applicationDate")[0].firstChild != null) {
+                        applicationDate = item.getElementsByTagName("applicationDate")[0].firstChild.nodeValue;
+                    }
+                    if (item.getElementsByTagName("jobReportedDate")[0].firstChild != null) {
+                        jobReportedDate = item.getElementsByTagName("jobReportedDate")[0].firstChild.nodeValue;
+                    }
+                }
+
+                var matchJobAlerts = item.getElementsByTagName("matchJobAlert")[0].firstChild.nodeValue;
+
+            
+            
+            
+                if (submitAfterLogin == 1) {
+                    // Call the appropriate processor based on which button was clicked to bring up the login dialog in the first place.
+                    document.location.href = document.getElementById("destinationLink").value;
+                }
+                else {
+                    // We're staying on this page. Update any information that needs to be updated.
+                    loginPanel.hide();
+                    isAuthenticated = "true";
+
+                    
+                        document.getElementById("rating1").checked = false;
+                        document.getElementById("rating2").checked = false;
+                        document.getElementById("rating3").checked = false;
+                        if (jobRating == 1) {
+                            document.getElementById("rating1").checked = true;
+                        }
+                        if (jobRating == 0 || jobRating == 99) {
+                            document.getElementById("rating2").checked = true;
+                        }
+                        if (jobRating == -1) {
+                            document.getElementById("rating3").checked = true;
+                        }
+                    
+
+                    // Rate This Job was clicked. Populate the rate job dropdown with seeker's rating information for
+                    // this job before showing the rating dropdown.
+                    if (submitAfterLogin == 2) {
+                        rateJobPanelShow();
+                    }
+                    else if (submitAfterLogin == 3) {
+                        // Report This Job was clicked. Determine which dropdown to show based on whether this seeker has
+                        // previously reported this job.
+                        if (jobReportedDate == null || jobReportedDate == "") {
+                            reportJobPanelShow();
+                        }
+                        else {
+                            reportJobPanelReportedShow();
+                        }
+                    } else if (submitAfterLogin == 4) {
+                        // Join Network was clicked. Or maybe connect to company or recruiter
+                        document.location.href = document.getElementById("destinationLink").value;
+                    } else if (submitAfterLogin == 6) {
+
+                        if(matchJobAlerts == "true") {
+                            matchJobAlertPanelShow();
+                            matchJobAlertInfoPanelHide();
+                        } else {
+                            matchJobAlertPanelHide();
+                            matchJobAlertInfoPanelShow();
+                            //Hide the form information
+                            document.getElementById("InfoMessageText").innerHTML = "You have reached your maximum number of search agents.";
+                            document.getElementById("").style.display = "none";
+                        }
+                    }
+                }
+            
+            
+            }
+            else {
+                // AUthorization failed. Inform the user.
+                var error = item.getElementsByTagName("error")[0].firstChild.nodeValue;
+                var loginError = document.getElementById("loginError");
+                loginError.innerHTML = error.replace("\n", "<br>");
+            }
+        }
+    }
+
+    // Catch the click event and determine if we've clicked outside of the report or rate job panels.
+    // If so, hide the panel.
+    document.onclick=checkClick;
+    function checkClick(e) {
+        var target = (e && e.target) || (event && event.srcElement);
+
+    
+        var obj = document.getElementById('rateJobPanel');
+        checkParent(target, "rateJobPanel") ? rateJobPanelHide() : null;
+    
+
+    
+        obj = document.getElementById('reportJobPanel');
+        checkParent(target, "reportJobPanel") ? reportJobPanelHide() : null;
+    
+
+    
+
+    
+
+    
+        obj = document.getElementById('reportJobPanelReported');
+        checkParent(target, "reportJobPanelReported") ? reportJobPanelReportedHide() : null;
+    
+
+    
+        var obj = document.getElementById('companyNetworkPanel');
+        checkParent(target, "companyNetworkPanel") ? connectPanelHide() : null;
+    
+    }
+
+    // Used by checkClick method to crawl up parental elements from the one clicked looking for the panel div name.
+    function checkParent(target, panelDiv) {
+        if (document.getElementById(panelDiv) != null) {
+        }
+        while(target.parentNode) {
+            if (target == document.getElementById(panelDiv)) {
+                return false;
+            }
+            target = target.parentNode;
+        }
+        return true;
+    }
+
+    // Hide the rate job dropdown.
+    var rateJobPanelHide = function () {
+        if (rateJobPanel != null) {
+            rateJobPanel.hide();
+        }
+    }
+
+    // Show the rate job dropdown.
+    var rateJobPanelShow = function () {
+        rateJobPanel.show();
+        reportJobPanelHide();
+        matchJobAlertPanelHide();
+        matchJobAlertInfoPanelHide();
+        reportJobPanelReportedHide();
+        connectPanelHide();
+    }
+
+    // Hide the network dropdown
+    var connectPanelHide = function () {
+        if (connectPanel != null) {
+            connectPanel.hide();
+        }
+    }
+
+    // Show the network dropdown.
+    var connectPanelShow = function () {
+        connectPanel.show();
+        rateJobPanelHide();
+        reportJobPanelHide();
+        matchJobAlertPanelHide();
+        matchJobAlertInfoPanelHide();
+        reportJobPanelReportedHide();
+    }
+
+    // Hide the report job dropdown.
+    var reportJobPanelHide = function () {
+        if (reportJobPanel != null) {
+            reportJobPanel.hide();
+        }
+    }
+
+    // Show the report job dropdown.
+    var reportJobPanelShow = function () {
+        reportJobPanel.show();
+        rateJobPanelHide();
+        matchJobAlertPanelHide();
+        matchJobAlertInfoPanelHide();
+        reportJobPanelReportedHide();
+        connectPanelHide();
+    }
+
+    // Hide the Match alert dropdown.
+    var matchJobAlertPanelHide = function () {
+        if (matchJobAlertPanel != null) {
+            matchJobAlertPanel.hide();
+        }
+    }
+
+    // Show the bg alert dropdown.
+    var matchJobAlertPanelShow = function () {
+        matchJobAlertPanel.show();
+        matchJobAlertInfoPanelHide();
+        reportJobPanelHide();
+        rateJobPanelHide();
+        rateJobPanelHide();
+        reportJobPanelReportedHide();
+        connectPanelHide();
+    }
+
+    // Hide the Match alert dropdown.
+    var matchJobAlertInfoPanelHide = function () {
+        if (matchJobAlertInfoPanel != null) {
+            matchJobAlertInfoPanel.hide();
+        }
+    }
+
+    // Show the bg alert dropdown.
+    var matchJobAlertInfoPanelShow = function () {
+        matchJobAlertPanelHide();
+        matchJobAlertInfoPanel.show();
+        reportJobPanelHide();
+        rateJobPanelHide();
+        rateJobPanelHide();
+        reportJobPanelReportedHide();
+        connectPanelHide();
+    }
+    // Hide the report job reported dropdown.
+    var reportJobPanelReportedHide = function () {
+        if (reportJobPanelReported != null) {
+            reportJobPanelReported.hide();
+        }
+    }
+
+    // Hide the report job reported dropdown.
+    var reportJobPanelReportedShow = function () {
+        document.getElementById('reportReportedMessage').innerHTML = "&nbsp;&nbsp;This job was reported on " + jobReportedDate;
+        reportJobPanelReported.show();
+        rateJobPanelHide();
+        reportJobPanelHide();
+        matchJobAlertPanelHide();
+        matchJobAlertInfoPanelHide();
+        connectPanelHide();
+    }
+}();
+
+function logMeInEnterKey(e) {
+    if (e.keyCode == 13) {
+        logMeIn();
+    }
+}
+</script>
+
+
+<div id="loginPanelDiv" style="display: none;">
+    <div class="hd"></div>
+    <div class="bd" style="text-align:left;">
+        <div style="color:#720000; font-weight:bold; padding:5px 0; position: relative;" id="loginError"></div>
+        <div class="fillForm">
+            <div style="padding-bottom:.5em; position: relative;">
+                <label class="leftlabel">E-mail&nbsp;Address:</label>
+                <input type="text" name="SJT_USER_NAME" id="SJT_USER_NAME" maxlength="60" value="" tabindex="1" class="infoRight" style="width:12em;" />
+                <span>&nbsp;<a href="/profman/resetPassword.jsp" tabindex="3" style="font-size:10px;">Forgot your password?</a></span>
+                <div class="clear"></div>
+            </div>
+            <div style="padding-bottom:.25em;">
+                <label class="leftlabel">Password:</label>
+                <input type="password" name="SJT_PASSWD" id="SJT_PASSWD" maxlength="12" value="" tabindex="2" class="infoRight" style="width:12em;" onkeydown="logMeInEnterKey(event);" />
+                <div class="clear"></div>
+            </div>
+            <div class="buttonleft">
+                <div style="margin-left:10em;"><button name="loginPanelButton" id="loginPanelButton" tabindex="4" >Login</button></div>
+            </div>
+        </div>
+        <div id="signup">
+            <fieldset class="gradient">
+                <div class="padRow">
+                    <h2 style="margin-top:0;">Not a member yet?</h2>
+                    <input type="button" value="Sign Up Now!" name="signUpNowPanelButton" id="signUpNowPanelButton" tabindex="5" />
+                    <span style="font-size:13px;line-height:2;font-weight:bold;">Sign up now for your FREE Dice Account!</span>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--
+ * $RCSfile: Level2EJVMercuryOmnitureTags.jsp,v $
+ * $Author: duket $
+ * $Date: 2011/11/10 21:28:49 $
+-->
+
+	
+	
+	
+	
+		<!--
+ * $RCSfile: custom.jsp,v $
+ * $Author: boeb $
+ * $Date: 2011/10/06 21:31:49 $
+-->
+
+
+
+<!-- SiteCatalyst code version: H.10.
+Copyright 1997-2007 Omniture, Inc. More info available at
+http://www.omniture.com -->
+<script language="JavaScript" src="/assets/scripts/omniture/s_code.js"></script>
+<script language="JavaScript"><!--
+/* You may give each page an identifying name, server, and channel on
+the next lines. */
+s.pageName="jobsearch_genthree_detail_custom"
+s.channel="__SEEKER___"
+s.pageType="COOL"
+s.prop14="xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex"
+/* s.propX="" */
+/* E-commerce Variables */
+s.events="prodView"
+s.events = s.apl(s.events,"event21",",",0)
+/* s.eVarX="" */
+
+s.products=";Job Detail View;;;;"
+/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+var s_code=s.t();if(s_code)document.write(s_code)//--></script>
+<script language="JavaScript"><!--
+if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
+//--></script><noscript><a href="http://www.omniture.com" title="Web Analytics"><img
+src="http://diceinc.112.2o7.net/b/ss/dice/1/H.10--NS/0"
+height="1" width="1" border="0" alt="" /></a></noscript><!--/DO NOT REMOVE/-->
+<!-- End SiteCatalyst code version: H.10. -->
+
+<script type="text/javascript">
+function shaddslashes(s){s=s.replace(/%/g,'%25%32%35');s=s.replace(/\\/g,'%5C');s=s.replace(/\'/g,'%27');s=s.replace(/\"/g,'%22');s=s.replace(/\?/g,'%25%33%46');s=s.replace(/&/g,'%25%32%36');s=s.replace(/\+/g,'%25%32%42');return s;}(function(){var steelhouse=null,shver="3.3.0",
+shaid="9912",
+shpn=shaddslashes("PRODUCT NAME"),
+shpc=shaddslashes("PRODUCT CATEGORY"),
+shpp="PRODUCT PRICE",
+shpb=shaddslashes("PRODUCT BRAND"),
+shpi="PRODUCT IMAGE URL",
+shps="PRODUCT SKU",
+shpil="PRODUCT INVENTORY COMMA SEPARATED LIST",
+shcv="SHOPPING CART VALUE",
+shcq="SHOPPING CART QTY",
+shcp="SHOPPING CART COMMA SEPARATED LIST OF PRODUCT SKUs",
+shadditional="",
+tdr,urlNew,plh;try{tdr=top.document.referer!==""?encodeURIComponent(top.document.referrer.substring(0,256)):"";}catch(tdr_e){tdr=document.referrer!==null?document.referrer.toString().substring(0,256):"";}try{urlNew=window&&window.top&&document.location&&window.top.location===document.location?document.location:window&&window.top&&window.top.location&&""!==window.top.location?window.top.location:document.location;}catch(urlNew_e){urlNew=document.location;}try{plh=parent.location.href!==""?encodeURIComponent(parent.location.href.toString().substring(0,256)):"";}catch(plh_e){try{plh=urlNew!==null?encodeURIComponent(urlNew.toString().substring(0,256)):"";}catch(urlNew_e1){plh="";}}shpi=encodeURIComponent(shpi);steelhouse={add:function(a,b,c,d){d=d||false;if(a.addEventListener){a.addEventListener(b,c,d);}else{if(a.attachEvent){a.attachEvent("on"+b,c);}}},load:function(){var a,b=document.createElement("script"),c=null,d=document.getElementsByTagName("script"),e=Number(d.length)-1,f=document.getElementsByTagName("script")[e];if(typeof a==="undefined"){a=Math.floor(Math.random()*100000000000000000);}c="px.steelhousemedia.com/st?shver="+shver+"&shaid="+shaid+"&shcv="+shcv+"&shcq="+shcq+"&shcp="+shcp+"&shpn="+shpn+"&shpc="+shpc+"&shpp="+shpp+"&shpb="+shpb+"&shpi="+shpi+"&shps="+shps+"&shpil="+shpil+"&tdr="+tdr+"&plh="+plh+"&cb="+a+shadditional;b.type="text/javascript";b.src=("https:"===document.location.protocol?"https://":"http://")+c;f.parentNode.insertBefore(b,f);}};steelhouse.load();}());
+</script>
+
+	
+
+
+
+
+
+
+<!-- Adobe Tag Manager pageBottom include -->
+<script>_satellite.pageBottom()</script>
+
+
+
+    <div id="container">
+
+        <div id="rateJobPanel" style="visibility: hidden;">
+            <div class="bd">
+                <div id="rateWidgetArea">
+                    <div class="widgetContent">
+                        <div id="rateJobSubmit"><a href="#" id="rateJob" name="rateLink" title="Rate Job">Rate Job</a></div>
+                        <div id="rateJobChoices">
+                            <ul>
+                                <li>
+                                    <input id="rating1" name="rating" type="radio" value="1"  />
+                                    <label for="rating1">Positive</label>
+                                </li>
+                                <li>
+                                    <input id="rating2" name="rating" type="radio" value="0"  />
+                                    <label for="rating2">Neutral</label>
+                                </li>
+                                <li>
+                                    <input id="rating3" name="rating" type="radio" value="-1"  />
+                                    <label for="rating3">Negative</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="reportJobPanel" style="visibility: hidden;">
+            <div class="bd">
+                <div id="reportWidgetArea">
+                    <div class="widgetContent">
+                        <form name="reportJob" action="/jobsearch/servlet/JobSearch?op=2006" method="post">
+                            <input type="hidden" name="dockey" value="xml/8/7/876d4debcd5d0693c92ea3a839e0e2cf@endecaindex">
+                            <input type="hidden" name="source" value="0">
+                            <input type="hidden" name="currdoc" value="1">
+                            <input type="hidden" name="queryString" value="">
+                            
+
+                            <div id="reportJobChoices">
+                                <ul>
+                                    <li>
+                                        <input id="report1" name="report" type="radio" value="Misrepresented job" />
+                                        <label for="report1">Misrepresented job</label>
+                                    </li>
+                                    <li>
+                                        <input id="report2" name="report" type="radio" value="Pays below market level" />
+                                        <label for="report2">Pays below market level</label>
+                                    </li>
+                                    <li>
+                                        <input id="report3" name="report" type="radio" value="Not a real job" />
+                                        <label for="report3">Not a real job</label>
+                                    </li>
+                                    <li>
+                                        <input id="report4" name="report" type="radio" value="Position no longer available" />
+                                        <label for="report4">Position no longer available</label>
+                                    </li>
+                                    <li>
+                                        <input id="report5" name="report" type="radio" value="Other" />
+                                        <label for="report5">Other</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="reportJobExplanation"><label for="reportExplain">Please Provide an Explanation (400 character limit)</label><textarea name="reportExplain" id="reportExplain" onKeyDown="limitChars();"></textarea></div>
+                            <div id="reportJobSecurity">
+                                <div>
+                                    <div id="reportCaptchaNote"><b>Security Check:</b> The question below helps prevent the use of automated programs.</div>
+                                    <div class="captchaArea">
+                                        <div id="reportCaptcha">What day is today, if yesterday was Friday?</div>
+                                        <div id="reportCaptchaInput"><input type="text" name="captcha" id="captcha" class="captchaText" value="" /><span class="refreshButton"><a id="captchaRefresh" href="#cr" >Refresh Question</a></span><span class="arrowRight"><input type="submit" id="captchaSubmit" value="Submit" /></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="reportJobPanelReported" style="visibility: hidden;">
+            <div class="bd">
+                <div id="reportWidgetAreaReported">
+                    <div class="widgetContent">
+                        <div class="info" id="reportReportedMessage"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="companyNetworkPanel" style="visibility: hidden;">
+            <div class="bd">
+                <ul>
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+</html>
