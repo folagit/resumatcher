@@ -11,6 +11,7 @@ from jobaly.db.dbclient import DbClient
 from bson.son import SON
 import json
 import re
+import operator
 
 class JobDataProcessor:
     
@@ -38,22 +39,29 @@ class JobDataProcessor:
                      
     
     def aggregateHtmlTags(self):        
-        num = 1 
-        i = 0
+        num = 1        
         tagdict = {}
         for  jobinfo in self.collection.find(limit=0) :
-            i += 1 
+           
             summary = jobinfo["summary"]
-            matches = re.findall('<.*?>', summary)
+#            matches = re.findall('<.*?>', summary)
+            matches = re.findall('<(?!/).*?>', summary)
+           
+     #       matches = re.findall('<(?!(/|\!)).*?>', summary)
             for m in matches:
           #      print m 
+                i = m.find(" ")
+                if i == -1 :
+                   i = m.find("/")
+                if i == -1 :
+                   i = m.find(">")                
+                m=m[:i]
                 if tagdict.has_key(m):
                     tagdict[m] += 1
                 else :
-                     tagdict[m] = 1
-                     
+                     tagdict[m] = 1                     
         
-        for tag, num in tagdict.items():
+        for tag, num in sorted(tagdict.iteritems(), key=operator.itemgetter(1), reverse = True):
             print tag, ":" ,num
                  
 def aggregateTitle(): 
@@ -65,7 +73,8 @@ def aggregateTitle():
     dataProcessor.aggregateTitleToFile("titles//titleList.txt", "text")
     
 def main(): 
-    listCollectionName = "daily_job_info_2014-07-08"
+    listCollectionName = "daily_dice_info_2014-07-11"
+ #   listCollectionName = "daily_job_info_2014-07-08"
     dbClient = DbClient('localhost', 27017, "jobaly_daily")
     collection = dbClient.getCollection(listCollectionName) 
     dataProcessor = JobDataProcessor(collection)
