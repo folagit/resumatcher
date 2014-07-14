@@ -5,6 +5,8 @@ from data_handler import DataHandler
 import json
 import math
 
+from jobanalysis.jobdescparser import JobDescParser 
+
 dbinfo = {}
 dbinfo["pagesize"] = 20
 dbinfo['dbname'] = "jobaly_daily_test"  
@@ -73,6 +75,16 @@ def  jobdetail():
 	print " handle_match jobid=", jobid	 
 	job =  dataHandler.get_job(jobid)	
 	return render_template('jobdetail.html', dbinfo=dbinfo, job=job )
+
+@app.route('/jobparas.html')    
+def  jobParagraghs():   	
+   jobid = request.args.get('jobid', '').strip()
+   print " handle_match jobid=", jobid	 
+   job =  dataHandler.get_job(jobid)	 
+   jobDesc = JobDescParser.parseJobDesc(job)
+   paras = jobDesc.listParagraphs()
+   return render_template('jobparas.html', dbinfo=dbinfo, job=job, paras=paras )
+
 
 @app.route('/searchjobs.html')    
 def  searchjob():    

@@ -10,13 +10,22 @@
                     <span> {{job.location}}   </span> 
                     <span>  {{job.company}}   </span> 
                     <a href="{{job.url}}" target="_blank" >Link</a>
-                    <a href="/jobparas.html?jobid={{job._id}}" target="_blank" >Paragraph</a>
                 </div>
                 <div style="height:1px;background-color:black;width=100%;margin-top:10px;margin-bottom:10px"></div>
                 <div> 
-                  {% autoescape false %}
-                      {{job.summary}}
-                  {% endautoescape %}
+                  
+                   {% for para in paras %}
+                    
+                    <div class="jobdesc_para " style="border: 1px solid;"  >
+                        <ol>
+                            {% for sent in para %}
+                             <li>{{sent}}</li>
+                            {% endfor %}
+                        </ol>
+                         
+                    </div>
+                   {% endfor %}                 
+                 
                 </div>
             </div>     
        </div> 
