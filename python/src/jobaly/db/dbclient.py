@@ -35,3 +35,12 @@ class DbClient:
     def getCollectionSize(self, collection_name):      
            result = self.db.command("collstats", collection_name)       
            return result["count"]
+    
+    @staticmethod       
+    def findById(collection, idstr):
+        result=list(collection.find({'_id': idstr }))
+        if len(result) > 0:
+            return result[0]
+        else :
+            return None     
+        
