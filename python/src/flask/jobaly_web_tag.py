@@ -8,7 +8,7 @@ import math
 dbinfo = {}
 dbinfo["pagesize"] = 20
 dbinfo['dbname'] = "jobaly_daily_test"  
-dbinfo['collname']   = "daily_job_2014-06-05"
+dbinfo['collname'] = "daily_job_webdev"
 
 app = Flask(__name__)     
 dataHandler = DataHandler()     
@@ -40,7 +40,7 @@ def handle_index():
 def getPagerInfo(pageno):
     pagerInfo= {}
     pagerInfo["pageno"] = pageno
-    pagenum = math.ceil(dbinfo['collsize'] / dbinfo['pagesize'])
+    pagenum = int(math.ceil(dbinfo['collsize'] / dbinfo['pagesize']))
     pagerInfo["pagenum"] = pagenum
     if pagenum <= 10 :
         pagerInfo["start"] = 1

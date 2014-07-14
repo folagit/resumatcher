@@ -9,7 +9,9 @@
                 <div> 
                     <span> {{job.location}}   </span> 
                     <span>  {{job.company}}   </span> 
+                    <a href="{{job.url}}" target="_blank" >Link</a>
                 </div>
+                <div style="height:1px;background-color:black;width=100%;margin-top:10px;margin-bottom:10px"></div>
                 <div> 
                   {% autoescape false %}
                       {{job.summary}}
