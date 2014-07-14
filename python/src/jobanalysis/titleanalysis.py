@@ -109,7 +109,8 @@ def filterCats(titleList, catList):
     for item in catList:
         leftList = filterCat(leftList, item)
     return leftList
-def main():   
+    
+def testFilterCats():   
     
     titleList = json.loads(open('titles//titleList.json').read())
     # print type(titleList)   
@@ -120,6 +121,8 @@ def main():
                "productman", "support",  "DevOps", "UI", "UE"]
     leftList = filterCats(titleList, catList)    
     dumpTwo(leftList, "titles//lefttitle")  
+
+def main(): 
     
 if __name__ == "__main__": 
     main()
