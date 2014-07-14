@@ -112,8 +112,8 @@ class JobDesc():
          for paragraph in self.paragraphs:             
              para = []
              for element in paragraph.eles:
-                para.append(element.sents)
-             paras.extend(para)
+                para.extend(element.sents)
+             paras.append(para)
          return   paras            
         
     def parse(self, element):
