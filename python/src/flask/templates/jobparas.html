@@ -1,9 +1,27 @@
 {% extends "simple_layout.html" %}
 
 {% block mainpart %}
-
+      
+      <div id="jobdetail" class="whitepaper" style="width:500px;float:left" >
+            <div   >
+                <div id="detail_jobtitle" > {{job.jobtitle}} </div>
+                <div> 
+                    <span> {{job.location}}   </span> 
+                    <span>  {{job.company}}   </span> 
+                    <a href="{{job.url}}" target="_blank" >Link</a>
+                    <a href="/jobparas.html?jobid={{job._id}}" target="_blank" >Paragraph</a>
+                </div>
+                <div style="height:1px;background-color:black;width=100%;margin-top:10px;margin-bottom:10px"></div>
+                <div> 
+                  {% autoescape false %}
+                      {{job.summary}}
+                  {% endautoescape %}
+                </div>
+            </div>     
+       </div> 
+     
     
-       <div id="jobdetail" class="whitepaper" style="width:820px" >
+       <div   class="whitepaper" style="width:500px;float:left" >
             <div   >
                 <div id="detail_jobtitle" > {{job.jobtitle}} </div>
                 <div> 
@@ -30,11 +48,5 @@
             </div>     
        </div> 
      
-       <div id="tagslist" >
-           <div>
-               <span> fdf dfdsa </span> 
-           </div>
-       </div>
-    
-
+      
 {% endblock %}
