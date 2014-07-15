@@ -26,22 +26,25 @@
        <div id="joblist"   >
             <div   >
                 {% set i = 0 %}
-                {% for item in jobs %}
+                {% for job in jobs %}
                     {% set i=(i+1)%2 %} 
-                    <div class="jobitem " jobid="{{item._id}}" >
+                    <div class="jobitem " jobid="{{job._id}}" >
                         <div>
                          
-                           <a class="jobtitle_a" target="_blank" href="jobdetail.html?jobid={{item._id}}" >{{item.jobtitle}}</a>
+                           <a class="jobtitle_a" target="_blank" href="jobdetail.html?jobid={{job._id}}" >{{job.jobtitle}}</a>
+                           <span style="float:right" >
+                                <a href="/jobparas.html?jobid={{job._id}}" target="_blank" >Paragraph</a>
+                                <span style="float:right">ID: {{job._id}}</span>  
+                           </span>
                            
-                           <span style="float:right">ID: {{item._id}}   </span>  
                         </div>
                         <div>
-                            <span style="width:200;"> Company: <b>{{item.company}} </b> </span>  
-                            <span style="width:200;"> &nbsp;  &nbsp; &nbsp; Location : <b>{{item.location}}</b>  </span>  
+                            <span style="width:200;"> Company: <b>{{job.company}} </b> </span>  
+                            <span style="width:200;"> &nbsp;  &nbsp; &nbsp; Location : <b>{{job.location}}</b>  </span>  
                         </div>
                         <div>
                             {% autoescape false %}
-                             {{item.summary}}
+                             {{job.summary}}
                             {% endautoescape %}
                         </div>
                     </div>

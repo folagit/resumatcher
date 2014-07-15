@@ -158,8 +158,19 @@ class JobDesc():
                 para.extend(element.sents)
              paras.append(para)
          return   paras            
+    
+    def removeInlineTag(self,parentEle):
+        for element in parentEle.contents :
+           if type( element) is bs4.element.Tag and \
+            ( element.name == "strong" or\
+                  element.name == "b" or\
+                  element.name == "em" ):
+            print   element          
         
     def parse(self, element):
+        
+   #     if type( element) is bs4.element.Tag: 
+   #         self.removeInlineTag(element)
         
         if type( element) is bs4.element.NavigableString:
             p = element.string.strip()
@@ -190,7 +201,18 @@ class JobDescParser():
     def parseJobDesc(job):
       #  print job["summary"]
         jobpage = re.sub("<a.*?>|</a>", " ", job["summary"])   
+        jobpage = re.sub("<strong>|</strong>|<b>|</b>|<em>|</em>", " ", jobpage)
+      
+        if jobpage.find("<span") == 0:
+            print "root span"
+            jobpage = "<div>"+jobpage[22:-7]+"</div>"
+   
+        jobpage = re.sub("<span.*?>|</span>", " ", jobpage)
+        
         jobpage = re.sub("\n", "", jobpage)
+        
+        print jobpage.encode("GBK", "ignore")
+        
         soup = BeautifulSoup(jobpage)
       #  print soup
       #  print type(soup.contents[0].contents[0])
@@ -219,6 +241,10 @@ def testParseParagraph():
      jid = "matrixga/78237-51"
      jid = "cybercod/CN-.NETwebDev-CA3"  
      jid = "f3c336fa35c28771"
+     jid = "10116717/638726"
+     jid = "ocs/54391"
+     jid = "0e230c368a34322b"
+     jid = "6718adb8b28b9b39"
      job = DbClient.findById(newCol,jid)
      jobDesc = JobDescParser.parseJobDesc(job)
      jobDesc.printParagraphs()
