@@ -19,12 +19,13 @@ from textblob import TextBlob
 class JobDesc():
     
     class Paragraph():
-          def __init__(self, complete, eles=None ):
+          def __init__(self, complete, eles=None, reason=None ):
               self.complete = complete
               if eles is None :
                   self.eles = []
               else :
                   self.eles = eles
+              self.reason = reason
               
           def addEle(self, ele):
               self.eles.append(ele)
@@ -34,17 +35,34 @@ class JobDesc():
          self.sents = []
          self.sentElements = []
          self.parse(toptag)
-         print "*********len of self.sentElements =", len(self.sentElements)
-         self.createParagraphs()
-         self.printParagraphs()
+      #   print "*********len of self.sentElements =", len(self.sentElements)
+         self.createParagraphs()      
     
     def createParagraphs(self):
-        para = self.Paragraph(False, self.sentElements[:] ) 
-        self.paragraphs = [para ]       
-        self.applyRule_1()  
-        self.applyRule_2() 
+     #   para = self.Paragraph(False, self.sentElements[:] ) 
+     #   self.paragraphs = [para ]  
+        self.paragraphs = self.applyRule_p()    
+        self.applyRule_topsents()  
+        self.applyRule_li() 
+        self.applyRule_2br()
+    
+    def applyRule_p(self ):
+        paragraphs = []
+        para = self.Paragraph(False)
+        for ele in self.sentElements[:]:            
+            if  not (ele.parent.name == "p")  :
+                para.addEle(ele)
+            else:
+                newPara =  self.Paragraph(True,[ele],"p")
+                if len(para.eles) > 0 :
+                   paragraphs.append(para)
+                   para = self.Paragraph(False)
+                paragraphs.append(newPara)
+        if len(para.eles) > 0 :
+                   paragraphs.append(para)
+        return paragraphs
                
-    def applyRule_1(self  ):   
+    def applyRule_topsents(self  ):   
         i = 0 
         while i < len(self.paragraphs) :           
             para = self.paragraphs[i]          
@@ -57,7 +75,7 @@ class JobDesc():
                    if len(para.eles[j+1:]) > 0 :
                        p3 =  self.Paragraph(False,para.eles[j+1:])
                        self.paragraphs.insert(i,p3)
-                   p2 =  self.Paragraph(True, para.eles[j:j+1])
+                   p2 =  self.Paragraph(True, para.eles[j:j+1],"top_sents")
                    self.paragraphs.insert(i,p2)
                    if len(para.eles[:j]) > 0 :
                        p1 =  self.Paragraph(False,para.eles[:j])
@@ -66,7 +84,7 @@ class JobDesc():
                j+=1
             i+=1      
     
-    def applyRule_2(self  ):   
+    def applyRule_li(self  ):   
         i = 0 
         while i < len(self.paragraphs) :           
             para = self.paragraphs[i]          
@@ -87,7 +105,7 @@ class JobDesc():
                    if len(para.eles[end+1:]) > 0 :
                        p3 =  self.Paragraph(False,para.eles[end+1:])
                        self.paragraphs.insert(i,p3)
-                   p2 =  self.Paragraph(True, para.eles[start:end+1])
+                   p2 =  self.Paragraph(True, para.eles[start:end+1],"li")
                    self.paragraphs.insert(i,p2)
                    if len(para.eles[:start]) > 0 :
                        p1 =  self.Paragraph(False,para.eles[:start])
@@ -96,10 +114,35 @@ class JobDesc():
                j+=1
             i+=1        
     
+    def applyRule_2br(self ):   
+        i = 0 
+        while i < len(self.paragraphs) :           
+            para = self.paragraphs[i]          
+            j = 0
+            while not para.complete and j < len (para.eles): 
+        #       print "i=",i,'  j=',j
+               ele = para.eles[j]     
+            #   print "ele name=", ele.next_sibling.name
+               con = ( ele.next_sibling is not None  and \
+                       ele.next_sibling.name=="br"    and  \
+                     ele.next_sibling.next_sibling is not None and \
+                     ele.next_sibling.next_sibling.name=="br" )
+
+               if con :
+                   del  self.paragraphs[i] 
+                   if len(para.eles[j+1:]) > 0 :
+                       p3 =  self.Paragraph(False,para.eles[j+1:])
+                       self.paragraphs.insert(i,p3)
+                   p2 =  self.Paragraph(True, para.eles[ :j+1 ],"2br")
+                   self.paragraphs.insert(i,p2)                                                       
+                   break
+               j+=1
+            i+=1       
+    
     def printParagraphs(self):
          i = 1
          for para in self.paragraphs:
-             print "======== para  ", i, "complete=", para.complete ," ==========="
+             print "======== para  ", i, "complete=", para.complete , "reason=",para.reason, " ==========="
              j = 1
              for element in para.eles:
                  for sent in element.sents:                    
@@ -147,6 +190,7 @@ class JobDescParser():
     def parseJobDesc(job):
       #  print job["summary"]
         jobpage = re.sub("<a.*?>|</a>", " ", job["summary"])   
+        jobpage = re.sub("\n", "", jobpage)
         soup = BeautifulSoup(jobpage)
       #  print soup
       #  print type(soup.contents[0].contents[0])
@@ -158,8 +202,7 @@ def testParseAll():
     
      srcBbClient = DbClient('localhost', 27017, "jobaly_daily_test")
      newCol = srcBbClient.getCollection("daily_job_webdev")       
-     jid = "9e216b2d65bd864b"
-  #   jid = "matrixga/78237-51"
+    
      job = DbClient.findById(newCol,jid)
    #  paragraph = JobParser.parseParagraph(job)
      
@@ -173,10 +216,12 @@ def testParseParagraph():
      srcBbClient = DbClient('localhost', 27017, "jobaly_daily_test")
      newCol = srcBbClient.getCollection("daily_job_webdev")       
      jid = "9e216b2d65bd864b"
-  #   jid = "matrixga/78237-51"
+     jid = "matrixga/78237-51"
+     jid = "cybercod/CN-.NETwebDev-CA3"  
+     jid = "f3c336fa35c28771"
      job = DbClient.findById(newCol,jid)
      jobDesc = JobDescParser.parseJobDesc(job)
-     
+     jobDesc.printParagraphs()
         
 def main(): 
     testParseParagraph()
