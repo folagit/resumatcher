@@ -13,7 +13,7 @@ import re
 import operator
 from bs4 import BeautifulSoup
 import bs4
-import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
 from textblob import TextBlob
 
 class JobDesc():
@@ -30,7 +30,8 @@ class JobDesc():
           def addEle(self, ele):
               self.eles.append(ele)
     
-    def __init__(self, toptag ):
+    def __init__(self, toptag, _id ):
+         self._id = _id
          self.topTag = toptag
          self.sents = []
          self.sentElements = []
@@ -157,7 +158,15 @@ class JobDesc():
              for element in paragraph.eles:
                 para.extend(element.sents)
              paras.append(para)
-         return   paras            
+         return   paras   
+
+    def listAllSentences(self):
+       sents = []
+       for paragraph in self.paragraphs:
+             for element in paragraph.eles:
+                sents.extend(element.sents)
+              
+       return   sents             
     
     def removeInlineTag(self,parentEle):
         for element in parentEle.contents :
@@ -170,14 +179,14 @@ class JobDesc():
     def parse(self, element):
         
    #     if type( element) is bs4.element.Tag: 
-   #         self.removeInlineTag(element)
-        
+   #         self.removeInlineTag(element)        
         if type( element) is bs4.element.NavigableString:
             p = element.string.strip()
             if len(p) == 0 :
                 return
-            blob = TextBlob(element.string)                
-            element.sents = blob.raw_sentences
+       #     blob = TextBlob(element.string)                
+       #     element.sents = blob.raw_sentences
+            element.sents = sent_tokenize(element.string)
             if len(element.sents) > 0 :               
                 self.sentElements.append(element)
                 i = 1
@@ -185,8 +194,7 @@ class JobDesc():
                     self.sents.append((sent,element))
            #         print i, ":", sent.encode("GBK", "ignore")
                     i+=1
-            #    print "-----------------"
-            
+            #    print "-----------------"            
             return 
             
         if not hasattr(element, 'contents'):  
@@ -204,20 +212,20 @@ class JobDescParser():
         jobpage = re.sub("<strong>|</strong>|<b>|</b>|<em>|</em>", " ", jobpage)
       
         if jobpage.find("<span") == 0:
-            print "root span"
+  #          print "root span"
             jobpage = "<div>"+jobpage[22:-7]+"</div>"
    
         jobpage = re.sub("<span.*?>|</span>", " ", jobpage)
         
         jobpage = re.sub("\n", "", jobpage)
         
-        print jobpage.encode("GBK", "ignore")
+  #      print jobpage.encode("GBK", "ignore")
         
         soup = BeautifulSoup(jobpage)
       #  print soup
       #  print type(soup.contents[0].contents[0])
         jobcontent = soup.contents[0].contents[0].contents[0]
-        paragraph = JobDesc(jobcontent)            
+        paragraph = JobDesc(jobcontent, job["_id"])            
         return paragraph    
 
 def testParseAll():
