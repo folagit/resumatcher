@@ -219,3 +219,4 @@ pip-log.txt
 *.spyderproject
 python/src/cronjob/data
 python/src/jobanalysis/titles
+python/src/jobanalysis/sents
