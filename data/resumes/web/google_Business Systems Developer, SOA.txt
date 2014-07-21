@@ -1,0 +1,22 @@
+At Google, we work at lightning speed. So when things get in the way of progress, the Business Systems Integration team steps in to remove those roadblocks. The team identifies time-consuming internal processes and then builds solutions that are reliable and scalable enough to work within the size and scope of the company. You listen to and translate Googler needs into high-level technical specifications, design and develop recommended systems and consult with Google executives to ensure smooth implementation. Whether battling large system processes or leveraging our homegrown suite of Google products for Googlers themselves, you help Googlers work faster and more efficiently.
+
+As an Application Developer, you will play a major role in developing, deploying and supporting business applications to improve Supply Chain and or other business processes. You will be a generalist IT developer, tasked with solving various problems over time. When the situation calls for it, you¡¯ll be part of a team that implements vendor sourced enterprise software, configuring that software, customizing it, and integrating with other internal systems. Other times, you¡¯ll be primarily tasked with creating custom-built software.
+
+Responsibilities
+Develop and deploy applications that support and change fundamental assumptions of how IT works.
+Partner with internal teams to define and implement solutions that improve internal business processes.
+Work closely with analysts to translate business requirements into technical solutions.
+Build internal solutions, with services that automate business processes. Maintain highest levels of development practices including: technical design; solution development; systems configuration; test documentation/execution; issue identification and resolution; writing clean, modular and self-sustaining code.
+Integrate third party products into internal systems as well as support and upgrade implemented systems.
+Minimum qualifications
+BA/BS degree in Computer Science or related technical field or equivalent practical experience.
+Experience implementing, configuring, customizing and integrating 3rd-party software solutions. Experience developing services for business applications including workflow management, notification services, data/file storage, encryption and application integration.
+Experience with hands on programming in Perl, XML, Python/Shell scripting, SQL, Java/C/C++, Oracle SOA (BPEL or B2B). Experience in developing applications using Service Oriented Architecture.
+Experience working with one or more of the J2EE Servers: Weblogic JBoss, Websphere, Glassfish, Tomcat. Experience working with one or more of WS-Security, including SSL/TSL, addressing SAML, JAAS/LDAP and OWSM.
+Preferred qualifications
+MS degree in Computer Science or related field.
+Participation in several full system implementation life-cycles (analyze, design, build, test, implement, support).
+Solid understanding of information management, data modeling, system integration, development methodologies (including unit testing) and web technologies.
+Excellent interpersonal and communication skills; strong analytical skills and a demonstrable bias toward action. Ability to deal with ambiguity and thrive in a rapidly changing environment.
+Area
+Behind everything our users see online is the architecture built by the Technical Infrastructure team to keep it running. From developing and maintaining our data centers to building the next generation of Google platforms, we make Google's product portfolio possible. We're proud to be our engineers' engineers and love voiding warranties by taking things apart so we can rebuild them. We're always on call to keep our networks up and running, ensuring our users have the best and fastest experience possible.
