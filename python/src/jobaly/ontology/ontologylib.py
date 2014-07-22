@@ -15,6 +15,8 @@ class OntologyLib:
         self.g = rdflib.Graph()
         self.g.parse(owlFilename, format=fileFormat)
         self.ns = rdflib.Namespace("http://jobaly.com/ontology/")
+        self.labels = self.getLabelList()        
+        self.tokenDict = self.getTokenDict()        
         
     def toURIRef(self, name):
         return self.ns[name]
@@ -38,6 +40,22 @@ class OntologyLib:
         for entity, label  in result:           
             termDict[str(label)] = entity
         return termDict
+        
+    def getLabelList(self):
+        self.termDict = self.getLabelDict()
+        labels = self.termDict.keys()
+        return  labels
+        
+    def getTokenDict(self):
+        tokenDict = {}
+        for label in self.labels :
+            tokens = label.split()
+            for token in tokens:
+                if token in tokenDict :
+                    tokenDict[token].append( label)
+                else :
+                     tokenDict[token] = [label]
+        return tokenDict
         
 def listGraph(g):
     for stmt in g:
@@ -71,6 +89,11 @@ def findNode(g):
     for o  in result:
         print o
 
+def printLableDict(lableDict):
+    
+    for   label, entity in lableDict.iteritems():
+        print label, ":", entity
+
 def testFindSuperClass():
     ontology = OntologyLib()
     ref = ontology.toURIRef("NOSQL")
@@ -99,10 +122,14 @@ def testGetLabels():
      #    print type(label), ":" , label
      
      termdict = ontology.getLabelDict()
-     print termdict
+     printLableDict( termdict )
 
+def test_getTokenDict():
+     ontology = OntologyLib()    
+     printLableDict( ontology.tokenDict )
+    
 def main():
-   testGetLabels()
+   test_getTokenDict()
     
 
 if __name__ == "__main__": 
