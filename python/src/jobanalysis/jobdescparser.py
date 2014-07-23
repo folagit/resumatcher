@@ -14,7 +14,6 @@ import operator
 from bs4 import BeautifulSoup
 import bs4
 #from nltk.tokenize import sent_tokenize
-from textblob import TextBlob
 import nltk
 from pattern.en import tokenize   
 
