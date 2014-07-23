@@ -13,8 +13,15 @@ import re
 import operator
 from bs4 import BeautifulSoup
 import bs4
-from nltk.tokenize import sent_tokenize, word_tokenize
+#from nltk.tokenize import sent_tokenize
 from textblob import TextBlob
+import nltk
+from pattern.en import tokenize   
+
+def splitSentences(text):
+  #  return nltk.tokenize.sent_tokenize(text)
+  # use pattern package
+    return tokenize(text) 
 
 class JobDesc():
     
@@ -186,7 +193,7 @@ class JobDesc():
                 return
        #     blob = TextBlob(element.string)                
        #     element.sents = blob.raw_sentences
-            element.sents = sent_tokenize(element.string)
+            element.sents = splitSentences(element.string)
             if len(element.sents) > 0 :               
                 self.sentElements.append(element)
                 i = 1
