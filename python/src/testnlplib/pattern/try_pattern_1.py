@@ -5,13 +5,28 @@ Created on Thu Jul 17 11:52:09 2014
 @author: dlmu__000
 """
 def test_parse():
-    from pattern.en import parse
+    from pattern.en import parse, Text, Sentence
     from pattern.en import pprint 
     
-    sent = 'I ate pizza.'
+   
     sent = "Experience with mobile application development a plus: iPhone/iPad, Android, or Blackberry."
     sent = "3+ years web software development experience."
-    pprint(parse(sent, relations=True, lemmata=True))
+    sent = "Bachelor's in Computer Science, Information Systems or a related study, is required."
+    sent = 'I ate pizza.'
+    sent = "Bachelor's in Computer Science is required."
+    sent = "Bachelor 's Degree or 4 years equivalent professional experience ."
+    sent = "A Master ’ s Degree or equivalent in Electrical Engineering , Computer Science , or other technical/engineering field with related programming experience and applicable work experience is required ."
+    sent = "A Master's Degree or equivalent in Electrical Engineering , Computer Science , or other technical/engineering field with related programming experience and applicable work experience is required ."
+    sent = "BS degree ( BSEE or BSCS strongly preferred , MSCS a plus ) and/or the equivalent in training and experience ."      
+      
+    result = parse(sent,
+         tokenize = True,  # Tokenize the input, i.e. split punctuation from words.
+             tags = True,  # Find part-of-speech tags.
+           chunks = True,  # Find chunk tags, e.g. "the black cat" = NP = noun phrase.
+        relations = True,  # Find relations between chunks.
+          lemmata = True,  # Find word lemmata.
+            light = True)
+    pprint(result) 
 
 def test_wordnet():
     from pattern.en import wordnet
@@ -52,6 +67,28 @@ def test_pattern():
    print m.group(1)
    print m.group(2)
    print t
- 
+
     
-test_pattern()
+def test_sentence():
+    from pattern.en import parse, Text, Sentence
+    from pattern.en import pprint 
+    
+    sent = "BS degree ( BSEE or BSCS strongly preferred , MSCS a plus ) and/or the equivalent in training and experience ."
+    sent = "Bachelor's degree in Computer Science is required."  
+    result = parse(sent,
+         tokenize = True,  # Tokenize the input, i.e. split punctuation from words.
+             tags = True,  # Find part-of-speech tags.
+           chunks = True,  # Find chunk tags, e.g. "the black cat" = NP = noun phrase.
+        relations = True,  # Find relations between chunks.
+          lemmata = True,  # Find word lemmata.
+            light = True)
+    pprint(result)
+   
+    sen = Sentence(result)
+  #  print type(sen)
+    print sen     
+
+    for chunk in sen.chunks:
+       print chunk.type, [(w.string, w.type) for w in chunk.words]
+    
+test_sentence()

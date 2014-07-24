@@ -77,19 +77,23 @@ def mytag(s, tokenize=True, encoding="utf-8", **kwargs):
 
 def testTokenize():
     s = "I eat pizza with a fork."
+  
+    s = "B.S. in Computer Science, a related degree or its equivalent "     
+    s = "What's this? This is a book."
+ 
     s = "Bachelor's degree in Computer Science or equivalent"
     s = "Bachelor’s degree in Computer Science or equivalent"   
-    s = "B.S. in Computer Science, a related degree or its equivalent "     
-  
+   
+
     s = parse(s,
-         tokenize = False,  # Tokenize the input, i.e. split punctuation from words.
+         tokenize = True,  # Tokenize the input, i.e. split punctuation from words.
              tags = False,  # Find part-of-speech tags.
            chunks = False,  # Find chunk tags, e.g. "the black cat" = NP = noun phrase.
         relations = False,  # Find relations between chunks.
           lemmata = False,  # Find word lemmata.
             light = False)
 
-    print s.split()[0]
+    print s.split() 
     
 def test_findTonkens_1():
     s = "I eat pizza with a fork."
@@ -110,8 +114,16 @@ def test_findTonkens_2():
 def test_findTonkens_3():
     s = "I eat pizza with a fork."
     s = "Bachelor's degree in Computer Science or equivalent"
+    s = "B.S. in Computer Science, a related degree or its equivalent "     
+    s = "What's this? This is a book."  
     from pattern.en import tokenize     
     result = tokenize(s)
     print result
+    
+def test_parseTree():
+    from pattern.en import parsetree
+    sent = "What's this? This is a book."
+    s = parsetree( sent , relations=True, lemmata=True)
+    print repr(s)
 
 testTokenize()
