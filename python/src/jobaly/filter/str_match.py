@@ -4,14 +4,21 @@ Created on Tue Jul 22 17:11:11 2014
 
 @author: dlmu__000
 """
-
-def listOrIn(tokens, sent):
+# "dsff|sdf|sfs"
+def listOrIn(tokens, sent, simple = True):
     for token in tokens:
         index = sent.find(token)
         if  index  != -1 :
-            return True
-    return False
-
+            if simple: 
+                return True
+            else: 
+                return (True, token, index)
+    if simple:    
+        return False
+    else:
+        return (True, None, -1)
+        
+# "(AC|BC) is (ed|df)"
 def sequenceAllIn(tokens, sent):     
     for item in tokens:        
          i = sent.find(item) 

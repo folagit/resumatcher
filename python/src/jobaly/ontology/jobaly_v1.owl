@@ -54,6 +54,14 @@
 
 
 
+###  http://jobaly.com/ontology/CSS_Tech
+
+:CSS_Tech rdf:type owl:Class ;
+          
+          rdfs:subClassOf :WebTechnology .
+
+
+
 ###  http://jobaly.com/ontology/CloudComputing
 
 :CloudComputing rdf:type owl:Class ;
@@ -67,6 +75,12 @@
 :Column rdf:type owl:Class ;
         
         rdfs:subClassOf :NOSQL .
+
+
+
+###  http://jobaly.com/ontology/Conception
+
+:Conception rdf:type owl:Class .
 
 
 
@@ -105,6 +119,14 @@
 
 
 
+###  http://jobaly.com/ontology/DevConception
+
+:DevConception rdf:type owl:Class ;
+               
+               rdfs:subClassOf :Conception .
+
+
+
 ###  http://jobaly.com/ontology/DevTools
 
 :DevTools rdf:type owl:Class ;
@@ -137,11 +159,11 @@
 
 
 
-###  http://jobaly.com/ontology/Functional
+###  http://jobaly.com/ontology/Functional_Lang
 
-:Functional rdf:type owl:Class ;
-            
-            rdfs:subClassOf :ProgrammingLanguage .
+:Functional_Lang rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf :ProgrammingLanguage .
 
 
 
@@ -158,6 +180,14 @@
 :Graph rdf:type owl:Class ;
        
        rdfs:subClassOf :NOSQL .
+
+
+
+###  http://jobaly.com/ontology/HTML_Tech
+
+:HTML_Tech rdf:type owl:Class ;
+           
+           rdfs:subClassOf :WebTechnology .
 
 
 
@@ -190,6 +220,25 @@
 :JavascriptLibrary rdf:type owl:Class ;
                    
                    rdfs:subClassOf :ProgrameLanguageLibrary .
+
+
+
+###  http://jobaly.com/ontology/Javascript_Lib
+
+:Javascript_Lib rdf:type owl:Class ;
+                
+                rdfs:label "Javascript Lib" ,
+                           "Javascript Framework" ;
+                
+                rdfs:subClassOf :Javascript_Tech .
+
+
+
+###  http://jobaly.com/ontology/Javascript_Tech
+
+:Javascript_Tech rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf :WebTechnology .
 
 
 
@@ -257,11 +306,11 @@
 
 
 
-###  http://jobaly.com/ontology/ObjectOriented
+###  http://jobaly.com/ontology/OO_Lang
 
-:ObjectOriented rdf:type owl:Class ;
-                
-                rdfs:subClassOf :ProgrammingLanguage .
+:OO_Lang rdf:type owl:Class ;
+         
+         rdfs:subClassOf :ProgrammingLanguage .
 
 
 
@@ -347,6 +396,14 @@
 
 
 
+###  http://jobaly.com/ontology/Script_Pro_Lang
+
+:Script_Pro_Lang rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf :ProgrammingLanguage .
+
+
+
 ###  http://jobaly.com/ontology/Software
 
 :Software rdf:type owl:Class .
@@ -417,6 +474,16 @@
 
 
 
+###  http://jobaly.com/ontology/WebTechnology
+
+:WebTechnology rdf:type owl:Class ;
+               
+               rdfs:label "Web Technology" ;
+               
+               rdfs:subClassOf :DevConception .
+
+
+
 ###  http://jobaly.com/ontology/WindowsSeries
 
 :WindowsSeries rdf:type owl:Class ;
@@ -442,6 +509,15 @@
 #################################################################
 
 
+###  http://jobaly.com/ontology/AJAX
+
+:AJAX rdf:type :Javascript_Tech ,
+               owl:NamedIndividual ;
+      
+      rdfs:label "AJAX" .
+
+
+
 ###  http://jobaly.com/ontology/Android
 
 :Android rdf:type :Mobile ,
@@ -456,6 +532,34 @@
 
 
 
+###  http://jobaly.com/ontology/CSS
+
+:CSS rdf:type :CSS_Tech ,
+              owl:NamedIndividual ;
+     
+     rdfs:label "CSS" .
+
+
+
+###  http://jobaly.com/ontology/CSS_3
+
+:CSS_3 rdf:type :CSS_Tech ,
+                owl:NamedIndividual ;
+       
+       rdfs:label "CSS 3" ,
+                  "CSS3" .
+
+
+
+###  http://jobaly.com/ontology/DHTML
+
+:DHTML rdf:type :HTML_Tech ,
+                owl:NamedIndividual ;
+       
+       rdfs:label "DHTML" .
+
+
+
 ###  http://jobaly.com/ontology/Eclipse
 
 :Eclipse rdf:type :DevelopmentEnviroment ,
@@ -463,9 +567,28 @@
 
 
 
+###  http://jobaly.com/ontology/HTML
+
+:HTML rdf:type :HTML_Tech ,
+               owl:NamedIndividual ;
+      
+      rdfs:label "HTML" .
+
+
+
+###  http://jobaly.com/ontology/HTML5
+
+:HTML5 rdf:type :HTML_Tech ,
+                owl:NamedIndividual ;
+       
+       rdfs:label "HTML5" ,
+                  "HTML 5" .
+
+
+
 ###  http://jobaly.com/ontology/JAVA
 
-:JAVA rdf:type :ObjectOriented ,
+:JAVA rdf:type :OO_Lang ,
                owl:NamedIndividual ;
       
       rdfs:label "Java" .
@@ -474,7 +597,7 @@
 
 ###  http://jobaly.com/ontology/JQuery
 
-:JQuery rdf:type :JavaLibrary ,
+:JQuery rdf:type :Javascript_Lib ,
                  owl:NamedIndividual .
 
 
@@ -483,6 +606,16 @@
 
 :JSP rdf:type :J2EE ,
               owl:NamedIndividual .
+
+
+
+###  http://jobaly.com/ontology/Javascript
+
+:Javascript rdf:type :Javascript_Tech ,
+                     :Script_Pro_Lang ,
+                     owl:NamedIndividual ;
+            
+            rdfs:label "Javascript" .
 
 
 
@@ -495,7 +628,7 @@
 
 ###  http://jobaly.com/ontology/Lisp
 
-:Lisp rdf:type :Functional ,
+:Lisp rdf:type :Functional_Lang ,
                owl:NamedIndividual ;
       
       rdfs:label "Lisp" .
@@ -532,8 +665,8 @@
 
 ###  http://jobaly.com/ontology/Python
 
-:Python rdf:type :Functional ,
-                 :ObjectOriented ,
+:Python rdf:type :Functional_Lang ,
+                 :OO_Lang ,
                  owl:NamedIndividual ;
         
         rdfs:label "Python" .
@@ -542,7 +675,7 @@
 
 ###  http://jobaly.com/ontology/Scala
 
-:Scala rdf:type :Functional ,
+:Scala rdf:type :Functional_Lang ,
                 owl:NamedIndividual ;
        
        rdfs:label "Scala" .
@@ -586,7 +719,7 @@
 
 ###  http://jobaly.com/ontology/cplusplus
 
-:cplusplus rdf:type :ObjectOriented ,
+:cplusplus rdf:type :OO_Lang ,
                     owl:NamedIndividual ;
            
            rdfs:label "C++" .
