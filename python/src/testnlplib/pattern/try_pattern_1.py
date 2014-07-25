@@ -18,7 +18,7 @@ def test_parse():
     sent = "A Master ’ s Degree or equivalent in Electrical Engineering , Computer Science , or other technical/engineering field with related programming experience and applicable work experience is required ."
     sent = "A Master's Degree or equivalent in Electrical Engineering , Computer Science , or other technical/engineering field with related programming experience and applicable work experience is required ."
     sent = "BS degree ( BSEE or BSCS strongly preferred , MSCS a plus ) and/or the equivalent in training and experience ."      
-      
+    
     result = parse(sent,
          tokenize = True,  # Tokenize the input, i.e. split punctuation from words.
              tags = True,  # Find part-of-speech tags.
@@ -91,5 +91,35 @@ def test_sentence():
 
     for chunk in sen.chunks:
        print chunk.type, [(w.string, w.type) for w in chunk.words]
+ 
+def test_findVerb():
+    from pattern.en import parse, Text, Sentence
+    from pattern.en import pprint 
     
-test_sentence()
+   
+    sent = "Bachelor's in Computer Science, Information Systems or a related study, is required."
+    sent = 'I ate pizza.'
+    sent = "Bachelor's in Computer Science is required."
+    sent = "Bachelor 's Degree or 4 years equivalent professional experience ."
+    sent = "A Master ’ s Degree or equivalent in Electrical Engineering , Computer Science , or other technical/engineering field with related programming experience and applicable work experience is required ."
+    sent = "A Master's Degree or equivalent in Electrical Engineering , Computer Science , or other technical/engineering field with related programming experience and applicable work experience is required ."
+    sent = "Bachelor ’ s degree in Computer Science or equivalent"
+    sent = "Bachelor ' s degree in Computer Science or equivalent"
+       
+    
+    result = parse(sent,
+         tokenize = True,  # Tokenize the input, i.e. split punctuation from words.
+             tags = True,  # Find part-of-speech tags.
+            )
+    pprint(result) 
+    
+  #  print type(result)
+  #  print result         
+    sen = Sentence(result)
+  #  for word in sen:
+ #       print word, word.type
+    
+    vlist = [ word.string for word in sen if word.type.startswith("V") ]
+    print vlist
+    
+test_findVerb()
