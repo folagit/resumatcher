@@ -75,6 +75,7 @@ def test_sentence():
     
     sent = "BS degree ( BSEE or BSCS strongly preferred , MSCS a plus ) and/or the equivalent in training and experience ."
     sent = "Bachelor's degree in Computer Science is required."  
+    sent = "He created the robot and broke it after making it."
     result = parse(sent,
          tokenize = True,  # Tokenize the input, i.e. split punctuation from words.
              tags = True,  # Find part-of-speech tags.

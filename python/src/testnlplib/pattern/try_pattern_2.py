@@ -123,6 +123,7 @@ def test_findTonkens_3():
 def test_parseTree():
     from pattern.en import parsetree
     sent = "What's this? This is a book."
+    sent = "He created the robot and broke it after making it."
     s = parsetree( sent , relations=True, lemmata=True)
     print repr(s)
 
