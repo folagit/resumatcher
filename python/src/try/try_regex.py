@@ -53,5 +53,9 @@ def demo3():
         print 'found=', match.group() ## 'found word:cat'
    else:
         print 'did not find'
-      
-demo3()
+        
+def testMatch():
+   sent = "- ded dee"
+   print re.match("\-",sent)  
+   
+testMatch()
