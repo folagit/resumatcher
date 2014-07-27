@@ -47,20 +47,33 @@ def tokenFind_fun(token, words, lower=True):
     
 class TokensInMatcher(BaseMatcher):    
      def __init__(self, token  ):
-        self._matchfun = tokenIn(token)
+        self._matchfun = tokensIn(token)
 
-def tokenIn(tokens, lower=True):
+def tokensIn(tokens, lower=True):
     def fun(words):
         return tokensIn_fun(tokens, words, lower)
     return fun
 
 def tokensIn_fun(tokens, words, lower=True):
     for token in tokens:
+        if  lower :
+            token = token.lower()
         if token in words: 
             return True
     return False
 
-     
+
+
+def findToken(token, words, lower=True):
+    if  lower :
+        token = token.lower()
+    i = 0
+    while i < len(words):
+        if token == words[i]:
+            return i
+        else :
+            i+=1
+    return -1
     
 def termMatching(allSents,term):    
     matchingSents =[]

@@ -6,6 +6,7 @@ Created on Fri Jul 25 20:34:21 2014
 """
 
 import json
+import operator
 
 def dumpToText(listObj, fileName, lam):
      with open(fileName, "w") as f:
@@ -28,3 +29,7 @@ def loadJson(data_set_name):
      json_file = data_set_name+".json"
      with open(json_file, "r") as f :      
          return  json.load(f)
+         
+def printStatDict( the_dict ): 
+     for (key, value) in sorted(the_dict.iteritems(), key=operator.itemgetter(1), reverse = True):
+        print key.encode("GBK", "ignore"), value
