@@ -73,15 +73,37 @@ def  beforeDegree():
             dict1[term]=1
       #  print term.encode("GBK", "ignore")
     datautils.printStatDict(dict1)
+    
+def addLabels(labelDict, items, label):
+    for item in items:
+        labelDict[item] = label
    
+def setupLabelDict():
+    DEGREE = ["degree"]
+    HS_LEVEL = ["High School Diploma", "High School"]    
+    AS_LEVEL = ["AS"]
+    BS_LEVEL = ["bachelors", "bachelor" ,"B.S.","BS","BA","BA/BS", "BA/" ,"4-year","4-year", "four year" ]    
+    MS_LEVEL = ["masters", "MS", "M.S."]
+    PHD_LVEL = ["PhD", "Ph.D", "doctorate"]
+    MAJOR = ["computer science", "CS", "EE", "Computer Engineering", "Information Systems", "statistics", \
+        "mathematics", "biological sciences", "Physics", "math" ]
+    MAJOR_DEGREE = ["MBA", "BSCS", "BSEE", "MSCS", "MSEE" ]
+    
+    labelDict = {"degree": "DEGREE"}
+    addLabels(labelDict, HS_LEVEL, "DE_LEVEL" )
+    addLabels(labelDict, AS_LEVEL, "DE_LEVEL" )
+    addLabels(labelDict, BS_LEVEL, "DE_LEVEL" )
+    addLabels(labelDict, MS_LEVEL, "DE_LEVEL" )
+    addLabels(labelDict, PHD_LVEL, "DE_LEVEL" )
+    addLabels(labelDict, MAJOR, "MAJOR" )
+    addLabels(labelDict, MAJOR_DEGREE, "MAJOR_DE" )
+    
+    print labelDict
+    return labelDict
     
 def labelDegree():
     # two letter word need compare orginal
-    HS_LEVEL = ["High School Diploma", "High School"]    
-    AS_LEVEL = ["AS"]
-    BS_LEVEL = ["bachelors", "bachelor" ,"B.S.","BS","BA","BA/BS" ,"4-year","4-year", "four year" ]    
-    MS_LEVEL = ["masters", "MS", "M.S."]
-    PHD_LVEL = ["PhD", "Ph.D", "doctorate"]
+    
     
     data_set_name = "degree_1"       
     data = datautils.loadJson(data_set_name)
@@ -98,7 +120,7 @@ def pipeLine():
    # preProcess(data)        
   
 def main(): 
-   preProcess()
+   setupLabelDict()
  #  beforeDegree()
     
 if __name__ == "__main__": 
