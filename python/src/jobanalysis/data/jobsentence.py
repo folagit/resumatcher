@@ -9,7 +9,7 @@ from tokenfilter import *
 
 class JSentence():
     puncts = [".", ",", ";","?", "!", ":" ]
-    tagDict = { "or": "OR", "and" : "AND" }    
+    tagDict = {  }    
     
     def __init__(self, words):
         self.words = words
@@ -89,10 +89,16 @@ def test_sentence2():
   #  sent.labelWithTuple(( ["am" ] , "AAAA" ))
     sent.labelWithTuple(( ["am", "ok" , "and"] , "AAAA" ))
     print sent.tags  
-                
+  
+
+def test_sentence3():
+   words = ['B.S.', 'degree', 'in', 'Computer', 'Science', 'required']
+   sent = JSentence(words)
+   sent.labelWithTuple(( ["B.S."] , "AAAA" ))
+   print sent.tags              
                 
 def main(): 
-   test_sentence2()
+   test_sentence3()
  #  beforeDegree()
     
 if __name__ == "__main__": 

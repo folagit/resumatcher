@@ -77,8 +77,7 @@ def findToken(token, words, lower=True):
     
 def findTokenSquence(tokens, _words, scope=None , lower=True):
     if scope is None :
-        scope = (0, len(_words))
-    
+        scope = (0, len(_words))    
     
     start =  scope[0]
     word_len = scope[1]
@@ -87,12 +86,14 @@ def findTokenSquence(tokens, _words, scope=None , lower=True):
     
     if word_len < l1 :
         return -1 
-       
- #   print word_len, l1 
-    if  lower :
-        words = [word.lower() for word in _words]
+    
+    if len(tokens) == 1 and len(tokens[0]) < 4 :
+        words =  _words         
     else :
-        words =  _words
+        if  lower :
+            words = [word.lower() for word in _words]
+        else :
+            words =  _words
         
     i = start
     while i < start + word_len:

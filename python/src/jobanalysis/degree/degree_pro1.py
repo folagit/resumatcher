@@ -81,24 +81,37 @@ def addLabels(labelDict, items, label):
         labelDict[item] = label
    
 def setupLabelDict():
+      
+    labelDict = {  "or": "OR", "and" : "AND" , "is":"BE", "are" :"BE", "in": "IN" , "In":"IN"  }
+    DT = ["a", "A", "an", "An", "The", "the"]    
     DEGREE = ["degree"]
     HS_LEVEL = ["High School Diploma", "High School"]    
     AS_LEVEL = ["AS"]
     BS_LEVEL = ["bachelors", "bachelor" ,"B.S.","BS","BA","BA/BS", "BA/" ,"4-year","4-year", "four year" ]    
     MS_LEVEL = ["masters", "MS", "M.S."]
     PHD_LVEL = ["PhD", "Ph.D", "doctorate"]
-    MAJOR = ["computer science", "CS", "EE", "Computer Engineering", "Information Systems", "statistics", \
-        "mathematics", "biological sciences", "Physics", "math" ]
+    MAJOR = ["computer science", "CS", "EE", "computer engineering", "Information Systems", "statistics", \
+        "mathematics", "biological sciences", "Physics", "math" , \
+         "related field" ]
+         
     MAJOR_DEGREE = ["MBA", "BSCS", "BSEE", "MSCS", "MSEE" ]
+        
+    REQUIRED = ["preferred", "required", "plus", "minimum"]    
+    EQUIVALENT= ["equivalent"]  
+    REQUIRES =  ["Requires"]
     
-    labelDict = {"degree": "DEGREE"}
+    addLabels(labelDict, DT, "DT" )  
+    addLabels(labelDict, DEGREE, "DEGREE" )
     addLabels(labelDict, HS_LEVEL, "DE_LEVEL" )
     addLabels(labelDict, AS_LEVEL, "DE_LEVEL" )
     addLabels(labelDict, BS_LEVEL, "DE_LEVEL" )
     addLabels(labelDict, MS_LEVEL, "DE_LEVEL" )
     addLabels(labelDict, PHD_LVEL, "DE_LEVEL" )
     addLabels(labelDict, MAJOR, "MAJOR" )
-    addLabels(labelDict, MAJOR_DEGREE, "MAJOR_DE" )   
+    addLabels(labelDict, MAJOR_DEGREE, "MAJOR_DE" )
+    addLabels(labelDict, REQUIRED, "REQUIRED" )
+    addLabels(labelDict, EQUIVALENT, "EQUIVALENT" )
+    addLabels(labelDict, REQUIRES, "REQUIRES" )
     
   #  print labelDict
     return labelDict
@@ -106,14 +119,15 @@ def setupLabelDict():
 def createDegreeGrammar():
     labelDict = setupLabelDict()
     labelGrammer = LabelGrammer(labelDict)
-    
+    return labelGrammer
  #   for item in labelGrammer.multiLabelList :
  #       print item
         
  #   for item in labelGrammer.labelTuples :
  #        print item
-    
-    return labelGrammer
+def printLabelGrammar(labelGrammer) :        
+    for item in labelGrammer.labelTuples :
+         print item
     
 def labelDegree():
 
@@ -130,8 +144,10 @@ def labelDegree():
     sent11 = "Bachelor , Master or Doctorate of Science degree from an accredited course of study , in engineering , computer science , mathematics , physics or chemistry"
        
     labelGrammer =  createDegreeGrammar()
-    degreeSent = JSentence(sent04.split())
+  #  printLabelGrammar(labelGrammer)
+    degreeSent = JSentence(sent07.split())
     labelGrammer.labelSentence(degreeSent)
+    print degreeSent.words
     print degreeSent.tags
     
 def labelDegreeSet():
