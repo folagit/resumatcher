@@ -118,10 +118,28 @@ def test_TokensInMatcher():
     print (  TokensInMatcher(["good","bad","also"]) &  TokensInMatcher(["in","on","at"])   ) (words) 
     print (  TokensInMatcher(["good","bad","also"]) |  TokensInMatcher(["in","on","at"])   ) (words) 
       
+def test_findTokenSquence():
+    
+    sent01 = "bachelors degree"
+    sent02 = "bachelors Degree preferred"
+    sent03 = "Bachelors Degree or Equivalent"
+    sent04 = "bachelors degree in Computer Science"
+    sent05 = "bachelors degree in Computer Science or equivalent"    
+    sent06 = "B.S. degree in Computer Science required" 
+    sent07 = "Requires a Bachelors degree in Information Systems or related field"
+    sent08 = "Bachelors degree in computer science or an equivalent combination of education and/or experience"
+    sent09 = "bachelors degree in related field , OR four ( 4 ) years of experience in a directly related field"
+    sent10 = "Bachelors or master degree in computer science" 
+    sent11 = "Bachelor , Master or Doctorate of Science degree from an accredited course of study , in engineering , computer science , mathematics , physics or chemistry"
+         
+    words =   sent05.split()
+    tokens1 = ["degree", "in",""]
+    tokens2 = ["in", "computer", "science"]
+    print findTokenSquence(tokens2, words)
     
 def main():   
   #  test_tokenMatch() 
-    test_TokensInMatcher()
+    test_findTokenSquence()
   #  test_comb()
     
 if __name__ == "__main__": 
