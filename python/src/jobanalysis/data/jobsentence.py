@@ -22,9 +22,9 @@ class JSentence():
                 self.tags[i] = (  word , True )                
             elif JSentence.tagDict.has_key(word):
                 self.tags[i] = ( JSentence.tagDict[word], True )
-                
             i+=1
-             
+            
+            
   
 def test_sentence1():
     words = "I am ok or not , with you and me .".split()  

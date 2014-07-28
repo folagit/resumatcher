@@ -9,6 +9,8 @@ import sys
 sys.path.append("..")
 from  data import datautils
 from data.tokenfilter import *
+from data.labelgrammer import LabelGrammer
+from data.jobsentence import JSentence
 import re
 import operator
 
@@ -96,22 +98,46 @@ def setupLabelDict():
     addLabels(labelDict, MS_LEVEL, "DE_LEVEL" )
     addLabels(labelDict, PHD_LVEL, "DE_LEVEL" )
     addLabels(labelDict, MAJOR, "MAJOR" )
-    addLabels(labelDict, MAJOR_DEGREE, "MAJOR_DE" )
+    addLabels(labelDict, MAJOR_DEGREE, "MAJOR_DE" )   
     
-    print labelDict
+  #  print labelDict
     return labelDict
     
+def createDegreeGrammar():
+    labelDict = setupLabelDict()
+    labelGrammer = LabelGrammer(labelDict)
+    
+    for item in labelGrammer.multiLabelList :
+        print item
+    
+    return labelGrammer
+    
 def labelDegree():
-    # two letter word need compare orginal
+
+    sent01 = "bachelors degree"
+    sent02 = "bachelors Degree preferred"
+    sent03 = "Bachelors Degree or Equivalent"
+    sent04 = "bachelors degree in Computer Science"
+    sent05 = "bachelors degree in Computer Science or equivalent"    
+    sent06 = "B.S. degree in Computer Science required" 
+    sent07 = "Requires a Bachelors degree in Information Systems or related field"
+    sent08 = "Bachelors degree in computer science or an equivalent combination of education and/or experience"
+    sent09 = "bachelors degree in related field , OR four ( 4 ) years of experience in a directly related field"
+    sent10 = "Bachelors or master degree in computer science" 
+    sent11 = "Bachelor , Master or Doctorate of Science degree from an accredited course of study , in engineering , computer science , mathematics , physics or chemistry"
+       
+    labelGrammer =  createDegreeGrammar()
+    degreeSent = JSentence(sent01.split())
+    labelGrammer.labelSentence(degreeSent)
     
     
+def labelDegreeSet():
+    # two letter word need compare orginal    
     data_set_name = "degree_1"       
     data = datautils.loadJson(data_set_name)
     dict1 = {}
     for item in data:
         words = item[1].split()
-        
-    
     
  
 def pipeLine():    
@@ -120,7 +146,7 @@ def pipeLine():
    # preProcess(data)        
   
 def main(): 
-   setupLabelDict()
+   createDegreeGrammar()
  #  beforeDegree()
     
 if __name__ == "__main__": 

@@ -23,3 +23,6 @@ def writeDict( the_dict, fileName ):
             except Exception as e:
                 print e
 
+def printDict(the_dict):    
+    for key, value in the_dict.items():
+        print key.encode("GBK", "ignore"), value
