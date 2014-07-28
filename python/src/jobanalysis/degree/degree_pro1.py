@@ -107,8 +107,11 @@ def createDegreeGrammar():
     labelDict = setupLabelDict()
     labelGrammer = LabelGrammer(labelDict)
     
-    for item in labelGrammer.multiLabelList :
-        print item
+ #   for item in labelGrammer.multiLabelList :
+ #       print item
+        
+    for item in labelGrammer.labelTuples :
+         print item
     
     return labelGrammer
     

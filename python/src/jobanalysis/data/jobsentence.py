@@ -24,7 +24,8 @@ class JSentence():
                 self.tags[i] = ( JSentence.tagDict[word], True )
             i+=1
             
-            
+    def labelWithTuple(self, labelTuple):
+        pass         
   
 def test_sentence1():
     words = "I am ok or not , with you and me .".split()  
