@@ -110,8 +110,8 @@ def createDegreeGrammar():
  #   for item in labelGrammer.multiLabelList :
  #       print item
         
-    for item in labelGrammer.labelTuples :
-         print item
+ #   for item in labelGrammer.labelTuples :
+ #        print item
     
     return labelGrammer
     
@@ -130,9 +130,9 @@ def labelDegree():
     sent11 = "Bachelor , Master or Doctorate of Science degree from an accredited course of study , in engineering , computer science , mathematics , physics or chemistry"
        
     labelGrammer =  createDegreeGrammar()
-    degreeSent = JSentence(sent01.split())
+    degreeSent = JSentence(sent04.split())
     labelGrammer.labelSentence(degreeSent)
-    
+    print degreeSent.tags
     
 def labelDegreeSet():
     # two letter word need compare orginal    
@@ -149,8 +149,9 @@ def pipeLine():
    # preProcess(data)        
   
 def main(): 
-   createDegreeGrammar()
+ #  createDegreeGrammar()
  #  beforeDegree()
+    labelDegree()
     
 if __name__ == "__main__": 
     main() 

@@ -75,23 +75,35 @@ def findToken(token, words, lower=True):
             i+=1
     return -1
     
-def findTokenSquence(tokens, _words, lower=True):
+def findTokenSquence(tokens, _words, scope=None , lower=True):
+    if scope is None :
+        scope = (0, len(_words))
+    
+    
+    start =  scope[0]
+    word_len = scope[1]
+    j  = 0
+    l1  = len(tokens) 
+    
+    if word_len < l1 :
+        return -1 
+       
+ #   print word_len, l1 
     if  lower :
         words = [word.lower() for word in _words]
     else :
         words =  _words
-   
-    i ,j  = 0,  0
-    l1 , l2  = len(tokens), len(words)
-    while i < l2:
+        
+    i = start
+    while i < start + word_len:
         i1 = i
         j = 0
-        while j<l1 and i1 <l2 and tokens[j] == words[i1] :
+        while j < l1 and i1 < start + word_len and tokens[j] == words[i1] :
              j+=1
              i1+=1
         if j == l1 :
             return i
-        elif i1 == l2 :
+        elif i1 == start + word_len :
             return -1
         else:
             i+=1            

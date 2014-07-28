@@ -137,9 +137,15 @@ def test_findTokenSquence():
     tokens2 = ["in", "computer", "science"]
     print findTokenSquence(tokens2, words)
     
+def test_findTokenSquence2():
+    words = "I am ok or not , am ok and am ok .".split()  
+  
+    tokens =  ["am", "ok"]  
+    print findTokenSquence(tokens, words, scope=(6, 2) )    
+    
 def main():   
   #  test_tokenMatch() 
-    test_findTokenSquence()
+    test_findTokenSquence2()
   #  test_comb()
     
 if __name__ == "__main__": 
