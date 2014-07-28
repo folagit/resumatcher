@@ -82,25 +82,33 @@ def addLabels(labelDict, items, label):
    
 def setupLabelDict():
       
-    labelDict = {  "or": "OR", "and" : "AND" , "is":"BE", "are" :"BE", "in": "IN" , "In":"IN"  }
-    DT = ["a", "A", "an", "An", "The", "the"]    
+    labelDict = {  "or": "OR", "OR": "OR", "and" : "AND" ,  "in": "IN" , "In":"IN" , \
+           "of" : "OF", "and/or" : "AND_OR", "from" :"FROM" }
+    BE = ["be", "is", "are", "was", "were", "am"]    
+    DT = ["a", "A", "an", "An", "The", "the"]  
+    DIGIT = ['one', "two", "three", "four", "five", "seven", "eight", "night", "ten" ]
     DEGREE = ["degree"]
     HS_LEVEL = ["High School Diploma", "High School"]    
     AS_LEVEL = ["AS"]
     BS_LEVEL = ["bachelors", "bachelor" ,"B.S.","BS","BA","BA/BS", "BA/" ,"4-year","4-year", "four year" ]    
-    MS_LEVEL = ["masters", "MS", "M.S."]
+    MS_LEVEL = ["masters", "MS", "M.S.", "master"]
     PHD_LVEL = ["PhD", "Ph.D", "doctorate"]
     MAJOR = ["computer science", "CS", "EE", "computer engineering", "Information Systems", "statistics", \
         "mathematics", "biological sciences", "Physics", "math" , \
-         "related field" ]
+         "related field" ,"engineering", "science", "chemistry" ]
          
     MAJOR_DEGREE = ["MBA", "BSCS", "BSEE", "MSCS", "MSEE" ]
         
     REQUIRED = ["preferred", "required", "plus", "minimum"]    
     EQUIVALENT= ["equivalent"]  
     REQUIRES =  ["Requires"]
+    EXPERIENCE = ["experience" ]
+    EDUCATION = ["education"]
+    YEAR = ["year", "years", "yr"]
     
+    addLabels(labelDict, BE, "BE" )  
     addLabels(labelDict, DT, "DT" )  
+    addLabels(labelDict, DIGIT, "DIGIT" )  
     addLabels(labelDict, DEGREE, "DEGREE" )
     addLabels(labelDict, HS_LEVEL, "DE_LEVEL" )
     addLabels(labelDict, AS_LEVEL, "DE_LEVEL" )
@@ -112,6 +120,10 @@ def setupLabelDict():
     addLabels(labelDict, REQUIRED, "REQUIRED" )
     addLabels(labelDict, EQUIVALENT, "EQUIVALENT" )
     addLabels(labelDict, REQUIRES, "REQUIRES" )
+    addLabels(labelDict, EXPERIENCE, "EXPERIENCE" )
+    addLabels(labelDict, EDUCATION, "EDUCATION" )
+    addLabels(labelDict, YEAR, "YEAR" )
+    
     
   #  print labelDict
     return labelDict
@@ -145,7 +157,7 @@ def labelDegree():
        
     labelGrammer =  createDegreeGrammar()
   #  printLabelGrammar(labelGrammer)
-    degreeSent = JSentence(sent07.split())
+    degreeSent = JSentence(sent11.split())
     labelGrammer.labelSentence(degreeSent)
     print degreeSent.words
     print degreeSent.tags

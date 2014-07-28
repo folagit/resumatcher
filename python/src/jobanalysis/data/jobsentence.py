@@ -8,7 +8,7 @@ Created on Sun Jul 27 16:24:09 2014
 from tokenfilter import *
 
 class JSentence():
-    puncts = [".", ",", ";","?", "!", ":" ]
+    puncts = [".", ",", ";","?", "!", ":", "(", ")" ]
     tagDict = {  }    
     
     def __init__(self, words):
@@ -23,7 +23,9 @@ class JSentence():
         while i < len(self.words):
             word = self.words[i]     
             if word in  JSentence.puncts :
-                self.tags[i] = (  word , True )                
+                self.tags[i] = (  word , True )  
+            if str.isdigit(word) :
+                self.tags[i] = (  "DIGIT" , True ) 
             elif JSentence.tagDict.has_key(word):
                 self.tags[i] = ( JSentence.tagDict[word], True )
             i+=1
