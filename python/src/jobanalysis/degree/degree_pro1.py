@@ -14,20 +14,41 @@ from data.jobsentence import JSentence
 import re
 import operator
 
-
+def removeSplash(line):
+    slash_list = ["and/or", "PL/SQL"]  
+    
+    replace = True
+    while replace:
+        replace = False
+        for word in line.split(): 
+            if word.find("/") != -1 and len(word)>1:
+                if  not ( word in slash_list ): 
+                    print "*****removeSplash phrase is: ",  word                            
+                    newword = re.sub("/", " / ", word)
+                    line = re.sub(word, newword, line ) 
+                    repalce = True
+   
+    return line
 
 def preProcessFun(line):
-    line =  re.sub (ur"\u2022|\u00b7|\uf09f|\uf0a7|\u0080|\u0099", "",line)
+    line =  re.sub (ur"\u2022|\u00b7|\uf09f|\uf0a7|\u0080|\u0099|\u00a2|\u0095|\u00d8|\u00bf|\u00c2|\u2219|\u20ac|\u2122", "",line)
     line =  re.sub ("·", "",line, re.UNICODE) 
+    line = re.sub (ur"\u2013", "-", line)
     line =  re.sub ("\*", "",line)
-    line =  re.sub(ur"\u2019|\u2018|\u00e2", "\'", line)
-  
+    line =  re.sub(ur"\u2019|\u2018|\u00e2|\u0092|\u2020" , "\'", line)
+    line = re.sub(ur"\u00ae", "", line)
     line =  re.sub(ur"\&", "and", line)
+    
+    
+    
+    if line.find("/") != -1 :
+         line = removeSplash(line)  
+
     line =  re.sub(ur"[B|b]achelor's", "bachelors", line)
     line =  re.sub(ur"[B|b]achelor \'s", "bachelors", line)
     line =  re.sub(ur"[M|m]aster \'s", "masters", line)
     line =  re.sub(ur"[B|b]achelor \' s", "bachelors", line)
-    line =  re.sub(ur"[M|m]aster \' s", "masters", line)
+    line =  re.sub(ur"[M|m]aster \' s", "masters", line)          
    
     line = line.strip()
     if line.find("-")==0 or line.find("\"")==0  \
@@ -38,16 +59,10 @@ def preProcessFun(line):
 dumpLam1 = lambda x: x[0] + " | " + x[1]
 dumpLam2 = lambda x: x[0] + " | " + str( x[1] ) + " | " + x[2]
 
-def preProcess():
-    max_length = 400
-    data_set_name = "matching_degree_1"  
-    target_set_name = "degree_1"     
-        
-  #  data_set_name = "matching_muldegree_3"  
-  #  target_set_name = "degree_3"     
+def preProcess(data_set_name, target_set_name):
     
-    data = datautils.loadJson(data_set_name)
-    tokenMatch =  TokenMatcher("degree")
+    max_length = 200
+    data = datautils.loadJson(data_set_name)    
     newdata = []
     for item in data:
         if len (item[1] ) < max_length : 
@@ -84,27 +99,34 @@ def addLabels(labelDict, items, label):
 def setupLabelDict():
       
     labelDict = {  "or": "OR", "OR": "OR", "and" : "AND" ,  "in": "IN" , "In":"IN" , \
-           "of" : "OF", "and/or" : "AND_OR", "from" :"FROM" }
+           "of" : "OF", "and/or" : "AND_OR", "from" :"FROM" , "with":"WITH" , "at":"AT" }
     BE = ["be", "is", "are", "was", "were", "am"]    
     DT = ["a", "A", "an", "An", "The", "the"]  
     DIGIT = ['one', "two", "three", "four", "five", "seven", "eight", "night", "ten" ]
     DEGREE = ["degree"]
-    HS_LEVEL = ["High School Diploma", "High School"]    
-    AS_LEVEL = ["AS"]
-    BS_LEVEL = ["bachelors", "bachelor" ,"B.S.","BS","BA","BA/BS", "BA/" ,"4-year","4-year", "four year" ]    
+    HS_LEVEL = ["High School Diploma", "High School" ,"GED"]    
+    AS_LEVEL = ["AS","Associate","Associates"]
+    BS_LEVEL = ["bachelors", "bachelor" ,"B.S.","BS","BA","BA/BS", "BA/" ,"4-year","4-year", "four year","college","Undergraduate" ]    
     MS_LEVEL = ["masters", "MS", "M.S.", "master"]
-    PHD_LVEL = ["PhD", "Ph.D", "doctorate"]
-    MAJOR = ["computer science", "CS", "EE", "computer engineering", "Information Systems", "statistics", \
-        "mathematics", "biological sciences", "Physics", "math" , \
-         "engineering", "science", "chemistry" , \
-         "related field" , "related discipline"]
-        
+    PHD_LEVEL = ["PhD", "Ph.D", "doctorate"]
+    MS_PHD_LEVEL = ["Graduate", "advanced" ]
+    DEGREE_JJ = [ "similar", "related","Relevant", "equivalent" ]
+    MAJOR = ["computer science", "CS", "EE", "IS", "computer engineering", "Information Systems",  \
+         "Digital Media", "Information Technology","Software Engineering", "computer programming" ,"statistics", \
+         "mathematics", "biological sciences", "Physics", "math" , "chemistry" , \
+         "related field" , "related discipline", "related area"]
+ 
     MAJOR_DEGREE = ["MBA", "BSCS", "BSEE", "MSCS", "MSEE" ]
-        
-    REQUIRED = ["preferred", "required", "plus", "minimum"]    
-    EQUIVALENT= ["equivalent"]  
-    REQUIRES =  ["Requires" , "have"]
-    EXPERIENCE = ["experience" , "work experience" , "pratical experience" ]
+    MAJOR_WEAK = ["engineering", "science", "Management", "design", "technical" ]
+   
+    PERFER_RB = ["preferably"]  
+    PERFER_NN = ["a plus"]
+    PERFER_VBD = ["preferred", "required","desired" ]    
+    PERFER_JJ = [ "plus", "minimum", "mandatory"]    
+    PERFER_VB =  ["Requires" , "have", "Pursuing"]
+    MD = ["must", "should"]
+    
+    EXPERIENCE = ["experience" , "work experience" , "practical experience" ]
     EDUCATION = ["education"]
     YEAR = ["year", "years", "yr"]
     
@@ -116,17 +138,24 @@ def setupLabelDict():
     addLabels(labelDict, AS_LEVEL, "DE_LEVEL" )
     addLabels(labelDict, BS_LEVEL, "DE_LEVEL" )
     addLabels(labelDict, MS_LEVEL, "DE_LEVEL" )
-    addLabels(labelDict, PHD_LVEL, "DE_LEVEL" )
+    addLabels(labelDict, PHD_LEVEL, "DE_LEVEL" )    
+    addLabels(labelDict, MS_PHD_LEVEL, "MS_PHD_LEVEL" )
+    
     addLabels(labelDict, MAJOR, "MAJOR" )
     addLabels(labelDict, MAJOR_DEGREE, "MAJOR_DE" )
-    addLabels(labelDict, REQUIRED, "REQUIRED" )
-    addLabels(labelDict, EQUIVALENT, "EQUIVALENT" )
-    addLabels(labelDict, REQUIRES, "REQUIRES" )
+    
     addLabels(labelDict, EXPERIENCE, "EXPERIENCE" )
     addLabels(labelDict, EDUCATION, "EDUCATION" )
     addLabels(labelDict, YEAR, "YEAR" )
+    addLabels(labelDict, DEGREE_JJ, "DEGREE_JJ" )
     
-    
+    addLabels(labelDict, PERFER_RB, "PERFER_RB" )
+    addLabels(labelDict, PERFER_NN, "PERFER_NN" )
+    addLabels(labelDict, PERFER_VBD, "PERFER_VBD" )
+    addLabels(labelDict, PERFER_JJ, "PERFER_JJ" )
+    addLabels(labelDict, PERFER_VB, "PERFER_VB" )
+    addLabels(labelDict, MAJOR_WEAK, "MAJOR_WEAK" )
+       
   #  print labelDict
     return labelDict
     
@@ -164,12 +193,11 @@ def labelDegree():
     degreeSent.printSentenct()  
    
     
-def labelDegreeSet():
-    labelGrammer =  createDegreeGrammar()
-    data_set_name = "degree_1"       
+def labelDegreeSet(data_set_name, outfileName):
+    labelGrammer =  createDegreeGrammar()        
     data = datautils.loadJson(data_set_name)
      
-    f = open("label_1.txt", "w")
+    f = open(outfileName, "w")
     for item in data:
     #    print item
         words = item[2].split()
@@ -180,7 +208,7 @@ def labelDegreeSet():
         f.write (  item[0] + "\n\n") 
         
         table = degreeSent.printSentenct()  
-        print table.get_string() + "\n\n"
+   #     print table.get_string() + "\n\n"
         f.write( table.get_string()  + "\n\n" )        
         
 def pipeLine():    
@@ -188,12 +216,27 @@ def pipeLine():
     data = datautils.loadJson(data_set_name)
    # preProcess(data)        
   
+
+def test_removeSplash():
+    line = "dfas feed dfe/df eed and/or de/iri "
+    print removeSplash(line)
+  
 def main(): 
  #  createDegreeGrammar()
  #  beforeDegree()
  #   labelDegree()
  #   preProcess()
-    labelDegreeSet()
+  #  labelDegreeSet()
+ #  test_removeSplash()   
+   
+ #   data_set_name = "matching_degree_1"  
+ #   target_set_name = "degree_1"     
+        
+   data_set_name = "matching_muldegree_3"  
+   target_set_name = "degree_3"
+   outfileName = "degree_3_label.txt"
+   preProcess(data_set_name, target_set_name)
+   labelDegreeSet(target_set_name,outfileName) 
     
 if __name__ == "__main__": 
     main() 
