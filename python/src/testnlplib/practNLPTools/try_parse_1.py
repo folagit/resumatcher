@@ -94,6 +94,11 @@ def test_tree4():
     sent = "Computer Science or related technical degree from an accredited four year university "
     sent = "Degree in Computer Science or Engineering with a high GPA ."    
     sent = "A Master's degree in Computer Science or Engineering is mandatory ."
+    
+    sent = "A Computer Science or related degree "
+    sent = "I love science and SciFi book"
+    sent = "I love music and SciFi book"
+   
     result = annotator.getAnnotations(sent)
     tree_str = result['syntax_tree']
     print     
