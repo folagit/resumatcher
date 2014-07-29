@@ -5,10 +5,12 @@ Created on Sun Jul 27 16:24:09 2014
 @author: dlmu__000
 
 """
+
+from prettytable import PrettyTable
 from tokenfilter import *
 
 class JSentence():
-    puncts = [".", ",", ";","?", "!", ":", "(", ")" ]
+    puncts = [".", ",", ";","?", "!", ":", "(", ")" ,"-" ]
     tagDict = {  }    
     
     def __init__(self, words):
@@ -24,7 +26,8 @@ class JSentence():
             word = self.words[i]     
             if word in  JSentence.puncts :
                 self.tags[i] = (  word , True )  
-            if str.isdigit(word) :
+          #  if str.isdigit(word) :
+            if word.isdigit():
                 self.tags[i] = (  "DIGIT" , True ) 
             elif JSentence.tagDict.has_key(word):
                 self.tags[i] = ( JSentence.tagDict[word], True )
@@ -74,6 +77,19 @@ class JSentence():
                      has_tagged = True
                      break
   
+    def printSentenct(self):
+       
+      lists = [0] * 3 
+      lists[0] = self.words
+      lists[1] = [ "None" if tag is None else tag[0] for tag in self.tags ] 
+      lists[2] = [ " " if tag is None else str(tag[1]) for tag in self.tags ] 
+      
+      x = PrettyTable()
+      x.add_row(lists[0])
+      x.add_row(lists[1])
+      x.add_row(lists[2])
+      return x
+   
 def test_sentence1():
     words = "I am ok or not , with you and me .".split()  
     
@@ -97,7 +113,8 @@ def test_sentence3():
    words = ['B.S.', 'degree', 'in', 'Computer', 'Science', 'required']
    sent = JSentence(words)
    sent.labelWithTuple(( ["B.S."] , "AAAA" ))
-   print sent.tags              
+   print sent.printSentenct()           
+   print sent.tags 
                 
 def main(): 
    test_sentence3()

@@ -17,12 +17,13 @@ import operator
 
 
 def preProcessFun(line):
-    line =  re.sub (ur"\u2022|\u00b7|\uf09f|\uf0a7", "",line)
+    line =  re.sub (ur"\u2022|\u00b7|\uf09f|\uf0a7|\u0080|\u0099", "",line)
     line =  re.sub ("·", "",line, re.UNICODE) 
     line =  re.sub ("\*", "",line)
-    line =  re.sub(ur"\u2019|\u2018", "\'", line)
+    line =  re.sub(ur"\u2019|\u2018|\u00e2", "\'", line)
   
     line =  re.sub(ur"\&", "and", line)
+    line =  re.sub(ur"[B|b]achelor's", "bachelors", line)
     line =  re.sub(ur"[B|b]achelor \'s", "bachelors", line)
     line =  re.sub(ur"[M|m]aster \'s", "masters", line)
     line =  re.sub(ur"[B|b]achelor \' s", "bachelors", line)
@@ -42,14 +43,14 @@ def preProcess():
     data_set_name = "matching_degree_1"  
     target_set_name = "degree_1"     
         
-    data_set_name = "matching_muldegree_3"  
-    target_set_name = "degree_3"     
+  #  data_set_name = "matching_muldegree_3"  
+  #  target_set_name = "degree_3"     
     
     data = datautils.loadJson(data_set_name)
     tokenMatch =  TokenMatcher("degree")
     newdata = []
     for item in data:
-        if len (item[1] ) < 200 : 
+        if len (item[1] ) < max_length : 
             item.append ( preProcessFun(item[1]) )
             item[1] = len(item[2].split())
             newdata.append(item)
@@ -95,14 +96,15 @@ def setupLabelDict():
     PHD_LVEL = ["PhD", "Ph.D", "doctorate"]
     MAJOR = ["computer science", "CS", "EE", "computer engineering", "Information Systems", "statistics", \
         "mathematics", "biological sciences", "Physics", "math" , \
-         "related field" ,"engineering", "science", "chemistry" ]
-         
+         "engineering", "science", "chemistry" , \
+         "related field" , "related discipline"]
+        
     MAJOR_DEGREE = ["MBA", "BSCS", "BSEE", "MSCS", "MSEE" ]
         
     REQUIRED = ["preferred", "required", "plus", "minimum"]    
     EQUIVALENT= ["equivalent"]  
-    REQUIRES =  ["Requires"]
-    EXPERIENCE = ["experience" ]
+    REQUIRES =  ["Requires" , "have"]
+    EXPERIENCE = ["experience" , "work experience" , "pratical experience" ]
     EDUCATION = ["education"]
     YEAR = ["year", "years", "yr"]
     
@@ -157,20 +159,30 @@ def labelDegree():
        
     labelGrammer =  createDegreeGrammar()
   #  printLabelGrammar(labelGrammer)
-    degreeSent = JSentence(sent11.split())
+    degreeSent = JSentence(sent06.split())
     labelGrammer.labelSentence(degreeSent)
-    print degreeSent.words
-    print degreeSent.tags
+    degreeSent.printSentenct()  
+   
     
 def labelDegreeSet():
-    # two letter word need compare orginal    
+    labelGrammer =  createDegreeGrammar()
     data_set_name = "degree_1"       
     data = datautils.loadJson(data_set_name)
-    dict1 = {}
+     
+    f = open("label_1.txt", "w")
     for item in data:
-        words = item[1].split()
-    
- 
+    #    print item
+        words = item[2].split()
+        degreeSent = JSentence(words)
+        labelGrammer.labelSentence(degreeSent)
+       
+        print item[0]
+        f.write (  item[0] + "\n\n") 
+        
+        table = degreeSent.printSentenct()  
+        print table.get_string() + "\n\n"
+        f.write( table.get_string()  + "\n\n" )        
+        
 def pipeLine():    
     data_set_name = "matching_degree_1"       
     data = datautils.loadJson(data_set_name)
@@ -179,7 +191,9 @@ def pipeLine():
 def main(): 
  #  createDegreeGrammar()
  #  beforeDegree()
-    labelDegree()
+ #   labelDegree()
+ #   preProcess()
+    labelDegreeSet()
     
 if __name__ == "__main__": 
     main() 

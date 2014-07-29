@@ -8,9 +8,16 @@ Created on Sun Jul 27 22:17:34 2014
 class LabelGrammer():
     
     def __init__(self, labelDict ):
-        self.labelDict = labelDict 
-        self.ctreateLabelLists()
+        self.labelDict = self.lower(labelDict) 
+        self.ctreateLabelLists()  
+        self.ctreateLabelTuples()
         
+    def ctreateLabelTuples(self):
+        self.labelTuples = []
+        for label in self.labelDict.keys():  
+            tokens = label.split()
+            self.labelTuples.append( (tokens, self.labelDict[label]) )
+        self.labelTuples = sorted (self.labelTuples, key = lambda x: len(x[0]), reverse=True)
     
     def ctreateLabelLists( self ):
         self.singleLabelList = []        
@@ -20,8 +27,19 @@ class LabelGrammer():
             if len(tokens) == 1 :
                 self.singleLabelList.append ( label ) 
             else :
-                self.multiLabelList.append(tokens)
-        self.multiLabelList =sorted (self.multiLabelList, key=len, reverse=True)
+                self.multiLabelList.append( [token.lower() for token in  tokens] )
+        self.multiLabelList = sorted (self.multiLabelList, key=len, reverse=True)
     
     def labelSentence(self, sentence):
-        pass
+        for labelTuple in self.labelTuples:
+            sentence.labelWithTuple(labelTuple)
+    
+    def lower(self, labelDict):
+        newdict = {}
+        for label in  labelDict.keys():
+            tokens = label.split()
+            if len(tokens) == 1 and len(tokens[0]) < 4 :
+                newdict[label] = labelDict[label]
+            else :
+                newdict[label.lower()] = labelDict[label]
+        return newdict
