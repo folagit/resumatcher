@@ -10,7 +10,7 @@ from prettytable import PrettyTable
 from tokenfilter import *
 
 class JSentence():
-    puncts = [".", ",", ";","?", "!", ":", "(", ")" ,"-","+" ]
+    puncts = [".", ",", ";","?", "!", ":", "(", ")" ,"-","+" ,"/" ]
     tagDict = {  }    
     
     def __init__(self, words):

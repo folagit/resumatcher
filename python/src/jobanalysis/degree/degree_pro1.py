@@ -48,7 +48,9 @@ def preProcessFun(line):
     line =  re.sub(ur"[B|b]achelor \'s", "bachelors", line)
     line =  re.sub(ur"[M|m]aster \'s", "masters", line)
     line =  re.sub(ur"[B|b]achelor \' s", "bachelors", line)
-    line =  re.sub(ur"[M|m]aster \' s", "masters", line)          
+    line =  re.sub(ur"[B|b]achelor s", "bachelors", line)
+    line =  re.sub(ur"[M|m]aster \' s", "masters", line)    
+    line =  re.sub(ur"[A|a]ssociate \' s", "associates", line)      
    
     line = line.strip()
     if line.find("-")==0 or line.find("\"")==0  \
@@ -99,36 +101,44 @@ def addLabels(labelDict, items, label):
 def setupLabelDict():
       
     labelDict = {  "or": "OR", "OR": "OR", "and" : "AND" ,  "in": "IN" , "In":"IN" , \
-           "of" : "OF", "and/or" : "AND_OR", "from" :"FROM" , "with":"WITH" , "at":"AT" }
-    BE = ["be", "is", "are", "was", "were", "am"]    
+           "of" : "OF", "and/or" : "AND_OR", "from" :"FROM" , "with":"WITH" , \
+           "at":"AT" ,"about":"ABOUT" , "for" : "FOR" }
+    BE = ["Be","be", "is", "are", "was", "were", "am"]    
     DT = ["a", "A", "an", "An", "The", "the"]  
     DIGIT = ['one', "two", "three", "four", "five", "seven", "eight", "night", "ten" ]
-    DEGREE = ["degree"]
+    DEGREE = ["degree","degrees"]
     HS_LEVEL = ["High School Diploma", "High School" ,"GED"]    
-    AS_LEVEL = ["AS","Associate","Associates"]
-    BS_LEVEL = ["bachelors", "bachelor" ,"B.S.","BS","BA","BA/BS", "BA/" ,"4-year","4-year", "four year","college","Undergraduate" ]    
-    MS_LEVEL = ["masters", "MS", "M.S.", "master"]
-    PHD_LEVEL = ["PhD", "Ph.D", "doctorate"]
+    AS_LEVEL = ["AS","Associate","Associates", "AA", "A.A."]
+    BS_LEVEL = ["Baccalaureate","bachelors", "bachelor" ,"B.S.","BS","BA","BA/BS", "BABS", "B.A." ,"4-year","4-year", "four year","college","Undergraduate" , "University" ]    
+    MS_LEVEL = ["masters", "MS", "M.S.", "master", "MA" , "MSc"]
+    PHD_LEVEL = ["PhD", "Ph.D", "doctorate" ]
     MS_PHD_LEVEL = ["Graduate", "advanced" ]
     DEGREE_JJ = [ "similar", "related","Relevant", "equivalent" ]
-    MAJOR = ["computer science", "CS", "EE", "IS", "computer engineering", "Information Systems",  \
+    MAJOR = ["computer science", "CS", "CE" ,"EE", "IS", "computer engineering", "Information Systems",  \
          "Digital Media", "Information Technology","Software Engineering", "computer programming" ,"statistics", \
-         "mathematics", "biological sciences", "Physics", "math" , "chemistry" , \
-         "related field" , "related discipline", "related area"]
- 
+         "Applied Mathematics", "mathematics", "biological sciences", "Physics", "math" , "chemistry" , \
+         "signal processing","Electrical Engineering ", "Information Sciences","MIS", "CIS", "GIS" , "IT", "Telecom" , "Computing Science " , "Technology Management" , "Technology",
+         "Marketing", "Business", "Finance" , "Economics", "accounting",        
+         "Web Development","Web Design",  "Communications", "Communication Sciences","Interactive Design"   , "Journalism",        
+         "related field" , "related discipline", "related area"
+         "relevant discipline" ,  "related discipline" ,"related subject", "relevant subject" ]
+                            
     MAJOR_DEGREE = ["MBA", "BSCS", "BSEE", "MSCS", "MSEE" ]
     MAJOR_WEAK = ["engineering", "science", "Management", "design", "technical" ]
    
     PERFER_RB = ["preferably"]  
-    PERFER_NN = ["a plus"]
+    PERFER_NN = [ "a plus", "at least" ]
     PERFER_VBD = ["preferred", "required","desired" ]    
-    PERFER_JJ = [ "plus", "minimum", "mandatory"]    
-    PERFER_VB =  ["Requires" , "have", "Pursuing"]
-    MD = ["must", "should"]
+    PERFER_JJ = [ "plus", "minimum", "mandatory","desirable"]    
+    PERFER_VB =  ["Requires" , "have", "Pursuing", "Prefer"]
+    MD = ["must", "should","would"]
+    HIGHER_JJ = ["above", "higher","greater","better"]
     
-    EXPERIENCE = ["experience" , "work experience" , "practical experience" ]
+    EXPERIENCE = ["experience" , "work experience" , "practical experience" ,"professional experience" ]
     EDUCATION = ["education"]
     YEAR = ["year", "years", "yr"]
+    QUALIFICATION = ["Qualifications", "Qualification"]
+    APPLICANT = [ "Applicant" ,"Applicants" ,"candidate"]
     
     addLabels(labelDict, BE, "BE" )  
     addLabels(labelDict, DT, "DT" )  
@@ -155,6 +165,11 @@ def setupLabelDict():
     addLabels(labelDict, PERFER_JJ, "PERFER_JJ" )
     addLabels(labelDict, PERFER_VB, "PERFER_VB" )
     addLabels(labelDict, MAJOR_WEAK, "MAJOR_WEAK" )
+    addLabels(labelDict, HIGHER_JJ, "HIGHER_JJ" )
+    addLabels(labelDict, MD, "MD" )
+    addLabels(labelDict, QUALIFICATION, "QUALIFICATION" )
+    addLabels(labelDict, APPLICANT, "APPLICANT" )
+    
        
   #  print labelDict
     return labelDict
