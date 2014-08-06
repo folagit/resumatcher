@@ -220,3 +220,4 @@ pip-log.txt
 python/src/cronjob/data
 python/src/jobanalysis/titles
 python/src/jobanalysis/sents
+python/src/try/dot/outfiles
