@@ -1,14 +1,20 @@
 # -*- coding: utf-8 -*-
 """
+Created on Wed Aug 06 00:52:49 2014
+
+@author: dlmu__000
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Sat Aug 02 22:39:36 2014
 
 @author: dlmu__000
 """
 
-
-from restates import *
+from restates import *        
     
-class FstMachine:
+class TokenRegex:
     
     def __init__(self, item):
         self.nextId = 1
@@ -32,20 +38,19 @@ class FstMachine:
     def createFst(self, item):
         start, end = self.compileItem(item)
         
-        if isinstance(start, MatchState)  :
-            self.start = self.createState()                     
-            self.start.addNextState(start)
-        else:
-            self.start = start
-        self.start.setStart()   
         
-        self.final = end
-        self.final.setFinal()
-        
+        self.start = self.createState()  
+        self.start.setStart() 
+        for stat in  start:                  
+            self.start.addNextState(stat)
+         
+        for stat in end:
+            stat.setFinal()
+       
     def compileItem(self, item):
          if type(item) is str:
                 state = self.createMatchState(item)
-                return state, state
+                return [state], [state]
                 
          elif type(item) is list:
              return self.compileArray(item)
@@ -62,60 +67,60 @@ class FstMachine:
          elif isinstance(item, StarRepetition) :
              return self.compileStar(item)
      
-    def compileQuestion(self, item):
-        start = self.createState()       
-        subStart, subEnd = self.compileItem(item.item)
-        end = self.createState()
-        start.addNextState(subStart)
-        start.addNextState(end)      
-        subEnd.addNextState(end)
-        return start, end
+    def compileQuestion(self, item):  
+        start = self.createState()               
+        subStart, subEnd = self.compileItem(item.item)        
+        
+        start.extendNextStates(subStart)  
+        subEnd.append(start)
+        return [start], subEnd 
         
     def compileStar(self, item):
         start = self.createState()       
         subStart, subEnd = self.compileItem(item.item)
         end = self.createState()
-        start.addNextState(subStart)
-        start.addNextState(end)
-        subEnd.addNextState(subStart)
-        subEnd.addNextState(end)
-        return start, end
+        start.extendNextStates(subStart)
+        start.extendNextStates(end)
+        subEnd.extendNextStates(subStart)
+        subEnd.extendNextStates(end)
+        return [start], [end]
         
     def compilePlus(self, item):
         start = self.createState()        
         subStart, subEnd = self.compileItem(item.item)
         end = self.createState()
-        start.addNextState(subStart)        
-        subEnd.addNextState(subStart)
-        subEnd.addNextState(end)
-        return start, end
+        start.extendNextStates(subStart)        
+        subEnd.extendNextStates(subStart)
+        subEnd.extendNextStates(end)
+        return [start], [end]
              
     def compileAlternate(self, item):
         
-        start = self.createState()
-        end = self.createState()
+        start = []
+        end = []
         for subitem in item.alternates: 
             subStart, subEnd = self.compileItem(subitem)
-            start.addNextState(subStart)
-            subEnd.addNextState(end)
+            start.extend(subStart)
+            end.extend(subEnd)
         return start, end
         
         
     def compileArray(self , array):
         
-        startState = None        
+        startStates = None        
         current = None
         
         for item in array:
             subStart, subEnd = self.compileItem(item)
-            if startState is None:
-                startState = subStart
+            if startStates is None:
+                startStates = subStart
                 current = subEnd
-            else:
-                current.addNextState(subStart)
+            else:           
+                for stat in current:                   
+                    stat.extendNextStates(subStart)                
                 current = subEnd
                 
-        return startState, current
+        return startStates, current
                
         
     def match(self, seq ):

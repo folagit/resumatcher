@@ -8,7 +8,7 @@ Created on Tue Aug 05 22:08:26 2014
 from graphviz import Digraph
 import os
 import subprocess
-from fst import FstMachine, MatchState
+from restates import *
 
 def createPng(fileName):
     dotfile = 'C:\\graphviz-2.38\\release\\bin\\dot.exe'
