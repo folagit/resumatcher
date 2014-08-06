@@ -36,9 +36,7 @@ class TokenRegex:
         return sat
         
     def createFst(self, item):
-        start, end = self.compileItem(item)
-        
-        
+        start, end = self.compileItem(item)        
         self.start = self.createState()  
         self.start.setStart() 
         for stat in  start:                  
@@ -78,21 +76,19 @@ class TokenRegex:
     def compileStar(self, item):
         start = self.createState()       
         subStart, subEnd = self.compileItem(item.item)
-        end = self.createState()
+       
         start.extendNextStates(subStart)
-        start.extendNextStates(end)
-        subEnd.extendNextStates(subStart)
-        subEnd.extendNextStates(end)
-        return [start], [end]
+        for stat in subEnd:
+            stat.extendNextStates(subStart)
         
-    def compilePlus(self, item):
-        start = self.createState()        
-        subStart, subEnd = self.compileItem(item.item)
-        end = self.createState()
-        start.extendNextStates(subStart)        
-        subEnd.extendNextStates(subStart)
-        subEnd.extendNextStates(end)
-        return [start], [end]
+        subEnd.append(start)
+        return [start], subEnd 
+        
+    def compilePlus(self, item):             
+        subStart, subEnd = self.compileItem(item.item) 
+        for stat in subEnd:
+           stat.extendNextStates(subStart)        
+        return subStart, subEnd
              
     def compileAlternate(self, item):
         
