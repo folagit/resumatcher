@@ -221,3 +221,4 @@ python/src/cronjob/data
 python/src/jobanalysis/titles
 python/src/jobanalysis/sents
 python/src/try/dot/outfiles
+python/src/jobaly/fst/outfiles

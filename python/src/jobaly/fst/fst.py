@@ -21,16 +21,16 @@ class StateFrag:
 class BaseState:
     
      def __init__(self, _id):
-         self._id = _id
+         self._id = str(_id)
          self.outStates = []
-         self.final = False
-         self.start = False
+         self.isFinal = False
+         self.isStart = False
          
      def setFinal(self ):
-         self.final = True
+         self.isFinal = True
          
      def setStart(self):
-         self.start = True
+         self.isStart = True
      
      def addNextState(self, state):
          self.outStates.append(state)
@@ -51,7 +51,7 @@ class FstMachine:
         self.count = 0
         self.stateList = []
         self.createFst(item)
-        
+       
      
     def createState(self):
         sat = BaseState(self.nextId)
@@ -66,8 +66,17 @@ class FstMachine:
         return sat
         
     def createFst(self, item):
-        self.start, self.end = self.compileItem(item)
-        self.end.setFinal()
+        start, end = self.compileItem(item)
+        
+        if isinstance(start, MatchState)  :
+            self.start = self.createState()                     
+            self.start.addNextState(start)
+        else:
+            self.start = start
+        self.start.setStart()   
+        
+        self.final = end
+        self.final.setFinal()
         
     def compileItem(self, item):
          if type(item) is str:
