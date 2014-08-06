@@ -42,15 +42,18 @@ class FstGraph:
     def parseFst(self):
         
         for state in  self.fst.stateList:
-            
+            shape = "circle"
+            label = state._id
             if state.isStart :
-                shape = "point"
+              #  shape = "point"
               #  shape = "circle"
-            elif state.isFinal:
+                shape = "circle"
+                label = "S"
+            if state.isFinal:
                 shape = "doublecircle"
-            else :
-                 shape = "circle"
-            self.graph.node( state._id, state._id , {"shape":shape} )
+             
+                 
+            self.graph.node( state._id, label , {"shape":shape} )
         
         for state in  self.fst.stateList:
             for nextState in state.outStates:

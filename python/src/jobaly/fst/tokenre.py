@@ -36,7 +36,7 @@ class TokenRegex:
         return sat
         
     def createFst(self, item):
-        start, end = self.compileItem(item)        
+        start, end, couldpass = self.compileItem(item)        
         self.start = self.createState()  
         self.start.setStart() 
         for stat in  start:                  
@@ -44,11 +44,13 @@ class TokenRegex:
          
         for stat in end:
             stat.setFinal()
+        if couldpass:
+            self.start.setFinal()
        
     def compileItem(self, item):
          if type(item) is str:
                 state = self.createMatchState(item)
-                return [state], [state]
+                return [state], [state], False
                 
          elif type(item) is list:
              return self.compileArray(item)
@@ -66,57 +68,54 @@ class TokenRegex:
              return self.compileStar(item)
      
     def compileQuestion(self, item):  
-        start = self.createState()               
-        subStart, subEnd = self.compileItem(item.item)        
+                     
+        subStart, subEnd, couldpass = self.compileItem(item.item)         
+        return subStart, subEnd, True 
         
-        start.extendNextStates(subStart)  
-        subEnd.append(start)
-        return [start], subEnd 
-        
-    def compileStar(self, item):
-        start = self.createState()       
-        subStart, subEnd = self.compileItem(item.item)
-       
-        start.extendNextStates(subStart)
+    def compileStar(self, item):           
+        subStart, subEnd, couldpass = self.compileItem(item.item)
         for stat in subEnd:
             stat.extendNextStates(subStart)
-        
-        subEnd.append(start)
-        return [start], subEnd 
+        return  subStart, subEnd, True 
         
     def compilePlus(self, item):             
-        subStart, subEnd = self.compileItem(item.item) 
+        subStart, subEnd, couldpass = self.compileItem(item.item) 
         for stat in subEnd:
            stat.extendNextStates(subStart)        
-        return subStart, subEnd
+        return subStart, subEnd, (False or couldpass)
              
     def compileAlternate(self, item):
         
         start = []
         end = []
+        couldpass = False
         for subitem in item.alternates: 
-            subStart, subEnd = self.compileItem(subitem)
+            subStart, subEnd, subpass = self.compileItem(subitem)
             start.extend(subStart)
             end.extend(subEnd)
-        return start, end
+            couldpass = couldpass or subpass
+        return start, end, couldpass
         
         
     def compileArray(self , array):
         
         startStates = None        
         current = None
-        
+        couldpass = True
         for item in array:
-            subStart, subEnd = self.compileItem(item)
+            subStart, subEnd, subpass = self.compileItem(item)
+            couldpass = couldpass and subpass            
             if startStates is None:
                 startStates = subStart
                 current = subEnd
             else:           
                 for stat in current:                   
-                    stat.extendNextStates(subStart)                
+                    stat.extendNextStates(subStart) 
+                if subpass:
+                    subEnd.extend(current)
                 current = subEnd
                 
-        return startStates, current
+        return startStates, current, couldpass
                
         
     def match(self, seq ):
