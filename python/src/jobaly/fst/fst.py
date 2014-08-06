@@ -10,13 +10,19 @@ Created on Sat Aug 02 22:39:36 2014
 class Alternate:
     
     def __init__(self, array):
-        self.alternates = array
+        self.alternates = array 
         
-class StateFrag:
-    
-    def __init__(self, start, outList):
-        self.startState = start
-        self.outList = outList
+class QuestionRepetition:
+     def __init__(self, item):
+        self.item = item 
+        
+class PlusRepetition:
+     def __init__(self, item):
+        self.item = item 
+        
+class StarRepetition:
+     def __init__(self, item):
+        self.item = item 
 
 class BaseState:
     
@@ -82,10 +88,49 @@ class FstMachine:
          if type(item) is str:
                 state = self.createMatchState(item)
                 return state, state
-         if type(item) is Alternate:
-             return self.compileAlternate(item)
-         if type(item) is list:
+                
+         elif type(item) is list:
              return self.compileArray(item)
+             
+         elif isinstance(item, Alternate) :
+             return self.compileAlternate(item)
+             
+         elif isinstance(item, QuestionRepetition) :
+             return self.compileQuestion(item)
+             
+         elif isinstance(item, PlusRepetition) :
+             return self.compilePlus(item)   
+             
+         elif isinstance(item, StarRepetition) :
+             return self.compileStar(item)
+     
+    def compileQuestion(self, item):
+        start = self.createState()       
+        subStart, subEnd = self.compileItem(item.item)
+        end = self.createState()
+        start.addNextState(subStart)
+        start.addNextState(end)      
+        subEnd.addNextState(end)
+        return start, end
+        
+    def compileStar(self, item):
+        start = self.createState()       
+        subStart, subEnd = self.compileItem(item.item)
+        end = self.createState()
+        start.addNextState(subStart)
+        start.addNextState(end)
+        subEnd.addNextState(subStart)
+        subEnd.addNextState(end)
+        return start, end
+        
+    def compilePlus(self, item):
+        start = self.createState()        
+        subStart, subEnd = self.compileItem(item.item)
+        end = self.createState()
+        start.addNextState(subStart)        
+        subEnd.addNextState(subStart)
+        subEnd.addNextState(end)
+        return start, end
              
     def compileAlternate(self, item):
         

@@ -123,4 +123,15 @@ def test10():
     else:
         print 'did not find'
         
-test10()
+def test11():
+    sent1 = 'fabbbccc'     
+   
+    match = re.search(r'.((ab)+)+', sent1)
+   
+    
+    if match:                      
+        print 'found', match.group() ## 'found word:cat'
+    else:
+        print 'did not find'
+        
+test11()
