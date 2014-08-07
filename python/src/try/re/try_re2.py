@@ -134,4 +134,15 @@ def test11():
     else:
         print 'did not find'
         
-test11()
+def test12():
+    sent1 = 'fabbbccc'     
+   
+    match = re.search(r'a|', sent1)
+   
+    
+    if match:                      
+        print 'found', match.group() ## 'found word:cat'
+    else:
+        print 'did not find'
+        
+test12()

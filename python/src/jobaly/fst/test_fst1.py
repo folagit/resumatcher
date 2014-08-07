@@ -74,4 +74,13 @@ def test7():
     grapth = FstGraph(fst)
     grapth.draw("outfiles//test6")
     
-test7()
+def test8():
+    item1 =  ["a","b","c"] 
+    item2 =   [item1,item1 ] 
+    item3 =   Alternate(["a","a"]) 
+    item4 =   Alternate([item3 , item3]) 
+    fst = FstMachine(item4)    
+    grapth = FstGraph(fst)
+    grapth.draw("outfiles//test8")
+    
+test8()

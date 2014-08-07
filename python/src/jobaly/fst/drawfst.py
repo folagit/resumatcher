@@ -16,7 +16,7 @@ def createPng(fileName):
     #cmd=[dotfile, '-Tpdf', '-O', 'round-table.gv']
     returncode = subprocess.Popen(cmd).wait()
     os.startfile(os.path.normpath(fileName+".png"))
-    print "returncode=", returncode
+  #  print "returncode=", returncode
     
 def createDotFile(dot,fileName):
     

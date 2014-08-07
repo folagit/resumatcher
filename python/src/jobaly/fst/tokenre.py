@@ -97,8 +97,7 @@ class TokenRegex:
         return start, end, couldpass
         
         
-    def compileArray(self , array):
-        
+    def compileArray(self , array):        
         startStates = None        
         current = None
         couldpass = True
@@ -116,34 +115,38 @@ class TokenRegex:
                 current = subEnd
                 
         return startStates, current, couldpass
-               
         
-    def match(self, seq ):
-        self.current = self.startState
-        i = 0  
-        self.tempList = []
-        result = self.greedyMatch(seq, i , self.current)
-        
+    def _match(self, seq ):
+        cur = self.start
+        track = []    
+        i = 0        
+        j = 0      
             
-    def greedyMatch(   seq  , current ):
-        i = 0             
-        traq=[0]*len(seq)
-        j = 0
-        while i <  len(seq):
-            item = seq[i]   
-            while j < len(current.outArcs):
-                arc = current.outArcs[j]
-                if item == arc.inc :
-                    self.tempList.append( (arc, item) )
-                    traq[i] = j
-                    current = arc.toState 
+        while i<len(seq) :
+            token = seq[i]       
+            if len(cur.outStates) == 0:
+                track.append((cur,-1,-1))
+                return track
+            while j < len (cur.outStates):
+                stat = cur.outStates[j]
+                if token != stat.matcher :  
+                    j+=1
+                else:
+                    track.append((cur,j,i))
+                    cur = stat
                     i += 1
                     j = 0
                     break
-            if j == len(seq):
-                i-=1
-                j = traq[i] + 1
-               
-     
+            if j == len (cur.outStates) :
+                if cur.isFinal:
+                    track.append((cur,-1,-1))
+                    return track
+                elif len(track) == 0:
+                    i+=1
+                    j = 0
+                else:
+                    cur , j , i  = track.pop()
+                    
+        return track            
     
         

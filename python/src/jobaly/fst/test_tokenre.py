@@ -77,4 +77,25 @@ def test7():
     grapth = FstGraph(fst)
     grapth.draw("outfiles//test6")
     
-test6()
+def test8():
+    item1 = Alternate(["a","b"])     
+    item2 = QuestionRepetition(Alternate(["d","e" ]))  
+    item3 = StarRepetition(["f","g" ])    
+    item4 = PlusRepetition(["h","i" ])
+    
+    item8 = [item1,item2, item3, item4]
+    
+    fst = TokenRegex(item8)    
+    grapth = FstGraph(fst)
+    grapth.draw("outfiles//test8")
+    
+def test9():
+    item1 =  ["a","b","c"] 
+    item2 =   [item1,item1 ] 
+    item3 =   Alternate(["a","a"]) 
+    item4 =   Alternate([item3 , item3]) 
+    fst = TokenRegex(item4)    
+    grapth = FstGraph(fst)
+    grapth.draw("outfiles//test9")
+    
+test9()
