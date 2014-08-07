@@ -12,7 +12,20 @@ Created on Sat Aug 02 22:39:36 2014
 @author: dlmu__000
 """
 
-from restates import *        
+from restates import *   
+from prettytable import PrettyTable
+
+def printTrack(track):       
+    x = PrettyTable(["state","last", "i", "j", "token"])   
+
+    for  state, last , j, i  in   track:
+           lastid = last._id if last is not None else ""
+           matcher = state.matcher if isinstance(state,MatchState) else ""
+           x.add_row([state._id, lastid, i, j,  matcher ])     
+                    
+           
+    print x.get_string()   
+    print
     
 class TokenRegex:
     
@@ -121,7 +134,7 @@ class TokenRegex:
         track = []    
         i = 0        
         j = 0      
-            
+        track.append((cur, None, -1, -1))    
         while i<len(seq) :
             token = seq[i]       
             if len(cur.outStates) == 0:                
@@ -144,6 +157,10 @@ class TokenRegex:
                     j = 0
                 else:
                     stat , cur , j , i  = track.pop()
+                    j += 1
+            
+       #     print "i=",i        
+       #     printTrack(track)
                     
         return track            
     

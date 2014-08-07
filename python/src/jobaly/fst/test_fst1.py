@@ -83,4 +83,20 @@ def test8():
     grapth = FstGraph(fst)
     grapth.draw("outfiles//test8")
     
-test8()
+def test9():
+    pattern1 = Alternate(["ccc","fff"])   
+    pattern2 = [ "bbb", pattern1 ]
+    pattern3 = [pattern2,"ggg"]
+    
+    pattern4 = ["bbb","ccc"]
+    pattern5 = Alternate([pattern4,"bbb"]) 
+    pattern6 = Alternate(["bbb",pattern4])
+    pattern7 = Alternate([ ["bbb","ddd"],pattern4])
+    pattern8 = ["aaa", Alternate([pattern3, pattern7 ]) ,"ddd" ]
+    
+    
+    fst = FstMachine(pattern8)    
+    grapth = FstGraph(fst)
+    grapth.draw("outfiles//test9")
+    
+test9()
