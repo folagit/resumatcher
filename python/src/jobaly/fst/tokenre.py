@@ -124,28 +124,26 @@ class TokenRegex:
             
         while i<len(seq) :
             token = seq[i]       
-            if len(cur.outStates) == 0:
-                track.append((cur,-1,-1))
+            if len(cur.outStates) == 0:                
                 return track
             while j < len (cur.outStates):
                 stat = cur.outStates[j]
                 if token != stat.matcher :  
                     j+=1
                 else:
-                    track.append((cur,j,i))
+                    track.append((stat, cur, j, i))
                     cur = stat
                     i += 1
                     j = 0
                     break
             if j == len (cur.outStates) :
-                if cur.isFinal:
-                    track.append((cur,-1,-1))
+                if cur.isFinal:                    
                     return track
                 elif len(track) == 0:
                     i+=1
                     j = 0
                 else:
-                    cur , j , i  = track.pop()
+                    stat , cur , j , i  = track.pop()
                     
         return track            
     

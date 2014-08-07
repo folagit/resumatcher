@@ -9,15 +9,11 @@ from drawfst import FstGraph
 from prettytable import PrettyTable
 
 def printTrack(track):       
-    x = PrettyTable(["state", "i", "j","matcher","token"])   
+    x = PrettyTable(["state","last", "i", "j", "token"])   
   
-    for  state , j, i  in   track:  
-       if j != -1 : 
-           matcher = state.outStates[j] 
-           x.add_row([state._id, i, j, matcher._id, matcher.matcher ])     
-        # x.add_row([state._id, i, j, "","" ])  
-       else :
-           x.add_row([state._id, i, j, "","" ])                
+    for  state, last , j, i  in   track:
+           x.add_row([state._id, last._id, i, j,  state.matcher ])     
+                    
            
     print x.get_string()
 
@@ -30,11 +26,28 @@ def test1():
     pattern4 = "ddd"
     pattern5 = "eee"
     
-    fst = TokenRegex(pattern5) 
+    fst = TokenRegex(pattern4) 
     track =  fst._match(tokens) 
     printTrack(track)
     
     grapth = FstGraph(fst)
     grapth.draw("outfiles//test_tokenre2_1")
     
-test1()
+def test2():
+    tokens = ["aaa","bbb","ccc","ddd"]    
+    
+    pattern1 = Alternate(["ccc","fff"])
+   
+    pattern2 = [ "bbb", pattern1 ]
+    pattern3 = [pattern2,"ggg"]
+    pattern4 = "ddd"
+    pattern5 = "eee"
+    
+    fst = TokenRegex(pattern3) 
+ #   track =  fst._match(tokens) 
+ #   printTrack(track)
+    
+    grapth = FstGraph(fst)
+    grapth.draw("outfiles//test_tokenre2_1")
+    
+test2()
