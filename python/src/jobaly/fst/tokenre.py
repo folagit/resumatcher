@@ -130,38 +130,40 @@ class TokenRegex:
         return startStates, current, couldpass
         
     def _match(self, seq ):
-        cur = self.start
+        last = self.start
         track = []    
         i = 0        
-        j = 0      
-        track.append((cur, None, -1, -1))    
+        j = 0           
+     #   
         while i<len(seq) :
             token = seq[i]       
-            if len(cur.outStates) == 0:                
-                return track
-            while j < len (cur.outStates):
-                stat = cur.outStates[j]
-                if token != stat.matcher :  
+            if  len(last.outStates) == 0:                
+                break
+            while j < len (last.outStates):
+                cur = last.outStates[j]
+                if token != cur.matcher :  
                     j+=1
                 else:
-                    track.append((stat, cur, j, i))
-                    cur = stat
+                    track.append((cur, last, j, i))
+                    last = cur
                     i += 1
                     j = 0
                     break
-            if j == len (cur.outStates) :
-                if cur.isFinal:                    
-                    return track
+            if j == len (last.outStates) :
+                if last.isFinal:                    
+                    break
                 elif len(track) == 0:
                     i+=1
                     j = 0
                 else:
-                    stat , cur , j , i  = track.pop()
+                    cur , last , j , i  = track.pop()
                     j += 1
             
-       #     print "i=",i        
+       #     print "i=",i , "  len=",   len(track)     
        #     printTrack(track)
-                    
+            
+        if   len(track) == 0 and self.start.isFinal :
+             track.append((self.start, None, -1, -1))   
         return track            
     
         

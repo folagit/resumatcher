@@ -47,7 +47,7 @@ def test2():
     printTrack(track)
     
 def test3():
-    tokens = ["000","aaa","bbb","aaa","bbb","ccc","ddd","eee"]    
+    tokens = ["bbb","aaa","bbb","ccc","ddd","eee"]    
     
     pattern1 = QuestionRepetition(["bbb","ccc"])   
     pattern2 = [ "aaa", pattern1,"ddd" ]
@@ -59,7 +59,7 @@ def test3():
     pattern7 = Alternate([ ["bbb","ddd"],pattern4])
     pattern8 = [ QuestionRepetition(Alternate([pattern3, pattern4 ])) ,"ddd" ]
     
-    fst = TokenRegex(pattern1) 
+    fst = TokenRegex(pattern8) 
     
     grapth = FstGraph(fst)
     grapth.draw("outfiles//test_tokenre2_3")
