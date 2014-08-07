@@ -68,4 +68,58 @@ def test3():
     print "==================================="
     printTrack(track)   
     
-test3()
+def test4():
+    tokens = ["000","aaa","bbb","aaa","bbb","ccc","ddd","eee"]    
+    
+    pattern1 = PlusRepetition(["ccc","fff"])   
+    pattern2 = PlusRepetition(["aaa","bbb"])   
+    pattern3 = ["bbb",pattern2]
+    
+    pattern4 = [pattern2,"ccc"]
+    
+    fst = TokenRegex(pattern4) 
+    
+    grapth = FstGraph(fst)
+    grapth.draw("outfiles//test_tokenre2_4")
+    
+    track =  fst._match(tokens) 
+    print "==================================="
+    printTrack(track)
+    
+def test5():
+    tokens = [ "aaa","bbb","aaa","bbb","ccc","ddd","eee"]    
+    
+    pattern1 = StarRepetition(["ccc","fff"])   
+    pattern2 = StarRepetition(["aaa","bbb"])   
+    pattern3 = ["bbb",pattern2]
+    
+    pattern4 = [pattern2,"ccc"]
+    
+    fst = TokenRegex(pattern4) 
+    
+    grapth = FstGraph(fst)
+    grapth.draw("outfiles//test_tokenre2_5")
+    
+    track =  fst._match(tokens) 
+    print "==================================="
+    printTrack(track)
+    
+def test6():
+    tokens = [ "aaa","bbb" ]    
+    
+    pattern1 =  [ "aaa","bbb"]    
+    pattern2 =  [ "aaa","bbb","ccc"]    
+    pattern3 = Alternate([ pattern2 , [ "bbb"] ])
+    
+    pattern4 = [pattern1,"ccc"]
+    
+    fst = TokenRegex(pattern4) 
+    
+    grapth = FstGraph(fst)
+    grapth.draw("outfiles//test_tokenre2_6")
+    
+    track =  fst._match(tokens) 
+    print "==================================="
+    printTrack(track)
+    
+test6()

@@ -34,7 +34,7 @@ class TokenRegex:
         self.count = 0
         self.stateList = []
         self.createFst(item)
-       
+        self.isMatch = False
      
     def createState(self):
         sat = BaseState(self.nextId)
@@ -128,6 +128,19 @@ class TokenRegex:
                 current = subEnd
                 
         return startStates, current, couldpass
+     
+    def match(self,seq):
+       self.track = self._match(seq)
+       self.isMatch = False
+       for   cur , last , j , i  in  track:
+           if cur.isFinal :
+               self.isMatch = True
+               break
+       return self.isMatch
+       
+    def getFound(self ):
+        if self.isMatch:
+            return self.track
         
     def _match(self, seq ):
         last = self.start
@@ -144,11 +157,15 @@ class TokenRegex:
                 if token != cur.matcher :  
                     j+=1
                 else:
-                    track.append((cur, last, j, i))
-                    last = cur
-                    i += 1
-                    j = 0
-                    break
+                    if  i == (len(seq) - 1 ) and (not cur.isFinal) :
+                        j += 1
+                    else :
+                        track.append((cur, last, j, i))
+                        last = cur
+                        i += 1
+                        j = 0
+                        break
+                    
             if j == len (last.outStates) :
                 if last.isFinal:                    
                     break

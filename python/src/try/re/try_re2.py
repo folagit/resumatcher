@@ -135,14 +135,28 @@ def test11():
         print 'did not find'
         
 def test12():
-    sent1 = 'fabbbccc'     
-   
+    sent1 = 'fabbbccc'        
     match = re.search(r'a|', sent1)
-   
-    
     if match:                      
         print 'found', match.group() ## 'found word:cat'
     else:
         print 'did not find'
         
-test12()
+def test13():
+    sent1 = 'fabbbccc'        
+    match = re.search(r'a*|f', sent1)
+    if match:                      
+        print 'found', match.group() ## 'found word:cat'
+    else:
+        print 'did not find'
+        
+def test14():
+    sent1 = 'ab'        
+    match = re.search(r'abc', sent1)
+    match = re.search(r'abc|ab', sent1)
+    if match:                      
+        print 'found', match.group() ## 'found word:cat'
+    else:
+        print 'did not find'
+        
+test14()
