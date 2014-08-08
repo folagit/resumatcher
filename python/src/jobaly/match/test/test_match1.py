@@ -13,6 +13,7 @@ from matcher  import *
  
 
 tokens1 = ["aaa","bbb","ccc","ddd"]
+tokens2 = ["aaa","bbb","aaa","bbb","aaa","bbb","aaa","bbb","ccc","ddd"]
 
 class TestMatch1(unittest.TestCase):    
 
@@ -51,7 +52,31 @@ class TestMatch1(unittest.TestCase):
         self.assertEqual( seq1(tokens1), 3 )
         self.assertEqual( seq2(tokens1), 4 )
         self.assertEqual( seq3(tokens1), -1 )
-         
+        
+    
+    def test_Alternate(self):        
+        matcher1 = TokenMatcher("aaa") 
+        matcher2 = TokenMatcher(["bbb","ccc"]) 
+        matcher3 = TokenMatcher([ "ddd"]) 
+        
+        alternate1 = AlternateMatcher([matcher1,matcher2])
+        alternate2 = AlternateMatcher([matcher2,matcher3])
+        alternate3 = AlternateMatcher([matcher1,matcher3])  
+        
+        self.assertEqual( alternate1(tokens1), 1 ) 
+        self.assertEqual( alternate2(tokens1), -1 ) 
+        
+    def test_repeat(self):        
+        matcher1 = StarMatcher(TokenMatcher(["aaa","bbb" ])) 
+        matcher2 = StarMatcher(["bbb","ccc"]) 
+        matcher3 = TokenMatcher("ccc") 
+        
+        seq1 = SeqMatcher([matcher1,matcher3])
+        alternate2 = AlternateMatcher([matcher2,matcher3])
+        alternate3 = AlternateMatcher([matcher1,matcher3])  
+        
+        self.assertEqual( matcher1(tokens2), 8 ) 
+        self.assertEqual( seq1(tokens2), 9 ) 
     
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestMatch1)

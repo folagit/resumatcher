@@ -159,4 +159,13 @@ def test14():
     else:
         print 'did not find'
         
-test14()
+def test15():
+    sent1 = 'abcabcabcabcde'        
+    match = re.search(r'(abc)*abcd', sent1)
+    match = re.search(r'(abc)*', sent1)
+    if match:                      
+        print 'found', match.group() ## 'found word:cat'
+    else:
+        print 'did not find'
+        
+test15()
