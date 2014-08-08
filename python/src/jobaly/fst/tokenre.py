@@ -132,7 +132,7 @@ class TokenRegex:
     def match(self,seq):
        self.track = self._match(seq)
        self.isMatch = False
-       for   cur , last , j , i  in  track:
+       for   cur , last , j , i  in  self.track:
            if cur.isFinal :
                self.isMatch = True
                break
@@ -176,8 +176,8 @@ class TokenRegex:
                     cur , last , j , i  = track.pop()
                     j += 1
             
-       #     print "i=",i , "  len=",   len(track)     
-       #     printTrack(track)
+      #      print "i=",i , "  len=",   len(track)     
+      #      printTrack(track)
             
         if   len(track) == 0 and self.start.isFinal :
              track.append((self.start, None, -1, -1))   
