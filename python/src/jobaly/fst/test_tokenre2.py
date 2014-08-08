@@ -121,5 +121,22 @@ def test6():
     track =  fst._match(tokens) 
     print "==================================="
     printTrack(track)
+
+def test7():
+    pattern1 = ["DL", StarRepetition([",","DL"]), QuestionRepetition(["or","DL"]),"DEGREE" ]
+    fst = TokenRegex(pattern1) 
     
-test6()
+    tokens = [ "aaa","bbb","aaa","bbb","ccc","ddd","eee"]
+    tokens = [ "DL","DEGREE"]
+    tokens = [ "DL","or", "DL", "DEGREE"]
+    tokens = [ "DL","," , "DL", "or", "DL", "DEGREE"]
+    tokens = [ "DL","," , "DL", "," , "DL", "or", "DL", "DEGREE"]
+    
+    grapth = FstGraph(fst)
+    grapth.draw("outfiles//test_tokenre2_6")
+    
+    track =  fst._match(tokens) 
+    print "==================================="
+    printTrack(track)
+    
+test7()
