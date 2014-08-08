@@ -222,3 +222,4 @@ python/src/jobanalysis/titles
 python/src/jobanalysis/sents
 python/src/try/dot/outfiles
 python/src/jobaly/fst/outfiles
+python/src/jobanalysis/degree/output
