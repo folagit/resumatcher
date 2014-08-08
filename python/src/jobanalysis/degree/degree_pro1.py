@@ -102,7 +102,7 @@ def setupLabelDict():
       
     labelDict = {  "or": "OR", "OR": "OR", "and" : "AND" ,  "in": "IN" , "In":"IN" , \
            "of" : "OF", "and/or" : "AND_OR", "from" :"FROM" , "with":"WITH" , \
-           "at":"AT" ,"about":"ABOUT" , "for" : "FOR" }
+           "at":"AT" ,"about":"ABOUT" , "for" : "FOR" ,"as":"AS" }
     BE = ["Be","be", "is", "are", "was", "were", "am"]    
     DT = ["a", "A", "an", "An", "The", "the"]  
     DIGIT = ['one', "two", "three", "four", "five", "seven", "eight", "night", "ten" ]
