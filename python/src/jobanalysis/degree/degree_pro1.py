@@ -14,6 +14,9 @@ from data.jobsentence import JSentence
 import re
 import operator
 
+sys.path.append("../..")
+from jobaly.fst.tokenre  import *
+
 def removeSplash(line):
     slash_list = ["and/or", "PL/SQL"]  
     
@@ -229,19 +232,29 @@ def labelDegreeSet(data_set_name, outfileName):
 def getLabeledSentence(data_set_name, outfileName):    
     labelGrammer =  createDegreeGrammar()        
     data = datautils.loadJson(data_set_name)
-     
+    
+    pattern1 = ["DE_LEVEL", StarRepetition([",","DE_LEVEL"]), QuestionRepetition(["OR","DE_LEVEL"]),"DEGREE" ]
+    fst = TokenRegex(pattern1) 
+    
+    matchSum = 0 
     f = open(outfileName, "w")
     for item in data:
     #    print item
         words = item[2].split()
         degreeSent = JSentence(words)
         labelGrammer.labelSentence(degreeSent)
-        degreeSent.getLabeledArray()
-        print item[0]
+        labeledArray = degreeSent.getLabeledArray()
+        array = [x[0] for x in labeledArray ]
+        print item[0], ":  " ,array
+        match = fst.match(array) 
+        print "match=", match
+        if match :
+            matchSum += 1 
+      #  printTrack(track)
         f.write (  item[0] + "\n\n")         
         table = degreeSent.printLabeledArray()  
-        f.write( table.get_string()  + "\n\n" )      
-  
+    #    f.write( table.get_string()  + "\n\n" )      
+    print "match rate =" , str(matchSum)+"/"+str(len(data)) + "=", matchSum/len(data)
 
 def test_removeSplash():
     line = "dfas feed dfe/df eed and/or de/iri "

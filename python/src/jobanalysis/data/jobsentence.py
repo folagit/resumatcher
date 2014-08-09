@@ -104,6 +104,7 @@ class JSentence():
         item[2] = i
         array.append(item)
         self.labeledArray = array
+        return array
         
     def printLabeledArray(self):
         list1 = [] 

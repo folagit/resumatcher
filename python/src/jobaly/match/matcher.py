@@ -155,10 +155,12 @@ class AlternateMatcher(CompMatcher):
 class BaseRepeatMatcher(BaseMatcher):
     def __init__(self, matcher):
         BaseMatcher.__init__(self)
-        self.matcher = matcher  
+        self.matcher = matcher 
+        self.matchTime = 0
         
     def reset(self):
         BaseMatcher.reset(self)
+        self.matchTime = 0
         self.matcher.reset() 
 
 class QuestionMatcher(BaseRepeatMatcher):
@@ -171,6 +173,7 @@ class QuestionMatcher(BaseRepeatMatcher):
         i = self.matcher(words)
         if i!=-1 :
             self.catch = self.matcher.catch
+            self.matchTime = 1
             return i
         else:
             return -1
@@ -190,6 +193,7 @@ class RepeatMatcher(BaseRepeatMatcher):
             if i!=-1 :
                 self.catch.extend(self.matcher.catch)
                 words = words[i:]
+                self.matchTime +=1
             else:
                 break
         if t == min:
