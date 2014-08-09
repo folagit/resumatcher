@@ -27,6 +27,16 @@ class BaseMatcher:
     def __plus__(self, other):       
         return  SeqMatcher([self,other])
         
+           
+    def findMatching( self, words):        
+        i = 0
+        while i < len(words) :
+            if self.match(words[i:]) != -1:
+               return i
+            else:
+               i += 1
+        return -1
+        
     def compileMatcher( args ):
          if type(args) is str:
              return TokenMatcher(args)
@@ -58,7 +68,13 @@ class TokenMatcher(BaseMatcher):
         if type(tokens) is str:
             self.tokens = [tokens]
         elif type(tokens) is list:
-            self.tokens = tokens
+            self.tokens = tokens        
+        
+    def getWord(self, item):
+        return item
+    
+    def output(self):      
+        return self.outfun(self.catch)
        
     def match(self, words):
         self.reset()
@@ -67,7 +83,7 @@ class TokenMatcher(BaseMatcher):
         
         i = 0 
         while i<len(self.tokens) and \
-            self.tokens[i] == words[i]:
+            self.tokens[i] == self.getWord(words[i]):
             self.catch.append(words[i])
             i += 1
         
@@ -121,6 +137,12 @@ class SeqMatcher(CompMatcher):
             return  len(self.catch)
         else:
             return  -1
+            
+    def output(self):      
+        result = []
+        for mathcer in self.machers:
+            result.extend(mathcer.output())
+        return result
     
 class AlternateMatcher(CompMatcher):
     
@@ -147,6 +169,9 @@ class AlternateMatcher(CompMatcher):
     def reset(self):
         CompMatcher.reset(self)
         self.catchMacher = None 
+        
+    def output(self):      
+        return self.catchMacher.ouput()
 
 # repreat matcher will not work very well like:
 #    sent1 = 'abcabcabcabcde'        
@@ -217,14 +242,4 @@ class PlusMatcher(RepeatMatcher):
     def __init__(self, matcher):
         RepeatMatcher.__init__(self, matcher, min=1) 
     
-       
-def findMatching( words, matcher):
-    
-    i = 0
-    while i < len(words) :
-        if matcher(words[i:]) != -1:
-           return i
-        else:
-           i += 1
-    return -1
     
