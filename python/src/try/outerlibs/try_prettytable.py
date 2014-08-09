@@ -10,5 +10,6 @@ x = PrettyTable()
 
 x.add_row(["Darwin", 112, 120900, 1714.7])
 x.add_row(["Hobart", 1357, 205556, 619.5])
+x.add_row(["Hobart", 1357])
 
 print x

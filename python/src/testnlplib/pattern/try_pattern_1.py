@@ -73,11 +73,13 @@ def test_sentence():
     from pattern.en import parse, Text, Sentence
     from pattern.en import pprint 
     
-    sent = "BS degree ( BSEE or BSCS strongly preferred , MSCS a plus ) and/or the equivalent in training and experience ."
-    sent = "Bachelor's degree in Computer Science is required."  
-    sent = "He created the robot and broke it after making it."
-    sent = "A Computer Science or related degree "    
-    result = parse(sent,
+    sent1 = "BS degree ( BSEE or BSCS strongly preferred , MSCS a plus ) and/or the equivalent in training and experience ."
+    sent2 = "Bachelor's degree in Computer Science is required."  
+    sent3 = "He created the robot and broke it after making it."
+    sent4 = "A Computer Science or related degree "    
+    sent5 = "bachelors degree in Computer Science or Information Systems and/or related experience required"    
+    
+    result = parse(sent5,
          tokenize = True,  # Tokenize the input, i.e. split punctuation from words.
              tags = True,  # Find part-of-speech tags.
            chunks = True,  # Find chunk tags, e.g. "the black cat" = NP = noun phrase.

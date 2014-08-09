@@ -226,10 +226,21 @@ def labelDegreeSet(data_set_name, outfileName):
    #     print table.get_string() + "\n\n"
         f.write( table.get_string()  + "\n\n" )        
         
-def pipeLine():    
-    data_set_name = "matching_degree_1"       
+def getLabeledSentence(data_set_name, outfileName):    
+    labelGrammer =  createDegreeGrammar()        
     data = datautils.loadJson(data_set_name)
-   # preProcess(data)        
+     
+    f = open(outfileName, "w")
+    for item in data:
+    #    print item
+        words = item[2].split()
+        degreeSent = JSentence(words)
+        labelGrammer.labelSentence(degreeSent)
+        degreeSent.getLabeledArray()
+        print item[0]
+        f.write (  item[0] + "\n\n")         
+        table = degreeSent.printLabeledArray()  
+        f.write( table.get_string()  + "\n\n" )      
   
 
 def test_removeSplash():
@@ -243,15 +254,18 @@ def main():
  #   preProcess()
   #  labelDegreeSet()
  #  test_removeSplash()   
-   
- #   data_set_name = "matching_degree_1"  
- #   target_set_name = "degree_1"     
         
    data_set_name = "matching_muldegree_3"  
    target_set_name = "degree_3"
    outfileName = "degree_3_label.txt"
+   
+   data_set_name = "output\\matching_degree_1"  
+   target_set_name = "output\\degree_1" 
+   outfileName = "output\\degree_1_label.txt"
+   outfileName = "output\\degree_1_layer1.txt"
+   
    preProcess(data_set_name, target_set_name)
-   labelDegreeSet(target_set_name,outfileName) 
-    
+#   labelDegreeSet(target_set_name,outfileName) 
+   getLabeledSentence(target_set_name,outfileName) 
 if __name__ == "__main__": 
     main() 

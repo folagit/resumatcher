@@ -76,7 +76,52 @@ class JSentence():
                          j += 1        
                      has_tagged = True
                      break
-  
+                 
+    def getLabeledArray(self):        
+        array = []        
+        i = 0
+        tag = self.tags[i] 
+        if tag is None:
+            label = "$NA$"
+        else:    
+            label = tag[0]         
+        item = [ label, i , None ]
+        
+        i = 1 
+        while i < len(self.tags):
+            tag = self.tags[i] 
+            if tag is None:
+                label = "$NA$"
+                start = True  
+            else:    
+                label , start = tag  
+            if start :
+                item[2] = i
+                array.append(item)
+                item = [ label, i, None ]            
+            i += 1
+            
+        item[2] = i
+        array.append(item)
+        self.labeledArray = array
+        
+    def printLabeledArray(self):
+        list1 = [] 
+        list2 = []
+        for item in self.labeledArray :
+            label , i, j = item
+            line = self.words[i]
+            if i+1 < j :
+                for word in self.words[i+1:j]:
+                    line = line + " " + word
+            list1.append(label)
+            list2.append(line)
+         
+        x = PrettyTable()
+        x.add_row(list1)
+        x.add_row(list2)
+        return x                
+        
     def printSentenct(self):
        
       lists = [0] * 3 
