@@ -10,7 +10,7 @@ sys.path.append("..")
 from  data import datautils
 from data.tokenfilter import *
 from data.labelgrammer import LabelGrammer
-from data.jobsentence import JSentence
+from data.jobsentence import JobSentence
 import re
 import operator
 
@@ -206,7 +206,7 @@ def labelDegree():
        
     labelGrammer =  createDegreeGrammar()
   #  printLabelGrammar(labelGrammer)
-    degreeSent = JSentence(sent06.split())
+    degreeSent = JobSentence(sent06.split())
     labelGrammer.labelSentence(degreeSent)
     degreeSent.printSentenct()  
    
@@ -219,7 +219,7 @@ def labelDegreeSet(data_set_name, outfileName):
     for item in data:
     #    print item
         words = item[2].split()
-        degreeSent = JSentence(words)
+        degreeSent = JobSentence(words)
         labelGrammer.labelSentence(degreeSent)
        
         print item[0]
@@ -241,7 +241,7 @@ def getLabeledSentence(data_set_name, outfileName):
     for item in data:
     #    print item
         words = item[2].split()
-        degreeSent = JSentence(words)
+        degreeSent = JobSentence(words)
         labelGrammer.labelSentence(degreeSent)
         labeledArray = degreeSent.getLabeledArray()
         array = [x[0] for x in labeledArray ]
