@@ -9,7 +9,7 @@ Created on Sun Jul 27 16:24:09 2014
 from prettytable import PrettyTable
 from tokenfilter import *
 
-class JSentence():
+class JobSentence():
     puncts = [".", ",", ";","?", "!", ":", "(", ")" ,"-","+" ,"/" ]
     tagDict = {  }    
     
@@ -24,12 +24,12 @@ class JSentence():
         i = 0       
         while i < len(self.words):
             word = self.words[i]     
-            if word in  JSentence.puncts :
+            if word in  JobSentence.puncts :
                 self.tags[i] = (  word , True )  
           #  if str.isdigit(word) :
             if word.isdigit():
                 self.tags[i] = (  "DIGIT" , True ) 
-            elif JSentence.tagDict.has_key(word):
+            elif JobSentence.tagDict.has_key(word):
                 self.tags[i] = ( JSentence.tagDict[word], True )
             i+=1
     
@@ -77,7 +77,7 @@ class JSentence():
                      has_tagged = True
                      break
                  
-    def getLabeledArray(self):        
+    def getLabeledRange(self):        
         array = []        
         i = 0
         tag = self.tags[i] 
@@ -105,18 +105,44 @@ class JSentence():
         array.append(item)
         self.labeledArray = array
         return array
+    
+    def getLabeledArray(self):        
+        array = []        
+        i = 0
+        tag = self.tags[i] 
+        if tag is None:
+            label = "$NA$"          
+        else:    
+            label = tag[0]         
+        item = ( label, [self.words[i]] ) 
+        
+        i = 1 
+        while i < len(self.tags):
+            tag = self.tags[i] 
+            if tag is None:
+                label = "$NA$"
+                start = True  
+            else:    
+                label , start = tag  
+                
+            if start :                
+                array.append(item)
+                item = ( label, [self.words[i]] ) 
+            else :
+                item[1].append(self.words[i])         
+            i += 1            
+       
+        array.append(item)
+        self.labeledArray = array
+        return array
         
     def printLabeledArray(self):
         list1 = [] 
         list2 = []
         for item in self.labeledArray :
-            label , i, j = item
-            line = self.words[i]
-            if i+1 < j :
-                for word in self.words[i+1:j]:
-                    line = line + " " + word
+            label , words = item             
             list1.append(label)
-            list2.append(line)
+            list2.append(words)
          
         x = PrettyTable()
         x.add_row(list1)
