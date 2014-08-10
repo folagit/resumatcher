@@ -71,16 +71,27 @@ class TestMatch1(unittest.TestCase):
         
         self.assertEqual( alternate1(tokens1), 1 ) 
         self.assertEqual( alternate2(tokens1), -1 ) 
+        self.assertEqual( alternate3(tokens1), 1 ) 
         
     def test_repeat(self):        
         matcher1 = StarMatcher(TokenMatcher(["aaa","bbb" ])) 
-        matcher2 = StarMatcher(["bbb","ccc"]) 
+        matcher2 = StarMatcher(TokenMatcher(["bbb","ccc"])) 
         matcher3 = TokenMatcher("ccc") 
+        matcher4 = QuestionMatcher(TokenMatcher(["bbb","ccc"])) 
+        matcher5 = PlusMatcher(TokenMatcher(["bbb","ccc"])) 
+        matcher6 = TokenMatcher(["aaa", "bbb" ,"aaa", "bbb","ccc"]) 
         
-        seq1 = SeqMatcher([matcher1,matcher3])        
+        seq1 = SeqMatcher([matcher1,matcher3])      
+        seq2 = SeqMatcher([matcher1,matcher6])      
         
         self.assertEqual( matcher1(tokens2), 8 ) 
+        self.assertEqual( matcher2(tokens2), 0 ) 
+     
+        self.assertEqual( matcher4(tokens2), 0 ) 
+        self.assertEqual( matcher5(tokens2), -1 ) 
+        self.assertEqual( matcher5.findMatching(tokens2), 7 ) 
         self.assertEqual( seq1(tokens2), 9 ) 
+        self.assertEqual( seq2(tokens2), 9 ) 
         
     def test_output(self):
        
@@ -98,7 +109,7 @@ class TestMatch1(unittest.TestCase):
      
        seq1 = SeqMatcher([matcher1,matcher2])      
        self.assertEqual(seq1(tokens1),3)        
-       self.assertEqual( seq1.output(), ["aaa", "bbb", "ccc"] )
+       self.assertEqual( seq1.output(), [['aaa'], ['bbb', 'ccc']] )
        
        alt1 = AlternateMatcher([matcher1,matcher2])      
        self.assertEqual(alt1.findMatching(tokens1),0)        
@@ -106,8 +117,19 @@ class TestMatch1(unittest.TestCase):
        
        star1 = StarMatcher(OutTokenMatcher(["aaa","bbb" ])) 
        self.assertEqual(star1(tokens2),8)    
-       self.assertEqual( star1.output(), ['aaa', 'bbb', 'aaa', 'bbb', 'aaa', 'bbb', 'aaa', 'bbb'] )
-    
+       self.assertEqual( star1.output(), [['aaa', 'bbb'], ['aaa', 'bbb'], ['aaa', 'bbb'], ['aaa', 'bbb']] )
+   
+       matcher1 = StarMatcher(OutTokenMatcher(["aaa","bbb" ])) 
+       matcher3 =  OutTokenMatcher("ccc") 
+       matcher6 = OutTokenMatcher(["aaa", "bbb" ,"aaa", "bbb","ccc"]) 
+       seq1 = SeqMatcher([matcher1,matcher3])      
+       seq2 = SeqMatcher([matcher1,matcher6])  
+       self.assertEqual(seq1(tokens2),9)    
+       self.assertEqual( seq1.output(), [[['aaa', 'bbb'], ['aaa', 'bbb'], ['aaa', 'bbb'], ['aaa', 'bbb']], ['ccc']] )
+       self.assertEqual(seq2(tokens2),9)    
+       self.assertEqual( seq2.output(), [[['aaa', 'bbb'], ['aaa', 'bbb']], ['aaa', 'bbb', 'aaa', 'bbb', 'ccc']] )
+   
+       
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestMatch1)
     unittest.TextTestRunner(verbosity=2).run(suite)

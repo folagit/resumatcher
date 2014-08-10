@@ -140,26 +140,51 @@ class SeqMatcher(CompMatcher):
     
     def match(self, words):
         self.reset()
-       
-        j = 0  # index of matcher 
         i = 0
+        j = 0  # index of matcher        
+        last = 0
         while j<len(self.machers) and ( i != -1):
             macher = self.machers[j]
             i =  macher(words)
             if i != -1:
-               self.catch.extend(macher.catch) 
-               words = words[i:]
-               j +=1
+                if not isinstance(macher, RepeatMatcher) or \
+                    j==len(self.machers)-1 :
+                   self.catch.extend(macher.catch) 
+                   words = words[i:]
+                   j +=1  
+                   last += i
+                else :                  
+                   i = self.matchWithRepeat(macher, j,  words) 
+                   if i != -1:
+                       last += i
+                       return last
                
         if j == len(self.machers):
-            return  len(self.catch)
+            return  last
         else:
             return  -1
+     
+    def matchWithRepeat(self, matcher, j, words):
+        rightMatcher = SeqMatcher(self.machers[j+1:])
+        track = matcher.track[:]
+        track.reverse()
+        j = len(track)-1
+        for i in track:
+            newwords = words[i:]
+            r = rightMatcher(newwords)
+            if r != -1 :
+                self.catch.extend(matcher.catch[:j])
+                matcher.matchTime = j
+                self.catch.extend(rightMatcher.catch)
+                return i + r
+            j-=1
+        return -1
             
+          
     def output(self):      
         result = []
         for mathcer in self.machers:
-            result.extend(mathcer.output())
+            result.append(mathcer.output())
         return result
     
 class AlternateMatcher(CompMatcher):
@@ -212,25 +237,9 @@ class BaseRepeatMatcher(BaseMatcher):
         
     def output(self):      
         result = []
-        for item in self.catch:
-            result.append(self.matcher.outfun(item))
+        for i in range(self.matchTime):
+            result.append(self.matcher.outfun(self.catch[i]))
         return result
-
-class QuestionMatcher(BaseRepeatMatcher):
-    
-    def __init__(self, matcher):
-        BaseRepeatMatcher.__init__(self, matcher)            
-    
-    def match(self, words): 
-        self.reset()
-        i = self.matcher(words)
-        if i!=-1 :
-            self.catch = self.matcher.catch
-            self.matchTime = 1
-            return i
-        else:
-            return -1    
-  
             
 class RepeatMatcher(BaseRepeatMatcher):
     
@@ -242,6 +251,7 @@ class RepeatMatcher(BaseRepeatMatcher):
     def match(self, words): 
         self.reset()      
         last = 0 
+        self.track=[0]
        
         while self.matchTime < self.minTimes :            
             i = self.matcher(words)
@@ -250,6 +260,7 @@ class RepeatMatcher(BaseRepeatMatcher):
                 words = words[i:]
                 self.matchTime +=1
                 last += i
+                self.track.append(last)
             else:
                 break
         if self.matchTime < self.minTimes:
@@ -258,14 +269,20 @@ class RepeatMatcher(BaseRepeatMatcher):
         while self.matchTime < self.maxTimes : 
             i = self.matcher(words)
             if i!=-1 :
-                self.catch.extend(self.matcher.catch)
+                self.catch.append(self.matcher.catch)
                 self.matchTime +=1
                 words = words[i:]
                 last += i
+                self.track.append(last)
             else:
                 break
             
         return last
+
+
+class QuestionMatcher(RepeatMatcher):    
+    def __init__(self, matcher):
+        RepeatMatcher.__init__(self, matcher, mintimes=0, maxtimes=1)
         
 class StarMatcher(RepeatMatcher):
     def __init__(self, matcher):
@@ -273,6 +290,6 @@ class StarMatcher(RepeatMatcher):
        
 class PlusMatcher(RepeatMatcher):
     def __init__(self, matcher):
-        RepeatMatcher.__init__(self, matcher, min=1) 
+        RepeatMatcher.__init__(self, matcher, mintimes=1) 
     
     
