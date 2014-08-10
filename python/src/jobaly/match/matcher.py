@@ -89,7 +89,7 @@ class TokenMatcher(BaseMatcher):
     
     @staticmethod    
     def defaultOutfun(item):
-        return item
+        return None
     
     def output(self):      
         return self.outfun(self.catch)
