@@ -213,7 +213,7 @@ class BaseRepeatMatcher(BaseMatcher):
     def output(self):      
         result = []
         for item in self.catch:
-            result.append(self.matcher.output())
+            result.append(self.matcher.outfun(item))
         return result
 
 class QuestionMatcher(BaseRepeatMatcher):

@@ -77,9 +77,7 @@ class TestMatch1(unittest.TestCase):
         matcher2 = StarMatcher(["bbb","ccc"]) 
         matcher3 = TokenMatcher("ccc") 
         
-        seq1 = SeqMatcher([matcher1,matcher3])
-        alternate2 = AlternateMatcher([matcher2,matcher3])
-        alternate3 = AlternateMatcher([matcher1,matcher3])  
+        seq1 = SeqMatcher([matcher1,matcher3])        
         
         self.assertEqual( matcher1(tokens2), 8 ) 
         self.assertEqual( seq1(tokens2), 9 ) 
@@ -105,6 +103,10 @@ class TestMatch1(unittest.TestCase):
        alt1 = AlternateMatcher([matcher1,matcher2])      
        self.assertEqual(alt1.findMatching(tokens1),0)        
        self.assertEqual( alt1.output(), ["aaa"] )
+       
+       star1 = StarMatcher(OutTokenMatcher(["aaa","bbb" ])) 
+       self.assertEqual(star1(tokens2),8)    
+       self.assertEqual( star1.output(), ['aaa', 'bbb', 'aaa', 'bbb', 'aaa', 'bbb', 'aaa', 'bbb'] )
     
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestMatch1)
