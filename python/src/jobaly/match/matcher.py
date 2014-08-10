@@ -8,8 +8,10 @@ Created on Thu Aug 07 23:05:14 2014
 
 class BaseMatcher:    
    
-    def __init__(self):
+    def __init__(self, catchfun=None, outfun=None):
         self.catch = []  
+        self.catchfun = catchfun
+        self.outfun = outfun
     
     def reset(self):
         self.catch = []    
@@ -21,11 +23,18 @@ class BaseMatcher:
         return self.match(words)
         
     def __or__(self, other):             
+        if isinstance(self, AlternateMatcher ) :
+            self.append(other)
+            return self
+        else: 
+            return  AlternateMatcher([self,other]) 
         
-        return  AlternateMatcher([self,other]) 
-        
-    def __plus__(self, other):       
-        return  SeqMatcher([self,other])
+    def __plus__(self, other):      
+        if isinstance(self, SeqMatcher ) :
+            self.append(other)
+            return self
+        else: 
+            return  SeqMatcher([self,other])
         
            
     def findMatching( self, words):        
@@ -64,13 +73,22 @@ class BaseMatcher:
 class TokenMatcher(BaseMatcher):
     
     def __init__(self, tokens):
-        BaseMatcher.__init__(self)
+        BaseMatcher.__init__(self, self.defaultCatchfun, self.defaultOutfun)
         if type(tokens) is str:
             self.tokens = [tokens]
         elif type(tokens) is list:
             self.tokens = tokens        
-        
-    def getWord(self, item):
+    
+    @staticmethod    
+    def getWord(item):
+        return item
+    
+    @staticmethod    
+    def defaultCatchfun(item):
+        return item
+    
+    @staticmethod    
+    def defaultOutfun(item):
         return item
     
     def output(self):      
@@ -84,7 +102,7 @@ class TokenMatcher(BaseMatcher):
         i = 0 
         while i<len(self.tokens) and \
             self.tokens[i] == self.getWord(words[i]):
-            self.catch.append(words[i])
+            self.catch.append(self.catchfun(words[i]))
             i += 1
         
         if i == len(self.tokens):
@@ -187,6 +205,12 @@ class BaseRepeatMatcher(BaseMatcher):
         BaseMatcher.reset(self)
         self.matchTime = 0
         self.matcher.reset() 
+        
+    def output(self):      
+        result = []
+        for item in self.catch:
+            result.append(self.matcher.output())
+        return result
 
 class QuestionMatcher(BaseRepeatMatcher):
     
@@ -201,38 +225,43 @@ class QuestionMatcher(BaseRepeatMatcher):
             self.matchTime = 1
             return i
         else:
-            return -1
+            return -1    
+  
             
 class RepeatMatcher(BaseRepeatMatcher):
     
-    def __init__(self, matcher, min=0, max=9999):
+    def __init__(self, matcher, mintimes=0, maxtimes=9999):
         BaseRepeatMatcher.__init__(self, matcher)   
-        self.min = min
-        self.max = max         
+        self.minTimes = mintimes
+        self.maxTimes = maxtimes         
     
     def match(self, words): 
-        self.reset()
-        t = 0 
-        while t < min :            
+        self.reset()      
+        last = 0 
+       
+        while self.matchTime < self.minTimes :            
             i = self.matcher(words)
             if i!=-1 :
-                self.catch.extend(self.matcher.catch)
+                self.catch.append(self.matcher.catch)
                 words = words[i:]
                 self.matchTime +=1
+                last += i
             else:
                 break
-        if t == min:
+        if self.matchTime < self.minTimes:
             return -1
         
-        while t < max : 
+        while self.matchTime < self.maxTimes : 
             i = self.matcher(words)
             if i!=-1 :
                 self.catch.extend(self.matcher.catch)
+                self.matchTime +=1
                 words = words[i:]
+                last += i
             else:
                 break
             
-        return len(self.catch)
+        return last
         
 class StarMatcher(RepeatMatcher):
     def __init__(self, matcher):

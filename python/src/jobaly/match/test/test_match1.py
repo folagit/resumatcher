@@ -32,13 +32,13 @@ class TestMatch1(unittest.TestCase):
      
     def test_find(self):
          matcher = TokenMatcher(["aaa", "bbb"])
-         self.assertEqual(findMatching(tokens1, matcher),0)
+         self.assertEqual(matcher.findMatching(tokens1),0)
          
          matcher = TokenMatcher(["bbb", "ccc"])
-         self.assertEqual(findMatching(tokens1, matcher),1)
+         self.assertEqual(matcher.findMatching(tokens1),1)
          
          matcher = TokenMatcher(["ddd", "ccc"])
-         self.assertEqual(findMatching(tokens1, matcher),-1)
+         self.assertEqual(matcher.findMatching(tokens1),-1)
          
     def test_seq1(self):        
         matcher1 = TokenMatcher("aaa") 
