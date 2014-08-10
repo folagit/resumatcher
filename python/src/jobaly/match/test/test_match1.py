@@ -45,7 +45,8 @@ class TestMatch1(unittest.TestCase):
          matcher = TokenMatcher(["ddd", "ccc"])
          self.assertEqual(matcher.findMatching(tokens1),-1)
          
-    def test_seq1(self):        
+    def test_seq1(self):  
+        
         matcher1 = TokenMatcher("aaa") 
         matcher2 = TokenMatcher(["bbb","ccc"]) 
         matcher3 = TokenMatcher([ "ddd"]) 
@@ -82,6 +83,28 @@ class TestMatch1(unittest.TestCase):
         
         self.assertEqual( matcher1(tokens2), 8 ) 
         self.assertEqual( seq1(tokens2), 9 ) 
+        
+    def test_output(self):
+       
+       class OutTokenMatcher(TokenMatcher):
+           def __init__(self, tokens, catchfun=lambda x:x , outfun=lambda x: x):              
+               TokenMatcher.__init__(self, tokens, catchfun, outfun)
+               
+       matcher1 = OutTokenMatcher("aaa")
+       self.assertEqual(matcher1.findMatching(tokens1),0)
+       self.assertEqual( matcher1.output(), ["aaa"] )
+     
+       matcher2 = OutTokenMatcher(["bbb", "ccc"])
+       self.assertEqual(matcher2.findMatching(tokens1),1)
+       self.assertEqual( matcher2.output(), ["bbb", "ccc"] )
+     
+       seq1 = SeqMatcher([matcher1,matcher2])      
+       self.assertEqual(seq1(tokens1),3)        
+       self.assertEqual( seq1.output(), ["aaa", "bbb", "ccc"] )
+       
+       alt1 = AlternateMatcher([matcher1,matcher2])      
+       self.assertEqual(alt1.findMatching(tokens1),0)        
+       self.assertEqual( alt1.output(), ["aaa"] )
     
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestMatch1)

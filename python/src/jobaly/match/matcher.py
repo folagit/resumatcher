@@ -72,8 +72,8 @@ class BaseMatcher:
         
 class TokenMatcher(BaseMatcher):
     
-    def __init__(self, tokens):
-        BaseMatcher.__init__(self, self.defaultCatchfun, self.defaultOutfun)
+    def __init__(self, tokens, catchfun=lambda x:x , outfun=lambda x: None):        
+        BaseMatcher.__init__(self, catchfun, outfun)
         if type(tokens) is str:
             self.tokens = [tokens]
         elif type(tokens) is list:
@@ -91,7 +91,7 @@ class TokenMatcher(BaseMatcher):
     def defaultOutfun(item):
         return None
     
-    def output(self):      
+    def output(self):  
         return self.outfun(self.catch)
        
     def match(self, words):
@@ -188,8 +188,12 @@ class AlternateMatcher(CompMatcher):
         CompMatcher.reset(self)
         self.catchMacher = None 
         
-    def output(self):      
-        return self.catchMacher.ouput()
+    def output(self): 
+        if self.catchMacher is not None:
+            result = self.catchMacher.output()
+            return result
+        else :
+            return None
 
 # repreat matcher will not work very well like:
 #    sent1 = 'abcabcabcabcde'        
