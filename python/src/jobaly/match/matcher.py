@@ -12,9 +12,17 @@ class BaseMatcher:
         self.catch = []  
         self.catchfun = catchfun
         self.outfun = outfun
+        self.found = None
+        
+    def setCatchFun(self, catchfun):
+        self.catchfun = catchfun
+        
+    def setOutFun(self, outfun):
+        self.outfun = outfun
     
     def reset(self):
-        self.catch = []    
+        self.catch = []   
+        self.found = None
         
     def match(self, tokens):
         return  -1
@@ -40,11 +48,19 @@ class BaseMatcher:
     def findMatching( self, words):        
         i = 0
         while i < len(words) :
-            if self.match(words[i:]) != -1:
+            j = self.match(words[i:]) 
+            if j != -1:
+               self.found = (i,j)
                return i
             else:
                i += 1
         return -1
+        
+    def getFound(self, words):
+        if self.found is not None:
+            return words[self.found[0]:self.found[1]]
+        else :
+            return None
         
     def compileMatcher( args ):
          if type(args) is str:
@@ -148,7 +164,7 @@ class SeqMatcher(CompMatcher):
             i =  macher(words)
             if i != -1:
                 if not isinstance(macher, RepeatMatcher) or \
-                    j==len(self.machers)-1 :
+                    j==len(self.machers)-1 or i==0:
                    self.catch.extend(macher.catch) 
                    words = words[i:]
                    j +=1  
@@ -184,7 +200,7 @@ class SeqMatcher(CompMatcher):
     def output(self):      
         result = []
         for mathcer in self.machers:
-            result.append(mathcer.output())
+            result.extend(mathcer.output())
         return self.outfun(result)
     
 class AlternateMatcher(CompMatcher):
@@ -238,7 +254,7 @@ class BaseRepeatMatcher(BaseMatcher):
     def output(self):      
         result = []
         for i in range(self.matchTime):
-            result.append(self.matcher.outfun(self.catch[i]))
+            result.extend(self.matcher.outfun(self.catch[i]))
         return result
             
 class RepeatMatcher(BaseRepeatMatcher):

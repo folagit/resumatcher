@@ -109,7 +109,7 @@ class TestMatch1(unittest.TestCase):
      
        seq1 = SeqMatcher([matcher1,matcher2])      
        self.assertEqual(seq1(tokens1),3)        
-       self.assertEqual( seq1.output(), [['aaa'], ['bbb', 'ccc']] )
+       self.assertEqual( seq1.output(), ['aaa', 'bbb', 'ccc'] )
        
        alt1 = AlternateMatcher([matcher1,matcher2])      
        self.assertEqual(alt1.findMatching(tokens1),0)        
@@ -117,18 +117,18 @@ class TestMatch1(unittest.TestCase):
        
        star1 = StarMatcher(OutTokenMatcher(["aaa","bbb" ])) 
        self.assertEqual(star1(tokens2),8)    
-       self.assertEqual( star1.output(), [['aaa', 'bbb'], ['aaa', 'bbb'], ['aaa', 'bbb'], ['aaa', 'bbb']] )
+       self.assertEqual( star1.output(), ['aaa', 'bbb', 'aaa', 'bbb', 'aaa', 'bbb', 'aaa', 'bbb'] )
    
        matcher1 = StarMatcher(OutTokenMatcher(["aaa","bbb" ])) 
        matcher3 =  OutTokenMatcher("ccc") 
        matcher6 = OutTokenMatcher(["aaa", "bbb" ,"aaa", "bbb","ccc"]) 
-       seq1 = SeqMatcher([matcher1,matcher3])      
-       seq2 = SeqMatcher([matcher1,matcher6])  
-       self.assertEqual(seq1(tokens2),9)    
-       self.assertEqual( seq1.output(), [[['aaa', 'bbb'], ['aaa', 'bbb'], ['aaa', 'bbb'], ['aaa', 'bbb']], ['ccc']] )
+       seq2 = SeqMatcher([matcher1,matcher3])      
+       seq3 = SeqMatcher([matcher1,matcher6])  
        self.assertEqual(seq2(tokens2),9)    
-       self.assertEqual( seq2.output(), [[['aaa', 'bbb'], ['aaa', 'bbb']], ['aaa', 'bbb', 'aaa', 'bbb', 'ccc']] )
-   
+       self.assertEqual( seq2.output(), ['aaa', 'bbb', 'aaa', 'bbb', 'aaa', 'bbb', 'aaa', 'bbb', 'ccc'] )
+       self.assertEqual(seq3(tokens2),9)    
+       self.assertEqual( seq3.output(), ['aaa', 'bbb', 'aaa', 'bbb', 'aaa', 'bbb', 'aaa', 'bbb', 'ccc'] )
+  
        
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestMatch1)
