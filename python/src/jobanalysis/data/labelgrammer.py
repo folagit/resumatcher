@@ -7,8 +7,9 @@ Created on Sun Jul 27 22:17:34 2014
 
 class LabelGrammer():
     
-    def __init__(self, labelDict ):
+    def __init__(self, labelDict, ontoDict ):
         self.labelDict = self.lower(labelDict) 
+        self.ontoDict = ontoDict
         self.ctreateLabelLists()  
         self.ctreateLabelTuples()
         

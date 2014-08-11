@@ -105,16 +105,24 @@ class JobSentence():
         array.append(item)
         self.labeledArray = array
         return array
+        
+    def getOnto(self, ontoDict, label):      
+        if ontoDict.has_key(label):
+            onto = ontoDict[label]
+        else :
+            onto = label
+        return onto        
     
-    def getLabeledArray(self):        
+    def getLabeledArray(self, ontoDict):        
         array = []        
         i = 0
         tag = self.tags[i] 
         if tag is None:
             label = "$NA$"          
         else:    
-            label = tag[0]         
-        item = ( label, [self.words[i]] ) 
+            label = tag[0]          
+       
+        item = [ self.getOnto(ontoDict,label), label, [self.words[i]] ] 
         
         i = 1 
         while i < len(self.tags):
@@ -127,7 +135,7 @@ class JobSentence():
                 
             if start :                
                 array.append(item)
-                item = ( label, [self.words[i]] ) 
+                item = [ self.getOnto(ontoDict,label) , label, [self.words[i]] ] 
             else :
                 item[1].append(self.words[i])         
             i += 1            
@@ -137,14 +145,17 @@ class JobSentence():
         return array
         
     def printLabeledArray(self):
+        list0 = []
         list1 = [] 
         list2 = []
         for item in self.labeledArray :
-            label , words = item             
+            onto , label , words = item    
+            list0.append(onto)
             list1.append(label)
             list2.append(words)
          
         x = PrettyTable()
+        x.add_row(list0)
         x.add_row(list1)
         x.add_row(list2)
         return x                

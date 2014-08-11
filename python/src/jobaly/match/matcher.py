@@ -8,7 +8,7 @@ Created on Thu Aug 07 23:05:14 2014
 
 class BaseMatcher:    
    
-    def __init__(self, catchfun=None, outfun=None):
+    def __init__(self, catchfun=lambda x:x , outfun=lambda x: None):
         self.catch = []  
         self.catchfun = catchfun
         self.outfun = outfun
@@ -112,8 +112,8 @@ class TokenMatcher(BaseMatcher):
 
 class CompMatcher(BaseMatcher): 
     
-    def __init__(self, machers=None):
-         BaseMatcher.__init__(self)
+    def __init__(self, machers=None , catchfun=lambda x:x , outfun=lambda x: None):
+         BaseMatcher.__init__(self, catchfun,outfun )
          if machers == None :
              self.machers = []
          elif type(machers) is list or \
@@ -135,8 +135,8 @@ class CompMatcher(BaseMatcher):
          
 class SeqMatcher(CompMatcher):
     
-    def __init__(self, machers=None):
-         CompMatcher.__init__(self, machers)
+    def __init__(self, machers=None, catchfun=lambda x:x , outfun=lambda x: x):
+         CompMatcher.__init__(self, machers, catchfun, outfun )
     
     def match(self, words):
         self.reset()
@@ -185,7 +185,7 @@ class SeqMatcher(CompMatcher):
         result = []
         for mathcer in self.machers:
             result.append(mathcer.output())
-        return result
+        return self.outfun(result)
     
 class AlternateMatcher(CompMatcher):
     
