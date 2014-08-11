@@ -137,7 +137,7 @@ class JobSentence():
                 array.append(item)
                 item = [ self.getOnto(ontoDict,label) , label, [self.words[i]] ] 
             else :
-                item[1].append(self.words[i])         
+                item[2].append(self.words[i])         
             i += 1            
        
         array.append(item)
