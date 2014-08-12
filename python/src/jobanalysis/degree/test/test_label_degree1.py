@@ -30,7 +30,7 @@ sent09 = "bachelors degree in related field , OR four ( 4 ) years of experience 
 sent10 = "Bachelors or master degree in computer science" 
 sent11 = "Bachelor , Master or Doctorate  degree from an accredited course of study , in engineering , computer science , mathematics , physics or chemistry"
 sent12 = "should have a Associate , Bachelor , Master or Doctorate  degree from an accredited course of study , in engineering , computer science , mathematics , physics or chemistry"
-
+sent13 = "bachelors preferred"
 
 labelGrammer =  createDegreeGrammar()
 
@@ -97,7 +97,12 @@ class TestLabelDegree1(unittest.TestCase):
         i, output = getDegreeLevel(degreeSeq2, sent12)
         self.assertEqual(i,3)
         self.assertEqual(output,['AS_LEVEL', 'BS_LEVEL', 'MS_LEVEL', 'PHD_LEVEL'])  
-        
+   
+    def test_label5(self): 
+        i, output = getDegreeLevel(degreeSeq2, sent13)
+        self.assertEqual(i,-1)
+        self.assertEqual(output,[])  
+             
     
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestLabelDegree1)
