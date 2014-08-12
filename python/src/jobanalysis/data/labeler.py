@@ -5,7 +5,7 @@ Created on Sun Jul 27 22:17:34 2014
 @author: dlmu__000
 """
 
-class LabelGrammer():
+class Labeler():
     
     def __init__(self, labelDict, ontoDict ):
         self.labelDict = self.lower(labelDict) 
