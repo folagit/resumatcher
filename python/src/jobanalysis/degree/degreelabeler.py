@@ -46,7 +46,7 @@ def addMoreLabels(labelDict):
     DEGREE = ["degree","degrees"]
     HS_LEVEL = ["High School Diploma", "High School" ,"GED"]    
     AS_LEVEL = ["AS","Associate","Associates", "AA", "A.A."]
-    BS_LEVEL = ["Baccalaureate","bachelors", "bachelor" ,"B.S.","BS","BA","BA/BS", "BABS", "B.A." ,"4-year","4-year", "four year","college","Undergraduate" , "University" ]    
+    BS_LEVEL = ["Baccalaureate","bachelors", "bachelor" ,"B.S.", "B.S","BS","BA","BA/BS", "BABS", "BSBA", "B.A." ,"4-year","4-year", "4 year", "four year","college","Undergraduate" , "University" ]    
     MS_LEVEL = ["masters", "MS", "M.S.", "master", "MA" , "MSc"]
     PHD_LEVEL = ["PhD", "Ph.D", "doctorate" ]
     MS_PHD_LEVEL = ["Graduate", "advanced" ]
@@ -54,7 +54,8 @@ def addMoreLabels(labelDict):
     MAJOR = ["computer science", "CS", "CE" ,"EE", "IS", "computer engineering", "Information Systems",  \
          "Digital Media", "Information Technology","Software Engineering", "computer programming" ,"statistics", \
          "Applied Mathematics", "mathematics", "biological sciences", "Physics", "math" , "chemistry" , \
-         "signal processing","Electrical Engineering ", "Information Sciences","MIS", "CIS", "GIS" , "IT", "Telecom" , "Computing Science " , "Technology Management" , "Technology",
+         "signal processing","Electrical Engineering ", "Information Sciences","MIS", "CIS", "GIS" , "IT", "Telecom" ,\
+         "Computing Science " , "Technology Management" , "Technology", "Computer Information Systems", 
          "Marketing", "Business", "Finance" , "Economics", "accounting",        
          "Web Development","Web Design",  "Communications", "Communication Sciences","Interactive Design"   , "Journalism",        
          "related field" , "related discipline", "related area"

@@ -64,27 +64,36 @@ def getDegreeLevel( matcher , sent ):
     return i, matcher.output()
 
     
-def labelDegreeSet(data_set_name, outfileName):
+def labelDegreeSet(data_set_name, outfileName,failfilename):
     labelGrammer =  createDegreeGrammar()      
     data = datautils.loadJson(data_set_name)
     matcher =  degreeSeq2
     f = open(outfileName, "w")
+    f2 = open(failfilename, "w")
     total = 0
     m = 0
     for item in data:
     #    print item
         sent = item[2]       
-        f.write( sent +"\n\n" )
+       
         degreeSent = JobSentence(sent.split())
         labelGrammer.labelSentence(degreeSent)
      #   print degreeSent.printSentenct()  
     #    f.write( degreeSent.printSentenct().get_string() +"\n\n" )
         labeledArray = degreeSent.getLabeledArray(labelGrammer.ontoDict)
     #    print degreeSent.printLabeledArray() 
-        f.write( degreeSent.printLabeledArray().get_string() +"\n\n" )
+       
         i = matcher.findMatching(labeledArray)
         print i, matcher.output()
-        f.write( str(i) + "   " + str(matcher.output()) +"\n\n" )
+        if i != -1 :
+            f.write( sent +"\n\n" )
+            f.write( degreeSent.printLabeledArray().get_string() +"\n\n" )
+            f.write( str(i) + "   " + str(matcher.output()) +"\n\n" )
+        else :
+            f2.write( sent +"\n\n" )
+            f2.write( degreeSent.printLabeledArray().get_string() +"\n\n" )
+            f2.write( str(i) + "   " + str(matcher.output()) +"\n\n" )
+            
         total += 1
         if i != -1 :
             m+=1
@@ -92,16 +101,15 @@ def labelDegreeSet(data_set_name, outfileName):
     print "match=", m, "  total=", total, "  radio=", float(m)/total
 
 def main(): 
-     
-   data_set_name = "matching_muldegree_3"  
-   target_set_name = "degree_3"
-   outfileName = "degree_3_label.txt"
-   
+      
+   target_set_name = "output\\degree_3"
+   outfileName = "output\\degree_3_labe2.txt"
+   failfilename =  "output\\degree_3_labe2_fail.txt"
   
-   target_set_name = "output\\degree_1"   
-   outfileName = "output\\degree_1_layer2.txt"  
+ #  target_set_name = "output\\degree_1"   
+ #  outfileName = "output\\degree_1_layer2.txt"  
 
-   labelDegreeSet(target_set_name,outfileName) 
+   labelDegreeSet(target_set_name,outfileName, failfilename) 
    
 if __name__ == "__main__": 
     main() 
