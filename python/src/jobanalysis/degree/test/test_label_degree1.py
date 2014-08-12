@@ -28,7 +28,9 @@ sent07 = "Requires a Bachelors degree in Information Systems or related field"
 sent08 = "Bachelors degree in computer science or an equivalent combination of education and/or experience"
 sent09 = "bachelors degree in related field , OR four ( 4 ) years of experience in a directly related field"
 sent10 = "Bachelors or master degree in computer science" 
-sent11 = "Bachelor , Master or Doctorate of Science degree from an accredited course of study , in engineering , computer science , mathematics , physics or chemistry"
+sent11 = "Bachelor , Master or Doctorate  degree from an accredited course of study , in engineering , computer science , mathematics , physics or chemistry"
+sent12 = "should have a Associate , Bachelor , Master or Doctorate  degree from an accredited course of study , in engineering , computer science , mathematics , physics or chemistry"
+
 
 labelGrammer =  createDegreeGrammar()
 
@@ -64,7 +66,11 @@ def getlabeledArray(sent ):
     labeledArray = degreeSent.getLabeledArray(labelGrammer.ontoDict)
     print degreeSent.printLabeledArray() 
     return labeledArray
-    
+ 
+def getDegreeLevel( matcher , sent ):
+    labeledArray = getlabeledArray( sent )
+    i = matcher.findMatching(labeledArray)
+    return i, matcher.output()
 
 class TestLabelDegree1(unittest.TestCase):    
 
@@ -81,8 +87,18 @@ class TestLabelDegree1(unittest.TestCase):
         self.assertEqual(i,0)
         self.assertEqual(degreeSeq2.output(),['BS_LEVEL', 'MS_LEVEL'])  
  #       print degreeSeq2.getFound(labeledArray)
-   
-       
+     
+    def test_label3(self): 
+        i, output = getDegreeLevel(degreeSeq2, sent11)
+        self.assertEqual(i,0)
+        self.assertEqual(output,['BS_LEVEL', 'MS_LEVEL', 'PHD_LEVEL'])  
+    
+    def test_label4(self): 
+        i, output = getDegreeLevel(degreeSeq2, sent12)
+        self.assertEqual(i,3)
+        self.assertEqual(output,['AS_LEVEL', 'BS_LEVEL', 'MS_LEVEL', 'PHD_LEVEL'])  
+        
+    
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestLabelDegree1)
     unittest.TextTestRunner(verbosity=2).run(suite)
