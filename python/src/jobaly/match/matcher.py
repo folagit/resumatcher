@@ -8,7 +8,7 @@ Created on Thu Aug 07 23:05:14 2014
 
 class BaseMatcher:    
    
-    def __init__(self, catchfun=lambda x:x , outfun=lambda x: None):
+    def __init__(self, catchfun=lambda x:x , outfun=lambda x: x):
         self.catch = []  
         self.catchfun = catchfun
         self.outfun = outfun
@@ -88,7 +88,7 @@ class BaseMatcher:
         
 class TokenMatcher(BaseMatcher):
     
-    def __init__(self, tokens, catchfun=lambda x:x , outfun=lambda x: None):        
+    def __init__(self, tokens, catchfun=lambda x:x , outfun=lambda x: x):        
         BaseMatcher.__init__(self, catchfun, outfun)
         if type(tokens) is str:
             self.tokens = [tokens]

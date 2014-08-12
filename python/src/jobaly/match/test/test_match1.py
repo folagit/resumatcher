@@ -22,12 +22,12 @@ class TestMatch1(unittest.TestCase):
         matcher = TokenMatcher("aaa") 
         self.assertEqual( matcher(tokens1), 1 )
         self.assertEqual( matcher.catch, ["aaa"] )
-        self.assertEqual( matcher.output(), None )
+        self.assertEqual( matcher.output(), ["aaa"] )
         
         matcher = TokenMatcher(["aaa", "bbb"]) 
         self.assertEqual( matcher(tokens1), 2 ) 
         self.assertEqual( matcher.catch, ["aaa", "bbb"] )
-        self.assertEqual( matcher.output(), None )
+        self.assertEqual( matcher.output(),  ['aaa', 'bbb'] )
         
         matcher = TokenMatcher(["aaa", "ccc"]) 
         self.assertEqual( matcher(tokens1), -1 ) 
@@ -36,11 +36,11 @@ class TestMatch1(unittest.TestCase):
     def test_find(self):
          matcher = TokenMatcher(["aaa", "bbb"])
          self.assertEqual(matcher.findMatching(tokens1),0)
-         self.assertEqual( matcher.output(), None )
+         self.assertEqual( matcher.output(), ['aaa', 'bbb'] )
          
          matcher = TokenMatcher(["bbb", "ccc"])
          self.assertEqual(matcher.findMatching(tokens1),1)
-         self.assertEqual( matcher.output(), None )
+         self.assertEqual( matcher.output(),  ['bbb', 'ccc'] )
          
          matcher = TokenMatcher(["ddd", "ccc"])
          self.assertEqual(matcher.findMatching(tokens1),-1)
