@@ -223,3 +223,8 @@ python/src/jobanalysis/sents
 python/src/try/dot/outfiles
 python/src/jobaly/fst/outfiles
 python/src/jobanalysis/degree/output
+proposal/*.aux
+proposal/*.bbl
+proposal/*.blg
+proposal/*.gz
+ 
