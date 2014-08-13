@@ -5,13 +5,6 @@ Created on Tue Aug 12 12:29:07 2014
 @author: dlmu__000
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Jul 25 20:31:27 2014
-
-@author: dlmu__000
-
-"""
 import os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -32,7 +25,7 @@ def onlyDegreeLevel(result):
   #      print "item=",item
         if item != [] and \
           labelGrammer.ontoDict.has_key(item):
-            newresult.append(item)
+             newresult.append({labelGrammer.ontoDict[item]:item})
     return newresult
                 
 
@@ -52,7 +45,7 @@ matcher13 = SeqMatcher([matcher10, matcher11, matcher12])
  
 def getlabeledArray(sent ):
     degreeSent = JobSentence(sent.split())
-    labelGrammer.labelSentence(degreeSent)
+    labelGrammer.labelSentence(degreeSent)    
     print degreeSent.printSentenct()  
     labeledArray = degreeSent.getLabeledArray(labelGrammer.ontoDict)
     print degreeSent.printLabeledArray() 

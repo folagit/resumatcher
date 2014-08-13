@@ -5,13 +5,6 @@ Created on Tue Aug 12 16:26:26 2014
 @author: dlmu__000
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Jul 25 20:31:27 2014
-
-@author: dlmu__000
-
-"""
 import sys
 sys.path.append("..")
 from  data import datautils

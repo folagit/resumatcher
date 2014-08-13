@@ -41,7 +41,8 @@ def onlyDegreeLevel(result):
         print "item=",item
         if item != [] and \
           labelGrammer.ontoDict.has_key(item):
-            newresult.append(item)
+        #    print "value=", labelGrammer.ontoDict[item]
+            newresult.append({labelGrammer.ontoDict[item]:item})
     return newresult
                 
 
