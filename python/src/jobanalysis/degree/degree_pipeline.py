@@ -99,8 +99,9 @@ def main():
    outfileName = "output\\degree_3_labe2.txt"
    failfilename =  "output\\degree_3_labe2_fail.txt"
   
- #  target_set_name = "output\\degree_1"   
- #  outfileName = "output\\degree_1_layer2.txt"  
+   target_set_name = "output\\degree_1"   
+   outfileName = "output\\degree_1_layer2.txt"  
+   failfilename =  "output\\degree_1_labe2_fail.txt"
 
    labelDegreeSet(target_set_name,outfileName, failfilename) 
    
