@@ -11,26 +11,30 @@ from tokenfilter import *
 
 class JobSentence():
     puncts = [".", ",", ";","?", "!", ":", "(", ")" ,"-","+" ,"/" ]
-    tagDict = {  }    
+    
     
     def __init__(self, words):
         self.words = words
         self.lower_words = [word.lower() for word in self.words]
         self.tags = [None] * len(self.words)
-        self._firstTag()
+        self.tagPuncts()
+    
+    def tagDigit(self):
+        i = 0       
+        while i < len(self.words):
+            word = self.words[i] 
+            if word.isdigit():
+                self.tags[i] = (  word , True ) 
+            
+            i+=1
         
-    def _firstTag(self):         
+    def tagPuncts(self):         
         
         i = 0       
         while i < len(self.words):
             word = self.words[i]     
             if word in  JobSentence.puncts :
-                self.tags[i] = (  word , True )  
-          #  if str.isdigit(word) :
-            if word.isdigit():
-                self.tags[i] = (  "DIGIT" , True ) 
-            elif JobSentence.tagDict.has_key(word):
-                self.tags[i] = ( JSentence.tagDict[word], True )
+                self.tags[i] = (  word , True ) 
             i+=1
     
     
