@@ -1,14 +1,19 @@
 
 
 
-\section{MOTIVATION }
+\section{MOTIVATION}
 Currently the main channel for job seekers are online job finding web sites, like indeed£¬ monster etc. But most websites only allow users to use key word to search the jobs, which makes job searching as tedious and blind task. For example, I used keyword ¡°Java¡± to search jobs in Mountain View, CA area on the job search engine indeed.com, the web site returned more than 7,000 jobs. Because the number of results of job searching is huge but un-ranked, the job seeker has to review every job description. Since no one has enough time to read all the jobs in the searching result, so the actual quality of job searching service is low. This is a classic problem of information overload.
 
 My proposal is to create a web application which could use the resumes of job seekers to find the jobs that match their profiles best. The idea is to build a job candidate model, which should be generated from resumes and job descriptions. I want to transfer the job searching task from key word searching to candidate model matching. The matching result should be sorted by the matching score, higher matching score means a better matching. The job with higher matching score means the job is more appropriate to the job seeker, and if he applies for the job, the chance of getting the interview will be higher as well. The following is a figure of how this approach works.
 
-\section{PREVIOUS WORK }
+\section{PREVIOUS WORK}
 
-\section{SYSTEM FEATURES }
+There several papers published on this topic, usually scholars call them Job Recommend System (JRS), because most of them used technology from other recommender systems. AlOtaibi et al. [1] summarized the categories of existing online recruiting platforms and listed the advantages and disadvantages of technical approaches in different JRSs.
+
+They are some patents and systems related to this research, but most of them focusing on how to screen candidates. The systems are designed from the perspective of recruiter on how to find good candidates. Because the main revenue of current job finding websites is from the companies using their service, so their main interest is in how to promote more companies buying their services, not to improve the user experience of job seekers. By standing from the perspective of job seekers, this new approach can help find them the most suitable jobs.
+
+
+\section{SYSTEM FEATURES}
 
 I expect to use Natural Language Processing, especially semantic technique to parse the job description and resume, get information such as skill, specialties and background. This information will be used to build the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching algorithm. Machine leaning algorithm will also be used to increase the accuracy of the matching algorithm by training with the existing data set.
 
@@ -23,10 +28,12 @@ But simple keyword of skill name matching is far from enough, because job descri
 
 
 
-\section{ TIME TABLE }
+\section{TIME TABLE}
 
-\section{ EVALUATION }
 
-\section{ CONCLUSION }
+
+\section{EVALUATION}
+
+\section{CONCLUSION}
 
 must have site here ~\cite{Hammond02}
