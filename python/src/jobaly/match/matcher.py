@@ -37,7 +37,7 @@ class BaseMatcher:
         else: 
             return  AlternateMatcher([self,other]) 
         
-    def __plus__(self, other):      
+    def __add__(self, other):      
         if isinstance(self, SeqMatcher ) :
             self.append(other)
             return self
