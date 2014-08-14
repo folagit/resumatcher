@@ -230,3 +230,4 @@ proposal/*.bbl
 proposal/*.blg
 proposal/*.gz 
 proposal/*.dvi
+proposal/*.gz
