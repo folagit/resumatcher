@@ -2,7 +2,7 @@
 
 
 \section{MOTIVATION}
-Currently the main channel for job seekers are online job finding web sites, like indeed£¬ monster etc. But most websites only allow users to use key word to search the jobs, which makes job searching as tedious and blind task. For example, I used keyword ¡°Java¡± to search jobs in Mountain View, CA area on the job search engine indeed.com, the web site returned more than 7,000 jobs. Because the number of results of job searching is huge but un-ranked, the job seeker has to review every job description. Since no one has enough time to read all the jobs in the searching result, so the actual quality of job searching service is low. This is a classic problem of information overload.
+Currently the main channel for job seekers are online job finding web sites, like indeedï¿½ï¿½ monster etc. But most websites only allow users to use key word to search the jobs, which makes job searching as tedious and blind task. For example, I used keyword ï¿½ï¿½Javaï¿½ï¿½ to search jobs in Mountain View, CA area on the job search engine indeed.com, the web site returned more than 7,000 jobs. Because the number of results of job searching is huge but un-ranked, the job seeker has to review every job description. Since no one has enough time to read all the jobs in the searching result, so the actual quality of job searching service is low. This is a classic problem of information overload.
 
 My proposal is to create a web application which could use the resumes of job seekers to find the jobs that match their profiles best. The idea is to build a job candidate model, which should be generated from resumes and job descriptions. I want to transfer the job searching task from key word searching to candidate model matching. The matching result should be sorted by the matching score, higher matching score means a better matching. The job with higher matching score means the job is more appropriate to the job seeker, and if he applies for the job, the chance of getting the interview will be higher as well. The following is a figure of how this approach works.
 
@@ -30,18 +30,23 @@ But simple keyword of skill name matching is far from enough, because job descri
 
 \section{TIME TABLE}
 \begin{center}
-\begin{tabular}{ |c|c|c|c|c|c|c| }
+\begin{tabular}{ |c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}| }
  \hline
-  Content               & May & Jun & Jul & Aug & Sep & Oct  \\ \hline
-  Literature Review     & Y   & Y   &     &     &     &            \\ \hline
-  Data Collection       &     & Y   &  Y  &     &     &      \\ \hline
-  Requirement Analysis  &     &     &  Y  &     &     &      \\ \hline
-  Implementation        &     &     &  Y  &     &     &      \\ \hline
-   
- 
+  Content                 & May              & Jun             & Jul              & Aug             & Sep             & Oct  \\ \hline
+  Literature Review       & \cellcolor{red}  & \cellcolor{red} &                  &                 &                 &      \\ \hline
+  Data Collection         &                  & \cellcolor{red} & \cellcolor{red}  &                 &                 &      \\ \hline
+  Requirement Analysis    &                  &                 & \cellcolor{red}  &                 &                 &      \\ \hline
+  Implementation          &                  &                 &                  & \cellcolor{red} &                 &      \\ \hline
+  Evaluation and Analysis &                  &                 &                  &                 & \cellcolor{red} &   \\ \hline
+  Writing and Wrap Up     &                  &                 &                  &      & \cellcolor{red} & \cellcolor{red}     \\ \hline
+  Defending               &                  &                 &                  &                 &     &  \cellcolor{red}    \\ \hline
+
+
  \hline
 \end{tabular}
 \end{center}
+
+ 
 
 
 \section{EVALUATION}
