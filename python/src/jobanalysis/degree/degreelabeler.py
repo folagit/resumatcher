@@ -138,7 +138,7 @@ def createOntoDict():
     addLabels(ontoDict, MAJOR, "MAJOR" ) 
     return ontoDict
     
-def createDegreeGrammar():
+def createDegreeLabeler():
     labelDict = createLabelDict()   
     ontoDict = createOntoDict()
     labeler = Labeler(labelDict,ontoDict)

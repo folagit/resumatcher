@@ -17,6 +17,7 @@ from  data import datautils
 from data.jobsentence import JobSentence
 from degreelabeler import *
 
+labeler =  createDegreeLabeler() 
 
 def onlyDegreeLevel(result):
  #   print "result=",result
@@ -24,8 +25,8 @@ def onlyDegreeLevel(result):
     for item in result:
   #      print "item=",item
         if item != [] and \
-          labelGrammer.ontoDict.has_key(item):
-             newresult.append({labelGrammer.ontoDict[item]:item})
+          labeler.ontoDict.has_key(item):
+             newresult.append({labeler.ontoDict[item]:item})
     return newresult
                 
 
@@ -37,15 +38,15 @@ matcher4 = StarMatcher(LabelMatcher([",","DE_LEVEL"]))
 matcher5 = QuestionMatcher(LabelMatcher(["OR","DE_LEVEL"]))
 degreeSeq2 = SeqMatcher([matcher1,matcher4, matcher5, matcher2], outfun=onlyDegreeLevel)
    
-
-matcher10 = LabelMatcher( [ "IN" , "MAJOR" ])
+ 
+matcher10 = LabelMatcher( ["IN"]) + QuestionMatcher(LabelMatcher( [ "DT"])) + LabelMatcher( [ "MAJOR" ])
 matcher11 = StarMatcher( LabelMatcher( [",", "MAJOR"] ) )
-matcher12 = LabelMatcher( [ "OR" , "MAJOR" ])
-matcher13 = SeqMatcher([matcher10, matcher11, matcher12])
+matcher12 = QuestionMatcher(LabelMatcher( [ "OR" , "MAJOR" ]))
+majorseq1 = SeqMatcher([matcher10, matcher11, matcher12] , outfun=onlyDegreeLevel)
  
 def getlabeledArray(sent ):
     degreeSent = JobSentence(sent.split())
-    labelGrammer.labelSentence(degreeSent)    
+    labeler.labelSentence(degreeSent)    
     print degreeSent.printSentenct()  
     labeledArray = degreeSent.getLabeledArray(labelGrammer.ontoDict)
     print degreeSent.printLabeledArray() 
@@ -58,9 +59,10 @@ def getDegreeLevel( matcher , sent ):
 
     
 def labelDegreeSet(data_set_name, outfileName,failfilename):
-    labelGrammer =  createDegreeGrammar()      
+     
     data = datautils.loadJson(data_set_name)
     matcher =  degreeSeq2
+    matcher = majorseq1
     f = open(outfileName, "w")
     f2 = open(failfilename, "w")
     total = 0
@@ -70,10 +72,10 @@ def labelDegreeSet(data_set_name, outfileName,failfilename):
         sent = item[2]       
        
         degreeSent = JobSentence(sent.split())
-        labelGrammer.labelSentence(degreeSent)
+        labeler.labelSentence(degreeSent)
      #   print degreeSent.printSentenct()  
     #    f.write( degreeSent.printSentenct().get_string() +"\n\n" )
-        labeledArray = degreeSent.getLabeledArray(labelGrammer.ontoDict)
+        labeledArray = degreeSent.getLabeledArray(labeler.ontoDict)
     #    print degreeSent.printLabeledArray() 
        
         i = matcher.findMatching(labeledArray)
@@ -102,6 +104,10 @@ def main():
    target_set_name = "output\\degree_1"   
    outfileName = "output\\degree_1_layer2.txt"  
    failfilename =  "output\\degree_1_labe2_fail.txt"
+   
+   target_set_name = "output\\degree_1"   
+   outfileName = "output\\degree_1_layer2_major.txt"  
+   failfilename =  "output\\degree_1_labe2_fail_major.txt"
 
    labelDegreeSet(target_set_name,outfileName, failfilename) 
    
