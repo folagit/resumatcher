@@ -36,6 +36,30 @@ The model of the candidate will include their specialties, working experience an
 In the initial phase I will only focus on the positions of IT job, because IT jobs have a special character,  skill set oriented, which means the person that the company want to hire must have some special skills and knowledge, like some programming languages, databases or software etc.
 But simple keyword of skill name matching is far from enough, because job description and resume are both written in human language, even the same things, they could be written in different ways. For example, below is part of the resume of a job seeker, and a part of a job description:
 
+\begin{center}
+\begin{tabular}{ | p{8cm} | p{7cm} | }
+ \hline
+   \textbf{Part of Resume}                 &   \textbf{Part of Job Description}   \\ \hline
+  
+    B.S. degree in computer science \newline 
+    5+ years Java, \newline 
+    2+ year   C++  \newline 
+    Some experience in Oracle database \newline 
+    Other experience like: \newline 
+    Hibernate, JBOSS, JUnit, Tomcat etc.  
+  &        
+  BS degree above   \newline  
+  4+ years Java  \newline   
+  Some experience of Python   \newline 
+    Mysql, MS-SQL   \newline
+    Java web application Server   \newline
+    OOA/OOD   \\
+ \hline
+\end{tabular}
+\end{center}
+
+If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience. Tomcat and JBOSS are two Java web applications.  But current key word searching technology won't give a good matching result in this very common situation. I believe ontology is a good solution to this system.
+User¡¯s personal preference should be considered as well. In the previous user survey, some factors will impact a lot on the user¡¯s expectation of good jobs, such factors include: location, the reputation of the company, the salary etc. These factors will be treated with deferent weight in the job matching algorithm.
 
 
 \section{TIME TABLE}
