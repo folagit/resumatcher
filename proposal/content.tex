@@ -15,16 +15,26 @@ They are some patents and systems related to this research, but most of them foc
 
 \section{SYSTEM FEATURES}
 
+The system should include such features:
+
+\begin{enumerate}
+    \item User could import his resume in different format, like txt, doc and pdf.
+    \item User could search jobs by his resume. The search result will be sorted by the matching scores.
+    \item User could set their searching preference, like location, company type, reputation, salary level, etc.
+    \item The system should learn user¡¯s preference during the user¡¯s searching process.
+    \item The system should be able to change the parameters of the matching algorithm adaptively according to the record of user's preference
+    \item The user could set multiple searching agents, each one of which is a composition of different preferences, like one for remote location with high salary, another for local company with low salary.
+\end{enumerate}
+
+
+\section{METHODOLOGY}
+
 I expect to use Natural Language Processing, especially semantic technique to parse the job description and resume, get information such as skill, specialties and background. This information will be used to build the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching algorithm. Machine leaning algorithm will also be used to increase the accuracy of the matching algorithm by training with the existing data set.
 
 The model of the candidate will include their specialties, working experience and education, all the information should be extracted from the resumes. The model also will be extracted from job description. When job seeker search the job, the system compares the candidate model from the resume to the models from the job descriptions.
 
 In the initial phase I will only focus on the positions of IT job, because IT jobs have a special character,  skill set oriented, which means the person that the company want to hire must have some special skills and knowledge, like some programming languages, databases or software etc.
 But simple keyword of skill name matching is far from enough, because job description and resume are both written in human language, even the same things, they could be written in different ways. For example, below is part of the resume of a job seeker, and a part of a job description:
-
-
-
-\section{METHODOLOGY}
 
 
 
