@@ -14,7 +14,7 @@ Currently the main channel for job seekers are online job finding web sites, lik
 
 The reason for such result is because current job searching web site use the same information retrieval technology ``Inverted index'' \cite{zobel2006inverted} as in the common search engine, which just use keyword to map the docs that users want to search. Modern search engine all have ranking algorithms to sort the searching result, like page rank \cite{page1999pagerank}, so the top results always be the most related ones. But such algorithms for the job search engine is unavailable, because how to rank the job searching result is very personalized. A great job opening for one job seeker maybe means nothing to the other, the goodness of job for a specular job seeker is heavily depend on his personal background, like their education or professional experience etc.
 
-Since the people's resumes contain the most important background information, we believe we can use the content of the resume to rank the job openings. My proposal is to create a web system which could use the resumes of job seekers to find the jobs that match their profiles best. The main idea is to build a job candidate model, which should be generated from resumes and job descriptions. I want to transfer the job searching task from key word searching to candidate model matching. The matching result should be sorted by the matching score, higher matching score means a better matching. The job with higher matching score means the job is more appropriate to the job seeker, and if he applies for the job, the chance of getting the interview will be higher as well. The figure~\ref{fig:Matching} will show how this approach works.
+Since the people's resumes contain the most important background information, we believe we can use the content of the resume to rank the job openings. My proposal is to create a web system which could use the resumes of job seekers to find the jobs that match their profiles best. The main idea is to build a job candidate model, which should be generated from resumes and job descriptions. I want to transfer the job searching task from key word searching to candidate model matching. The matching result should be sorted by the matching score, higher matching score means a better matching. Matching algorithm will not only help job seekers to find the appreciate job opening, but also offer priority to them.~\cite{gueutal2006brave}  The job with higher matching score means the job is more appropriate to the job seeker, and if he applies for the job, the chance of getting the interview will be higher as well. The figure~\ref{fig:Matching} will show how this approach works.
 
 
 \begin{figure}[htbp]
@@ -26,7 +26,7 @@ Since the people's resumes contain the most important background information, we
 
 \section{PREVIOUS WORK}
 
-There several papers published on this topic, usually scholars call them Job Recommend System (JRS), because most of them used technology from other recommender systems. AlOtaibi et al. ~\cite{al2012survey} summarized the categories of existing online recruiting platforms and listed the advantages and disadvantages of technical approaches in different JRSs.
+Job searching is not a new topic in information retrieval, it is been the focus of some commercial job finding web sites and research papers. Usually scholars call them Job Recommend System (JRS), because most of them used technology from other recommender systems. AlOtaibi et al.~\cite{al2012survey} summarized the categories of existing online recruiting platforms and listed the advantages and disadvantages of technical approaches in different JRSs.
 
 
 \begin{enumerate}
@@ -40,20 +40,19 @@ There several papers published on this topic, usually scholars call them Job Rec
 
 They are some patents and systems related to this research, but most of them focusing on how to screen candidates. The systems are designed from the perspective of recruiter on how to find good candidates. Because the main revenue of current job finding websites is from the companies using their service, so their main interest is in how to promote more companies buying their services, not to improve the user experience of job seekers. By standing from the perspective of job seekers, this new approach can help find them the most suitable jobs.
 
+There are two main challenges in Content-Based Recommendation Systems, one is how to extract the information from the job opening and job seeker's resumes, the other is how to calculate similarity of them.
 
-\section{SYSTEM FEATURES}
+Ontology matching had been well studied by  Shvaiko and Euzenat in \cite{shvaiko2013ontology}
 
-The system should include such features:
+The Ontology technics had also been used in some JRSs. Proactive~\cite{lee2007fighting} use two kinds of ontology, one is job category and the other is company information. The system used ontology checker to classify the job information, store the domain knowledge and calculate the weight value in recommendations. In Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology},  Celik Duygua and Elci Atilla used ontology to assistant extract information from resumes. The system process the resume is following steps: convert the resume file to plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts of the sentences, normalize all the terms, at last the system will classify the sentences to get the meaning.
 
-\begin{enumerate}
-    \item User could import his resume in different format, like txt, doc and pdf.
-    \item User could search jobs by his resume. The search result will be sorted by the matching scores.
-    \item User could set their searching preference, like location, company type, reputation, salary level, etc.
-    \item The system should learn user¡¯s preference during the user¡¯s searching process.
-    \item The system should be able to change the parameters of the matching algorithm adaptively according to the record of user's preference
-    \item The user could set multiple searching agents, each one of which is a composition of different preferences, like one for remote location with high salary, another for local company with low salary.
-\end{enumerate}
-
+Kumaran et al also used ontology to calculate the similarity between job criteria and candidates's resume in their system~\cite{kumaran2013towards}. The equation they use are:
+$$ M\left ( i_1, i_2 \right ) = \frac{\sum_{k=1}^{n} Sim\left (p_{k}^{i1},  p_{k}^{i2} \right ) * W_{k}^{i2}}{\sum_{k=1}^{n} W_{k}^{i2}}  $$
+The similarity function $Sim(p_1, p_2)$ is defined as follows:
+$$ Sim(p1, p2) = \begin{Bmatrix}
+1, & if~similarity~of~p1~and~p2 \geqslant t\\
+0, & otherwise
+\end{Bmatrix} $$
 
 \section{METHODOLOGY}
 
@@ -89,6 +88,19 @@ But simple keyword of skill name matching is far from enough, because job descri
 If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience. Tomcat and JBOSS are two Java web applications.  But current key word searching technology won't give a good matching result in this very common situation. I believe ontology is a good solution to this system.
 User¡¯s personal preference should be considered as well. In the previous user survey, some factors will impact a lot on the user¡¯s expectation of good jobs, such factors include: location, the reputation of the company, the salary etc. These factors will be treated with deferent weight in the job matching algorithm.
 
+
+\section{SYSTEM FEATURES}
+
+The system should include such features:
+
+\begin{enumerate}
+    \item User could import his resume in different format, like txt, doc and pdf.
+    \item User could search jobs by his resume. The search result will be sorted by the matching scores.
+    \item User could set their searching preference, like location, company type, reputation, salary level, etc.
+    \item The system should learn user¡¯s preference during the user¡¯s searching process.
+    \item The system should be able to change the parameters of the matching algorithm adaptively according to the record of user's preference
+    \item The user could set multiple searching agents, each one of which is a composition of different preferences, like one for remote location with high salary, another for local company with low salary.
+\end{enumerate}
 
 \section{TIME TABLE}
 \begin{center}
