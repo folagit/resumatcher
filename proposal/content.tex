@@ -26,6 +26,7 @@ Since the people's resumes contain the most important background information, we
 
 \section{PREVIOUS WORK}
 
+\subsection{Job Recommend System}
 Job searching is not a new topic in information retrieval, it is been the focus of some commercial job finding web sites and research papers. Usually scholars call them Job Recommend System (JRS), because most of them used technology from other recommender systems. AlOtaibi et al.~\cite{al2012survey} summarized the categories of existing online recruiting platforms and listed the advantages and disadvantages of technical approaches in different JRSs.
 
 
@@ -42,6 +43,8 @@ They are some patents and systems related to this research, but most of them foc
 
 There are two main challenges in Content-Based Recommendation Systems, one is how to extract the information from the job opening and job seeker's resumes, the other is how to calculate similarity of them.
 
+\subsection{Ontology in Recommend Systems}
+
 Ontology matching had been well studied by  Shvaiko and Euzenat in \cite{shvaiko2013ontology}
 
 The Ontology technics had also been used in some JRSs. Proactive~\cite{lee2007fighting} use two kinds of ontology, one is job category and the other is company information. The system used ontology checker to classify the job information, store the domain knowledge and calculate the weight value in recommendations. In Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology},  Celik Duygua and Elci Atilla used ontology to assistant extract information from resumes. The system process the resume is following steps: convert the resume file to plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts of the sentences, normalize all the terms, at last the system will classify the sentences to get the meaning.
@@ -54,9 +57,12 @@ $$ Sim(p1, p2) = \begin{Bmatrix}
 0, & otherwise
 \end{Bmatrix} $$
 
+\subsection{Information Extraction}
+One important the problem of this system is how to extract the model from Job Description and Resume.
+
 \section{METHODOLOGY}
 
-The system 
+The system
 I expect to use Natural Language Processing, especially semantic technique to parse the job description and resume, get information such as skill, specialties and background. This information will be used to build the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching algorithm. Machine leaning algorithm will also be used to increase the accuracy of the matching algorithm by training with the existing data set.
 
 The model of the candidate will include their specialties, working experience and education, all the information should be extracted from the resumes. The model also will be extracted from job description. When job seeker search the job, the system compares the candidate model from the resume to the models from the job descriptions.
@@ -89,17 +95,30 @@ But simple keyword of skill name matching is far from enough, because job descri
 If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience. Tomcat and JBOSS are two Java web applications.  But current key word searching technology won't give a good matching result in this very common situation. I believe ontology is a good solution to this system.
 User¡¯s personal preference should be considered as well. In the previous user survey, some factors will impact a lot on the user¡¯s expectation of good jobs, such factors include: location, the reputation of the company, the salary etc. These factors will be treated with deferent weight in the job matching algorithm.
 
+\subsection{System Architecture}
+
+
 
 
 \subsection{Information Extraction}
-You know I just joined this group. I did so because I wanted to associate on line with like minded people capable of having intelligent conversations. From what I have seen over the last few days...DAMN! Did I come to the wrong place!
+One important the problem of this system is how to extract the model from Job Description and Resume,
+In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This system also use it to extract model of job opening and candidate's resume. The system will process the job opening in follow steps:
+
+\begin{enumerate}
+    \item The web scrawler module will search and download all new IT job opening web pages  from indeed.com everyday.
+    \item HTML parser module will parse the job opening web page, get the HTML tag which has the mainly information of the job description.
+    \item Segment module separate the job description into paragraphs according to HTML tag, then separate each paragraph into sentences
+    \item The sentences will be tokenized, and sent to Classification module. This will determine the category of the sentence, and mark the category of the sentence.
+    \item Preprocessing module will
+    \item Annotation module will annotate the sentences with sematic and ontology labels. The sentences will be transferred to layered data structure.
+    \item The layered sentences will be matched with predefined patterns. If any pattern could be matched, the ontology information will be stored in the job model.
+    \item After every sentence has be processed in the pipeline, the job model will be stored into database.
+\end{enumerate}
 
 \subsection{Ontology Similarity}
 You know I just joined this group. I did so because I wanted to associate on line with like minded people capable of having intelligent conversations. From what I have seen over the last few days...DAMN! Did I come to the wrong place!
 
-\subsection{System Architecture}
 
-The Architecture of 
 
 \section{SYSTEM FEATURES}
 
