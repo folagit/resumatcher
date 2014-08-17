@@ -26,8 +26,13 @@ Since the people's resumes contain the most important background information, we
 
 \section{PREVIOUS WORK}
 
+Some scholars found that current Boolean search and filtering techniques cannot satisfy the complexity of candidate-job matching requirement.~\cite{malinowski2006matching} They hope the system could understand the job requirement, determine which requirements are mandatory and which are optional but preferable. So they move to use recommender systems techniques to address the problem of information overload
+
 \subsection{Job Recommend System}
-Job searching is not a new topic in information retrieval, it is been the focus of some commercial job finding web sites and research papers. Usually scholars call them Job Recommend System (JRS), because most of them used technology from other recommender systems. AlOtaibi et al.~\cite{al2012survey} summarized the categories of existing online recruiting platforms and listed the advantages and disadvantages of technical approaches in different JRSs.
+
+Job searching is not a new topic in information retrieval, it is been the focus of some commercial job finding web sites and research papers. Usually scholars call them Job Recommend System (JRS), because most of them used technology from other recommender systems. Recommend System could be classified into four categories~\cite{wei2007survey}: Collaborative Filtering, Content-based filtering, Knowledge-based and Hybrid approaches. 
+
+Zheng et al. ~\cite{siting2012job} and AlOtaibi et al.~\cite{al2012survey} summarized the categories of existing online recruiting platforms and listed the advantages and disadvantages of technical approaches in different JRSs.
 
 
 \begin{enumerate}
@@ -35,13 +40,23 @@ Job searching is not a new topic in information retrieval, it is been the focus 
 
     \item Collaborative Filtering Recommendation (CFR) Collaborative filtering recommendation, which finds  similar  users  who have  the same taste with the target user and recommends items based on what the similar users like, like CASPER[3].
 
-    \item Knowledge-based Recommendation (KBR) In the knowledge-based recommendation, rules and patterns obtained from the functional knowledge of how a specific item  meets the requirement of a particular user, are used for recommending items, like  Proactive[4].
+    \item Knowledge-based Recommendation (KBR) In the knowledge-based recommendation, rules and patterns obtained from the functional knowledge of how a specific item  meets the requirement of a particular user, are used for recommending items, like  Proactive~\cite{lee2007fighting}.
+        
+    \item Reciprocal Recommender
 
 \end{enumerate}
 
-They are some patents and systems related to this research, but most of them focusing on how to screen candidates. The systems are designed from the perspective of recruiter on how to find good candidates. Because the main revenue of current job finding websites is from the companies using their service, so their main interest is in how to promote more companies buying their services, not to improve the user experience of job seekers. By standing from the perspective of job seekers, this new approach can help find them the most suitable jobs.
+They are some patents and systems related to this research, but most of them focusing on how to screen candidates. The systems are designed from the perspective of recruiter on how to find good candidates. Because the main revenue of current job finding web sites is from the companies using their service, so their main interest is in how to promote more companies buying their services, not to improve the user experience of job seekers. By standing from the perspective of job seekers, this new approach can help find them the most suitable jobs.
 
 There are two main challenges in Content-Based Recommendation Systems, one is how to extract the information from the job opening and job seeker's resumes, the other is how to calculate similarity of them.
+
+Lu et al~\cite{lu2013recommender}. use latent Semantic Analysis(LSA) to calculate similarities between jobs and candidates, but they selected only two factors ``interest'' and ``education''  to compare candidates.  
+
+\subsection{Information Extraction}
+One important the problem of this system is how to extract the model from Job Description and Resume. The first step of model generating is information extraction. Both resume and job description are written in natural language, so we need to extract information from such un-structured or semi-structured data source. 
+
+Yu et al.~\cite{yu2005resume} use a cascaded information extraction (IE) framework to get the detailed information from the job
+seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is used to segment the resume into consecutive blocks. Based on the result, a SVM model is used to obtain the detailed information in the certain block, such information include: name, address, education etc.  
 
 \subsection{Ontology in Recommend Systems}
 
@@ -56,9 +71,6 @@ $$ Sim(p1, p2) = \begin{Bmatrix}
 1, & if~similarity~of~p1~and~p2 \geqslant t\\
 0, & otherwise
 \end{Bmatrix} $$
-
-\subsection{Information Extraction}
-One important the problem of this system is how to extract the model from Job Description and Resume.
 
 \section{METHODOLOGY}
 
@@ -148,7 +160,7 @@ In traditional information retrieval system, some measures are widely used~\cite
     \item $F measure$ ($F_1 score$) trades off precision versus recall.
        $$ F_1 = 2 \cdot \frac{ Precision \cdot Recall}{ Precision + Recall } $$
     \item Since the results are ranked, $ Normalized~Discounted~Cumulative~Gain ( NDCG )$ will be an important measure to evaluate the ranked retrieval results.
-       $$ NDCG(Q,k) = \frac {1}{|Q|} \sum_{j=1}^{|Q|}{Z_{kj}} \sum_{m=1}^{k} \frac{2^{R(j,m)} - 1 }{ \log_2(1+m)} $$
+       $$ NDCG(Q,k) = \frac {1}{|Q|} \sum_{j=1}^{|Q|}{Z_{kj}} \sum_{m=1}^{k} \frac{2^{R(j,m)} - 1}{ \log_2(1+m)} $$
 \end{enumerate}
 
 \subsection{Evaluation Process}
