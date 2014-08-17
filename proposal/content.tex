@@ -133,6 +133,40 @@ The system should include such features:
     \item The user could set multiple searching agents, each one of which is a composition of different preferences, like one for remote location with high salary, another for local company with low salary.
 \end{enumerate}
 
+
+\section{EVALUATION}
+
+\subsection{Basic measures of the system}
+
+In traditional information retrieval system, some measures are widely used~\cite{manning2008introduction}. These measures include:
+
+\begin{enumerate}
+    \item Precision ($P$) is the fraction of retrieved documents that are relevant .
+       $$  Precision =  \frac{ \#(releveant~items~ retrieved)}{ \#(retrieved~items)}$$
+    \item Recall ($R$) is the fraction of relevant documents that are retrieved.
+       $$  Recall =  \frac{ \#(releveant~items~ retrieved)}{ \#(releveant~items)}$$
+    \item $F measure$ ($F_1 score$) trades off precision versus recall.
+       $$ F_1 = 2 \cdot \frac{ Precision \cdot Recall}{ Precision + Recall } $$
+    \item Since the results are ranked, $ Normalized~Discounted~Cumulative~Gain ( NDCG )$ will be an important measure to evaluate the ranked retrieval results.
+       $$ NDCG(Q,k) = \frac {1}{|Q|} \sum_{j=1}^{|Q|}{Z_{kj}} \sum_{m=1}^{k} \frac{2^{R(j,m)} - 1 }{ \log_2(1+m)} $$
+\end{enumerate}
+
+\subsection{Evaluation Process}
+
+Two methods will be used to evaluate the quality of the system:
+1.	Pre-collected data: The user will be asked to use current job hunting web sites to find some jobs that he believes to be the best match. These jobs will be put into the system with some other random collected jobs.  When searching the jobs with the resume of the same user, we can get precision, recall and F measure of the system. The ranking position of the result is also very important, so NDCG is also a very important measure.
+
+\subsection{User Experience}
+2.	User experience:  The user will be asked to use both the system and current job finding web site. We can compare some factors to evaluate the system, such as:
+
+
+\begin{enumerate}
+    \item The time consumed to find satisfying jobs
+    \item The quality of search results
+    \item The user subjective experience with the both systems
+\end{enumerate}
+
+
 \section{TIME TABLE}
 \begin{center}
 \begin{tabular}{ |c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}| }
@@ -151,23 +185,6 @@ The system should include such features:
 \end{tabular}
 \end{center}
 
-
-
-
-\section{EVALUATION}
-
-Two methods will be used to evaluate the quality of the system:
-1.	Pre-collected data: The user will be asked to use current job hunting web sites to find some jobs that he believes to be the best match. These jobs will be put into the system with some other random collected jobs.  When searching the jobs with the resume of the same user, we can get precision, recall and F measure of the system. The ranking position of the result is also very important, so NDCG is also a very important measure.
-
-2.	User experience:  The user will be asked to use both the system and current job finding web site. We can compare some factors to evaluate the system, such as:
-
-
-\begin{enumerate}
-    \item The time consumed to find satisfying jobs
-    \item The quality of search results
-    \item The user subjective experience with the both systems
-\end{enumerate}
-
 \section{CONCLUSION}
 
-must have site here ~\cite{Hammond02}
+In this proposal I proposed a personalized job-resume matching system, which could help job seeker to find appropriate jobs more easily. In the system, job descriptions and resumes will be process by pipeline; and a finite automated tool will be used to extract the model of them. The job descriptions will be matched the user's resume, the result will be sorted by the ontology similarity. Since the most appreciate jobs will be returned in front of other jobs, the users of the system could get better result than current job finding web site.
