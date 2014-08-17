@@ -7,6 +7,7 @@
 \usepackage{subfigure}
 \usepackage{bbm}
 \usepackage{color, colortbl}
+\usepackage{titlesec}
 %\makeatletter
 %\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
 %\makeatother
@@ -44,6 +45,9 @@
 %\renewcommand{\type}{Thesis}
 
 \renewcommand{\thesection} {\arabic{section}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+
+\titleformat{\subsection}[block]{\hspace{0em}}{\thesubsection}{1em}{}
 
 %%%%%%%%%%%
 % Type of degree.
