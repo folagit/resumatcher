@@ -55,7 +55,7 @@ seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is 
 
 Lu et al~\cite{lu2013recommender}. use latent Semantic Analysis(LSA) to calculate similarities between jobs and candidates, but they selected only two factors ``interest'' and ``education''  to compare candidates. Xing et al. ~\cite{yi2007matching} used a Structured Relevance Models (SRM) to  match resumes and jobs.
 
-The Ontology technics had also been used in some JRSs, which had been well studied by  Shvaiko and Euzenat in \cite{shvaiko2013ontology}.  Proactive~\cite{lee2007fighting} use two kinds of ontology, one is job category and the other is company information. The system used ontology checker to classify the job information, store the domain knowledge and calculate the weight value in recommendations. In Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology},  Celik Duygua and Elci Atilla used ontology to assistant extract information from resumes. The system process the resume is following steps: convert the resume file to plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts of the sentences, normalize all the terms, at last the system will classify the sentences to get the meaning.
+The Ontology technics had also been used in some JRSs, which had been well studied by  Shvaiko and Euzenat in \cite{shvaiko2013ontology}.  Proactive~\cite{lee2007fighting} use two kinds of ontology, one is job category and the other is company information. The system used ontology checker to classify the job information, store the domain knowledge and calculate the weight value in recommendations.  In Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology},  Celik Duygua and Elci Atilla used ontology to assistant extract information from resumes. The system process the resume is following steps: convert the resume file to plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts of the sentences, normalize all the terms, at last the system will classify the sentences to get the meaning.
 
 Kumaran et al~\cite{kumaran2013towards} also used ontology to calculate the similarity between job criteria and candidates's resume in their system~\cite{kumaran2013towards}. The equation they use are:
 $$ M\left ( i_1, i_2 \right ) = \frac{\sum_{k=1}^{n} Sim\left (p_{k}^{i1},  p_{k}^{i2} \right ) * W_{k}^{i2}}{\sum_{k=1}^{n} W_{k}^{i2}}  $$
@@ -74,15 +74,17 @@ Liu and Dew~\cite{liu2004using} used RDF to represent and store the expertise of
 
 \section{METHODOLOGY}
 
-The system will use Natural Language Processing, especially information extraction technique to parse the job description and resume, get information such as skill, specialties and background. This information will be used to build the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching algorithm. Machine leaning algorithm will also be used to increase the accuracy of the matching algorithm by training with the existing data set.
+The system will use Natural Language Processing, especially information extraction technique to parse the job description and resume, get information such as skill, specialties and background. These information will be used to build the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching algorithm. Machine leaning algorithm will also be used to increase the accuracy of the matching algorithm by training with the existing data set.
 
 The model of the candidate will include their specialties, working experience and education, all the information should be extracted from the resumes. The model also will be extracted from job description. When job seeker search the job, the system compares the candidate model from the resume to the models from the job descriptions.
 
 In the initial phase I will only focus on the positions of IT job, because IT jobs have a special character,  skill set oriented, which means the person that the company want to hire must have some special skills and knowledge, like some programming languages, databases or software etc.
 
+User¡¯s personal preference should be considered as well. In the previous user survey, some factors will impact a lot on the user¡¯s expectation of good jobs, such factors include: location, the reputation of the company, the salary etc. These factors will be treated with deferent weight in the job matching algorithm.
+
 \subsection{System Architecture}
 
-~\ref{fig:Pipeline} show the architecture of the whole system, which include such modules: 
+~\ref{fig:Pipeline} show the architecture of the whole system, which include such modules:
 
 \begin{enumerate}
     \item The web scrawler will search and download all new IT job opening web pages  from indeed.com everyday.
@@ -108,7 +110,7 @@ In Nature Language Processing, especially in Information Extraction, pipeline is
     \item HTML parser module will parse the job opening web pages that obtained from web scrawler module, get the HTML tag which has the mainly information of the job description.
     \item Segment module separate the job description into paragraphs according to HTML tag, then separate each paragraph into sentences
     \item The sentences will be tokenized, and sent to Classification module. This will determine the category of the sentence, and mark the category of the sentence.
-    \item Preprocessing module will delete unreadable characters, normalize some spelling. 
+    \item Preprocessing module will delete unreadable characters, normalize some spelling.
     \item Annotation module will annotate the sentences with sematic and ontology labels. The sentences will be transferred to layered data structure.
     \item The layered sentences will be matched with predefined patterns. If any pattern could be matched, the ontology information will be stored in the job model.
     \item After every sentence has be processed in the pipeline, the job model will be stored into database.
@@ -124,7 +126,7 @@ In Nature Language Processing, especially in Information Extraction, pipeline is
 
 \subsection{Ontology Similarity}
 
-But simple keyword of skill name matching is far from enough, because job description and resume are both written in human language, even the same things, they could be written in different ways. For example, below is part of the resume of a job seeker, and a part of a job description:
+We notice that simple keyword of skill name matching is far from enough, because job description and resume are both written in human language, even the same concepts, they could be written in different ways. For example, below is part of the resume of a job seeker, and a part of a job description:
 
 \begin{center}
 \begin{tabular}{ | p{8cm} | p{7cm} | }
@@ -148,11 +150,14 @@ But simple keyword of skill name matching is far from enough, because job descri
 \end{tabular}
 \end{center}
 
-If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience. Tomcat and JBOSS are two Java web applications.  But current key word searching technology won't give a good matching result in this very common situation. I believe ontology is a good solution to this system.
+If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience. Tomcat and JBOSS are two Java web applications.  But current key word searching technology won't give a good matching result in this very common situation. So when design the new ontology matching algorithm,  we have such considerations: 
 
-
-
-User¡¯s personal preference should be considered as well. In the previous user survey, some factors will impact a lot on the user¡¯s expectation of good jobs, such factors include: location, the reputation of the company, the salary etc. These factors will be treated with deferent weight in the job matching algorithm.
+\begin{enumerate}
+    \item How to normalize the same concept, but different name or spelling
+    \item If one concept in the job description but there is no the same one in the resume, how to calculate the similarity between related concepts.
+    \item If one concept in the job description how some similar concepts in the resume, how add summarize total similarity
+    \item When calculate the similarity between resume and job description, how to give weight to each concepts.
+\end{enumerate}
 
 
 \section{SYSTEM FEATURES}
@@ -170,7 +175,7 @@ The system should include such features:
 
 
 \section{EVALUATION}
-To evaluate the system, some measures will be used. We also proposed two evaluation method: Pre-collected Data and User's direct experience.  
+To evaluate the system, some measures will be used. We also proposed two evaluation method: Pre-collected Data and User's direct experience.
 
 \subsection{Basic measures of the system}
 
@@ -188,7 +193,7 @@ In traditional information retrieval system, some measures are widely used~\cite
 \end{enumerate}
 
 \subsection{Pre-collected Data}
- 
+
 Some resumes will be pre-collected, and some their matched jobs will be found manually. These jobs will be put into the system with some other random collected jobs.  When searching the jobs with the resume, we can get precision, recall and F measure of the system. By ranking position of the searching results we could get the NDCG measure.
 
 \subsection{User Study}
