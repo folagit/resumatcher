@@ -85,23 +85,45 @@ In the initial phase I will only focus on the positions of IT job, because IT jo
 
 \subsection{System Architecture}
 
+~\ref{fig:Pipeline} show the architecture of the whole system, which include such modules: 
 
+\begin{enumerate}
+    \item The web scrawler will search and download all new IT job opening web pages  from indeed.com everyday.
+    \item Job parser will parse the job opening web page, extract the information and create the job model.
+    \item Resume Parser is much like the Job parser, it will parser the resume and create the candidate model.
+    \item All the job models will be stored in the Job Description database.
+    \item When user make a query request, the ontology matcher will calculate the matching score of each job, return the jobs ranked by their scores.
+\end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.5]{images/arch.png}
+  \caption{System Architecture}
+  \label{fig:arch}
+\end{figure}
 
 
 \subsection{Information Extraction}
 One important the problem of this system is how to extract the model from Job Description and Resume,
-In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This system also use it to extract model of job opening and candidate's resume. The system will process the job opening in follow steps:
+In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This system also use it to extract model of job opening and candidate's resume. The system will process the job opening in follow steps, which is show in ~\ref{fig:Pipeline}:
 
 \begin{enumerate}
-    \item The web scrawler module will search and download all new IT job opening web pages  from indeed.com everyday.
-    \item HTML parser module will parse the job opening web page, get the HTML tag which has the mainly information of the job description.
+    \item HTML parser module will parse the job opening web pages that obtained from web scrawler module, get the HTML tag which has the mainly information of the job description.
     \item Segment module separate the job description into paragraphs according to HTML tag, then separate each paragraph into sentences
     \item The sentences will be tokenized, and sent to Classification module. This will determine the category of the sentence, and mark the category of the sentence.
-    \item Preprocessing module will
+    \item Preprocessing module will delete unreadable characters, normalize some spelling. 
     \item Annotation module will annotate the sentences with sematic and ontology labels. The sentences will be transferred to layered data structure.
     \item The layered sentences will be matched with predefined patterns. If any pattern could be matched, the ontology information will be stored in the job model.
     \item After every sentence has be processed in the pipeline, the job model will be stored into database.
 \end{enumerate}
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.4]{images/pipeline.png}
+  \caption{Job Description Process Pipeline}
+  \label{fig:Pipeline}
+\end{figure}
 
 \subsection{Ontology Similarity}
 
