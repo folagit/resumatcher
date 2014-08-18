@@ -30,7 +30,7 @@ Some scholars found that current Boolean search and filtering techniques cannot 
 
 \subsection{Job Recommend System}
 
-Job searching is not a new topic in information retrieval, it is been the focus of some commercial job finding web sites and research papers. Usually scholars call them Job Recommend System (JRS), because most of them used technology from other recommender systems. Recommend System could be classified into four categories~\cite{wei2007survey}: Collaborative Filtering, Content-based filtering, Knowledge-based and Hybrid approaches. 
+Job searching is not a new topic in information retrieval, it is been the focus of some commercial job finding web sites and research papers. Usually scholars call them Job Recommend System (JRS), because most of them used technology from other recommender systems. Recommend System could be classified into four categories~\cite{wei2007survey}: Collaborative Filtering, Content-based filtering, Knowledge-based and Hybrid approaches.
 
 Zheng et al. ~\cite{siting2012job} and AlOtaibi et al.~\cite{al2012survey} summarized the categories of existing online recruiting platforms and listed the advantages and disadvantages of technical approaches in different JRSs.
 
@@ -41,36 +41,41 @@ Zheng et al. ~\cite{siting2012job} and AlOtaibi et al.~\cite{al2012survey} summa
     \item Collaborative Filtering Recommendation (CFR) Collaborative filtering recommendation, which finds  similar  users  who have  the same taste with the target user and recommends items based on what the similar users like, like CASPER~\cite{rafter2000personalised}.
 
     \item Knowledge-based Recommendation (KBR) In the knowledge-based recommendation, rules and patterns obtained from the functional knowledge of how a specific item  meets the requirement of a particular user, are used for recommending items, like  Proactive~\cite{lee2007fighting}.
-        
-    \item Reciprocal Recommender
 
 \end{enumerate}
 
-They are some patents and systems related to this research, but most of them focusing on how to screen candidates. The systems are designed from the perspective of recruiter on how to find good candidates. Because the main revenue of current job finding web sites is from the companies using their service, so their main interest is in how to promote more companies buying their services, not to improve the user experience of job seekers. By standing from the perspective of job seekers, this new approach can help find them the most suitable jobs.
-
 There are two main challenges in Content-Based Recommendation Systems, one is how to extract the information from the job opening and job seeker's resumes, the other is how to calculate similarity of them.
 
-Lu et al~\cite{lu2013recommender}. use latent Semantic Analysis(LSA) to calculate similarities between jobs and candidates, but they selected only two factors ``interest'' and ``education''  to compare candidates.  
+Lu et al~\cite{lu2013recommender}. use latent Semantic Analysis(LSA) to calculate similarities between jobs and candidates, but they selected only two factors ``interest'' and ``education''  to compare candidates.
 
 \subsection{Information Extraction}
-One important the problem of this system is how to extract the model from Job Description and Resume. The first step of model generating is information extraction. Both resume and job description are written in natural language, so we need to extract information from such un-structured or semi-structured data source. 
+One important the problem of this system is how to extract the model from Job Description and Resume. The first step of model generating is information extraction. Both resume and job description are written in natural language, so we need to extract information from such un-structured or semi-structured data source.
 
 Yu et al.~\cite{yu2005resume} use a cascaded information extraction (IE) framework to get the detailed information from the job
-seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is used to segment the resume into consecutive blocks. Based on the result, a SVM model is used to obtain the detailed information in the certain block, such information include: name, address, education etc.  
+seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is used to segment the resume into consecutive blocks. Based on the result, a SVM model is used to obtain the detailed information in the certain block, such information include: name, address, education etc.
 
-\subsection{Ontology in Recommend Systems}
+\subsection{Matching Algorithms}
+
+Xing et al. ~\cite{yi2007matching} used a Structured Relevance Models (SRM) to  match resumes and jobs. 
 
 Ontology matching had been well studied by  Shvaiko and Euzenat in \cite{shvaiko2013ontology}
 
 The Ontology technics had also been used in some JRSs. Proactive~\cite{lee2007fighting} use two kinds of ontology, one is job category and the other is company information. The system used ontology checker to classify the job information, store the domain knowledge and calculate the weight value in recommendations. In Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology},  Celik Duygua and Elci Atilla used ontology to assistant extract information from resumes. The system process the resume is following steps: convert the resume file to plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts of the sentences, normalize all the terms, at last the system will classify the sentences to get the meaning.
 
-Kumaran et al also used ontology to calculate the similarity between job criteria and candidates's resume in their system~\cite{kumaran2013towards}. The equation they use are:
+Kumaran et al~\cite{kumaran2013towards} also used ontology to calculate the similarity between job criteria and candidates's resume in their system~\cite{kumaran2013towards}. The equation they use are:
 $$ M\left ( i_1, i_2 \right ) = \frac{\sum_{k=1}^{n} Sim\left (p_{k}^{i1},  p_{k}^{i2} \right ) * W_{k}^{i2}}{\sum_{k=1}^{n} W_{k}^{i2}}  $$
 The similarity function $Sim(p_1, p_2)$ is defined as follows:
 $$ Sim(p1, p2) = \begin{Bmatrix}
 1, & if~similarity~of~p1~and~p2 \geqslant t\\
 0, & otherwise
 \end{Bmatrix} $$
+
+Fazel \cite{fazel2009semantic} used a hybrid approach to matching job seekers and job postings, which takes advantage of the benefits of both logic-based and ontology-based matching. In his paper the description logics (DL) is used to represent the candidate and job opening, and the ontology is used to organize the skills in a skill taxonomy. He gave an equation to calculate the matching degree:
+$$ sim\left(P ,j \right) = \sum x_{ij} \times u(ds_i) $$
+
+where, $x_{ji}$ is the Boolean variable indicating whether desire i is satisfied by applicant A_{j} in the set of all qualified applications.
+
+Liu and Dew~\cite{liu2004using} used RDF to represent and store the expertise of experts , and a RDF-based Expertise Matcher could retrieves the experts whose expertise include the required concept. 
 
 \section{METHODOLOGY}
 
