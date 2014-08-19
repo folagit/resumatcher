@@ -200,7 +200,9 @@ class SeqMatcher(CompMatcher):
     def output(self):      
         result = []
         for mathcer in self.machers:
-            result.extend(mathcer.output())
+            a = mathcer.output()
+            if a is not None:
+                result.extend(a)
         return self.outfun(result)
     
 class AlternateMatcher(CompMatcher):
