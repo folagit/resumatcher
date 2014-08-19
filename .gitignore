@@ -231,3 +231,12 @@ proposal/*.blg
 proposal/*.gz 
 proposal/*.dvi
 proposal/*.gz
+proposal/*.sav
+
+thesis/*.aux
+thesis/*.bbl
+thesis/*.blg
+thesis/*.gz 
+thesis/*.dvi
+thesis/*.gz
+thesis/*.sav

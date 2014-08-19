@@ -1,0 +1,379 @@
+% EETITLEPAGE DOCUMENT-STYLE OPTION - Version 2.22 released 21 July 1993
+% EETITLEPAGE DOCUMENT-STYLE OPTION - Version 2.21 released 5 July 1991
+% EETITLEPAGE DOCUMENT-STYLE OPTION - Version 2.2 released 20 November 1990
+% EETITLEPAGE DOCUMENT-STYLE OPTION - Version 2.1 released 20 June 1989
+% FILE: eethetitle.sty
+% Modifications: 4-10-87 PEC, 12-1-88 RLO, 2-28-89 RLO
+% Fixed the centering problem of absone 7-4-91 Ken
+% Modify the approval page based on the 7/92 version of Thesis Manual,
+%                            6-17-93, Wen-Lin Hsieh
+% THESIS modification
+%    for LaTeX version 2.08
+% Copyright (C) 1985 by Leslie Lamport
+
+\newcommand{\type}{Thesis}              % Sets default document type to be a thesis
+\newcommand{\degree}{MASTER OF SCIENCE} % Sets default degree to be a MS, 6/17/93
+\newcommand{\major}{Electrical Engineering} % Sets default major to be ELEN, 6/17/93
+
+\def\maketitlepage#1#2#3#4#5{\begin{titlepage}
+ \let\footnotesize\small       % Local definitions to make \thanks produce
+ \let\footnoterule\relax       % \normalsize footnotes with no separating rule.
+ \setcounter{page}{0}
+ \null
+ \vfil
+ \vskip 5truept                % To adjust centering.
+ \begin{center}
+   \vskip -2em                 % Adjust vertical position. 
+   {\uppercase{#1} \par}       % Set title in \normal size.
+   \vskip 4.5em                % Vertical space after title. 6em --> 4.5em, 6/17/93
+   {\lineskip .75em            % Author  
+     \begin{tabular}[t]{c} A \type\\ by\\ \uppercase{#2}
+     \end{tabular}\par}      
+   \vskip 5em                  % Vertical space after author.
+   {\singlespace Submitted to the Office of Graduate Studies of\\ Texas A\&M
+     University\\ in partial fulfillment of the requirements for the
+     degree of \\ \uppercase{#3}\smallskip}
+   \vskip 8em                  % Vertical space, 6-->8, 6/17/93
+   {#4 \par}                   % Date
+   \vskip 6.5em                  % Vertical space, 5-->6.5, 6/17/93
+   {Major Subject: #5}
+\end{center} \par
+\@thanks
+\vfil
+\null
+\end{titlepage}
+\setcounter{footnote}{0}       % Footnotes start at zero again.
+\let\thanks\relax
+\gdef\@thanks{}\gdef\@author{}\gdef\@title{}\let\maketitlepage\relax}
+
+\newdimen\apprlineup
+\apprlineup 0pt
+\def\approvalone#1#2#3#4#5#6#7#8{\newpage
+\pagestyle{empty}
+\setcounter{page}{1}
+\null\vfill
+\vskip -3em    % 6/17/1993
+\vspace*{\apprlineup}              %%%%%%%  To adjust cpproval line.
+\begin{center}
+  {\uppercase{#1} \par}
+  \vskip 1.5em % 5em-->1.5em, 6/17/93
+  {\lineskip .75em
+    \begin{tabular}[t]{c} A \type\\ by\\ \uppercase{#2}
+    \end{tabular}\par}      
+    \vskip 2em % 6/17/93
+   {\singlespace Submitted to Texas A\&M University\\
+      in partial fulfillment of the requirements\\ for the
+     degree of \\ \degree}
+\end{center}
+\vskip .5em    % 6/17/93
+\@@line{Approved as to style and content by:\hfil}
+\vskip .7truein
+{\singlespace
+\@@line{\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#3}\hss}
+	\hbox to 2.5truein{\hss (Chair of Committee)\hss}}}\hfil
+\vskip .38truein
+\@@line{\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#4}\hss}
+	\hbox to 2.5truein{\hss (Member)\hss}}\hfil
+\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#5}\hss}
+	\hbox to 2.5truein{\hss (Member)\hss}}}
+\vskip .43truein
+\@@line{\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#6}\hss}
+	\hbox to 2.5truein{\hss (Member)\hss}}\hfil
+\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#7}\hss}
+	\hbox to 2.5truein{\hss (Head of Department)\hss}}}
+\vskip 2em       % 6/17/93
+\centerline{#8}
+\vskip 2em       % 6/17/93 
+\centerline{Major Subject: \major}}   % 6/17/93 
+\vfill
+\newpage}
+
+\def\approvaltwo#1#2#3#4#5#6#7#8#9{\newpage
+\pagestyle{empty}
+\setcounter{page}{1}
+\null\vfill
+\vskip -3em  % 6/17/93
+\vspace*{\apprlineup}              %%%%%%%  To adjust cpproval line.
+\begin{center}
+  {\uppercase{#1} \par}
+  \vskip 1.5em     % 6/17/93 
+  {\lineskip .75em
+    \begin{tabular}[t]{c} A \type\\ by\\ \uppercase{#2}
+    \end{tabular}\par}      
+    \vskip 2em % 6/17/93
+   {\singlespace Submitted to Texas A\&M University\\
+      in partial fulfillment of the requirements\\ for the
+     degree of \\ \degree}
+\end{center}
+\vskip .5em  % 6/17/93
+{Approved as to style and content by:\hfil}
+\vskip .7truein
+{\singlespace
+\@@line{\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#3}\hss}
+	\hbox to 2.5truein{\hss (Chair of Committee)\hss}}\hfil
+\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#4}\hss}
+	\hbox to 2.5truein{\hss (Member)\hss}}}
+\vskip .38truein
+\@@line{\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#5}\hss}
+	\hbox to 2.5truein{\hss (Member)\hss}}\hfil
+\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#6}\hss}
+	\hbox to 2.5truein{\hss (Member)\hss}}}
+\vskip .43truein
+\@@line{\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#7}\hss}
+	\hbox to 2.5truein{\hss (Member)\hss}}\hfil
+\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#8}\hss}
+	\hbox to 2.5truein{\hss (Head of Department)\hss}}}
+\vskip 2em  % 6/17/93
+\centerline{#9}
+\vskip 2em   % 6/17/93
+\centerline{Major Subject: \major}}   % 6/17/93
+\vfill
+\newpage}
+
+\def\approvalthree#1#2#3#4#5#6#7#8{\newpage
+\pagestyle{empty}
+\setcounter{page}{1}
+\null\vfill
+\vskip -3em  % 6/17/93
+\vspace*{\apprlineup}              %%%%%%%  To adjust cpproval line.
+\begin{center}
+  {\uppercase{#1} \par}
+  \vskip 1.5em  %  6/17/93
+  {\lineskip .75em
+    \begin{tabular}[t]{c} A \type\\ by\\ \uppercase{#2}
+    \end{tabular}\par}      
+    \vskip 2em % 6/17/93
+   {\singlespace Submitted to Texas A\&M University\\
+      in partial fulfillment of the requirements\\ for the
+     degree of \\ \degree}
+\end{center}
+\vskip .5em   % 6/17/93
+{Approved as to style and content by:\hfil}
+\vskip .7truein
+{\singlespace
+\@@line{\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#3}\hss}
+	\hbox to 2.5truein{\hss (Co-Chair of Committee)\hss}}\hfil
+\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#4}\hss}
+	\hbox to 2.5truein{\hss (Co-Chair of Committee)\hss}}}
+\vskip .38truein
+\@@line{\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#5}\hss}
+	\hbox to 2.5truein{\hss (Member)\hss}}\hfil
+\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#6}\hss}
+	\hbox to 2.5truein{\hss (Member)\hss}}}
+\vskip .43truein
+\@@line{
+\vbox{\hrule height .7pt
+	\smallskip
+	\hbox to 2.5truein{\hss {#7}\hss}
+	\hbox to 2.5truein{\hss (Head of Department)\hss}}\hfil}
+\vskip 2em   % 6/17/93
+\centerline{#8}
+\vskip 2em  % 6/17/93
+\centerline{Major Subject: \major}}  % 6/17/93
+\vfill
+\newpage}
+
+%\def\approvalfour#1#2#3#4#5#6#7#8#9{\newpage
+\def\approvalfour#1#2#3#4#5#6#7{\newpage
+\pagestyle{empty}
+\setcounter{page}{1}
+\null\vfill
+%\vskip -3em   % 6/17/93
+\vskip 5truept
+%\vspace*{\apprlineup}              %%%%%%%  To adjust cpproval line.
+\begin{center}
+  \vskip -3.5em                 % Adjust vertical position. 
+  {\uppercase{#1} \par}
+  \vskip 4.5em    % 6/27/93
+  {\lineskip .75em     
+    \begin{tabular}[t]{c} A \type\\ by\\ \uppercase{#2}
+    \end{tabular}\par}      
+    \vskip 5em % 6/17/93
+   {\singlespace Submitted to the Office of Graduate Studies of\\ Texas A\&M
+     University\\ in partial fulfillment of the requirements for the
+     degree of \\ \degree}
+\end{center}
+\vskip .5em   % 6/17/93
+{Approved by:\hfil}
+\vskip .2truein
+{\singlespace
+%\@@line{\vbox{\hrule height .7pt
+\@@line{\vbox{
+	\smallskip
+  %\hspace*{-0.34in}{Co-Chairs of Committee,} \hspace*{0.13in}{#3} \\
+  \hspace*{-0.32in}{Chair of Committee,} \hspace*{0.43in}{#3} \\
+	%\hspace*{1.9in} {#4} \\
+	%{Committee Members,} \hspace*{0.31in} {#5} \\
+	{Committee Members,} \hspace*{0.31in} {#4} \\
+	\hspace*{1.9in} {#5} \\
+	%\hspace*{1.9in} {#6} \\
+	%\hspace*{1.9in} {#7} \\
+	%{Head of Department,} \hspace*{0.34in} {#8}}}}
+	{Head of Department,} \hspace*{0.34in} {#6}}}}
+\vbox{
+	\smallskip
+\vskip 4em   % 6/17/93
+%\centerline{#9}
+\centerline{#7}
+\vskip 3.5em   % 6/17/93
+\centerline{Major Subject: \major}}
+\vfill
+\newpage}
+
+\def\beginabs{\newpage\pagestyle{myheadings}\begingroup 
+\pagenumbering{roman}
+\setcounter{page}{3}
+\null\vskip 2em\begin{center}}
+
+\def\endabs{\endgroup\newpage}
+
+%
+% Thesis mod
+%
+%\long\def\absone#1#2#3#4#5#6{\beginabs
+%{ABSTRACT\\ \vskip 1em
+%#1. (#2)\\ #3, #4\\ Chair of Advisory Committee: #5}
+%\vskip 1em
+%\end{center}
+%\hspace*{\parindent} #6
+%\endabs}
+
+\long\def\absone#1#2#3#4#5#6{
+%\newpage
+%\pagestyle{myheadings}
+\pagenumbering{roman}
+\setcounter{page}{3}
+\begin{center}
+{%\pagenumbering{roman}
+%\setcounter{page}{3}
+ABSTRACT\\
+\vskip .3truein
+#1. (#2)\\ #3, #4\\ Chair of Advisory Committee: #5}
+%\vskip -1em
+\end{center}
+\vskip -.2truein
+\hspace*{\parindent} \onehalfspace #6}
+
+%%% The following revision causes some problem, therefore, we comment those new
+%%% revisions and recover the old stuff. ----- Ken 7-4-91
+%%%
+%%\long\def\absone#1#2#3#4#5#6{
+%
+%    the problem is the ugly linebreaks involving the period and the end of
+%    the title and the (DATE)
+%
+%    the goal is to typeset "TITLE. (DATE)" without breaking ". (DATE)"
+%    at any place across a line
+%
+%   begin by setting the strings "TITLE." and "TITLE. (DATE)" into
+%   temporary boxes.
+%
+%%\newsavebox\@tempboxb
+%%\newsavebox\@tempboxc
+%%\setbox\@tempboxb\hbox{#1. (#2)}
+%%\setbox\@tempboxc\hbox{#1.}
+%
+%   next, make a crude estimate of how many lines TeX will use to set this.
+%   this simplistic calculation ignores the effect of TeX glue and might
+%   fail in borderline cases where the line is just a few points longer
+%   or shorter than the hsize.
+%
+%   estimate:   #lines = ( width of box ) / ( current hsize )
+%
+%%\dimen0=\wd\@tempboxb \divide\dimen0 by \hsize
+%%\dimen2=\wd\@tempboxc \divide\dimen2 by \hsize
+%
+%   if "TEXT. (DATE)" requires more lines than just "TEXT.", then we might
+%   as well force a line break and typeset "TEXT.\\(DATE)" and not even
+%   give TeX a chance to mess with ". (DATE)"  If they look like the same
+%   number of lines,  set "TEXT. (DATE)" and hope for the best
+%
+%%\ifdim\dimen2<\dimen0
+%%    \setbox\@tempboxb\hbox{#1.\\(#2)}
+%%\else
+%%    \setbox\@tempboxb\hbox{#1. (#2)}
+%%\fi
+%
+%   now back to the original abstract macro.  this time, grab the text
+%   from the \@tempboxb that we set above.
+%
+%%\beginabs
+%%{ABSTRACT\\ \vskip 1em
+%%\unhbox\@tempboxb\\ #3, #4\\ Chair of Advisory Committee: #5}
+%\vskip 1em
+%%\end{center}
+%%\hspace*{\parindent} #6
+%%\endabs}
+
+%\long\def\abstwo#1#2#3#4#5#6#7#8{\beginabs
+%{ABSTRACT\\ \vskip 1em
+%#1\\ #2. (#3)\\ #4, B.S., #5\\ \centerline{\hbox{\singlespace
+%       Co--Chairs of Advisory Committee: \vtop{
+%       \hbox{#6}
+%       \hbox{#7}}}}}
+%\vskip 1.5em
+%\end{center}
+%\indent #8
+%\endabs}
+%
+% Thesis mod
+%
+\long\def\abstwo#1#2#3#4#5#6#7{\beginabs
+{ABSTRACT\\ \vskip 1em
+#1. (#2)\\ #3, #4\\ \centerline{\hbox{\singlespace
+	Co--Chairs of Advisory Committee: \vtop{
+	\hbox{#5}
+	\hbox{#6}}}}}
+\vskip 1em
+\end{center}
+\hspace*{\parindent} #7
+\endabs}
+
+\def\acknow{\newpage\pagestyle{myheadings}
+\pagenumbering{roman}
+\setcounter{page}{5}
+\vskip .2truein
+\centerline{ACKNOWLEDGMENTS}
+\vskip .3truein
+\indent}
+%\newpage}
+
+\def\dedicate#1{\newpage\pagestyle{myheadings}
+\pagenumbering{roman}
+\setcounter{page}{4}
+\null\vskip 7.5em
+\centerline{To #1}
+%\begin{flushright}
+%{To #1}  
+%\end{flushright}
+\newpage}
