@@ -45,6 +45,25 @@ class TestMatch3(unittest.TestCase):
          
          self.assertEqual( seq2.findMatching(tokens1), 0 )
          self.assertEqual( seq2.output(), [ 'aaa'] )
+         
+    def test3(self):        
+        matcher1 = TokenMatcher("aaa") 
+        matcher2 = TokenMatcher(["bbb","ccc"]) 
+        matcher3 = TokenMatcher([ "ddd"]) 
+        
+        alternate1 = AlternateMatcher([matcher1,matcher2])
+        alternate2 = AlternateMatcher([matcher2,matcher3])
+        alternate3 = AlternateMatcher([matcher3,matcher1])
+        seq1 = alternate1 + alternate1
+        
+        self.assertEqual( alternate1(tokens1), 1 ) 
+        self.assertEqual( alternate1.output(), [ 'aaa'] ) 
+        self.assertEqual( alternate2(tokens1), -1 ) 
+        self.assertEqual( alternate2.output(), None ) 
+        self.assertEqual( alternate3(tokens1), 1 ) 
+        self.assertEqual( alternate3.output(), [ 'aaa'] ) 
+        self.assertEqual( seq1(tokens1), 3  ) 
+        self.assertEqual( seq1.output(), [ 'aaa', 'bbb', 'ccc'] ) 
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestMatch3)

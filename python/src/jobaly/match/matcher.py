@@ -6,6 +6,8 @@ Created on Thu Aug 07 23:05:14 2014
 """
 # such matcher how to handle repeat? 
 
+import copy
+
 class BaseMatcher:    
    
     def __init__(self, catchfun=lambda x:x , outfun=lambda x: x):
@@ -13,6 +15,7 @@ class BaseMatcher:
         self.catchfun = catchfun
         self.outfun = outfun
         self.found = None
+        self.refNum = 0
         
     def setCatchFun(self, catchfun):
         self.catchfun = catchfun
@@ -130,16 +133,23 @@ class CompMatcher(BaseMatcher):
     
     def __init__(self, machers=None , catchfun=lambda x:x , outfun=lambda x: None):
          BaseMatcher.__init__(self, catchfun,outfun )
+         self.machers = []
          if machers == None :
-             self.machers = []
-         elif type(machers) is list or \
-             isinstance(machers, SeqMatcher ):
-             self.machers = machers
+             pass
+         elif type(machers) is list:
+             for matcher in machers:
+                 self.append(matcher)
          elif isinstance(machers, BaseMatcher ):
-             self.machers = [machers]
+             self.append(machers)
     
     def append(self, macher):
-        self.machers.append(macher)
+        if macher.refNum == 0 :            
+            self.machers.append(macher)
+            macher.refNum += 1
+        else :
+            macher2 =  copy.deepcopy(macher)
+            self.machers.append(macher2)
+            macher2.refNum = 1
 
     def extend(self, machers):
         self.machers.extend(machers)          
@@ -180,8 +190,8 @@ class SeqMatcher(CompMatcher):
         else:
             return  -1
      
-    def matchWithRepeat(self, matcher, j, words):
-        rightMatcher = SeqMatcher(self.machers[j+1:])
+    def matchWithRepeat(self, matcher, j1, words):
+        rightMatcher = SeqMatcher(self.machers[j1+1:])
         track = matcher.track[:]
         track.reverse()
         j = len(track)-1
@@ -191,7 +201,8 @@ class SeqMatcher(CompMatcher):
             if r != -1 :
                 self.catch.extend(matcher.catch[:j])
                 matcher.matchTime = j
-                self.catch.extend(rightMatcher.catch)
+                self.catch.extend(rightMatcher.catch) 
+                self.machers[j1+1:] = rightMatcher.machers
                 return i + r
             j-=1
         return -1
@@ -245,7 +256,13 @@ class AlternateMatcher(CompMatcher):
 class BaseRepeatMatcher(BaseMatcher):
     def __init__(self, matcher):
         BaseMatcher.__init__(self)
-        self.matcher = matcher 
+        if matcher.refNum == 0 :
+            self.matcher = matcher 
+            matcher.refNum  += 1
+        else :
+            matcher2 = copy.deepcopy(matcher)
+            matcher2.refNum = 1
+            self.matcher = matcher2 
         self.matchTime = 0
         
     def reset(self):
