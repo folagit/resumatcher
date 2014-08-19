@@ -32,7 +32,7 @@ sent11 = "Bachelor , Master or Doctorate  degree from an accredited course of st
 sent12 = "should have a Associate , Bachelor , Master or Doctorate  degree from an accredited course of study , in engineering , computer science , mathematics , physics or chemistry"
 sent13 = "bachelors preferred"
 
-labelGrammer =  createDegreeGrammar()
+labelGrammer =  createDegreeLabeler()
 
 def onlyDegreeLevel(result):
     print "result=",result
@@ -42,7 +42,7 @@ def onlyDegreeLevel(result):
         if item != [] and \
           labelGrammer.ontoDict.has_key(item):
         #    print "value=", labelGrammer.ontoDict[item]
-            newresult.append({labelGrammer.ontoDict[item]:item})
+            newresult.append((labelGrammer.ontoDict[item],item))
     return newresult
                 
 
@@ -63,9 +63,9 @@ matcher13 = SeqMatcher([matcher10, matcher11, matcher12])
 def getlabeledArray(sent ):
     degreeSent = JobSentence(sent.split())
     labelGrammer.labelSentence(degreeSent)
-    print degreeSent.printSentenct()  
+ #   print degreeSent.printSentenct()  
     labeledArray = degreeSent.getLabeledArray(labelGrammer.ontoDict)
-    print degreeSent.printLabeledArray() 
+ #   print degreeSent.printLabeledArray() 
     return labeledArray
  
 def getDegreeLevel( matcher , sent ):
@@ -79,25 +79,25 @@ class TestLabelDegree1(unittest.TestCase):
         labeledArray =  getlabeledArray(sent02 ) 
         i = degreeSeq1.findMatching(labeledArray)    
         self.assertEqual(i,0)
-        self.assertEqual(degreeSeq1.output(),['BS_LEVEL'])    
+        self.assertEqual(degreeSeq1.output(),[('DE_LEVEL', 'BS_LEVEL')])    
         
         
     def test_label2(self):        
         labeledArray =  getlabeledArray(sent10 ) 
         i = degreeSeq2.findMatching(labeledArray)    
         self.assertEqual(i,0)
-        self.assertEqual(degreeSeq2.output(),['BS_LEVEL', 'MS_LEVEL'])  
+        self.assertEqual(degreeSeq2.output(),[('DE_LEVEL', 'BS_LEVEL'), ('DE_LEVEL', 'MS_LEVEL')])  
  #       print degreeSeq2.getFound(labeledArray)
      
     def test_label3(self): 
         i, output = getDegreeLevel(degreeSeq2, sent11)
         self.assertEqual(i,0)
-        self.assertEqual(output,['BS_LEVEL', 'MS_LEVEL', 'PHD_LEVEL'])  
+        self.assertEqual(output,[('DE_LEVEL', 'BS_LEVEL'), ('DE_LEVEL', 'MS_LEVEL')])  
     
     def test_label4(self): 
         i, output = getDegreeLevel(degreeSeq2, sent12)
         self.assertEqual(i,3)
-        self.assertEqual(output,['AS_LEVEL', 'BS_LEVEL', 'MS_LEVEL', 'PHD_LEVEL'])  
+        self.assertEqual(output,[('DE_LEVEL', 'AS_LEVEL'), ('DE_LEVEL', 'BS_LEVEL'), ('DE_LEVEL', 'MS_LEVEL')])  
    
     def test_label5(self): 
         i, output = getDegreeLevel(degreeSeq2, sent13)
