@@ -32,9 +32,14 @@ class BaseMatcher:
     def match(self, tokens):
         return  -1
         
+    def getOutList(self, n=None):
+        return self.outlist        
+        
     def addOutput(self, matcher):
         if isinstance(matcher, UnitMatcher):
-            self.outlist.append(matcher.outlist)
+          #  self.outlist.append(matcher.outlist)
+          #  try list this time
+            self.outlist.extend(matcher.outlist)
         else:
             self.outlist.extend(matcher.outlist)
         
@@ -74,7 +79,7 @@ class BaseMatcher:
             return None
             
     def output(self):  
-        return self.outfun(self.outlist)
+        return self.outfun(self.getOutList())
         
     def compileMatcher( args ):
          if type(args) is str:
@@ -128,8 +133,7 @@ class TokenMatcher(UnitMatcher):
     def match(self, words):
         self.reset()
         if len(words) < len(self.tokens):
-            return  -1
-        
+            return  -1        
         i = 0 
         while i<len(self.tokens) and \
             self.tokens[i] == self.getWord(words[i]):
@@ -144,7 +148,7 @@ class TokenMatcher(UnitMatcher):
 
 class CompMatcher(BaseMatcher): 
     
-    def __init__(self, matchers=None , catchfun=lambda x:x , outfun=lambda x: None):
+    def __init__(self, matchers=None , catchfun=lambda x:x , outfun=lambda x: x):
          BaseMatcher.__init__(self, catchfun,outfun )
          self.matchers = []
          if matchers == None :
@@ -217,7 +221,7 @@ class SeqMatcher(CompMatcher):
                 matcher.matchTime = j
                 self.catch.extend(rightMatcher.catch) 
                 self.matchers[j1+1:] = rightMatcher.matchers
-                self.outlist.extend(matcher.outlist[:j]) 
+                self.outlist.extend(matcher.getOutList(j)) 
                 self.outlist.extend(rightMatcher.outlist) 
                 return i + r
             j-=1
@@ -266,11 +270,13 @@ class BaseRepeatMatcher(BaseMatcher):
             matcher2.refNum = 1
             self.matcher = matcher2 
         self.matchTime = 0
+        self.outCache = []
         
     def reset(self):
         BaseMatcher.reset(self)
         self.matchTime = 0
         self.matcher.reset() 
+        self.outCache = []
   
             
 class RepeatMatcher(BaseRepeatMatcher):
@@ -278,7 +284,8 @@ class RepeatMatcher(BaseRepeatMatcher):
     def __init__(self, matcher, mintimes=0, maxtimes=9999):
         BaseRepeatMatcher.__init__(self, matcher)   
         self.minTimes = mintimes
-        self.maxTimes = maxtimes         
+        self.maxTimes = maxtimes    
+        
     
     def match(self, words): 
         self.reset()      
@@ -293,7 +300,7 @@ class RepeatMatcher(BaseRepeatMatcher):
                 self.matchTime +=1
                 last += i
                 self.track.append(last)
-                self.addOutput( self.matcher ) 
+                self.outCache.append ( self.matcher.outlist ) 
             else:
                 break
         if self.matchTime < self.minTimes:
@@ -307,12 +314,18 @@ class RepeatMatcher(BaseRepeatMatcher):
                 words = words[i:]
                 last += i
                 self.track.append(last)
-                self.outlist.extend(self.matcher.outlist) 
+                self.outCache.append (self.matcher.outlist) 
             else:
                 break
             
         return last
-
+        
+    def getOutList(self, n=None):
+        if n is None:
+            n = self.matchTime
+        for item in self.outCache[:n]:
+            self.outlist.extend(item)
+        return self.outlist        
 
 class QuestionMatcher(RepeatMatcher):    
     def __init__(self, matcher):

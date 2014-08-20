@@ -59,7 +59,7 @@ class TestMatch3(unittest.TestCase):
         self.assertEqual( alternate1(tokens1), 1 ) 
         self.assertEqual( alternate1.output(), [ 'aaa'] ) 
         self.assertEqual( alternate2(tokens1), -1 ) 
-        self.assertEqual( alternate2.output(), None ) 
+        self.assertEqual( alternate2.output(), [] ) 
         self.assertEqual( alternate3(tokens1), 1 ) 
         self.assertEqual( alternate3.output(), [ 'aaa'] ) 
         self.assertEqual( seq1(tokens1), 3  ) 

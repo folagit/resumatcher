@@ -148,7 +148,7 @@ def createDegreeLabeler():
 class LabelMatcher(TokenMatcher): 
     
     def __init__(self, tokens):
-        TokenMatcher.__init__(self, tokens, catchfun=lambda x:x , outfun=lambda x: [ y[1] for y in x ])
+        TokenMatcher.__init__(self, tokens, catchfun=lambda x:[ y[1] for y in x ] , outfun=lambda x: x )
         
     def getWord(self, item):
         return item[0]
