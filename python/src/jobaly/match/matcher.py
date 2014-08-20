@@ -16,6 +16,7 @@ class BaseMatcher:
         self.outfun = outfun
         self.found = None
         self.refNum = 0
+        self.outlist = [] 
         
     def setCatchFun(self, catchfun):
         self.catchfun = catchfun
@@ -25,10 +26,17 @@ class BaseMatcher:
     
     def reset(self):
         self.catch = []   
+        self.outlist = [] 
         self.found = None
         
     def match(self, tokens):
         return  -1
+        
+    def addOutput(self, matcher):
+        if isinstance(matcher, UnitMatcher):
+            self.outlist.append(matcher.outlist)
+        else:
+            self.outlist.extend(matcher.outlist)
         
     def __call__(self, words):
         return self.match(words)
@@ -64,6 +72,9 @@ class BaseMatcher:
             return words[self.found[0]:self.found[1]]
         else :
             return None
+            
+    def output(self):  
+        return self.outlist
         
     def compileMatcher( args ):
          if type(args) is str:
@@ -88,11 +99,15 @@ class BaseMatcher:
                        raise "unknow type matcher at"+str(i)
                    i+=1
                return newSeq                       
+
+class UnitMatcher(BaseMatcher):
+   def __init__(self,  catchfun=lambda x:x , outfun=lambda x: x):        
+        BaseMatcher.__init__(self, catchfun, outfun) 
         
-class TokenMatcher(BaseMatcher):
+class TokenMatcher(UnitMatcher):
     
     def __init__(self, tokens, catchfun=lambda x:x , outfun=lambda x: x):        
-        BaseMatcher.__init__(self, catchfun, outfun)
+        UnitMatcher.__init__(self, catchfun, outfun)
         if type(tokens) is str:
             self.tokens = [tokens]
         elif type(tokens) is list:
@@ -108,10 +123,7 @@ class TokenMatcher(BaseMatcher):
     
     @staticmethod    
     def defaultOutfun(item):
-        return None
-    
-    def output(self):  
-        return self.outfun(self.catch)
+        return None   
        
     def match(self, words):
         self.reset()
@@ -125,6 +137,7 @@ class TokenMatcher(BaseMatcher):
             i += 1
         
         if i == len(self.tokens):
+           self.outlist = self.outfun(self.catch) 
            return  i 
         else:
            return  -1
@@ -179,6 +192,7 @@ class SeqMatcher(CompMatcher):
                    words = words[i:]
                    j +=1  
                    last += i
+                   self.addOutput(macher) 
                 else :                  
                    i = self.matchWithRepeat(macher, j,  words) 
                    if i != -1:
@@ -203,6 +217,8 @@ class SeqMatcher(CompMatcher):
                 matcher.matchTime = j
                 self.catch.extend(rightMatcher.catch) 
                 self.machers[j1+1:] = rightMatcher.machers
+                self.outlist.extend(matcher.outlist[:j]) 
+                self.outlist.extend(rightMatcher.outlist) 
                 return i + r
             j-=1
         return -1
@@ -231,6 +247,7 @@ class AlternateMatcher(CompMatcher):
             if i != -1:
                self.catch = macher.catch
                self.catchMacher = macher
+               self.addOutput(macher) 
                return i
             else:
                j+=1
@@ -296,6 +313,7 @@ class RepeatMatcher(BaseRepeatMatcher):
                 self.matchTime +=1
                 last += i
                 self.track.append(last)
+                self.addOutput( self.matcher ) 
             else:
                 break
         if self.matchTime < self.minTimes:
@@ -309,6 +327,7 @@ class RepeatMatcher(BaseRepeatMatcher):
                 words = words[i:]
                 last += i
                 self.track.append(last)
+                self.outlist.extend(self.matcher.outlist) 
             else:
                 break
             
