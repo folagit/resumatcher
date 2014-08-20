@@ -144,68 +144,68 @@ class TokenMatcher(UnitMatcher):
 
 class CompMatcher(BaseMatcher): 
     
-    def __init__(self, machers=None , catchfun=lambda x:x , outfun=lambda x: None):
+    def __init__(self, matchers=None , catchfun=lambda x:x , outfun=lambda x: None):
          BaseMatcher.__init__(self, catchfun,outfun )
-         self.machers = []
-         if machers == None :
+         self.matchers = []
+         if matchers == None :
              pass
-         elif type(machers) is list:
-             for matcher in machers:
+         elif type(matchers) is list:
+             for matcher in matchers:
                  self.append(matcher)
-         elif isinstance(machers, BaseMatcher ):
-             self.append(machers)
+         elif isinstance(matchers, BaseMatcher ):
+             self.append(matchers)
     
-    def append(self, macher):
-        if macher.refNum == 0 :            
-            self.machers.append(macher)
-            macher.refNum += 1
+    def append(self, matcher):
+        if matcher.refNum == 0 :            
+            self.matchers.append(matcher)
+            matcher.refNum += 1
         else :
-            macher2 =  copy.deepcopy(macher)
-            self.machers.append(macher2)
-            macher2.refNum = 1
+            matcher2 =  copy.deepcopy(matcher)
+            self.matchers.append(matcher2)
+            matcher2.refNum = 1
 
-    def extend(self, machers):
-        self.machers.extend(machers)          
+    def extend(self, matchers):
+        self.matchers.extend(matchers)          
      
     def reset(self):
         BaseMatcher.reset(self)
-        for catcher in self.machers:
+        for catcher in self.matchers:
             catcher.reset()
          
 class SeqMatcher(CompMatcher):
     
-    def __init__(self, machers=None, catchfun=lambda x:x , outfun=lambda x: x):
-         CompMatcher.__init__(self, machers, catchfun, outfun )
+    def __init__(self, matchers=None, catchfun=lambda x:x , outfun=lambda x: x):
+         CompMatcher.__init__(self, matchers, catchfun, outfun )
     
     def match(self, words):
         self.reset()
         i = 0
         j = 0  # index of matcher        
         last = 0
-        while j<len(self.machers) and ( i != -1):
-            macher = self.machers[j]
-            i =  macher(words)
+        while j<len(self.matchers) and ( i != -1):
+            matcher = self.matchers[j]
+            i =  matcher(words)
             if i != -1:
-                if not isinstance(macher, RepeatMatcher) or \
-                    j==len(self.machers)-1 or i==0:
-                   self.catch.extend(macher.catch) 
+                if not isinstance(matcher, RepeatMatcher) or \
+                    j==len(self.matchers)-1 or i==0:
+                   self.catch.extend(matcher.catch) 
                    words = words[i:]
                    j +=1  
                    last += i
-                   self.addOutput(macher) 
+                   self.addOutput(matcher) 
                 else :                  
-                   i = self.matchWithRepeat(macher, j,  words) 
+                   i = self.matchWithRepeat(matcher, j,  words) 
                    if i != -1:
                        last += i
                        return last
                
-        if j == len(self.machers):
+        if j == len(self.matchers):
             return  last
         else:
             return  -1
      
     def matchWithRepeat(self, matcher, j1, words):
-        rightMatcher = SeqMatcher(self.machers[j1+1:])
+        rightMatcher = SeqMatcher(self.matchers[j1+1:])
         track = matcher.track[:]
         track.reverse()
         j = len(track)-1
@@ -216,7 +216,7 @@ class SeqMatcher(CompMatcher):
                 self.catch.extend(matcher.catch[:j])
                 matcher.matchTime = j
                 self.catch.extend(rightMatcher.catch) 
-                self.machers[j1+1:] = rightMatcher.machers
+                self.matchers[j1+1:] = rightMatcher.matchers
                 self.outlist.extend(matcher.outlist[:j]) 
                 self.outlist.extend(rightMatcher.outlist) 
                 return i + r
@@ -226,7 +226,7 @@ class SeqMatcher(CompMatcher):
           
     def output(self):      
         result = []
-        for mathcer in self.machers:
+        for mathcer in self.matchers:
             a = mathcer.output()
             if a is not None:
                 result.extend(a)
@@ -234,34 +234,34 @@ class SeqMatcher(CompMatcher):
     
 class AlternateMatcher(CompMatcher):
     
-    def __init__(self, machers=None):
-         CompMatcher.__init__(self, machers)
+    def __init__(self, matchers=None):
+         CompMatcher.__init__(self, matchers)
          
     def match(self, words):
         self.reset()
        
         j = 0  # index of matcher         
-        while j<len(self.machers) :
-            macher = self.machers[j]
-            i =  macher(words)
+        while j<len(self.matchers) :
+            matcher = self.matchers[j]
+            i =  matcher(words)
             if i != -1:
-               self.catch = macher.catch
-               self.catchMacher = macher
-               self.addOutput(macher) 
+               self.catch = matcher.catch
+               self.catchmatcher = matcher
+               self.addOutput(matcher) 
                return i
             else:
                j+=1
                
-        if j == len(self.machers):
+        if j == len(self.matchers):
             return  -1
             
     def reset(self):
         CompMatcher.reset(self)
-        self.catchMacher = None 
+        self.catchmatcher = None 
         
     def output(self): 
-        if self.catchMacher is not None:
-            result = self.catchMacher.output()
+        if self.catchmatcher is not None:
+            result = self.catchmatcher.output()
             return result
         else :
             return None
