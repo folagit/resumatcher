@@ -74,7 +74,7 @@ class BaseMatcher:
             return None
             
     def output(self):  
-        return self.outlist
+        return self.outfun(self.outlist)
         
     def compileMatcher( args ):
          if type(args) is str:
@@ -133,11 +133,11 @@ class TokenMatcher(UnitMatcher):
         i = 0 
         while i<len(self.tokens) and \
             self.tokens[i] == self.getWord(words[i]):
-            self.catch.append(self.catchfun(words[i]))
+            self.catch.append(words[i])
             i += 1
         
         if i == len(self.tokens):
-           self.outlist = self.outfun(self.catch) 
+           self.outlist = self.catchfun(self.catch) 
            return  i 
         else:
            return  -1
@@ -222,15 +222,7 @@ class SeqMatcher(CompMatcher):
                 return i + r
             j-=1
         return -1
-            
-          
-    def output(self):      
-        result = []
-        for mathcer in self.matchers:
-            a = mathcer.output()
-            if a is not None:
-                result.extend(a)
-        return self.outfun(result)
+   
     
 class AlternateMatcher(CompMatcher):
     
@@ -258,13 +250,6 @@ class AlternateMatcher(CompMatcher):
     def reset(self):
         CompMatcher.reset(self)
         self.catchmatcher = None 
-        
-    def output(self): 
-        if self.catchmatcher is not None:
-            result = self.catchmatcher.output()
-            return result
-        else :
-            return None
 
 # repreat matcher will not work very well like:
 #    sent1 = 'abcabcabcabcde'        
@@ -286,12 +271,7 @@ class BaseRepeatMatcher(BaseMatcher):
         BaseMatcher.reset(self)
         self.matchTime = 0
         self.matcher.reset() 
-        
-    def output(self):      
-        result = []
-        for i in range(self.matchTime):
-            result.extend(self.matcher.outfun(self.catch[i]))
-        return result
+  
             
 class RepeatMatcher(BaseRepeatMatcher):
     
