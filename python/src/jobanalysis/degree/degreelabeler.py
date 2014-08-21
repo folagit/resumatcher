@@ -79,7 +79,7 @@ def addMajorLabels(labelDict):
     MAJOR_STAT = ["statistics" ]    
     MAJOR_INFO = [ "IS",  "Information Systems",  "Digital Media", "Information Technology", \
                    "Web Development", "Information Sciences","MIS", "CIS", \
-                   "Computer Information Systems",  "GIS" , "IT" ]
+                   "Computer Information Systems",  "GIS" , "IT", "Information Science" ]
     
     MAJOR_DESIGN= ["Web Design", "Interactive Design" ]    
     MAJOR_RELATED = ["related field" , "related discipline", "related area",  \
