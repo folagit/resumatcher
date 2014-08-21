@@ -47,7 +47,7 @@ def createLabelDict():
     
 def addDegreeLabel(labelDict):
     DEGREE = ["degree","degrees"]
-    HS_LEVEL = ["High School Diploma", "High School" ,"GED"]    
+    HS_LEVEL = ["High School Diploma", "High School" ,"GED", "General Educational Development" , "General Educational Degree"]    
     AS_LEVEL = ["AS","Associate","Associates", "AA", "A.A."]
     BS_LEVEL = ["Baccalaureate","bachelors", "bachelor" ,"B.S.", "B.S","BS","BA","BA/BS", "BABS", "BSBA", "B.A." ,"4-year","4-year", "4 year", "four year","college","Undergraduate" , "University" ]    
     MS_LEVEL = ["masters", "MS", "M.S.", "master", "MA" , "MSc"]
@@ -83,7 +83,9 @@ def addMajorLabels(labelDict):
     
     MAJOR_DESIGN= ["Web Design", "Interactive Design" ]    
     MAJOR_RELATED = ["related field" , "related discipline", "related area",  \
-                     "relevant discipline" , "related subject", "relevant subject"]
+                     "relevant discipline" , "related subject", "relevant subject", \
+                     "a related field" , "a related discipline", "a related area",  \
+                     "a relevant discipline" , "a related subject", "a relevant subject"]
     
     addLabels(labelDict, MAJOR_OTHERS, "MAJOR_OTHERS" )
     addLabels(labelDict, MAJOR_GENERAL, "MAJOR_GENERAL" )    

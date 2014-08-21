@@ -58,6 +58,15 @@ matcher10 = AlternateMatcher([ matcher2, matcher7, matcher9])
 degreeSeq6 =  matcher1 + matcher4 + matcher5 + (matcher2 | matcher7 | matcher9)
 degreeSeq6.outfun=onlyDegreeLevel
 
+#  "DE_LEVEL (, DE_LEVEL)* OR DE_LEVEL"
+degreeSeq7 = matcher1 + matcher4 + LabelMatcher(["OR","DE_LEVEL"])
+
+# DE_LEVEL |    OR   |    DEGREE_JJ    |    DEGREE 
+matcher11 = matcher1  + matcher4 + LabelMatcher(["OR", "DEGREE_JJ" ,"DEGREE"]) 
+
+degreeSeq8 =  AlternateMatcher( [ degreeSeq6 , degreeSeq7, matcher11 ]   )
+degreeSeq8.outfun=onlyDegreeLevel
+
 matcher47 = AlternateMatcher([ LabelMatcher("DE_LEVEL"), LabelMatcher("MAJOR_DE")])
 matcher48 = StarMatcher(  SeqMatcher ( [ LabelMatcher(",") , matcher7]))
 matcher49 = QuestionMatcher(  SeqMatcher ( [ LabelMatcher("OR") , matcher7]))
@@ -128,7 +137,7 @@ def main():
    failfilename =  "output\\degree_1_labe2_fail_major.txt"
    
 
-   matcher =  degreeSeq6  
+   matcher =  degreeSeq8  
  #  matcher =  degreeSeq3
   # matcher = matcher7
    target_set_name = "output\\degree_1"   
@@ -150,6 +159,10 @@ def main():
    target_set_name = "output\\degree_3"
    outfileName = "output\\data3_degree6.txt"
    failfilename =  "output\\data3_degree6_fail.txt"
+   
+   target_set_name = "output\\degree_3"
+   outfileName = "output\\data3_degree8.txt"
+   failfilename =  "output\\data3_degree8_fail.txt"
    
    labelDegreeSet(matcher, target_set_name,outfileName, failfilename) 
    
