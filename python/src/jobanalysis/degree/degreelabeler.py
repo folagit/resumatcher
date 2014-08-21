@@ -73,7 +73,7 @@ def addMajorLabels(labelDict):
     MAJOR_GENERAL = ["engineering", "science", "Management", "Art", "design", "technical" , "Technology" ]
     
     MAJOR_CS = ["computer science", "Comp Sci", "computer sciences" , "CS", "Computing Science " ,\
-                  "computer programming" , "Software Engineering", "Artificial Intelligence" ]
+                  "computer programming" , "programming", "Software Engineering", "Artificial Intelligence" ]
     MAJOR_CE = ["CE" , "computer engineering", ]
     MAJOR_EE = ["EE", "signal processing", "Electrical Engineering ", "Telecom" , ]
     MAJOR_MATH = ["Applied Mathematics", "mathematics", "math" , ]    
@@ -163,3 +163,13 @@ class LabelMatcher(TokenMatcher):
         
     def getWord(self, item):
         return item[0]
+        
+def getOntoType(result):
+ #   print "result=",result
+    newresult = []
+    for item in result:
+     #   print " ^item=",item
+        if item != [] and \
+          labeler.ontoDict.has_key(item):
+             newresult.append({labeler.ontoDict[item]:item})
+    return newresult
