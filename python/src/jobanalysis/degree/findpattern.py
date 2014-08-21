@@ -44,32 +44,27 @@ degreeSeq2 = SeqMatcher([matcher1,matcher4, matcher5,  matcher2], outfun=onlyDeg
    # we dont need degreeSeq3, result is same
 degreeSeq3 = SeqMatcher([matcher1,matcher4, matcher5, matcher6, matcher2], outfun=onlyDegreeLevel)
  
-matcher7 = SeqMatcher(  [ AlternateMatcher ( [ LabelMatcher("IN"), LabelMatcher( "OF" ) ] ), LabelMatcher ( "MAJOR") ])  
+matcher7 = SeqMatcher(  [ AlternateMatcher ( [ LabelMatcher("IN"), LabelMatcher( "OF" ) ] ), QuestionMatcher(LabelMatcher(["DT"])), LabelMatcher ( "MAJOR") ])  
 
-# DE_LEVEL (, DE_LEVEL)* (OR DE_LEVEL)? IN|OF MAJOR 
-degreeSeq4 = SeqMatcher([matcher1,matcher4, matcher5,  matcher7], outfun=onlyDegreeLevel)
+# DE_LEVEL (, DE_LEVEL)* (OR DE_LEVEL)? IN|OF (DT)? MAJOR 
+degreeSeq4 = SeqMatcher([matcher1,matcher4, matcher5 , matcher7], outfun=onlyDegreeLevel)
 matcher8 = AlternateMatcher([ matcher2, matcher7])  
 
-# DE_LEVEL (, DE_LEVEL)* (OR DE_LEVEL)? （ DEGREE | ( (IN|OF) MAJOR) ）        
-degreeSeq5 = SeqMatcher([matcher1,matcher4, matcher5,  matcher8], outfun=onlyDegreeLevel)
 
-degreeSeq5 =  matcher1 + matcher4 + matcher5 + ( matcher2 | matcher7 )
-degreeSeq5.outfun=onlyDegreeLevel
 
 matcher9 = LabelMatcher("PERFER_VBD")  
 matcher10 = AlternateMatcher([ matcher2, matcher7, matcher9])
 
-# DE_LEVEL (, DE_LEVEL)* (OR DE_LEVEL)? PERFER_VBD   
-degreeSeq6 =  matcher1 + matcher4 + matcher5 +  matcher9
+# DE_LEVEL (, DE_LEVEL)* (OR DE_LEVEL)? BE? PERFER_VBD   
+degreeSeq6 =  matcher1 + matcher4 + matcher5 + QuestionMatcher(LabelMatcher("BE")) +  matcher9
 degreeSeq6.outfun=onlyDegreeLevel
 
-#  "DE_LEVEL (, DE_LEVEL)* OR DE_LEVEL"
-degreeSeq7 = matcher1 + matcher4 + LabelMatcher(["OR","DE_LEVEL"])
+#  "DE_LEVEL (, DE_LEVEL)* (,)? OR DE_LEVEL"
+degreeSeq7 = matcher1 + matcher4 + QuestionMatcher(LabelMatcher(",")) +  LabelMatcher(["OR","DE_LEVEL"])
+degreeSeq7.outfun=onlyDegreeLevel
 
-# DE_LEVEL    （ OR        DEGREE_JJ ）？   |    DEGREE 
-matcher11 = matcher1  + matcher4 + LabelMatcher(["OR", "DEGREE_JJ" ,"DEGREE"]) 
-
-degreeSeq8 =  AlternateMatcher( [ degreeSeq6 , degreeSeq7, matcher11 ]   )
+#  DE_LEVEL  |      MAJOR       |    DEGREE 
+degreeSeq8 =  matcher1 + LabelMatcher("MAJOR") +  LabelMatcher("DEGREE") 
 degreeSeq8.outfun=onlyDegreeLevel
 
 matcher47 = AlternateMatcher([ LabelMatcher("DE_LEVEL"), LabelMatcher("MAJOR_DE")])
@@ -93,8 +88,8 @@ def labelSent(matchers, sent):
 #    f.write( degreeSent.printSentenct().get_string() +"\n\n" )
     labeledArray = degreeSent.getLabeledArray(labeler.ontoDict)
 #    print degreeSent.printLabeledArray()    
-    i =  matchSent(matchers, labeledArray)
-    return i, degreeSent  
+    i, output =  matchSent(matchers, labeledArray)
+    return i, degreeSent, output  
     
 def matchSent(matchers, labeledArray):
     
@@ -102,9 +97,9 @@ def matchSent(matchers, labeledArray):
         i = matcher.findMatching(labeledArray) 
         if i != -1:
             matcher.matchNum += 1
-            return i
+            return i, matcher.output()
             
-    return i
+    return i, None
     
 def labelDegreeSet(matchers, data_set_name, outfileName,failfilename):
    
@@ -122,17 +117,17 @@ def labelDegreeSet(matchers, data_set_name, outfileName,failfilename):
         sent = item[2]    
         sid = item[0]         
        
-        i, degreeSent = labelSent(matchers, sent) 
+        i, degreeSent, output = labelSent(matchers, sent) 
         
-        print sid ,i, matcher.output()
+        print sid ,i, output 
         if i != -1 :
             f.write( sent +"\n\n" )
             f.write( degreeSent.printLabeledArray().get_string() +"\n\n" )
-            f.write( str(i) + "   " + str(matcher.output()) +"\n\n" )
+            f.write( str(i) + "   " + str(output) +"\n\n" )
         else :
             f2.write( sent +"\n\n" )
             f2.write( degreeSent.printLabeledArray().get_string() +"\n\n" )
-            f2.write( str(i) + "   " + str(matcher.output()) +"\n\n" )
+            f2.write( str(i) + "   " + str(output) +"\n\n" )
             
         total += 1
         if i != -1 :
@@ -188,7 +183,7 @@ def main():
    outfileName = "output\\data3_degree_array.txt"
    failfilename =  "output\\data3_degree_array_fail.txt"
    
-   matchers = [ degreeSeq2, degreeSeq4, degreeSeq6, degreeSeq7 ]   
+   matchers = [ degreeSeq2, degreeSeq4, degreeSeq6, degreeSeq7, degreeSeq8 ]   
    labelDegreeSet(matchers, target_set_name,outfileName, failfilename) 
    
 

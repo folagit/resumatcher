@@ -47,7 +47,7 @@ def createLabelDict():
     
 def addDegreeLabel(labelDict):
     DEGREE = ["degree","degrees"]
-    HS_LEVEL = ["High School Diploma", "High School" ,"GED", "General Educational Development" , "General Educational Degree"]    
+    HS_LEVEL = ["High School Diploma", "High School" ,"GED", "general Educational Development" , "General Educational Degree"]    
     AS_LEVEL = ["AS","Associate","Associates", "AA", "A.A."]
     BS_LEVEL = ["Baccalaureate","bachelors", "bachelor" ,"B.S.", "B.S","BS","BA","BA/BS", "BABS", "BSBA", "B.A." ,"4-year","4-year", "4 year", "four year","college","Undergraduate" , "University" ]    
     MS_LEVEL = ["masters", "MS", "M.S.", "master", "MA" , "MSc"]
@@ -70,9 +70,10 @@ def addMajorLabels(labelDict):
                      "Marketing", "Business", "Finance" , "Economics", "accounting", \
                      "Communications", "Communication Sciences",  "Journalism" ]
    
-    MAJOR_GENERAL = ["engineering", "science", "Management", "design", "technical" , "Technology" ]
+    MAJOR_GENERAL = ["engineering", "science", "Management", "Art", "design", "technical" , "Technology" ]
     
-    MAJOR_CS = ["computer science", "computer sciences" , "CS", "Computing Science " , "computer programming" , "Software Engineering" ]
+    MAJOR_CS = ["computer science", "Comp Sci", "computer sciences" , "CS", "Computing Science " ,\
+                  "computer programming" , "Software Engineering", "Artificial Intelligence" ]
     MAJOR_CE = ["CE" , "computer engineering", ]
     MAJOR_EE = ["EE", "signal processing", "Electrical Engineering ", "Telecom" , ]
     MAJOR_MATH = ["Applied Mathematics", "mathematics", "math" , ]    

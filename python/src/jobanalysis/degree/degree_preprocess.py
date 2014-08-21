@@ -39,6 +39,8 @@ def preProcessFun(line):
     line =  re.sub(ur"\u2019|\u2018|\u00e2|\u0092|\u2020" , "\'", line)
     line = re.sub(ur"\u00ae", "", line)
     line =  re.sub(ur"\&", "and", line)
+    line =  re.sub(ur"\/", " , ", line)
+    line =  re.sub(ur"(|)", "", line)
     
     
     
@@ -53,6 +55,7 @@ def preProcessFun(line):
     line =  re.sub(ur"[M|m]aster \' s", "masters", line)    
     line =  re.sub(ur"[A|a]ssociate \' s", "associates", line)   
     line =  re.sub(ur"[A|a]ssociate \'s", "associates", line)   
+    line =  re.sub(ur"Phd", "PhD", line)  
    
     line = line.strip()
     if line.find("-")==0 or line.find("\"")==0  \
@@ -84,7 +87,7 @@ def main():
    data_set_name = "output\\matching_degree_1"  
    target_set_name = "output\\degree_1" 
    
-   data_set_name = "output\\matching_muldegree_3"  
+   data_set_name = "output\\degree_raw"  
    target_set_name = "output\\degree_3" 
   
    

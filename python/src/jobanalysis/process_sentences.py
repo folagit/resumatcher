@@ -85,7 +85,7 @@ def testTermsMatching():
      
      terms = ["degree", "B.S.", "M.S." ,"BS", "MS", "bachelor", "master", "phd","master's"]
      matchingSents = termsMatching(allSents,terms)     
-     dumpTwo(matchingSents, "sents\\matching_muldegree_3" , ( lambda x: x[0] + ":" + x[1] ) )     
+     dumpTwo(matchingSents, "sents\\degree_raw" , ( lambda x: x[0] + ":" + x[1] ) )     
   
 import   operator
 def wordStat():
@@ -142,7 +142,7 @@ def verbStat():
 def main(): 
    # testParseAll()
   #  wordStat()
-   testTermMatching()
+   testTermsMatching()
     
 if __name__ == "__main__": 
     main()   
