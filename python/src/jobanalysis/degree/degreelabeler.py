@@ -143,7 +143,15 @@ def createDegreeLabeler():
     ontoDict = createOntoDict()
     labeler = Labeler(labelDict,ontoDict)
     return labeler  
- 
+
+def labelSent(matcher, sent):
+    degreeSent = JobSentence(sent.split())
+    labeler.labelSentence(degreeSent)
+ #   print degreeSent.printSentenct()  
+    labeledArray = degreeSent.getLabeledArray(labeler.ontoDict)
+#    print degreeSent.printLabeledArray()    
+    i = matcher.findMatching(labeledArray) 
+    return i, degreeSent   
          
 class LabelMatcher(TokenMatcher): 
     
