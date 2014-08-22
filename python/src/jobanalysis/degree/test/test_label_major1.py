@@ -18,11 +18,13 @@ sent4 = "Bachelors degree in Electronic Engineering or related field "
 sent5 = "BSCS or BSEE or other Related 4-yr Technical Degree preferred ."
 sent6 = "Computer science or related degree"
 
+sent7 = "Computer Science or related"
+
 def test1():
 
-    matcher = majorSeq6
+    matcher = majorSeq9
  #   matcher = degreeSeq2
-    i, degreeSent = labelSent(labeler, matcher, sent6)   
+    i, degreeSent = labelSent(labeler, matcher, sent7)   
     print degreeSent.printLabeledArray()         
     print i, matcher.output()
     print i, matcher.catch

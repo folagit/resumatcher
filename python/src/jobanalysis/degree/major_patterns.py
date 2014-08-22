@@ -39,6 +39,13 @@ majorSeq5 = LabelMatcher( "MAJOR_DEGREE") + StarMatcher(LabelMatcher( [",","MAJO
 
 majorSeq6 = LabelMatcher( "MAJOR") + DotMatcher() +   DotMatcher() + LabelMatcher( "DEGREE")
 
+majorSeq7 = LabelMatcher( "PERFER_VBD") + LabelMatcher( "MAJOR")
+majorSeq8 = LabelMatcher( "MAJOR") + LabelMatcher( "PERFER_VBD") 
+
+majorSeq9 =  LabelMatcher( "MAJOR") + OriTextMatcher(["or" , "related"])
+
+majorSeq10 =   LabelMatcher(  "DEGREE"   ) + DotMatcher() + LabelMatcher( "MAJOR") 
+
 
 def main(): 
    
@@ -46,7 +53,8 @@ def main():
    outfileName = "output\\data3_major_array.txt"
    failfilename =  "output\\data3_major_array_fail.txt"   
    
-   matchers = [majorSeq1, majorSeq2, majorSeq3,majorSeq4, majorSeq5]
+   matchers = [majorSeq1, majorSeq2, majorSeq3,majorSeq4, majorSeq5, \
+               majorSeq6, majorSeq7, majorSeq8, majorSeq9, majorSeq10 ]
    labelDegreeSet(matchers, target_set_name,outfileName, failfilename) 
    
 if __name__ == "__main__": 
