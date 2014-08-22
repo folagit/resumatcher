@@ -65,8 +65,6 @@ matcher49 = QuestionMatcher(  SeqMatcher ( [ LabelMatcher("OR") , matcher7]))
 degreeSeq41 = SeqMatcher([matcher7,matcher8, matcher9, matcher6, matcher2 ], outfun=getOntoType)
 
 
-majorSeq1.outfun=getOntoType
-
 def labelSent(matchers, sent):
     degreeSent = JobSentence(sent.split())
     labeler.labelSentence(degreeSent)

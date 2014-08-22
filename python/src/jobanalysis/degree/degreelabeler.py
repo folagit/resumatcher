@@ -147,7 +147,7 @@ def createDegreeLabeler():
     labeler = Labeler(labelDict,ontoDict)
     return labeler  
 
-def labelSent(matcher, sent):
+def labelSent(labeler, matcher, sent):
     degreeSent = JobSentence(sent.split())
     labeler.labelSentence(degreeSent)
  #   print degreeSent.printSentenct()  
