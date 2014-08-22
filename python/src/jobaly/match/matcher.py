@@ -35,13 +35,8 @@ class BaseMatcher:
     def getOutList(self, n=None):
         return self.outlist        
         
-    def addOutput(self, matcher):
-        if isinstance(matcher, UnitMatcher):
-          #  self.outlist.append(matcher.outlist)
-          #  try list this time
-            self.outlist.extend(matcher.outlist)
-        else:
-            self.outlist.extend(matcher.outlist)
+    def addOutput(self, matcher):        
+            self.outlist.extend(matcher.getOutList())
         
     def __call__(self, words):
         return self.match(words)
