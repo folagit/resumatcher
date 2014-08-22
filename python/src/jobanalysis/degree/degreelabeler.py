@@ -164,6 +164,7 @@ class LabelMatcher(TokenMatcher):
     def getWord(self, item):
         return item[0]
         
+labeler =  createDegreeLabeler() 
 def getOntoType(result):
  #   print "result=",result
     newresult = []

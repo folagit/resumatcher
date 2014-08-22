@@ -7,16 +7,7 @@ Created on Thu Aug 21 17:22:23 2014
 
 from degreelabeler import *
 
-labeler =  createDegreeLabeler() 
-def getOntoType(result):
- #   print "result=",result
-    newresult = []
-    for item in result:
-     #   print " ^item=",item
-        if item != [] and \
-          labeler.ontoDict.has_key(item):
-             newresult.append({labeler.ontoDict[item]:item})
-    return newresult
+
 
 #-------- major matcher ------
 
