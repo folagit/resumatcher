@@ -103,6 +103,21 @@ class BaseMatcher:
 class UnitMatcher(BaseMatcher):
    def __init__(self,  catchfun=lambda x:x , outfun=lambda x: x):        
         BaseMatcher.__init__(self, catchfun, outfun) 
+
+
+class DotMatcher(UnitMatcher):    
+    def __init__(self,  catchfun=lambda x:x , outfun=lambda x: x):        
+        BaseMatcher.__init__(self, catchfun, outfun) 
+        
+    def match(self, words):
+        self.reset()
+        if len(words) < 1:
+            return  -1 
+      
+        self.catch.append(words[0])
+        self.outlist = self.catchfun(self.catch) 
+        return  1
+       
         
 class TokenMatcher(UnitMatcher):
     

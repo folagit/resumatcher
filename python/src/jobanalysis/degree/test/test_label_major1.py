@@ -14,13 +14,15 @@ from major_patterns import *
 sent1 = "BSCS , BSEE Degree ( transcripts required )"
 sent2 = "A BS in a computer science , programming or IT related degree would be preferred ."
 sent3 = "A BS in a computer science , programming or IT "
-
+sent4 = "Bachelors degree in Electronic Engineering or related field "
+sent5 = "BSCS or BSEE or other Related 4-yr Technical Degree preferred ."
+sent6 = "Computer science or related degree"
 
 def test1():
 
-    matcher = majorSeq1
+    matcher = majorSeq6
  #   matcher = degreeSeq2
-    i, degreeSent = labelSent(labeler, matcher, sent3)   
+    i, degreeSent = labelSent(labeler, matcher, sent6)   
     print degreeSent.printLabeledArray()         
     print i, matcher.output()
     print i, matcher.catch
