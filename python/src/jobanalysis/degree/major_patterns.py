@@ -38,3 +38,16 @@ matcher116 = LabelMatcher( "MAJOR_DEGREE")
 majorSeq5 = LabelMatcher( "MAJOR_DEGREE") + StarMatcher(LabelMatcher( [",","MAJOR_DEGREE"])) +  QuestionMatcher( LabelMatcher( [ "OR" , "MAJOR" ]))
 
 majorSeq6 = LabelMatcher( "MAJOR") + DotMatcher() +   DotMatcher() + LabelMatcher( "DEGREE")
+
+
+def main(): 
+   
+   target_set_name = "output\\degree_3"
+   outfileName = "output\\data3_major_array.txt"
+   failfilename =  "output\\data3_major_array_fail.txt"   
+   
+   matchers = [majorSeq1, majorSeq2, majorSeq3,majorSeq4, majorSeq5]
+   labelDegreeSet(matchers, target_set_name,outfileName, failfilename) 
+   
+if __name__ == "__main__": 
+    main() 
