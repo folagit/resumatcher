@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{array}% http://ctan.org/pkg/array
+\usepackage{enumitem}% http://ctan.org/pkg/enumitem
+\begin{document}
+Original: \par
+\begin{tabular}{|m{3cm}|p{5.5cm}|p{5.5cm}|}
+   \hline
+    Category 2 &
+    \begin{itemize}[leftmargin=*]
+        \item A Here is some text that should wrap inside the list
+        \item B Here is some text that should wrap inside the list
+    \end{itemize} &
+    \begin{itemize}[leftmargin=*]
+        \item C Here is some text that should wrap inside the list
+        \item D Here is some text that should wrap inside the list
+    \end{itemize} \\
+   \hline
+\end{tabular}
+
+\verb|\textbullet| option: \par
+\begin{tabular}{|m{3cm}|p{5.5cm}|p{5.5cm}|}
+   \hline
+    Category 2 &
+    \textbullet~A Here is some text that should wrap inside the list \par
+    \textbullet~B Here is some text that should wrap inside the list &
+    \textbullet~C Here is some text that should wrap inside the list \par
+    \textbullet~F Here is some text that should wrap inside the list \\
+   \hline
+\end{tabular}
+
+Nested \verb|tabular| option: \par
+\begin{tabular}{|m{3cm}|l|l|}
+   \hline
+    Category 2 &
+    \begin{tabular}{@{\textbullet~}p{5cm}@{}}
+      A Here is some text that should wrap inside the list \\
+      B Here is some text that should wrap inside the list
+    \end{tabular} &
+    \begin{tabular}{@{\textbullet~}p{5cm}@{}}
+      C Here is some text that should wrap inside the list \\
+      F Here is some text that should wrap inside the list
+    \end{tabular} \\
+   \hline
+\end{tabular}
+\end{document}?
