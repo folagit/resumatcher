@@ -1,4 +1,4 @@
-
+\chapter{INTRODUCTION}
 
 
 \section{MOTIVATION}
@@ -56,7 +56,7 @@ seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is 
 
 Lu et al~\cite{lu2013recommender}. use latent Semantic Analysis(LSA) to calculate similarities between jobs and candidates, but they only selected two factors ``interest'' and ``education''  to compare candidates. Xing et al. ~\cite{yi2007matching} used a Structured Relevance Models (SRM) to  match resumes and jobs.
 
-The Ontology technics had also been used in some JRSs, which had been well studied by  Shvaiko and Euzenat in \cite{shvaiko2013ontology}.  Proactive~\cite{lee2007fighting} use two kinds of ontology, one is job category and the other is company information. The system used ontology checker to classify the job information, store the domain knowledge and calculate the weight value in recommendations.  
+The Ontology technics had also been used in some JRSs, which had been well studied by  Shvaiko and Euzenat in \cite{shvaiko2013ontology}.  Proactive~\cite{lee2007fighting} use two kinds of ontology, one is job category and the other is company information. The system used ontology checker to classify the job information, store the domain knowledge and calculate the weight value in recommendations.
 
 Kumaran et al~\cite{kumaran2013towards} also used ontology to calculate the similarity between job criteria and candidates's resume in their system~\cite{kumaran2013towards}. The equation they use are:
 $$ M\left ( i_1, i_2 \right ) = \frac{\sum_{k=1}^{n} Sim\left (p_{k}^{i1},  p_{k}^{i2} \right ) * W_{k}^{i2}}{\sum_{k=1}^{n} W_{k}^{i2}}  $$
@@ -75,7 +75,7 @@ Liu and Dew~\cite{liu2004using} used RDF to represent and store the expertise of
 
 \section{METHODOLOGY}
 
-The system will use rule based information extraction technique to parse the job description and resume, get information such as skill, specialties and background. These information will be used to create the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching. 
+The system will use rule based information extraction technique to parse the job description and resume, get information such as skill, specialties and background. These information will be used to create the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching.
 
 The model of the candidate will include their specialties, working experience and education background, all the information should be extracted from the resumes. The job model will be extracted from job description, the information will include: company name, location, job title, education requirement, skill requirements and working experiences etc. When a job seeker searches the jobs by his resume, the system will calculate the similarity between the candidate model got the resume with the job models from the job descriptions.
 
