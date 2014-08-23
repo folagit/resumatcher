@@ -1,38 +1,22 @@
-\chapter{Ontology Similarity}
+\chapter{Information Extraction}
 
-
-We notice that simple keyword of skill name matching is far from enough, because job description and resume are both written in human language, even the same concepts, they could be written in different ways. For example, Table~\ref{tab:resume_jd}  is part of the resume of a job seeker, and part of a job description:
-
-\begin{table}[ht]
-\caption{Resume and Job Description} % title of Table
-\centering % used for centering table
-\begin{tabular}{ | p{8cm} | p{7cm} | }
- \hline
-   \textbf{Part of Resume}                 &   \textbf{Part of Job Description}   \\ \hline
-
-    B.S. degree in computer science \newline
-    5+ years Java, \newline
-    2+ year   C++  \newline
-    Some experience in Oracle database \newline
-    Other experience like: \newline
-    Hibernate, JBOSS, JUnit, Tomcat etc.
-  &
-  BS degree above   \newline
-  4+ years Java  \newline
-  Some experience of Python   \newline
-    Mysql, MS-SQL   \newline
-    Java web application Server   \newline
-    OOA/OOD   \\
- \hline
-\end{tabular}
-\label{tab:resume_jd} % is used to refer this table in the text
-\end{table}
-
-If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use key word matching, the system won't give a good matching result in this very common situation. So when design the new ontology matching algorithm, we have such considerations:
+One important problem of this system is how to extract models from Job Descriptions and Resumes.
+In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This architecture will also be used in this system to extract models of job openings and candidate's resumes. The system will process the job opening in the following steps, which is shown in Figure~\ref{fig:Pipeline}:
 
 \begin{enumerate}
-    \item How to normalize the same concept with different name or spelling
-    \item If one concept in the job description but there is no the same one in the resume, how to calculate the similarity between its related concepts.
-    \item If one concept in the job description has multiple similar concepts in the resume, how to summarize total similarity of them.
-    \item When calculating the similarity between resume and job description, how to give weights to each concepts.
+    \item HTML parser will parse the job description web pages that are obtained from web scrawler. It will get the HTML element that contains the main content of the job description.
+    \item Segment module will separate the job description into paragraphs according to HTML tags at first, then separate each paragraph into sentences.
+    \item The sentences will be tokenized as string array, and sent to the Classification module. Classification module will determine the category of the sentence, and mark the category of the sentence.
+    \item Preprocessing module will delete unreadable characters, normalize some spelling tokens in the sentence.
+    \item Annotation module will annotate the tokens with sematic and ontology labels. The sentences will be transferred to multi-layered data structure.
+    \item The layered sentences will be matched with pre-defined patterns. If any pattern could be matched, the ontology information will be stored in the job model.
+    \item After every sentence has be processed in the pipeline, the job model will be stored into database.
 \end{enumerate}
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.4]{images/pipeline.png}
+  \caption{Job Description Process Pipeline}
+  \label{fig:Pipeline}
+\end{figure}
