@@ -225,19 +225,20 @@ python/src/try/dot/outfiles
 python/src/jobaly/fst/outfiles
 python/src/jobanalysis/degree/output
 
-proposal/*.aux
-proposal/*.bbl
-proposal/*.blg
-proposal/*.gz 
-proposal/*.dvi
-proposal/*.gz
-proposal/*.sav
+*.aux
+*.bbl
+*.blg
+*.gz 
+*.dvi
+*.sav
+*.lof
+*.lot
+*.toc
+*.synctex.gz
 
-thesis/*.aux
-thesis/*.bbl
-thesis/*.blg
-thesis/*.gz 
-thesis/*.dvi
-thesis/*.gz
-thesis/*.sav
-/proposal
+
+proposal/*.pdf
+thesis/*.pdf
+
+python/src/try/latex/*.pdf
+
