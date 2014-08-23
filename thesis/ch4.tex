@@ -1,1 +1,38 @@
 \chapter{Ontology Similarity}
+
+
+We notice that simple keyword of skill name matching is far from enough, because job description and resume are both written in human language, even the same concepts, they could be written in different ways. For example, Table~\ref{tab:resume_jd}  is part of the resume of a job seeker, and part of a job description:
+
+\begin{table}[ht]
+\caption{Resume and Job Description} % title of Table
+\centering % used for centering table
+\begin{tabular}{ | p{8cm} | p{7cm} | }
+ \hline
+   \textbf{Part of Resume}                 &   \textbf{Part of Job Description}   \\ \hline
+
+    B.S. degree in computer science \newline
+    5+ years Java, \newline
+    2+ year   C++  \newline
+    Some experience in Oracle database \newline
+    Other experience like: \newline
+    Hibernate, JBOSS, JUnit, Tomcat etc.
+  &
+  BS degree above   \newline
+  4+ years Java  \newline
+  Some experience of Python   \newline
+    Mysql, MS-SQL   \newline
+    Java web application Server   \newline
+    OOA/OOD   \\
+ \hline
+\end{tabular}
+\label{tab:resume_jd} % is used to refer this table in the text
+\end{table}
+
+If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use key word matching, the system won't give a good matching result in this very common situation. So when design the new ontology matching algorithm, we have such considerations:
+
+\begin{enumerate}
+    \item How to normalize the same concept with different name or spelling
+    \item If one concept in the job description but there is no the same one in the resume, how to calculate the similarity between its related concepts.
+    \item If one concept in the job description has multiple similar concepts in the resume, how to summarize total similarity of them.
+    \item When calculating the similarity between resume and job description, how to give weights to each concepts.
+\end{enumerate}
