@@ -20,6 +20,8 @@ from data.labeler import Labeler
 from data.jobsentence import JobSentence
 from jobaly.match.matcher  import *
 
+from  data import datautils
+
 def addLabels(labelDict, items, label):
     for item in items:
         labelDict[item] = label
@@ -53,7 +55,7 @@ def addDegreeLabel(labelDict):
     MS_LEVEL = ["masters", "MS", "M.S.", "master", "MA" , "MSc"]
     PHD_LEVEL = ["PhD", "Ph.D", "doctorate" ]
     MS_PHD_LEVEL = ["Graduate", "advanced" ]
-    DEGREE_JJ = [ "similar", "related","Relevant", "equivalent" ]
+    DEGREE_JJ = [ "similar", "related","Relevant", "equivalent","based" ]
     
     addLabels(labelDict, DEGREE, "DEGREE" )  
     addLabels(labelDict, DEGREE_JJ, "DEGREE_JJ" )
@@ -68,25 +70,28 @@ def addMajorLabels(labelDict):
    
     MAJOR_OTHERS = [ "biological sciences", "Physics",  "chemistry" ,  "Technology Management" , \
                      "Marketing", "Business", "Finance" , "Economics", "accounting", \
-                     "Communications", "Communication Sciences",  "Journalism" ]
+                     "Communications", "Communication Sciences",  "Journalism", "Geoscience", \
+                     "transportation engineering","Anthropology","Sociology" ,"Behavioral Science", \
+                     "Fine Arts", "Behavioral Sciences", "nursing"]
    
-    MAJOR_GENERAL = ["engineering", "science", "Management", "Art", "design", "technical" , "Technology" ]
+    MAJOR_GENERAL = ["engineering", "science", "numerical", "Management", "Art", "design", "technical" , "Technology" ]
     
-    MAJOR_CS = ["computer science", "Comp Sci", "computer sciences" , "CS", "Computing Science " ,\
-                  "computer programming" , "programming", "Software Engineering", "Artificial Intelligence" ]
+    MAJOR_CS = ["computer science", "Comp Sci", "computer","computer sciences" , "CS", "Computing Science " ,\
+                  "computer programming" , "programming", "Software Engineering", "Artificial Intelligence","SE" ]
     MAJOR_CE = ["CE" , "computer engineering", ]
-    MAJOR_EE = ["EE", "signal processing", "Electrical Engineering ", "Telecom" , ]
+    MAJOR_EE = ["EE", "signal processing", "Electrical Engineering ", "Telecom" , "Electronic Engineering"]
     MAJOR_MATH = ["Applied Mathematics", "mathematics", "math" , ]    
-    MAJOR_STAT = ["statistics" ]    
+    MAJOR_STAT = ["statistics","biostatistics" ]    
     MAJOR_INFO = [ "IS",  "Information Systems",  "Digital Media", "Information Technology", \
                    "Web Development", "Information Sciences","MIS", "CIS", \
                    "Computer Information Systems",  "GIS" , "IT", "Information Science" ]
     
-    MAJOR_DESIGN= ["Web Design", "Interactive Design" ]    
-    MAJOR_RELATED = ["related field" , "related discipline", "related area",  \
+    MAJOR_DESIGN= ["Web Design", "Interactive Design","Graphic Design", "Human-Computer Interaction" , "Visual Arts" , "photography"]    
+    MAJOR_RELATED = ["related field" , "related discipline", "related area", "related fields", \
                      "relevant discipline" , "related subject", "relevant subject", \
                      "a related field" , "a related discipline", "a related area",  \
-                     "a relevant discipline" , "a related subject", "a relevant subject"]
+                     "a relevant discipline" , "a related subject", "a relevant subject" ,\
+                     "a similar discipline"]
     
     addLabels(labelDict, MAJOR_OTHERS, "MAJOR_OTHERS" )
     addLabels(labelDict, MAJOR_GENERAL, "MAJOR_GENERAL" )    
@@ -101,14 +106,14 @@ def addMajorLabels(labelDict):
     
     
 def addOtherLabels(labelDict):
-    MAJOR_DEGREE = ["MBA", "BSCS", "BSEE", "MSCS", "MSEE" ]
-    addLabels(labelDict, MAJOR_DEGREE, "MAJOR_DE" )
+    MAJOR_DEGREE = ["MBA", "BSCS", "BSEE", "MSCS", "MSEE", "MSCE","MPH" ]
+    addLabels(labelDict, MAJOR_DEGREE, "MAJOR_DEGREE" )
     
-    PERFER_RB = ["preferably"]  
-    PERFER_NN = [ "a plus", "at least" ]
-    PERFER_VBD = ["preferred", "required","desired" ]    
-    PERFER_JJ = [ "plus", "minimum", "mandatory","desirable"]    
-    PERFER_VB =  ["Requires" , "have", "Pursuing", "Prefer"]
+    PREFER_RB = ["preferably"]  
+    PREFER_NN = [ "a plus", "at least","minimum" ]
+    PREFER_VBD = ["preferred", "required","desired" ]    
+    PREFER_JJ = [ "a plus",  "mandatory","desirable"]    
+    PREFER_VB =  ["Requires" , "have", "Pursuing", "Prefer"]
     MD = ["must", "should","would"]
     HIGHER_JJ = ["above", "higher","greater","better"]
     
@@ -118,11 +123,11 @@ def addOtherLabels(labelDict):
     QUALIFICATION = ["Qualifications", "Qualification"]
     APPLICANT = [ "Applicant" ,"Applicants" ,"candidate"]
     
-    addLabels(labelDict, PERFER_RB, "PERFER_RB" )
-    addLabels(labelDict, PERFER_NN, "PERFER_NN" )
-    addLabels(labelDict, PERFER_VBD, "PERFER_VBD" )
-    addLabels(labelDict, PERFER_JJ, "PERFER_JJ" )
-    addLabels(labelDict, PERFER_VB, "PERFER_VB" )
+    addLabels(labelDict, PREFER_RB, "PREFER_RB" )
+    addLabels(labelDict, PREFER_NN, "PREFER_NN" )
+    addLabels(labelDict, PREFER_VBD, "PREFER_VBD" )
+    addLabels(labelDict, PREFER_JJ, "PREFER_JJ" )
+    addLabels(labelDict, PREFER_VB, "PREFER_VB" )
   
     addLabels(labelDict, HIGHER_JJ, "HIGHER_JJ" )
     addLabels(labelDict, MD, "MD" )
@@ -164,6 +169,15 @@ class LabelMatcher(TokenMatcher):
     def getWord(self, item):
         return item[0]
         
+class OriTextMatcher(TokenMatcher): 
+    
+    def __init__(self, tokens):
+        TokenMatcher.__init__(self, tokens, catchfun=lambda x:[ y[2][0] for y in x ] , outfun=lambda x: x )
+    
+    # so one unit can only has one word     
+    def getWord(self, item):
+        return item[2][0]
+        
 labeler =  createDegreeLabeler() 
 def getOntoType(result):
  #   print "result=",result
@@ -174,3 +188,72 @@ def getOntoType(result):
           labeler.ontoDict.has_key(item):
              newresult.append({labeler.ontoDict[item]:item})
     return newresult
+
+def labelSentByMatchers(matchers, sent):
+    degreeSent = JobSentence(sent.split())
+    labeler.labelSentence(degreeSent)
+ #   print degreeSent.printSentenct()  
+#    f.write( degreeSent.printSentenct().get_string() +"\n\n" )
+    labeledArray = degreeSent.getLabeledArray(labeler.ontoDict)
+#    print degreeSent.printLabeledArray()    
+    i, matcher =  matchSent(matchers, labeledArray)
+    return i, degreeSent, matcher
+
+def matchSent(matchers, labeledArray):
+    
+    for matcher in matchers:
+        i = matcher.findMatching(labeledArray) 
+        if i != -1:
+            matcher.matchNum += 1
+            return i, matcher
+            
+    return i, None
+    
+
+    
+def labelDegreeSet(matchers, data_set_name, outfileName,failfilename):
+   
+    for matcher in matchers:       
+            matcher.matchNum = 0     
+     
+    data = datautils.loadJson(data_set_name)
+   
+    f = open(outfileName, "w")
+    f2 = open(failfilename, "w")
+    total = 0
+    m = 0
+    for item in data:
+    #    print item
+        sent = item[2]    
+        sid = item[0]         
+       
+        i, degreeSent, matcher = labelSentByMatchers(matchers, sent) 
+     
+        if matcher is not None:
+            output = matcher.output()
+        else:
+            output = None
+        
+        print sid ,i, output 
+        if i != -1 :
+            f.write( sent +"\n\n" )
+            f.write( degreeSent.printLabeledArray().get_string() +"\n\n" )
+            f.write( str(i) + "   " + str(output) +"\n\n" )
+        else :
+            f2.write( sent +"\n\n" )
+            f2.write( degreeSent.printLabeledArray().get_string() +"\n\n" )
+            f2.write( str(i) + "   " + str(output) +"\n\n" )
+            
+        total += 1
+        if i != -1 :
+            m+=1
+            
+    f2.write( "\n\n match="+ str( m) + "  total="+ str( total) + "  radio=" + str (float(m)/total) +"\n" )
+             
+    print "match=", m, "  total=", total, "  radio=", float(m)/total
+    
+    i = 0
+    for matcher in matchers :
+        i+=1
+        print "matcher ", i, ":", matcher.matchNum
+        f2.write( "\n matcher " + str( i) + ":" + str( matcher.matchNum ) )
