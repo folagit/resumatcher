@@ -22,6 +22,52 @@ There are two main challenges in Content-Based Recommendation Systems: One is ho
 \section{Information Extraction}
 One important the problem of this system is how to build the models from Job Description and Resume. The first step of model generating is information extraction. Both resumes and job descriptions are written in natural language, so we need to extract information from such un-structured or semi-structured data source, and transfer them to some designed structure.
 
+\subsection{Machine learning and Rule-based IE technologies}
+
+Chiticariu et al. \cite{chiticariu2013rule}summarized the pros and cons of machine learning (ML) and rule-based IE technologies in Table
+
+\begin{table}[ht]
+\caption{Pros and Cons of ML and Rule-Based IE technologies } % title of Table
+\centering % used for centering table
+\begin{tabular}{ | c |  p{6cm} | p{6cm} | } % centered columns (4 columns)
+\hline  %inserts double horizontal lines
+ & Pros  & Cons  \\ [0.5ex] % inserts table
+%heading
+\hline % inserts single horizontal line
+Rule-based &
+    \begin{packed_itemize}
+      \item Declarative
+      \item Easy to comprehend
+      \item Easy to maintain
+      \item Easy to incorporate domain knowledge
+      \item Easy to trace and fix the cause of errors
+    \end{packed_itemize}
+    &
+     \begin{packed_itemize}
+      \item Heuristic
+      \item Requires tedious manual labor
+    \end{packed_itemize} \\
+
+\hline
+ML-based   &
+    \begin{packed_itemize}
+      \item Trainable
+      \item Adaptable
+      \item Reduces manual effort
+    \end{packed_itemize}
+    &
+     \begin{packed_itemize}
+      \item Requires labeled data
+      \item Requires retraining for domain adaptation
+      \item Requires ML expertise to use or maintain
+      \item Opaque
+    \end{packed_itemize} \\
+
+\hline %inserts single line
+\end{tabular}
+\label{tab:mlrb} % is used to refer this table in the text
+\end{table}
+
 Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framework to get the detailed information from the job seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is used to segment the resume into consecutive blocks. Based on the result, a SVM model is used to obtain the detailed information in the certain block, the information include: name, address, education etc.
 
  Celik Duygua and Elci Atilla proposed a Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology}, which uses ontology to assistant the information extraction process. The system process the resume in following steps: convert the resume files into plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts in the sentences, normalize all the terms, at last the system will classify the sentences to get the wanted terms.
