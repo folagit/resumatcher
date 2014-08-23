@@ -1,0 +1,23 @@
+\documentclass[letterpaper,11pt]{report}
+
+\newenvironment{packed_enum}{
+\begin{enumerate}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+
+\begin{document}
+
+\chapter{Movies I need to watch}
+
+Here is a short list of movies I need to watch some day:
+
+\begin{packed_enum}
+   \item The Longest Day
+   \item Kill Bill 1
+   \item Kill Bill 2
+   \item Pretty much every other movie created in the last 30 years. :)
+\end{packed_enum}
+
+\end{document}
