@@ -38,7 +38,7 @@ def onlyDegreeLevel(result):
     print "result=",result
     newresult = []
     for item in result:
-        print "item=",item
+      #  print "item=",item
         if item != [] and \
           labelGrammer.ontoDict.has_key(item):
         #    print "value=", labelGrammer.ontoDict[item]
@@ -92,12 +92,12 @@ class TestLabelDegree1(unittest.TestCase):
     def test_label3(self): 
         i, output = getDegreeLevel(degreeSeq2, sent11)
         self.assertEqual(i,0)
-        self.assertEqual(output,[('DE_LEVEL', 'BS_LEVEL'), ('DE_LEVEL', 'MS_LEVEL')])  
+        self.assertEqual(output,[('DE_LEVEL', 'BS_LEVEL'), ('DE_LEVEL', 'MS_LEVEL') ,('DE_LEVEL', 'PHD_LEVEL') ])  
     
     def test_label4(self): 
         i, output = getDegreeLevel(degreeSeq2, sent12)
         self.assertEqual(i,3)
-        self.assertEqual(output,[('DE_LEVEL', 'AS_LEVEL'), ('DE_LEVEL', 'BS_LEVEL'), ('DE_LEVEL', 'MS_LEVEL')])  
+        self.assertEqual(output,[('DE_LEVEL', 'AS_LEVEL'), ('DE_LEVEL', 'BS_LEVEL'), ('DE_LEVEL', 'MS_LEVEL') ,('DE_LEVEL', 'PHD_LEVEL')])  
    
     def test_label5(self): 
         i, output = getDegreeLevel(degreeSeq2, sent13)
