@@ -242,3 +242,5 @@ thesis/*.pdf
 
 python/src/try/latex/*.pdf
 
+python/src/try/ply/parsetab.py
+python/src/try/ply/parselog.txt
