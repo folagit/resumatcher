@@ -31,6 +31,10 @@ def p_term_times(p):
 def p_term_div(p):
     'term : term DIVIDE factor'
     p[0] = p[1] / p[3]
+    
+def p_term_factor2(p):
+    'term : factor   factor'
+    p[0] =  p[2]
 
 def p_term_factor(p):
     'term : factor'

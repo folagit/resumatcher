@@ -40,21 +40,16 @@ def t_error(t):
     print "Illegal character '%s'" % t.value[0]
     t.lexer.skip(1)   
 
-
-def expresslist_expression(p):
-    'expresslist : expression expression'
+def p_factorlist_factor(p):
+    'factorlist : factor factor'
     elist = []
     elist.append(p[1])
     elist.append(p[2])
-    p[0] = elist  
-
-def p_expression_term(p):
-    'expression : term'
-    p[0] = p[1]    
-
-def p_term_factor(p):
-    'term : factor'
-    p[0] = p[1]
+    p[0] = elist
+    
+def p_factorlist_factor1(p):
+    'factorlist : factorlist factor'    
+    p[0] = p[1].append(p[2])
 
 def p_factor_token(p):
     'factor : TOKEN'
@@ -63,10 +58,6 @@ def p_factor_token(p):
 def p_factor_dot(p):
     'factor : DOT'
     p[0] = DotMatcher()
-    
-def p_factor_expr(p):
-    'factor : LPAREN expression RPAREN'
-    p[0] = p[2]
 
 # Error rule for syntax errors
 def p_error(p):
@@ -90,7 +81,7 @@ parser = yacc.yacc(debug=True,debuglog=log)
 
 data=" ( ddddd )"
 
-data="  ddddd dd"
+data="ddddd 33"
 
 
 result = parser.parse(data)

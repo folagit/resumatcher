@@ -244,3 +244,4 @@ python/src/try/latex/*.pdf
 
 python/src/try/ply/parsetab.py
 python/src/try/ply/parselog.txt
+python/src/try/ply/parser.out
