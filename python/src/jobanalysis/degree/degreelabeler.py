@@ -196,8 +196,8 @@ def labelSentByMatchers(matchers, sent):
 #    f.write( degreeSent.printSentenct().get_string() +"\n\n" )
     labeledArray = degreeSent.getLabeledArray(labeler.ontoDict)
 #    print degreeSent.printLabeledArray()    
-    i, matcher =  matchSent(matchers, labeledArray)
-    return i, degreeSent, matcher
+    matcher =  matchSent(matchers, labeledArray)
+    return degreeSent, matcher
 
 def matchSent(matchers, labeledArray):
     
@@ -205,9 +205,9 @@ def matchSent(matchers, labeledArray):
         i = matcher.findMatching(labeledArray) 
         if i != -1:
             matcher.matchNum += 1
-            return i, matcher
+            return  matcher
             
-    return i, None
+    return  None
     
 
     
@@ -226,28 +226,27 @@ def labelDegreeSet(matchers, data_set_name, outfileName,failfilename):
     #    print item
         sent = item[2]    
         sid = item[0]         
-       
-        i, degreeSent, matcher = labelSentByMatchers(matchers, sent) 
+        matcher = None
+        degreeSent, matcher = labelSentByMatchers(matchers, sent) 
      
         if matcher is not None:
             output = matcher.output()
+            found = matcher.found
         else:
             output = None
+            found = None
         
-        print sid ,i, output 
-        if i != -1 :
+        print sid ,found, output 
+        total += 1
+        if matcher is not None :
+            m+=1
             f.write( sent +"\n\n" )
             f.write( degreeSent.printLabeledArray().get_string() +"\n\n" )
-            f.write( str(i) + "   " + str(output) +"\n\n" )
+            f.write( str(found) + "   " + str(output) +"\n\n" )
         else :
             f2.write( sent +"\n\n" )
             f2.write( degreeSent.printLabeledArray().get_string() +"\n\n" )
-            f2.write( str(i) + "   " + str(output) +"\n\n" )
-            
-        total += 1
-        if i != -1 :
-            m+=1
-            
+             
     f2.write( "\n\n match="+ str( m) + "  total="+ str( total) + "  radio=" + str (float(m)/total) +"\n" )
              
     print "match=", m, "  total=", total, "  radio=", float(m)/total
