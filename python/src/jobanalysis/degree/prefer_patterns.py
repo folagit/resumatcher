@@ -30,16 +30,16 @@ prefer_08 =    LabelMatcher(   "PREFER_VBD" ) +  QuestionMatcher(LabelMatcher("D
 prefer_09 =    LabelMatcher( [  "DEGREE", "IN", "MAJOR", "PREFER_VBD"] )
 prefer_10 =    LabelMatcher( ["DE_LEVEL", "DEGREE", "BE", "PREFER_JJ"])
 
- 
+prefer_matchers = [prefer_01, prefer_02,prefer_03, prefer_04, prefer_05 , \
+               prefer_06, prefer_07, prefer_08 , prefer_09, prefer_10]
 def main(): 
    
    target_set_name = "output\\degree_3"
    outfileName = "output\\data3_PREFER_array.txt"
    failfilename =  "output\\data3_PREFER_array_fail.txt"   
    
-   matchers = [prefer_01, prefer_02,prefer_03, prefer_04, prefer_05 , \
-               prefer_06, prefer_07, prefer_08 , prefer_09, prefer_10]
-   labelDegreeSet(matchers, target_set_name,outfileName, failfilename) 
+   
+   labelDegreeSet(prefer_matchers, target_set_name,outfileName, failfilename) 
    
 if __name__ == "__main__": 
     main() 

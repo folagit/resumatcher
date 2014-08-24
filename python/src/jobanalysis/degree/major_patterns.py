@@ -46,16 +46,16 @@ majorSeq9 =  LabelMatcher( "MAJOR") + OriTextMatcher(["or" , "related"])
 
 majorSeq10 =   LabelMatcher(  "DEGREE"   ) + DotMatcher() + LabelMatcher( "MAJOR") 
 
-
+major_matchers = [majorSeq1, majorSeq2, majorSeq3,majorSeq4, majorSeq5, \
+               majorSeq6, majorSeq7, majorSeq8, majorSeq9, majorSeq10 ]
 def main(): 
    
    target_set_name = "output\\degree_3"
    outfileName = "output\\data3_major_array.txt"
    failfilename =  "output\\data3_major_array_fail.txt"   
    
-   matchers = [majorSeq1, majorSeq2, majorSeq3,majorSeq4, majorSeq5, \
-               majorSeq6, majorSeq7, majorSeq8, majorSeq9, majorSeq10 ]
-   labelDegreeSet(matchers, target_set_name,outfileName, failfilename) 
+   
+   labelDegreeSet(major_matchers, target_set_name,outfileName, failfilename) 
    
 if __name__ == "__main__": 
     main() 

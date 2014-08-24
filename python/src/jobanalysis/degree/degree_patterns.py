@@ -51,14 +51,16 @@ matcher49 = QuestionMatcher(  SeqMatcher ( [ LabelMatcher("OR") , matcher7]))
 degreeSeq41 = SeqMatcher([matcher7,matcher8, matcher9, matcher6, matcher2 ], outfun=getOntoType)
 
 
+degree_matchers = [ degreeSeq2, degreeSeq4, degreeSeq6, degreeSeq7, degreeSeq8 ] 
+
 def main():       
 
    target_set_name = "output\\degree_3"
    outfileName = "output\\data3_degree_array.txt"
    failfilename =  "output\\data3_degree_array_fail.txt"
    
-   matchers = [ degreeSeq2, degreeSeq4, degreeSeq6, degreeSeq7, degreeSeq8 ]   
-   labelDegreeSet(matchers, target_set_name,outfileName, failfilename) 
+  
+   labelDegreeSet(degree_matchers, target_set_name,outfileName, failfilename) 
    
 if __name__ == "__main__": 
     main() 
