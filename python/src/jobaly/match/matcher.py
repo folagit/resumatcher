@@ -17,6 +17,7 @@ class BaseMatcher:
         self.found = None
         self.refNum = 0
         self.outlist = [] 
+        self.matchNum = 0
         
     def setCatchFun(self, catchfun):
         self.catchfun = catchfun

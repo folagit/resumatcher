@@ -76,7 +76,7 @@ def addMajorLabels(labelDict):
    
     MAJOR_GENERAL = ["engineering", "science", "numerical", "Management", "Art", "design", "technical" , "Technology" ]
     
-    MAJOR_CS = ["computer science", "Comp Sci", "computer","computer sciences" , "CS", "Computing Science " ,\
+    MAJOR_CS = ["computer science", "Comp Sci", "CompSci" , "computer","computer sciences" , "CS", "Computing Science " ,\
                   "computer programming" , "programming", "Software Engineering", "Artificial Intelligence","SE" ]
     MAJOR_CE = ["CE" , "computer engineering", ]
     MAJOR_EE = ["EE", "signal processing", "Electrical Engineering ", "Telecom" , "Electronic Engineering"]
