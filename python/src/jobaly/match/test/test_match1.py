@@ -15,7 +15,22 @@ from matcher  import *
 tokens1 = ["aaa","bbb","ccc","ddd"]
 tokens2 = ["aaa","bbb","aaa","bbb","aaa","bbb","aaa","bbb","ccc","ddd"]
 
-class TestMatch1(unittest.TestCase):    
+class TestMatch1(unittest.TestCase):  
+    
+    def test_unittoken(self):
+        matcher = UnitTokenMatcher("aaa") 
+        self.assertEqual( matcher(tokens1), 1 )
+        self.assertEqual( matcher.catch, ["aaa"] )
+        self.assertEqual( matcher.output(), ["aaa"] )
+        
+        matcher = UnitTokenMatcher("aaa") + UnitTokenMatcher("bbb") 
+        self.assertEqual( matcher(tokens1), 2 ) 
+        self.assertEqual( matcher.catch, ["aaa", "bbb"] )
+        self.assertEqual( matcher.output(),  ['aaa', 'bbb'] )        
+        
+        matcher =  UnitTokenMatcher("bbb") + UnitTokenMatcher("ccc") 
+        self.assertEqual(matcher.findMatching(tokens1),1)
+        self.assertEqual( matcher.output(),  ['bbb', 'ccc'] )
 
     def test_token1(self):
         

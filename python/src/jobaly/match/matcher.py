@@ -118,7 +118,27 @@ class DotMatcher(UnitMatcher):
         self.catch.append(words[0])
         self.outlist = self.catchfun(self.catch) 
         return  1
+
+class UnitTokenMatcher(UnitMatcher):
+    
+    def __init__(self, token, catchfun=lambda x:x , outfun=lambda x: x):        
+        UnitMatcher.__init__(self, catchfun, outfun)
+        self.token = token      
+    
+    @staticmethod    
+    def getWord(item):
+        return item
        
+    def match(self, words):
+        self.reset()
+        if len(words) < 1:
+            return  -1 
+        if self.token  == self.getWord(words[0]):
+            self.catch.append(words[0])
+            self.outlist = self.catchfun(self.catch) 
+            return 1
+        else:
+            return -1        
         
 class TokenMatcher(UnitMatcher):
     
@@ -131,15 +151,7 @@ class TokenMatcher(UnitMatcher):
     
     @staticmethod    
     def getWord(item):
-        return item
-    
-    @staticmethod    
-    def defaultCatchfun(item):
-        return item
-    
-    @staticmethod    
-    def defaultOutfun(item):
-        return None   
+        return item   
        
     def match(self, words):
         self.reset()
