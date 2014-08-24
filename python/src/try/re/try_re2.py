@@ -168,4 +168,14 @@ def test15():
     else:
         print 'did not find'
         
-test15()
+def test16():
+    sent1 = 'ab+ab' 
+    sent2 = 'ab\+ab'  
+    match = re.search(r'\+ab', sent1)
+    match = re.search(r'\\\+ab', sent2)
+    if match:                      
+        print 'found', match.group() ## 'found word:cat'
+    else:
+        print 'did not find'
+        
+test16()
