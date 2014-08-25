@@ -141,7 +141,7 @@ class UnitTokenMatcher(UnitMatcher):
             return -1      
             
     def __repr__(self):
-        return '<Token:'+self.token+'>'
+        return '<Tok:'+self.token+'>'
         
 class TokenMatcher(UnitMatcher):
     
@@ -252,7 +252,14 @@ class SeqMatcher(CompMatcher):
                 return i + r
             j-=1
         return -1
-   
+        
+    def __repr__(self):  
+        s=""
+        for m in self.matchers:
+            s+= ","+str(m)
+        if len(s)>0:
+            s=s[1:]
+        return '<Seq:'+s+'>'
     
 class AlternateMatcher(CompMatcher):
     
@@ -280,6 +287,14 @@ class AlternateMatcher(CompMatcher):
     def reset(self):
         CompMatcher.reset(self)
         self.catchmatcher = None 
+        
+    def __repr__(self):  
+        s=""
+        for m in self.matchers:
+            s+= ","+str(m)
+        if len(s)>0:
+            s=s[1:]
+        return '<Alt:'+s+'>'    
 
 # repreat matcher will not work very well like:
 #    sent1 = 'abcabcabcabcde'        
@@ -356,13 +371,18 @@ class RepeatMatcher(BaseRepeatMatcher):
 class QuestionMatcher(RepeatMatcher):    
     def __init__(self, matcher):
         RepeatMatcher.__init__(self, matcher, mintimes=0, maxtimes=1)
+    def __repr__(self):        
+        return '<?:'+str(self.matcher)+'>'
         
 class StarMatcher(RepeatMatcher):
     def __init__(self, matcher):
-        RepeatMatcher.__init__(self, matcher)
+        RepeatMatcher.__init__(self, matcher)  
+    def __repr__(self):        
+        return '<*:'+str(self.matcher)+'>'
        
 class PlusMatcher(RepeatMatcher):
     def __init__(self, matcher):
         RepeatMatcher.__init__(self, matcher, mintimes=1) 
-    
+    def __repr__(self):        
+        return '<+:'+str(self.matcher)+'>'
     

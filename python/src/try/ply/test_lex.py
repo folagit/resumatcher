@@ -42,10 +42,13 @@ def test_parser(data):
 
 data1="ddd"
 data2="ddddd 33"
-data3="ddddd 33 tt"
 data3="ddddd 33 tt uuu"
+data4="ddd+"
+data5="bbb?"
+data6="bbb*"
+ 
 
-data = data3
+data = data2
 
 #testLex(data3)        
-test_parser(data3)
+test_parser(data)
