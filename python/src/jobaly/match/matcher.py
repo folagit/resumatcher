@@ -138,7 +138,10 @@ class UnitTokenMatcher(UnitMatcher):
             self.outlist = self.catchfun(self.catch) 
             return 1
         else:
-            return -1        
+            return -1      
+            
+    def __repr__(self):
+        return '<Token:'+self.token+'>'
         
 class TokenMatcher(UnitMatcher):
     
