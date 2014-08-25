@@ -144,7 +144,7 @@ class UnitTokenMatcher(UnitMatcher):
             return -1      
             
     def __repr__(self):
-        return '<Tok:'+self.token+'>'
+        return "'"+self.token+"'"
         
 class TokenMatcher(UnitMatcher):
     
