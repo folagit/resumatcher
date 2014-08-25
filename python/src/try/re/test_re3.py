@@ -40,5 +40,17 @@ def test03():
         print 'did not find'
         
         
+def test04():
+   
+    sent1 = 'ab+ab' 
+    sent2 = 'c996'  
+  #  match = re.search(r'\+ab', sent1)
+    match = re.search( r'[abc]99' , sent2)
+    if match:                      
+        print 'found', match.group() ## 'found word:cat'
+    else:
+        print 'did not find'
         
-test02()
+        
+        
+test04()

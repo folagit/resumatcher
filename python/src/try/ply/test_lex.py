@@ -69,8 +69,9 @@ data.append("ddd+")
 data.append("bbb?")
 data.append("bbb*")
 data.append("bbb*+?")
+data.append("[ddddd 33 tt uuu]")
  
-
+#testLex(data[4])
 #test_parser_with_array(data)
-test_parser(data[3])
+#test_parser(data[3])
 test_parser_with_array(data)

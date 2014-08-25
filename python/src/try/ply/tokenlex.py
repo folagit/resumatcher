@@ -22,10 +22,11 @@ tokens = (
    'QUES',
    'TIMES',
    'DOT',
-   'OR',
    'LPAREN',
    'RPAREN',
 )
+
+literals = ['[',']','|','^']
 
 # Regular expression rules for simple tokens
 t_PLUS    = r'\+'
@@ -34,7 +35,6 @@ t_TIMES   = r'\*'
 t_DOT  = r'\.'
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
-t_OR = r'\|'
 t_TOKEN = r'[a-zA-Z0-9_/-=:;,&$#@!\-<>%~]+'
 
 
@@ -56,9 +56,12 @@ def t_error(t):
 
 from jobaly.match.matcher  import *
 
+  
+
 def p_seq_matcherlist(p):
     'matcher : matcherlist'     
-    p[0] = SeqMatcher(p[1])  
+    p[0] = SeqMatcher(p[1]) 
+   
 
 def p_matcherlist_matcher(p):
     'matcherlist : matcherlist matcher'
@@ -74,8 +77,8 @@ def p_matcher_matcher(p):
     p[0] = elist    
 
 
-def p_matcher_matcherlist(p):
-    'matcher : LPAREN matcherlist RPAREN'     
+def p_seq__par_matcherlist(p):
+    'seqmatcher : LPAREN matcherlist RPAREN'     
     p[0] = SeqMatcher(p[2])
     
 def p_matcher_paren(p):
