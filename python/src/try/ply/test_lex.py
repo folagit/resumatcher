@@ -56,20 +56,23 @@ def test_parser_with_array(datas):
     
     print "\n\n--- parse result----"
     for data in datas :
+        
         result = parser.parse(data, lexer=lexer)        
-        print result
+        print  data , "->", result
 
 data=[]
 data.append(".")
 data.append("ddd")
 data.append("(bbb*)")
 data.append("ddddd 33")
+data.append("ddddd 33 ccc")
 data.append("ddddd 33 tt uuu")
+data.append("ddddd ( 33 tt ) uuu")
 data.append("ddd+")
 data.append("bbb?")
 data.append("bbb*")
 data.append("bbb*+?")
-data.append("[ddddd 33 tt uuu]")
+#data.append("[ddddd 33 tt uuu]")
  
 #testLex(data[4])
 #test_parser_with_array(data)

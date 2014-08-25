@@ -55,11 +55,13 @@ def t_error(t):
 # ---- rules ------
 
 from jobaly.match.matcher  import *
-
   
+def p_expression_matcher(p):
+    'expression : matcher'     
+    p[0] =  p[1]  
 
 def p_seq_matcherlist(p):
-    'matcher : matcherlist'     
+    'expression : matcherlist'     
     p[0] = SeqMatcher(p[1]) 
    
 
@@ -78,7 +80,7 @@ def p_matcher_matcher(p):
 
 
 def p_seq__par_matcherlist(p):
-    'seqmatcher : LPAREN matcherlist RPAREN'     
+    'matcher : LPAREN matcherlist RPAREN'     
     p[0] = SeqMatcher(p[2])
     
 def p_matcher_paren(p):
