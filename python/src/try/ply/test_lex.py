@@ -10,17 +10,14 @@ import logging
 
 import tokenlex
 
-def testLex():
+
+
+def testLex(data):
     #lexer = lex.lex(debug=1, module=tokenlex)
-    lexer = lex.lex(module=tokenlex)
-    data="dss dfdsf dfd 4=+"
-    data=", : ; =-"
-    data="(RT )"
-    data="df+ df* (dfs)+ (er|df)?"
-    data = "dd rr ee"
+    lexer = lex.lex(module=tokenlex)   
     lexer.input(data)
     
-    print "---------------------------"
+    print "------- token result --------------------"
     print "data=", data
     
     # Tokenize
@@ -29,7 +26,7 @@ def testLex():
         if not tok: break      # No more input
         print tok
 
-def test_parser():
+def test_parser(data):
 
     logging.basicConfig(
         level = logging.DEBUG,
@@ -39,14 +36,17 @@ def test_parser():
     )
     log = logging.getLogger()
     lexer = lex.lex(module=tokenlex)
-    parser = yacc.yacc(module=tokenlex,  debug=True)
-    
-    data=" ( ddddd )"
-    data="ddddd 33"
+    parser = yacc.yacc(module=tokenlex,  debug=True) 
     
     result = parser.parse(data, lexer=lexer)
-    print "--- parse result----"
+    print "\n\n--- parse result----"
     print result
 
-testLex()        
-test_parser()
+data1="ddd"
+data2="ddddd 33"
+data3="ddddd 33"
+
+data = data3
+
+testLex(data3)        
+test_parser(data3)

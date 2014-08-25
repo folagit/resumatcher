@@ -53,16 +53,16 @@ def t_error(t):
 
 from jobaly.match.matcher  import *
 
+def p_factorlist_factor1(p):
+    'factorlist : factorlist factor'    
+    p[0] = p[1].append(p[2])
+
 def p_factorlist_factor(p):
     'factorlist : factor factor'
     elist = []
     elist.append(p[1])
     elist.append(p[2])
     p[0] = elist
-    
-def p_factorlist_factor1(p):
-    'factorlist : factorlist factor'    
-    p[0] = p[1].append(p[2])
 
 def p_factor_token(p):
     'factor : TOKEN'
