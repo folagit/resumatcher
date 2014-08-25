@@ -118,6 +118,9 @@ class DotMatcher(UnitMatcher):
         self.catch.append(words[0])
         self.outlist = self.catchfun(self.catch) 
         return  1
+        
+    def __repr__(self):
+        return '<.>'
 
 class UnitTokenMatcher(UnitMatcher):
     

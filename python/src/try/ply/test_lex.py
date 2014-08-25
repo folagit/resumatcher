@@ -34,21 +34,39 @@ def test_parser(data):
     )
     log = logging.getLogger()
     lexer = lex.lex(module=tokenlex)
-    parser = yacc.yacc(module=tokenlex,  debug=True) 
+    parser = yacc.yacc(module=tokenlex,  debug=True, debuglog=log) 
     
     result = parser.parse(data, lexer=lexer)
     print "\n\n--- parse result----"
     print result
+    
+    
+def test_parser_with_array(datas):
 
-data1="ddd"
-data2="ddddd 33"
-data3="ddddd 33 tt uuu"
-data4="ddd+"
-data5="bbb?"
-data6="bbb*"
+    logging.basicConfig(
+        level = logging.DEBUG,
+        filename = "parselog.txt",
+        filemode = "w",
+        format = "%(filename)10s:%(lineno)4d:%(message)s"
+    )
+    log = logging.getLogger()
+    lexer = lex.lex(module=tokenlex)
+    parser = yacc.yacc(module=tokenlex,  debug=True, debuglog=log) 
+    
+    print "\n\n--- parse result----"
+    for data in datas :
+        result = parser.parse(data, lexer=lexer)        
+        print result
+
+data=[]
+data.append(".")
+data.append("ddd")
+data.append("ddddd 33")
+data.append("ddddd 33 tt uuu")
+data.append("ddd+")
+data.append("bbb?")
+data.append("bbb*")
+data.append("bbb*+?")
  
 
-data = data2
-
-#testLex(data3)        
-test_parser(data)
+test_parser_with_array(data)

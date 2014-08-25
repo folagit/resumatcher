@@ -56,6 +56,32 @@ def t_error(t):
 
 from jobaly.match.matcher  import *
 
+def p_seq_termlist(p):
+    'expression : termlist'     
+    p[0] = SeqMatcher(p[1]) 
+    
+def p_expression_term(p):
+    'expression : term'     
+    p[0] = p[1] 
+
+def p_termlist_term(p):
+    'termlist : termlist term'
+    p[1].append(p[2])
+    p[0] = p[1]  
+
+def p_term_term(p):
+    'termlist : term term'
+ #   'termlist : factor factor'
+    elist = []
+    elist.append(p[1])
+    elist.append(p[2])
+    p[0] = elist    
+
+
+def p_term_termlist(p):
+    'term : LPAREN termlist RPAREN'     
+    p[0] = SeqMatcher(p[2])
+
 def p_term_plus(p):
     'term : term PLUS'    
     p[0] = PlusMatcher(p[1])
@@ -67,22 +93,6 @@ def p_term_times(p):
 def p_term_ques(p):
     'term : term QUES'    
     p[0] = QuestionMatcher(p[1])
-
-def p_term_termlist(p):
-    'term : LPAREN termlist RPAREN'     
-    p[0] = SeqMatcher(p[2])
-
-def p_termlist_term(p):
-    'termlist : termlist term'
-    p[1].append(p[2])
-    p[0] = p[1]   
-
-def p_term_term(p):
-    'termlist : term term'
-    elist = []
-    elist.append(p[1])
-    elist.append(p[2])
-    p[0] = elist
     
 def p_term_factor(p):
     'term : factor'    
