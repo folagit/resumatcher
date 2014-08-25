@@ -60,10 +60,13 @@ def p_expression_matcher(p):
     'expression : matcher'     
     p[0] =  p[1]  
 
-def p_seq_matcherlist(p):
+def p_expression_matcherlist(p):
     'expression : matcherlist'     
     p[0] = SeqMatcher(p[1]) 
-   
+    
+def p_expression_alt(p):
+    'expression : altmatcher'     
+    p[0] = p[1]    
 
 def p_matcherlist_matcher(p):
     'matcherlist : matcherlist matcher'
@@ -86,6 +89,20 @@ def p_seq__par_matcherlist(p):
 def p_matcher_paren(p):
     'matcher : LPAREN matcher RPAREN'     
     p[0] = p[2]
+    
+    
+def p_paren_alt(p):
+    'matcher : LPAREN altmatcher RPAREN'     
+    p[0] = p[2]
+
+def p_alt_matcher(p):
+    "altmatcher : altmatcher '|' matcher"   
+    p[1].append(p[3])  
+    p[0] =  p[1]  
+    
+def p_alt_matcher_matcher(p):
+    "altmatcher : matcher '|' matcher"    
+    p[0] = AlternateMatcher([p[1],p[3]])
 
 def p_matcher_plus(p):
     'matcher : matcher PLUS'    
