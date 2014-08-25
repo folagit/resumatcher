@@ -48,3 +48,32 @@ t_ignore  = ' \t'
 def t_error(t):
     print "Illegal character '%s'" % t.value[0]
     t.lexer.skip(1)
+
+# ---- rules ------
+
+from jobaly.match.matcher  import *
+
+def p_factorlist_factor(p):
+    'factorlist : factor factor'
+    elist = []
+    elist.append(p[1])
+    elist.append(p[2])
+    p[0] = elist
+    
+def p_factorlist_factor1(p):
+    'factorlist : factorlist factor'    
+    p[0] = p[1].append(p[2])
+
+def p_factor_token(p):
+    'factor : TOKEN'
+    p[0] = UnitTokenMatcher(p[1])
+    
+def p_factor_dot(p):
+    'factor : DOT'
+    p[0] = DotMatcher()
+
+# Error rule for syntax errors
+def p_error(p):
+    print "Syntax error in input!"
+    print "error p", p
+
