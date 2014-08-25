@@ -10,8 +10,6 @@ import logging
 
 import tokenlex
 
-
-
 def testLex(data):
     #lexer = lex.lex(debug=1, module=tokenlex)
     lexer = lex.lex(module=tokenlex)   
@@ -44,9 +42,10 @@ def test_parser(data):
 
 data1="ddd"
 data2="ddddd 33"
-data3="ddddd 33"
+data3="ddddd 33 tt"
+data3="ddddd 33 tt uuu"
 
 data = data3
 
-testLex(data3)        
+#testLex(data3)        
 test_parser(data3)

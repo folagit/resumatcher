@@ -4,7 +4,10 @@ Created on Sun Aug 24 11:36:11 2014
 
 @author: dlmu__000
 """
-
+import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
+from jobaly.match.matcher  import *
 # ------------------------------------------------------------
 # calclex.py
 #
@@ -54,8 +57,10 @@ def t_error(t):
 from jobaly.match.matcher  import *
 
 def p_factorlist_factor1(p):
-    'factorlist : factorlist factor'    
-    p[0] = p[1].append(p[2])
+    'factorlist : factorlist factor'
+    p[1].append(p[2])
+    p[0] = p[1]
+   
 
 def p_factorlist_factor(p):
     'factorlist : factor factor'
