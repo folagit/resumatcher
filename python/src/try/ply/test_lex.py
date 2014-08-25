@@ -51,7 +51,8 @@ def test_parser_with_array(datas):
     )
     log = logging.getLogger()
     lexer = lex.lex(module=tokenlex)
-    parser = yacc.yacc(module=tokenlex,  debug=True, debuglog=log) 
+   # parser = yacc.yacc(module=tokenlex,  debug=1, debuglog=log) 
+    parser = yacc.yacc(module=tokenlex,  debug=1) 
     
     print "\n\n--- parse result----"
     for data in datas :
@@ -61,6 +62,7 @@ def test_parser_with_array(datas):
 data=[]
 data.append(".")
 data.append("ddd")
+data.append("(bbb*)")
 data.append("ddddd 33")
 data.append("ddddd 33 tt uuu")
 data.append("ddd+")
@@ -69,4 +71,6 @@ data.append("bbb*")
 data.append("bbb*+?")
  
 
+#test_parser_with_array(data)
+test_parser(data[3])
 test_parser_with_array(data)
