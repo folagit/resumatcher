@@ -248,3 +248,5 @@ python/src/try/ply/parser.out
 python/src/jobaly/match/parsetab.py
 python/src/jobaly/match/parser.out
 python/src/jobaly/match/test/parselog.txt
+python/src/jobanalysis/degree/parser.out
+python/src/jobanalysis/degree/parsetab.py

@@ -19,6 +19,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 from data.labeler import Labeler
 from data.jobsentence import JobSentence
 from jobaly.match.matcher  import *
+from jobaly.match.matchercompiler  import MatcherCompiler
 
 from  data import datautils
 
@@ -168,6 +169,16 @@ class LabelMatcher(TokenMatcher):
         
     def getWord(self, item):
         return item[0]
+        
+class UnitLabelMatcher(UnitTokenMatcher): 
+    
+    def __init__(self, tokens):
+        TokenMatcher.__init__(self, tokens, catchfun=lambda x:x[1] , outfun=lambda x: x )
+        
+    def getWord(self, item):
+        return item[0]
+        
+matcherCompiler = MatcherCompiler(tokenMatcher=UnitLabelMatcher, debug=True)        
         
 class OriTextMatcher(TokenMatcher): 
     
