@@ -172,8 +172,8 @@ class LabelMatcher(TokenMatcher):
         
 class UnitLabelMatcher(UnitTokenMatcher): 
     
-    def __init__(self, tokens):
-        TokenMatcher.__init__(self, tokens, catchfun=lambda x:x[1] , outfun=lambda x: x )
+    def __init__(self, token):
+        UnitTokenMatcher.__init__(self, token, catchfun=lambda x:x[0][1] , outfun=lambda x: x )
         
     def getWord(self, item):
         return item[0]
