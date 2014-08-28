@@ -74,6 +74,15 @@ Liu and Dew~\cite{liu2004using} used RDF to represent and store the expertise of
 
 \section{METHODOLOGY}
 
+\subsection{Contribution}
+
+There are some scholars noticed that the accuracy and completeness of information extracted from resumes and job descriptions have great influence on the final recommend results. Some of them used natural language processing techniques to extract information fields from job seekers' resumes.  But to the job description, very little work had been done, since most such systems were built for big companies to help them select applicants. So in my research work, I will construct a job description extractor.
+
+The other contribution of the research is to a better domain specific ontology.  Even some systems used ontology to calculate the similarity between job and resume, but the ontology they build are relatively simple and rough, especially in skills part, like foreign language, IT skill. Such simple ontology cannot be applied in real situations, because the loose criteria will return huge matched results as well. So in this research I hope to build a more detailed ontology for IT jobs, which could include more and detailed IT skills, like some special databases, development frameworks, and special knowledge.
+
+I hope with such improvement, the recommending result of the system will be more accurate, and the system could be more useful to the job seekers.
+
+\subsection{System Overview}
 The system will use rule based information extraction techniques to parse the job description and resume, and get information such as skill, specialties, and background. The information will be used to create the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching.
 
 The model of candidates will include their specialties, working experience, and education background, all of them should be extracted from the resumes. The job model will be extracted from job description, the information will include: company name, location, job title, education requirement, skill requirements and working experiences etc. When a job seeker searches the jobs by his resume, the system will calculate the similarity between the candidate model and the job models, give every job model a similarity score.
@@ -81,8 +90,6 @@ The model of candidates will include their specialties, working experience, and 
 In the initial phase I will only focus on the positions of IT job, because IT jobs have a special character,  skill set oriented, which means the person that the company wants to hire must have some special skills and knowledge, like some programming languages, databases or software etc.
 
 User¡¯s personal preference should be considered as well. In the previous user survey, some factors will impact a lot on the user¡¯s expectation of good jobs, such factors include: location, the reputation of the company, the salary etc. These factors will be treated as weight factors in the job matching algorithm.
-
-\subsection{System Architecture}
 
 Figure ~\ref{fig:Pipeline} shows the architecture of the whole system, which include such modules:
 
@@ -229,4 +236,4 @@ Users will be asked to use both the system and current job finding web site. We 
 
 \section{CONCLUSION}
 
-In this proposal I proposed a personalized job-resume matching system, which could help job seeker to find appropriate jobs more easily. In the system, job descriptions and resumes will be process by pipeline; and a finite automated tool will be used to extract the model of them. The job descriptions will be matched the user's resume, the result will be sorted by the ontology similarity. Since the most appreciate jobs will be returned in front of other jobs, the users of the system could get better result than current job finding web site.
+In this proposal I proposed a personalized job-resume matching system, which could help job seeker to find appropriate IT jobs more easily.  To improve the accuracy of the system, I want to construct on a job description extractor to retrieve information from job description, and want to build a domain specific ontology. In the system, job descriptions and resumes will be processed by pipeline; and a finite automated tool will be used to extract the model of them. The job descriptions will be matched the user's resume, the result will be sorted by the ontology similarity. Since the most appreciate jobs will be returned in front of other jobs, the users of the system could get better result than current job finding website. 

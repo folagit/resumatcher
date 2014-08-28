@@ -73,7 +73,7 @@ The system also asked the users upload their resumes, but that's for facilitatin
 From the paper we know, the model latent aspect model is statistical model, which need to be trained before be applied into recommendation. But training need user to label to data, since current quality of result of job searching is poor, it will take a lot of time for user to train model.  
 
 
-Drigas* et al.\cite{malinowski2006matching} al presented a expert system to match jobs and job seekers. The expert system used Neuro-Fuzzy rule to evaluate the matching:
+Drigas* et al.\cite{malinowski2006matching} al presented a expert system to match jobs and job seekers, and recommend unemployed to  The expert system used Neuro-Fuzzy rule to evaluate the matching:
 Candidate's X matches X Criterion 
  
 
@@ -90,6 +90,9 @@ The system represent the job in six fields:
  The system use a relation matrix to represent the fuzzy relation between these specialities. The system need the training data to train that Neuro-fuzzy network. 
  
 Both resume data and job info data were manually input into the system  . The fields they selected are relative small.
+
+Daramola et al also proposed a fuzzy logic based expert system(FES) tool for online personnel resctuitments. In the paper, the authors assumed that the information already be collected. The system use a fuzzy distance metric to rank candidates' profile in the order of their eligibility for the job. The fuzy hamming distance is given as:
+$$ \delta \left ( O,R \right )=\sum_{i=1}^{n}\left | \mu_O(x_i) - \mu_R(x_i)  \right | $$
 
 \begin{table}[ht]
 \caption{Comparison of Job Recommender Systems } % title of Table
