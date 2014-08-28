@@ -2,7 +2,7 @@
 
 
 \section{MOTIVATION}
-Currently the main channel for job seekers are online job finding web sites, like indeed or  monster etc, that make the job finding process easier and decrease the recruitment time. But most such web sites only allow users to use key word to search the jobs, which makes job searching as tedious and blind task. For example, I used keyword ``Java'' to search jobs with location restriction Mountain View, CA on the job searching site indeed.com, the web site returned about 7,000 jobs (Figure~\ref{fig:Indeed}). The number of results of job searching is huge but un-ranked, so the job seeker has to review every job description. Since no one has enough time to read all the jobs in the searching result, the actual quality of job searching service is low. This is a classic problem of information overflow.
+Currently the main channel for job seekers are online job finding web sites, like indeed or monster, etc, that make the job finding process easier and decrease the recruitment time. But most such web sites only allow users to use key word to search the jobs, which makes job searching as a tedious and blind task. For example, I used keywords ``Java'' to search jobs with location restriction Mountain View, CA on the job searching site indeed.com, the web site returned about 7,000 jobs (Figure~\ref{fig:Indeed}). The number of results of job searching is huge, but un-ranked, so the job seeker has to review every job description. Since no one has enough time to read all the jobs in the searching result, the actual quality of job searching service is low. This is a classic problem of information overflow.
 
 
 \begin{figure}[htbp]
@@ -12,10 +12,9 @@ Currently the main channel for job seekers are online job finding web sites, lik
   \label{fig:Indeed}
 \end{figure}
 
-The reason for such result is because current job searching web sites use the same information retrieval technology like ``Inverted index'' \cite{zobel2006inverted} as the common search engines, which just use keywords to map all the stored documents. Modern search engines all have some ranking algorithms to sort the searching result, like page rank \cite{page1999pagerank}, so the top results are the most related ones. But such algorithms are unavailable to the job searching systems, because the criteria  of how to rank the job searching result is very personalized. A great job opening for one job seeker maybe looks not good to the other, because the goodness of a job to a specular job seeker is heavily depend on his personal background, like his education or professional experience etc.
+The reason for such result is because current job searching web sites use the same information retrieval technology like ``Inverted index'' \cite{zobel2006inverted} as the common search engines, which just use keywords to map all the stored documents. Modern search engines all have some ranking algorithms to sort the searching result, like page rank \cite{page1999pagerank}, so the top results are the most related ones. But such algorithms are unavailable to the job searching systems, because the criteria  of how to rank the job searching result is very personalized. A great job opening for one job seeker maybe looks not good to the other, because the goodness of a job to a specular job seeker heavily depend on his personal background, like his education or professional experience etc.
 
-Since the people's resumes contain the most important background information, we believe the content of the resume could be used to rank the job openings. My proposal is to create a web system which could use the resumes of job seekers to find the jobs that match their profiles best. The main idea is to calculate the similarity between the candidate model and job models, which should be generated from resumes and job descriptions. I want to transfer the job searching task from key word searching to candidate model matching. The matching result should be sorted by the matching score, higher matching score means a better matching. The matching algorithm not only help job seekers to find the appreciate job opening, but also offer priority to them.~\cite{gueutal2006brave}  The job with higher matching score means the job is more appropriate to the job seeker, and if he applies to the job, the chances of getting the interview call 
-will be higher as well. Figure~\ref{fig:Matching} shows how this approach works.
+Since the people's resumes contain the most important background information, we believe the content of the resume could be used to rank the job openings. My proposal is to create a web system which could use the resumes of job seekers to find the jobs that match their profiles best. The main idea is to calculate the similarity between the candidate model and job models, which should be generated from resumes and job descriptions. I want to transfer the job searching task from key word searching to job and resume models matching. The matching result should be sorted by the matching score, higher matching score means a better matching. The matching algorithm not only help job seekers find the appreciate job opening, but also offer priority to them.~\cite{gueutal2006brave}  The job with higher matching score means the job is more appropriate to the job seeker, and if he applies to the job, the chances of getting the interview call will be higher as well. Figure~\ref{fig:Matching} shows how this approach works.
 
 
 \begin{figure}[htbp]
@@ -46,11 +45,11 @@ There are two main challenges in Content-Based Recommendation Systems: One is ho
 
 
 \subsection{Information Extraction}
-One important the problem of this system is how to build the models from Job Description and Resume. The first step of model generating is information extraction. Both resumes and job descriptions are written in natural language, so we need to extract information from such un-structured or semi-structured data source, and transfer them to some designed structure.
+One important the problem of this system is how to build the models from Job Description and Resume. The first step of the model generating is information extraction. Both resumes and job descriptions are written in natural language, so we need to extract information from such un-structured or semi-structured data source, and transfer them to some designed structure.
 
-Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framework to get the detailed information from the job seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is used to segment the resume into consecutive blocks. Based on the result, a SVM model is used to obtain the detailed information in the certain block, the information include: name, address, education etc.
+Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framework to get the detailed information from the job seeker¡¯s resume. In the first stage, the Hidden Markov Model (HMM) is used to segment the resume into consecutive blocks. Based on the result, an SVM model is used to obtain the detailed information in the certain block, the information includes: name, address, education etc.
 
- Celik Duygua and Elci Atilla proposed a Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology}, which uses ontology to assistant the information extraction process. The system process the resume in following steps: convert the resume files into plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts in the sentences, normalize all the terms, at last the system will classify the sentences to get the wanted terms.
+ Celik Duygua and Elci Atilla proposed an Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology}, which uses ontology to assistant the information extraction process. The system process the resume in following steps: convert the resume files into plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts in the sentences, normalize all the terms, at last the system will classify the sentences to get the wanted terms.
 
 \subsection{Matching Algorithms}
 
@@ -66,7 +65,7 @@ $$ Sim(p1, p2) = \begin{Bmatrix}
 0, & otherwise
 \end{Bmatrix} $$
 
-Fazel \cite{fazel2009semantic} used a hybrid approach to matching job seekers and job postings, which takes advantage of the benefits of both logic-based and ontology-based matching. In his paper the description logics (DL) is used to represent the candidate and job opening, and the ontology is used to organize the skills in a skill taxonomy. He gave an equation to calculate the matching degree:
+Fazel \cite{fazel2009semantic} used a hybrid approach to matching job seekers and job postings, which takes advantage of the benefits of both logic-based and ontology-based matching. In his paper the description logics (DL) are used to represent the candidate and job opening, and the ontology is used to organize the skills in a skill taxonomy. He gave an equation to calculate the matching degree:
 $$ sim\left(P ,j \right) = \sum x_{ij} \times u(ds_i) $$
 
 where, $x_{ji}$ is the Boolean variable indicating whether desire i is satisfied by applicant $A_{j}$ in the set of all qualified applications.
@@ -75,9 +74,9 @@ Liu and Dew~\cite{liu2004using} used RDF to represent and store the expertise of
 
 \section{METHODOLOGY}
 
-The system will use rule based information extraction techniques to parse the job description and resume, and get information such as skill, specialties, and background. These information will be used to create the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching.
+The system will use rule based information extraction techniques to parse the job description and resume, and get information such as skill, specialties, and background. The information will be used to create the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching.
 
-The model of candidates will include their specialties, working experience, and education background, all the them should be extracted from the resumes. The job model will be extracted from job description, the information will include: company name, location, job title, education requirement, skill requirements and working experiences etc. When a job seeker searches the jobs by his resume, the system will calculate the similarity between the candidate model and the job models, give every job model a similarity score.
+The model of candidates will include their specialties, working experience, and education background, all of them should be extracted from the resumes. The job model will be extracted from job description, the information will include: company name, location, job title, education requirement, skill requirements and working experiences etc. When a job seeker searches the jobs by his resume, the system will calculate the similarity between the candidate model and the job models, give every job model a similarity score.
 
 In the initial phase I will only focus on the positions of IT job, because IT jobs have a special character,  skill set oriented, which means the person that the company wants to hire must have some special skills and knowledge, like some programming languages, databases or software etc.
 
@@ -89,10 +88,10 @@ Figure ~\ref{fig:Pipeline} shows the architecture of the whole system, which inc
 
 \begin{enumerate}
     \item The web crawler could search and download all new IT job opening web pages  from indeed.com everyday.
-    \item Job parser could parse the job opening web page, extract the information and create the job model.
+    \item The job parser could parse the job opening web page, extract the information and create the job model.
     \item Resume Parser is much like the Job parser, it will parse the resume and create the candidate model.
     \item All the job models will be stored in the Job Description database.
-    \item When user make a query request, the ontology matcher will calculate the matching score of each job, return the jobs ranked by their scores.
+    \item When user makes a query request, the ontology matcher will calculate the matching score of each job, return the jobs ranked by their scores.
 \end{enumerate}
 
 \begin{figure}[htbp]
@@ -108,11 +107,11 @@ One important problem of this system is how to extract models from Job Descripti
 In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This architecture will also be used in this system to extract models of job openings and candidate's resumes. The system will process the job opening in the following steps, which is shown in Figure~\ref{fig:Pipeline}:
 
 \begin{enumerate}
-    \item HTML parser will parse the job description web pages that are obtained from web crawler. It will get the HTML element that contains the main content of the job description.
-    \item Segment module will separate the job description into paragraphs according to HTML tags at first, then separate each paragraph into sentences.
+    \item The HTML parser will parse the job description web pages that are obtained from web crawler. It will get the HTML element that contains the main content of the job description.
+    \item The segment module will separate the job description into paragraphs according to HTML tags at first, then separate each paragraph into sentences.
     \item The sentences will be tokenized as string array, and sent to the Classification module. Classification module will determine the category of the sentence, and mark the category of the sentence.
-    \item Preprocessing module will delete unreadable characters, normalize some spelling tokens in the sentence.
-    \item Annotation module will annotate the tokens with sematic and ontology labels. The sentences will be transferred to multi-layered data structure.
+    \item The preprocessing module will delete unreadable characters, normalize some spelling tokens in the sentence.
+    \item The annotation module will annotate the tokens with sematic and ontology labels. The sentences will be transferred to multi-layered data structure.
     \item The layered sentences will be matched with pre-defined patterns. If any pattern could be matched, the ontology information will be stored in the job model.
     \item After every sentence has be processed in the pipeline, the job model will be stored into database.
 \end{enumerate}
@@ -154,11 +153,11 @@ We notice that simple keyword of skill name matching is far from enough, because
 \label{tab:resume_jd} % is used to refer this table in the text
 \end{table}
 
-If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use key word matching, the system won't give a good matching result in this very common situation. So when design the new ontology matching algorithm, we have such considerations:
+If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases like Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web application servers.  If we use key word matching, the system won't give a good matching result in this very common situation. So when design the new ontology matching algorithm, we have such considerations:
 
 \begin{enumerate}
-    \item How to normalize the same concept with different name or spelling
-    \item If one concept in the job description but there is no the same one in the resume, how to calculate the similarity between its related concepts.
+    \item How to normalize the same concept with different names or spelling
+    \item If one concept in the job description, but there is no the same one in the resume, how to calculate the similarity between its related concepts.
     \item If one concept in the job description has multiple similar concepts in the resume, how to summarize total similarity of them.
     \item When calculating the similarity between resume and job description, how to give weights to each concepts.
 \end{enumerate}
@@ -169,7 +168,7 @@ If just looking at the text, we can find the resume has few common words with th
 The system should include such features:
 
 \begin{enumerate}
-    \item User could import his resume in different format, like txt, doc and pdf.
+    \item User could import his resume in different formats, like txt, doc and pdf.
     \item User could search jobs by his resume. The search result will be sorted by the matching scores.
     \item User could set their searching preference, like location, company type, reputation, salary level, etc.
     \item The system should be able to change the parameters of the matching algorithm adaptively according to the record of user's preference

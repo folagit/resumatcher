@@ -3,9 +3,13 @@
 
 Some scholars found that current Boolean search and filtering techniques cannot satisfy the complexity of candidate-job matching requirement.~\cite{malinowski2006matching} They hope the system could understand the job requirement, determine which requirements are mandatory and which are optional but preferable. So they moved to use recommender systems technique to address the problem of information overflow.
 
-\section{Job Recommend System}
+There are two main challenges in Content-Based Recommendation Systems: One is how to extract the information from the job descriptions and job seekers' resumes, the other is how to calculate similarity of them.
 
-Job searching is not a new topic in information retrieval, which has been the focus of some commercial job finding web sites and research papers. Usually scholars called them Job Recommend System (JRS), because most of them used technologies from recommender systems. Wei et al. classified Recommend Systems into four categories~\cite{wei2007survey}: Collaborative Filtering, Content-based filtering, Knowledge-based and Hybrid approaches. Some of these techniques had been applied into JRS; Zheng et al. ~\cite{siting2012job} and AlOtaibi et al.~\cite{al2012survey} summarized the categories of existing online recruiting platforms and listed the advantages and disadvantages of technical approaches in different JRSs. The categories include:
+\section{Job Recommender System}
+
+\subsection{Recommender System}
+
+Job searching is not a new topic in information retrieval, which has been the focus of some commercial job finding web sites and research papers. Usually scholars called them Job Recommender Systems (JRS), because most of them used technologies from recommender systems. Wei et al. classified Recommender Systems into four categories~\cite{wei2007survey}: Collaborative Filtering, Content-based filtering, Knowledge-based and Hybrid approaches. Some of these techniques had been applied into JRS; Zheng et al. ~\cite{siting2012job} and AlOtaibi et al.~\cite{al2012survey} summarized the categories of existing online recruiting platforms and listed the advantages and disadvantages of technical approaches in different JRSs. The categories include:
 
 \begin{enumerate}
     \item Content-based Recommendation (CBR) The principle of a content-based recommendation is to suggest items that have similar content information to the corresponding users, like Prospect \cite{singh2010prospect}.
@@ -16,7 +20,117 @@ Job searching is not a new topic in information retrieval, which has been the fo
 
 \end{enumerate}
 
-There are two main challenges in Content-Based Recommendation Systems: One is how to extract the information from the job descriptions and job seekers' resumes, the other is how to calculate similarity of them.
+\subsection{Job Recommender System}
+
+I will review some existing JRS from some aspects:
+
+\begin{enumerate}
+    \item  User information
+
+    \item  Job information
+
+    \item  recommend strategy
+
+\end{enumerate}
+
+Rafter et al. \cite{rafter2000personalised} began to use ACF (Automated Collaborative Filtering) in Job Recommender system, ``CASPER''. In the system user profiles are gotten from server logs, that included: revisit data, read time data, and activity data. All these factors were viewed as measure of relevance among users. The system recommend jobs in two steps. First the system find a set of user related to the target user, second the jobs that related users liked will be recommend to the target user. The system use cluster-based Collaborative Filtering strategy. The similarity between users are based on how many jobs they both reviewed, or applied.
+
+The CASPER also allows user search jobs by a query which is a combination of some fields, like location, salary, and skill etc. The system use such query to find jobs, and the returned jobs will be ranked with above collaborative filtering algorithm.
+In their paper, they didn't give a detail description on how to detect the related fields they need and how to the transfer semi-structured job description to structured one. This system is helping job seeker to find jobs.
+
+The shortage of Collaborative Filtering:
+ First since the searching result is huge, and the result is sorted randomly, even two very similar users may review different jobs,  or say the probability of two similar users reviewing the same job is low. The authors also noticed the such sparseness problem in users profile, so they try to user cluster-based solution to resolve this problem.
+
+ Second because recommended jobs are from others users searching result, since the current quality of current searching result is low, so the quality of recommendation cannot be high.
+
+F{\"a}rber et al \cite{farber2003automated}. presented a recommender system built on a hybrid approach. The system integrated two methods, content-based filtering and collaborative filtering, and tried to overcome the problem of rating data sparsity by leveraging synergies of a combined model, et. the  latent aspect model. The data they used were synthetic resume. The model they are shown in Figure
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.4]{images/la.png}
+  \caption{Latent Aspect Model}
+  \label{fig:la}
+\end{figure}
+
+In Malinowski et al. \cite{malinowski2006matching}, they classified the job recommender systems into two categories,  CV-recommender, which to recommend CVs to recruiter. The job-recommender, which recommend jobs to job seekers.
+
+The system collect the users' profile data by asking input their profiles to the web form based interface field by field. The input data collected are:
+
+\begin{enumerate}
+    \item  Demographic data (e.g. date of birth, contact information)
+
+    \item  Educational data (e.g. school courses, grades, university, type of degree, intermediate and final university examinations, postgraduate studies)
+
+    \item  Job experience (e.g. name of the company, type of employment, industry group, occupational field)
+    \item  Language skills (e.g. language, level of knowledge)
+    \item  IT skills (e.g. type of skill, level of knowledge)
+    \item  Awards, scholarships, publications, others   
+
+\end{enumerate}
+The system also asked the users upload their resumes, but that's for facilitating the human judgment.
+
+From the paper we know, the model latent aspect model is statistical model, which need to be trained before be applied into recommendation. But training need user to label to data, since current quality of result of job searching is poor, it will take a lot of time for user to train model.  
+
+
+Drigas* et al.\cite{malinowski2006matching} al presented a expert system to match jobs and job seekers. The expert system used Neuro-Fuzzy rule to evaluate the matching:
+Candidate's X matches X Criterion 
+ 
+
+The system represent the job in six fields:
+\begin{enumerate}
+    \item  Age
+    \item  Education
+    \item  Additional Education(Training) 
+    \item  Previous Employment (Experience)
+    \item  Foreign Language
+    \item  Computer Knowledge
+\end{enumerate}
+
+ The system use a relation matrix to represent the fuzzy relation between these specialities. The system need the training data to train that Neuro-fuzzy network. 
+ 
+Both resume data and job info data were manually input into the system  . The fields they selected are relative small.
+
+\begin{table}[ht]
+\caption{Comparison of Job Recommender Systems } % title of Table
+\centering % used for centering table
+\begin{tabular}{ | c |  p{6cm} | p{6cm} | } % centered columns (4 columns)
+
+\hline  %inserts double horizontal lines
+ System & Approach  & User Information  \\ [0.5ex] % inserts table
+%heading
+\hline % inserts single horizontal line
+ &
+    \begin{singlespace}
+       \textbullet~Declarative  \par
+       \textbullet~Easy to comprehend  \par
+       \textbullet~Easy to maintain\par
+       \textbullet~Easy to incorporate domain knowledge\par
+       \textbullet~Easy to trace and fix the cause of errors  \par
+    \end{singlespace}
+    &  \begin{singlespace}
+      \textbullet~Heuristic \par
+       \textbullet~Requires tedious manual labor \par
+       \end{singlespace}  \\
+\hline
+ML-based &
+    \begin{singlespace}
+       \textbullet~Trainable  \par
+       \textbullet~Adaptable \par
+       \textbullet~Reduces manual effort \par
+    \end{singlespace}
+    &  \begin{singlespace}
+      \textbullet~Requires labeled data \par
+       \textbullet~Requires retraining  for domain adaptation \par
+        \textbullet~Requires ML expertise  to use or maintain \par
+       \textbullet~Opaque  \par
+       \end{singlespace} \\
+\hline %inserts single line
+\end{tabular}
+\label{tab:jrcom} % is used to refer this table in the text
+\end{table}
+
+
 
 
 \section{Information Extraction}
