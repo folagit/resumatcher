@@ -136,7 +136,7 @@ HP also built a system to solve the similar problem, which was introduced in Gon
 \end{figure}
 
 The scholars in this paper, the dictionaries which were used to tag entities should be updated often since there always new terms appears. So an adaptive learning module was used to achieve two objectives: use semantic data to enhance the information extraction and to discover new terms.
-A domain-oriented ontology is used to represent knowledge, inference rules are defined based on the ontology knowledge base. When a detected term found, the system will search in external knowledge base, like DBpedia etc. 
+A domain-oriented ontology is used to represent knowledge, inference rules are defined based on the ontology knowledge base. When a detected term found, the system will search in external knowledge base, like DBpedia etc. The resume also be classified to different categories like ``Web Technology'' and ``No Web Technology'' by naive Bayes classifier. The company could allocate appropriate employees to required positions.    
 
 \begin{table}[ht]
 \caption{Comparison of Job Recommender Systems } % title of Table
@@ -178,7 +178,13 @@ ML-based &
 \end{table}
 
 
+Yao et al.~\cite{lu2013recommender} also presented a hybrid recommender system which integrated content-based and interaction-based relation. In content-based part, relations between job-job, job-job seeker, and job seeker - job seeker could be identified by their similarity of profiles. 
 
+There two approaches are used to calculate the similarities: For the structured data, like age gender  etc., the weight sum values will be returned, for the unstructured data like similarity between job and user profile the Latent Semantic Analysis will be used. 
+
+This system was build on the assumption: The users with similar profiles tend to have similar interests. But here we could find two problems: At first, people with similar profile may not have similar interest, this is a very common fact. For example two students both graduate from same department with the same degree at the same year, when they look for jobs, they may have different preference. Second, to job's part, the accuracy of similarity calculation will effect a lot on the result of the system, since two very similar job may be classified as different jobs in the system. 
+
+ 
 
 \section{Information Extraction}
 One important the problem of this system is how to build the models from Job Description and Resume. The first step of model generating is information extraction. Both resumes and job descriptions are written in natural language, so we need to extract information from such un-structured or semi-structured data source, and transfer them to some designed structure.
