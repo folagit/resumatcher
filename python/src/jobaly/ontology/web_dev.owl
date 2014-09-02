@@ -42,6 +42,14 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Apache
+
+:Apache rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Web_Server .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Backbone_js
 
 :Backbone_js rdf:type owl:Class ;
@@ -96,6 +104,14 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#D3.js
+
+:D3.js rdf:type owl:Class ;
+       
+       rdfs:subClassOf :JavaScript_charting_frameworks .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#DHTML
 
 :DHTML rdf:type owl:Class ;
@@ -130,6 +146,9 @@
 
 :ExtJS rdf:type owl:Class ;
        
+       rdfs:label "ExtJS" ,
+                  "Sencha ExtJS" ;
+       
        rdfs:subClassOf :Javascript_UI_Frameworks .
 
 
@@ -155,6 +174,14 @@
 :HTML5 rdf:type owl:Class ;
        
        rdfs:subClassOf :HTML .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Highcharts
+
+:Highcharts rdf:type owl:Class ;
+            
+            rdfs:subClassOf :JavaScript_charting_frameworks .
 
 
 
@@ -206,6 +233,14 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#JavaScript_charting_frameworks
+
+:JavaScript_charting_frameworks rdf:type owl:Class ;
+                                
+                                rdfs:subClassOf :Javascript_library .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Java_library
 
 :Java_library rdf:type owl:Class ;
@@ -232,7 +267,7 @@
                     
                     rdfs:label "Javascript Framework" ;
                     
-                    rdfs:subClassOf :JavaScript .
+                    rdfs:subClassOf :CoffeeScript .
 
 
 
@@ -244,6 +279,14 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#LAMP
+
+:LAMP rdf:type owl:Class ;
+      
+      rdfs:subClassOf :programming_knowledge .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Less
 
 :Less rdf:type owl:Class ;
@@ -252,11 +295,27 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Linux
+
+:Linux rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Operating_System .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#MVC
 
 :MVC rdf:type owl:Class ;
      
      rdfs:subClassOf :web_dev_concept .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#MySQL
+
+:MySQL rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Relational_Database .
 
 
 
@@ -275,6 +334,22 @@
                              rdfs:label "OOP" ;
                              
                              rdfs:subClassOf :programming_knowledge .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Operating_System
+
+:Operating_System rdf:type owl:Class ;
+                  
+                  rdfs:label "OS" .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Oracle
+
+:Oracle rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Relational_Database .
 
 
 
@@ -301,6 +376,16 @@
               rdfs:label "Prototype" ;
               
               rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Relational_Database
+
+:Relational_Database rdf:type owl:Class ;
+                     
+                     rdfs:label "RDBMS" ;
+                     
+                     rdfs:subClassOf :Database .
 
 
 
@@ -362,6 +447,12 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Web_Server
+
+:Web_Server rdf:type owl:Class .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Web_Services
 
 :Web_Services rdf:type owl:Class ;
@@ -403,6 +494,22 @@
 :XSLT rdf:type owl:Class ;
       
       rdfs:subClassOf :XML .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#YUI
+
+:YUI rdf:type owl:Class ;
+     
+     rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#YUI3
+
+:YUI3 rdf:type owl:Class ;
+      
+      rdfs:subClassOf :YUI .
 
 
 
