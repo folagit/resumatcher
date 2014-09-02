@@ -8,6 +8,7 @@ Created on Thu Jul 03 16:28:22 2014
 import rdflib
 from rdflib.namespace import RDF
 from rdflib import URIRef, BNode, Literal,  RDFS
+import re
 
 class OntologyLib:
     
@@ -32,8 +33,8 @@ class OntologyLib:
         return self.g.objects(ref, predicate=RDFS.label)
         
     def getAllLabels(self):
-        return self.g.subject_objects( predicate=RDFS.label)
-    
+        return self.g.subject_objects( predicate=RDFS.label)    
+      
     def getLabelDict(self):   
         termDict = {}
         result = self.getAllLabels()    
@@ -54,13 +55,14 @@ class OntologyLib:
                 if token in tokenDict :
                     tokenDict[token].append( label)
                 else :
-                     tokenDict[token] = [label]
+                    tokenDict[token] = [label]
         return tokenDict
         
     def getAllClassNames(self):       
        names=[]
        classNode = URIRef("http://www.w3.org/2002/07/owl#Class")
        for s,p,o in self.g.triples( (None,  RDF.type, classNode) ):
-           names.append( s.rsplit('#')[-1] )
+           classname = s.rsplit('#')[-1]           
+           names.append( classname.replace("_", " ") )
        return names
  

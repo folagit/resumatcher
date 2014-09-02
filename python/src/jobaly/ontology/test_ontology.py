@@ -86,11 +86,17 @@ def testGetLabels():
 def test_getTokenDict():
      ontology = OntologyLib()    
      printLableDict( ontology.tokenDict )
+     
+def test_getLabelList():
+    ontology = OntologyLib("web_dev.owl")
+    for  label  in ontology.getLabelList():           
+           print  label 
     
 def main():
   # test_getTokenDict()
    #printGraph()
    # testFindSuperClass()
+  # test_getAllLabels()
    testGetClassnames()
 
 if __name__ == "__main__": 
