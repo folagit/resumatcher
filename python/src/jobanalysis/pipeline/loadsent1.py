@@ -17,6 +17,7 @@ from data.datautils import dumpTwo
 def processColl(collection):
     allSents.extend(sents)  
     
+
 def getJavaScipt(): 
      srcBbClient = DbClient('localhost', 27017, "jobaly_daily_test")
      newCol = srcBbClient.getCollection("daily_job_webdev")
@@ -37,10 +38,36 @@ def getJavaScipt():
                 
      sortedsents = sorted(matchingSents, key=lambda x:   len(x[1]) )
      dumpTwo(sortedsents, "..\skill\output\javascript" , ( lambda x: x[0] + ":" + x[1] ) )     
+ 
+def getSentenceByTerm(collection, term, outputPath):
+    
+     matchingSents = []
+     for job in collection.find(): 
+      #   print "\n\n\n======",job["_id"],"============================\n"
+        jobDesc = JobDescParser.parseJobDesc(job)
+        sents = jobDesc.listAllSentences() 
+        jid = job["_id"]
+        for sent in sents:
+            tokens = [ token.lower() for token in word_tokenize(sent)]              
+            if term in tokens : 
+                matchingSents.append((jid, sent))
+                print sent.encode("GBK", "ignore")
+                
+     sortedsents = sorted(matchingSents, key=lambda x:   len(x[1]) )
+     dumpTwo(sortedsents, outputPath , ( lambda x: x[0] + ":" + x[1] ) )     
   
+  # term must be low case
+def testGetSentenceByTerm(term):
+    
+     srcBbClient = DbClient('localhost', 27017, "jobaly_daily_test")
+     collection = srcBbClient.getCollection("daily_job_webdev")
+     
+     outputPath = '..\skill\output\\' + term
+     getSentenceByTerm(collection, term, outputPath)
      
 def main(): 
-    getJavaScipt()
+ #   getJavaScipt()
+    testGetSentenceByTerm("html")
     
 if __name__ == "__main__": 
     main()   

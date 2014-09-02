@@ -32,6 +32,14 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Adobe_CQ
+
+:Adobe_CQ rdf:type owl:Class ;
+          
+          rdfs:subClassOf :web_design_tool .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#AngularJS
 
 :AngularJS rdf:type owl:Class ;
@@ -104,6 +112,16 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Common_Gateway_Interface
+
+:Common_Gateway_Interface rdf:type owl:Class ;
+                          
+                          rdfs:label "CGI" ;
+                          
+                          rdfs:subClassOf :web_dev_concept .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#D3.js
 
 :D3.js rdf:type owl:Class ;
@@ -130,7 +148,9 @@
 
 ###  http://www.jobaly.com/ontology/web_dev#Database
 
-:Database rdf:type owl:Class .
+:Database rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Software .
 
 
 
@@ -139,6 +159,30 @@
 :Database_Concept rdf:type owl:Class ;
                   
                   rdfs:subClassOf :Database .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Dojo
+
+:Dojo rdf:type owl:Class ;
+      
+      rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#EMBER.JS
+
+:EMBER.JS rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Eclipse
+
+:Eclipse rdf:type owl:Class ;
+         
+         rdfs:subClassOf :IDE .
 
 
 
@@ -185,6 +229,22 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#IDE
+
+:IDE rdf:type owl:Class ;
+     
+     rdfs:subClassOf :Software .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#J2EE
+
+:J2EE rdf:type owl:Class ;
+      
+      rdfs:subClassOf :Java .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#JQuery_Mobile
 
 :JQuery_Mobile rdf:type owl:Class ;
@@ -209,14 +269,6 @@
 
 
 
-###  http://www.jobaly.com/ontology/web_dev#JSP
-
-:JSP rdf:type owl:Class ;
-     
-     rdfs:subClassOf :Java .
-
-
-
 ###  http://www.jobaly.com/ontology/web_dev#Java
 
 :Java rdf:type owl:Class ;
@@ -238,6 +290,16 @@
 :JavaScript_charting_frameworks rdf:type owl:Class ;
                                 
                                 rdfs:subClassOf :Javascript_library .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Java_Server_Page
+
+:Java_Server_Page rdf:type owl:Class ;
+                  
+                  rdfs:label "JSP" ;
+                  
+                  rdfs:subClassOf :J2EE .
 
 
 
@@ -267,7 +329,7 @@
                     
                     rdfs:label "Javascript Framework" ;
                     
-                    rdfs:subClassOf :CoffeeScript .
+                    rdfs:subClassOf :JavaScript .
 
 
 
@@ -341,7 +403,9 @@
 
 :Operating_System rdf:type owl:Class ;
                   
-                  rdfs:label "OS" .
+                  rdfs:label "OS" ;
+                  
+                  rdfs:subClassOf :Software .
 
 
 
@@ -366,6 +430,14 @@
 :Perl rdf:type owl:Class ;
       
       rdfs:subClassOf :programming_language .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Php_Framework
+
+:Php_Framework rdf:type owl:Class ;
+               
+               rdfs:subClassOf :PHP .
 
 
 
@@ -427,29 +499,70 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Software
+
+:Software rdf:type owl:Class .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Spine.js
+
+:Spine.js rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Spring_Framework
 
 :Spring_Framework rdf:type owl:Class ;
                   
                   rdfs:label "Spring" ;
                   
-                  rdfs:subClassOf :Java_library .
+                  rdfs:subClassOf :J2EE .
 
 
 
-###  http://www.jobaly.com/ontology/web_dev#Visual_Basic
+###  http://www.jobaly.com/ontology/web_dev#Symfony
 
-:Visual_Basic rdf:type owl:Class ;
-              
-              rdfs:label "VB" ;
-              
-              rdfs:subClassOf :programming_language .
+:Symfony rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Php_Framework .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Tomcat
+
+:Tomcat rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Web_Server .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#VB.NET
+
+:VB.NET rdf:type owl:Class ;
+        
+        rdfs:label "VB" ,
+                   "Visual Basic" ;
+        
+        rdfs:subClassOf :dot_Net .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Visual_Studio
+
+:Visual_Studio rdf:type owl:Class ;
+               
+               rdfs:subClassOf :IDE .
 
 
 
 ###  http://www.jobaly.com/ontology/web_dev#Web_Server
 
-:Web_Server rdf:type owl:Class .
+:Web_Server rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Software .
 
 
 
@@ -473,11 +586,19 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#XHTML
+
+:XHTML rdf:type owl:Class ;
+       
+       rdfs:subClassOf :HTML .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#XHTML5
 
 :XHTML5 rdf:type owl:Class ;
         
-        rdfs:subClassOf :HTML .
+        rdfs:subClassOf :XHTML .
 
 
 
@@ -510,6 +631,14 @@
 :YUI3 rdf:type owl:Class ;
       
       rdfs:subClassOf :YUI .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Zend
+
+:Zend rdf:type owl:Class ;
+      
+      rdfs:subClassOf :Php_Framework .
 
 
 
@@ -548,6 +677,22 @@
 ###  http://www.jobaly.com/ontology/web_dev#programming_language
 
 :programming_language rdf:type owl:Class .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#underscore.js
+
+:underscore.js rdf:type owl:Class ;
+               
+               rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#web_design_tool
+
+:web_design_tool rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf :Software .
 
 
 
