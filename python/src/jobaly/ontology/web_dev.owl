@@ -1,0 +1,455 @@
+@prefix : <http://www.jobaly.com/ontology/web_dev#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.jobaly.com/ontology/web_dev> .
+
+<http://www.jobaly.com/ontology/web_dev> rdf:type owl:Ontology .
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://www.jobaly.com/ontology/web_dev#AJAX
+
+:AJAX rdf:type owl:Class ;
+      
+      rdfs:subClassOf :JavaScript .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#ASP.NET
+
+:ASP.NET rdf:type owl:Class ;
+         
+         rdfs:subClassOf :dot_Net .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#AngularJS
+
+:AngularJS rdf:type owl:Class ;
+           
+           rdfs:label "angular" ;
+           
+           rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Backbone_js
+
+:Backbone_js rdf:type owl:Class ;
+             
+             rdfs:label "Backbone js" ,
+                        "Backbone" ;
+             
+             rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#CSS
+
+:CSS rdf:type owl:Class ;
+     
+     rdfs:subClassOf :web_dev_concept .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#CSS3
+
+:CSS3 rdf:type owl:Class ;
+      
+      rdfs:subClassOf :CSS .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#CSS_tools
+
+:CSS_tools rdf:type owl:Class ;
+           
+           rdfs:subClassOf :CSS .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#C_Sharp
+
+:C_Sharp rdf:type owl:Class ;
+         
+         rdfs:label "c#" ,
+                    "C#" ;
+         
+         rdfs:subClassOf :dot_Net .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#CoffeeScript
+
+:CoffeeScript rdf:type owl:Class ;
+              
+              rdfs:subClassOf :programming_language .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#DHTML
+
+:DHTML rdf:type owl:Class ;
+       
+       rdfs:subClassOf :HTML .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#DOM
+
+:DOM rdf:type owl:Class ;
+     
+     rdfs:subClassOf :HTML .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Database
+
+:Database rdf:type owl:Class .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Database_Concept
+
+:Database_Concept rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :Database .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#ExtJS
+
+:ExtJS rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Grunt
+
+:Grunt rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Javascript_tools .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#HTML
+
+:HTML rdf:type owl:Class ;
+      
+      rdfs:subClassOf :web_dev_concept .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#HTML5
+
+:HTML5 rdf:type owl:Class ;
+       
+       rdfs:subClassOf :HTML .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#JQuery_Mobile
+
+:JQuery_Mobile rdf:type owl:Class ;
+               
+               rdfs:subClassOf :jQuery .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#JSHint
+
+:JSHint rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Javascript_tools .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#JSON
+
+:JSON rdf:type owl:Class ;
+      
+      rdfs:subClassOf :web_dev_concept .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#JSP
+
+:JSP rdf:type owl:Class ;
+     
+     rdfs:subClassOf :Java .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Java
+
+:Java rdf:type owl:Class ;
+      
+      rdfs:subClassOf :programming_language .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#JavaScript
+
+:JavaScript rdf:type owl:Class ;
+            
+            rdfs:subClassOf :programming_language .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Java_library
+
+:Java_library rdf:type owl:Class ;
+              
+              rdfs:label "Java Framework" ;
+              
+              rdfs:subClassOf :Java .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Javascript_UI_Frameworks
+
+:Javascript_UI_Frameworks rdf:type owl:Class ;
+                          
+                          rdfs:label "Javascript MVC Framework" ;
+                          
+                          rdfs:subClassOf :Javascript_library .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Javascript_library
+
+:Javascript_library rdf:type owl:Class ;
+                    
+                    rdfs:label "Javascript Framework" ;
+                    
+                    rdfs:subClassOf :JavaScript .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Javascript_tools
+
+:Javascript_tools rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :JavaScript .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Less
+
+:Less rdf:type owl:Class ;
+      
+      rdfs:subClassOf :CSS_tools .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#MVC
+
+:MVC rdf:type owl:Class ;
+     
+     rdfs:subClassOf :web_dev_concept .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Node.js
+
+:Node.js rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Javascript_library .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Object-oriented_programming
+
+:Object-oriented_programming rdf:type owl:Class ;
+                             
+                             rdfs:label "OOP" ;
+                             
+                             rdfs:subClassOf :programming_knowledge .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#PHP
+
+:PHP rdf:type owl:Class ;
+     
+     rdfs:subClassOf :programming_language .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Perl
+
+:Perl rdf:type owl:Class ;
+      
+      rdfs:subClassOf :programming_language .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Prototype_js
+
+:Prototype_js rdf:type owl:Class ;
+              
+              rdfs:label "Prototype" ;
+              
+              rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Ruby
+
+:Ruby rdf:type owl:Class ;
+      
+      rdfs:subClassOf :programming_language .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Ruby_on_Rails
+
+:Ruby_on_Rails rdf:type owl:Class ;
+               
+               rdfs:label "Ruby/Rails" ,
+                          "Ruby on Rails" ,
+                          "RoR" ;
+               
+               rdfs:subClassOf :Java .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#SQL
+
+:SQL rdf:type owl:Class ;
+     
+     rdfs:subClassOf :Database_Concept .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Simple_Object_Access_protocol
+
+:Simple_Object_Access_protocol rdf:type owl:Class ;
+                               
+                               rdfs:label "SOAP" ;
+                               
+                               rdfs:subClassOf :Web_Services .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Spring_Framework
+
+:Spring_Framework rdf:type owl:Class ;
+                  
+                  rdfs:label "Spring" ;
+                  
+                  rdfs:subClassOf :Java_library .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Visual_Basic
+
+:Visual_Basic rdf:type owl:Class ;
+              
+              rdfs:label "VB" ;
+              
+              rdfs:subClassOf :programming_language .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Web_Services
+
+:Web_Services rdf:type owl:Class ;
+              
+              rdfs:label "Web Services" ;
+              
+              rdfs:subClassOf :web_dev_concept .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Windows_Communication_Foundation
+
+:Windows_Communication_Foundation rdf:type owl:Class ;
+                                  
+                                  rdfs:label "WCF" ;
+                                  
+                                  rdfs:subClassOf :dot_Net .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#XHTML5
+
+:XHTML5 rdf:type owl:Class ;
+        
+        rdfs:subClassOf :HTML .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#XML
+
+:XML rdf:type owl:Class ;
+     
+     rdfs:subClassOf :web_dev_concept .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#XSLT
+
+:XSLT rdf:type owl:Class ;
+      
+      rdfs:subClassOf :XML .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#design_pattern
+
+:design_pattern rdf:type owl:Class ;
+                
+                rdfs:subClassOf :Object-oriented_programming .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#dot_Net
+
+:dot_Net rdf:type owl:Class ;
+         
+         rdfs:label ".NET" ;
+         
+         rdfs:subClassOf :programming_language .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#jQuery
+
+:jQuery rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#programming_knowledge
+
+:programming_knowledge rdf:type owl:Class .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#programming_language
+
+:programming_language rdf:type owl:Class .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#web_dev_concept
+
+:web_dev_concept rdf:type owl:Class .
+
+
+
+
+###  Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net
+
