@@ -65,30 +65,30 @@ The system collect the users' profile data by asking input their profiles to the
     \item  Job experience (e.g. name of the company, type of employment, industry group, occupational field)
     \item  Language skills (e.g. language, level of knowledge)
     \item  IT skills (e.g. type of skill, level of knowledge)
-    \item  Awards, scholarships, publications, others   
+    \item  Awards, scholarships, publications, others
 
 \end{enumerate}
 The system also asked the users upload their resumes, but that's for facilitating the human judgment.
 
-From the paper we know, the model latent aspect model is statistical model, which need to be trained before be applied into recommendation. But training need user to label to data, since current quality of result of job searching is poor, it will take a lot of time for user to train model.  
+From the paper we know, the model latent aspect model is statistical model, which need to be trained before be applied into recommendation. But training need user to label to data, since current quality of result of job searching is poor, it will take a lot of time for user to train model.
 
 
 Drigas* et al.\cite{malinowski2006matching} al presented a expert system to match jobs and job seekers, and recommend unemployed to  The expert system used Neuro-Fuzzy rule to evaluate the matching:
-Candidate's X matches X Criterion 
- 
+Candidate's X matches X Criterion
+
 
 The system represent the job in six fields:
 \begin{enumerate}
     \item  Age
     \item  Education
-    \item  Additional Education(Training) 
+    \item  Additional Education(Training)
     \item  Previous Employment (Experience)
     \item  Foreign Language
     \item  Computer Knowledge
 \end{enumerate}
 
- The system use a relation matrix to represent the fuzzy relation between these specialities. The system need the training data to train that Neuro-fuzzy network. 
- 
+ The system use a relation matrix to represent the fuzzy relation between these specialities. The system need the training data to train that Neuro-fuzzy network.
+
 Both resume data and job info data were manually input into the system  . The fields they selected are relative small.
 
 Daramola et al.  also proposed a fuzzy logic based expert system(FES) tool for online personnel resctuitments. In the paper, the authors assumed that the information already be collected. The system use a fuzzy distance metric to rank candidates' profile in the order of their eligibility for the job. The fuzy hamming distance is given as:
@@ -105,14 +105,14 @@ Ioannis et al. used a machine learned prediction model to recommend new jobs to 
               &  company title   & String  \\
 Institution   &  industry        & String  \\
               &  company type    & \{public, private\} \\
-              &  number of employees &    Num \\  
- \hline  
+              &  number of employees &    Num \\
+ \hline
               &  number of jobs         & Num  \\
               &  position title         & String  \\
   employee    &  best position title    & String \\
               &  years of experience    &    Num \\
               &  number of universities &    Num \\
-              &  education degree       & String \\              
+              &  education degree       & String \\
  \hline
 \end{tabular}
 \label{tab:predictionmodel} % is used to refer this table in the text
@@ -123,11 +123,11 @@ when applying a job, the common method is let the candidates upload their resume
 
 Some big IT companies had meet a similar problem of information overflow. Any position they published, will receive a lot applications, the recruiter need to screen the all the applications, but this task is also tedious and time consuming, highly cumbersome and inefficient. so these company tried to build the system to help screen the position candidates.
 
-Amit et al. in IBM presented a system, ``PROSPECT'', ~\cite{singh2010prospect} to aid in the shortlisting of candidates for jobs. The system uses a resume miner to extract the information from resumes, which use a CRF model to segment and label the resumes. The CRF model used three kinds of features, they are: Lexicon, Visual, Named Entity, Text, and Conjunction. The paper compared some algorithms to ranked the candidates applicants, such methods include: Okapi BM25, KL, Lucene Scoring, and Lucene Scoring + SkillBoost. 
+Amit et al. in IBM presented a system, ``PROSPECT'', ~\cite{singh2010prospect} to aid in the shortlisting of candidates for jobs. The system uses a resume miner to extract the information from resumes, which use a CRF model to segment and label the resumes. The CRF model used three kinds of features, they are: Lexicon, Visual, Named Entity, Text, and Conjunction. The paper compared some algorithms to ranked the candidates applicants, such methods include: Okapi BM25, KL, Lucene Scoring, and Lucene Scoring + SkillBoost.
 
 HP also built a system to solve the similar problem, which was introduced in Gonzalez et al.'s paper ~\cite{gonzalez2012adaptive}. The system also pay a lot of attention to information extraction. The IE architecture they use is shown in figure ~\ref{fig:hpie}.
 
-  
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[scale=0.5]{images/hpie.png}
@@ -136,7 +136,7 @@ HP also built a system to solve the similar problem, which was introduced in Gon
 \end{figure}
 
 The scholars in this paper, the dictionaries which were used to tag entities should be updated often since there always new terms appears. So an adaptive learning module was used to achieve two objectives: use semantic data to enhance the information extraction and to discover new terms.
-A domain-oriented ontology is used to represent knowledge, inference rules are defined based on the ontology knowledge base. When a detected term found, the system will search in external knowledge base, like DBpedia etc. The resume also be classified to different categories like ``Web Technology'' and ``No Web Technology'' by naive Bayes classifier. The company could allocate appropriate employees to required positions.    
+A domain-oriented ontology is used to represent knowledge, inference rules are defined based on the ontology knowledge base. When a detected term found, the system will search in external knowledge base, like DBpedia etc. The resume also be classified to different categories like ``Web Technology'' and ``No Web Technology'' by naive Bayes classifier. The company could allocate appropriate employees to required positions.
 
 \begin{table}[ht]
 \caption{Comparison of Job Recommender Systems } % title of Table
@@ -178,13 +178,13 @@ ML-based &
 \end{table}
 
 
-Yao et al.~\cite{lu2013recommender} also presented a hybrid recommender system which integrated content-based and interaction-based relation. In content-based part, relations between job-job, job-job seeker, and job seeker - job seeker could be identified by their similarity of profiles. 
+Yao et al.~\cite{lu2013recommender} also presented a hybrid recommender system which integrated content-based and interaction-based relation. In content-based part, relations between job-job, job-job seeker, and job seeker - job seeker could be identified by their similarity of profiles.
 
-There two approaches are used to calculate the similarities: For the structured data, like age gender  etc., the weight sum values will be returned, for the unstructured data like similarity between job and user profile the Latent Semantic Analysis will be used. 
+There two approaches are used to calculate the similarities: For the structured data, like age gender  etc., the weight sum values will be returned, for the unstructured data like similarity between job and user profile the Latent Semantic Analysis will be used.
 
-This system was build on the assumption: The users with similar profiles tend to have similar interests. But here we could find two problems: At first, people with similar profile may not have similar interest, this is a very common fact. For example two students both graduate from same department with the same degree at the same year, when they look for jobs, they may have different preference. Second, to job's part, the accuracy of similarity calculation will effect a lot on the result of the system, since two very similar job may be classified as different jobs in the system. 
+This system was build on the assumption: The users with similar profiles tend to have similar interests. But here we could find two problems: At first, people with similar profile may not have similar interest, this is a very common fact. For example two students both graduate from same department with the same degree at the same year, when they look for jobs, they may have different preference. Second, to job's part, the accuracy of similarity calculation will effect a lot on the result of the system, since two very similar job may be classified as different jobs in the system.
 
- 
+
 
 \section{Information Extraction}
 One important the problem of this system is how to build the models from Job Description and Resume. The first step of model generating is information extraction. Both resumes and job descriptions are written in natural language, so we need to extract information from such un-structured or semi-structured data source, and transfer them to some designed structure.
@@ -240,7 +240,36 @@ Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framew
 
 Lu et al~\cite{lu2013recommender}. used latent Semantic Analysis(LSA) to calculate similarities between jobs and candidates, but they only selected two factors ``interest'' and ``education''  to compare candidates. Xing et al. ~\cite{yi2007matching} used Structured Relevance Models (SRM) to  match resumes and jobs.
 
-The Ontology technics had also been used in some JRSs, which had been well studied by  Shvaiko and Euzenat in \cite{shvaiko2013ontology}.  Proactive~\cite{lee2007fighting} used two kinds of ontology, job category and the company information. The system used ontology checker to classify the job information, stored the domain knowledge and calculated the weight value in recommendations.
+\subsection{Ontology-based semantic similarity}
+
+The Ontology technics had also been used in some JRSs, which provide a formal specification of a shared conceptualization~\cite{guarino1998formal}. 
+
+There are three kinds Ontology-based similarity measure had been studied, they are:
+
+\begin{enumerate}
+    \item Edge counting approaches.
+    \item Feature-based measures.
+    \item Measures based on Information Content.
+\end{enumerate} 
+
+\subsubsection{Edge counting approaches}
+We could view ontology as a directed graph, in which the nodes are the concepts, the edges are taxonomic relation, like (is-a). Rada, et al.,~\cite{rada1989development} measure the similarity by the distance of two nodes in the graph. So the semantic distance of two concepts a and b will be:
+$$ dis_{rad}(a,b) = min |path_i(a,b)| $$
+
+Wu and Palmer ~\cite{wu1994verbs} realized that the depth in the taxonomy will impact the similarity measure of two nodes, because the more deeper of the nodes are in the tree, the semantic distance is smaller. So they gave a new measure of ontology:
+$$ sim_{w\&p}(a,b) = \frac{2 \times N_3}{N_1 + N_2 + 2 \times N_3} $$
+$N_1$ and $N_2$ is the numbers of is-a links from each term to their Least Common Subsumer(LCS), $N_3$ is the number of is-a links of the LCS to the root of the ontology. 
+
+Based on the same idea, Leacock and Chodorow~ \cite{leacock1998combining} also proposed similarity measure that combined terms a and b and the depth $D$ of the taxonomy.
+$$ sim_{l\&c}(a,b) = -\log (Np/ 2D) $$
+
+\subsubsection{Feature-based measures}
+
+\subsubsection{Feature-based measures}
+
+
+\subsection{Ontology-based semantic similarity in JRSs}
+Proactive~\cite{lee2007fighting} used two kinds of ontology, job category and the company information. The system used ontology checker to classify the job information, stored the domain knowledge and calculated the weight value in recommendations.
 
 Kumaran et al~\cite{kumaran2013towards} also used ontology to calculate the similarity between job criteria and candidates's resume in their system~\cite{kumaran2013towards}. The similarity equation they used are:
 $$ M\left ( i_1, i_2 \right ) = \frac{\sum_{k=1}^{n} Sim\left (p_{k}^{i1},  p_{k}^{i2} \right ) * W_{k}^{i2}}{\sum_{k=1}^{n} W_{k}^{i2}}  $$
