@@ -19,6 +19,8 @@ def getMinDistance(tokens, term1, term2):
             if last is not None:
                 if last[1] != node[1] and i-last[0] < mindis :
                     mindis = i-last[0]
+                    if mindis == 1:
+                        return 1
             last = node
             
     if mindis == len(tokens):
@@ -35,7 +37,7 @@ def getDistanceInSents(sents, term1, term2):
     factor1 = float (len(result)) /len(sents)
     logdis = [   math.log(x+1,2) for x in result ]
     factor2 = sum(logdis)/len(result)
-    print term1, term2, factor1, logdis, factor2, factor1 / factor2
+  #  print term1, term2, factor1, logdis, factor2, factor1 / factor2
     return factor1 / factor2
     
 def getDistanceMatrix(sents, terms):
@@ -82,6 +84,8 @@ def test_getDistanceMatrix():
     result = getDistanceMatrix(sents, terms)
   #  pprint(result)
     printDisMatrix(terms, result)
+    
+
 
 def main(): 
    test_getDistanceMatrix()
