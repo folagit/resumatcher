@@ -4,7 +4,12 @@ Created on Thu Sep 04 14:27:10 2014
 
 @author: dlmu__000
 """
-
+import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
+from jobdescparser import JobDescParser
+from nltk.tokenize import word_tokenize
+from jobaly.db.dbclient import DbClient
 import math
 from pprint import pprint 
 
@@ -12,38 +17,50 @@ def getMinDistance(tokens, term1, term2):
     list1 = []
     last = None
     mindis = len(tokens)
+    hasterm = False
     for i in range(len(tokens)): 
-        if  term1 == tokens[i] or term2 == tokens[i]:   
+        if  term1 == tokens[i] or term2 == tokens[i]:  
+            hasterm = True
             node = (i, tokens[i] )
             list1.append( (i, tokens[i] ) )             
             if last is not None:
                 if last[1] != node[1] and i-last[0] < mindis :
                     mindis = i-last[0]
                     if mindis == 1:
-                        return 1
+                        break
             last = node
             
     if mindis == len(tokens):
-        return -1
+        return (-1, hasterm ) 
     else :
-        return mindis
+        return ( mindis, hasterm ) 
         
-def getDistanceInSents(sents, term1, term2):
+def getDistanceInSents(sents, term1, term2):    
     result = []
+    total = 0 
     for sent in sents: 
-        dis = getMinDistance(sent, term1, term2)
+        dis, hasterm = getMinDistance(sent, term1, term2)
+     #   print dis, hasterm
+        if hasterm :
+            total+=1
         if dis != -1 :
             result.append(dis)
-    factor1 = float (len(result)) /len(sents)
+    if len(result) == 0 : 
+        return 0
+ #   print len(result),  total
+    factor1 = float (len(result)) / total
+  #  logdis = [   math.log(x+1,2) for x in result ]
     logdis = [   math.log(x+1,2) for x in result ]
     factor2 = sum(logdis)/len(result)
   #  print term1, term2, factor1, logdis, factor2, factor1 / factor2
-    return factor1 / factor2
+    result = round(factor1 / factor2, 4 )
+  #  print term1, term2, factor1, factor2, result    
+    return result
     
 def getDistanceMatrix(sents, terms):
     n = len (terms)
     matrix = [ [ 1 for j in range(n) ] for i in range(n) ]
-    print matrix
+  #  print matrix
     for i in range(n):
         for j in range(i+1,n):
             term1 = terms[i]
@@ -64,6 +81,26 @@ def printDisMatrix(terms, matrix):
          row.insert(0, terms[i+1])
          x.add_row(row)
     print x
+    
+def getDisMatrixFromColletion(): 
+     srcBbClient = DbClient('localhost', 27017, "jobaly_daily_test")
+     collection = srcBbClient.getCollection("daily_job_webdev")
+     
+     docs = []
+     for job in collection.find(): 
+      #   print "\n\n\n======",job["_id"],"============================\n"
+        jobDesc = JobDescParser.parseJobDesc(job)
+        sents = jobDesc.listAllSentences() 
+        doc =[]
+        for sent in sents:
+            tokens = [ token.lower() for token in word_tokenize(sent)]              
+            doc.extend(tokens)        
+        docs.append(doc)
+        
+     terms=["javascript", "jquery", "html", "css", "java", "python", "ruby", "jsp"  ]
+     result = getDistanceMatrix(docs, terms)   
+     printDisMatrix(terms, result)   
+      
 
 sent1 = "dasf adf aaa df ewe bbb werew e ewrewre ewrwe ee ee".split()
 sent2 = "dasf adf aaa df ewe bbb werew aaa e ewrewre ewrwe ee ee".split()
@@ -88,7 +125,8 @@ def test_getDistanceMatrix():
 
 
 def main(): 
-   test_getDistanceMatrix()
+   # test_getDistanceMatrix()
+   getDisMatrixFromColletion()
     
 if __name__ == "__main__": 
     main()   
