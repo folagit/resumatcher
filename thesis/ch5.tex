@@ -11,7 +11,7 @@ We notice that simple keyword of skill name matching is far from enough, because
    \textbf{Part of Resume}                 &   \textbf{Part of Job Description}   \\ \hline
 
     B.S. degree in computer science \newline
-    5+ years Java, \newline
+    5+ years Java \newline
     2+ year   C++  \newline
     Some experience in Oracle database \newline
     Other experience like: \newline
@@ -49,16 +49,23 @@ In this thesis, I proposed a new statistical-based ontology similarity measure. 
 \centering % used for centering table
 \begin{tabular}{ | p{15cm}  | }
  \hline
-    B.S. degree in computer science \newline
-    5+ years Java, \newline
-    2+ year   C++  \newline
-    Some experience in Oracle database \newline
-    Other experience like: \newline
-    Hibernate, JBOSS, JUnit, Tomcat etc. \\ 
+    A high-level language such as Java, Groovy, Ruby or Python; we use Java and Groovy extensively \newline
+    HTML5/CSS3/JavaScript, web standards, jQuery or frameworks like AngularJS would be great \newline
+    HTML CSS and Javascript a must  \newline
+    Experience with AJAX, XML, XSL, XSLT, CSS, JavaScript, JQuery, HTML and Web Services   \\ 
  \hline
 \end{tabular}
 \label{tab:skillinsent} % is used to refer this table in the text
 \end{table}
+
+Based on such observation, we give a new statistical-based Ontology Similarity Measure. Any two concepts $a$ and $b$ in the ontology,   their similarity $S_{a,b}$ could be the ratio of two factors:
+
+\begin{enumerate}
+    \item The ratio of the number of documents they exist together $N_{a \cap b}$ to the number of documents have a least one them $N_{a \cup b}$.
+    \item The average $\log$ value of their minimum distance $mindis(doc,a,b)$ in documents that have them both. 
+\end{enumerate}
+
+$$ S(a,b) = \frac{  N_{a \cap b} / N_{a \cup b} }{avg(\log_2( mindis(doc,a,b) + 1 ))} $$
 
 \begin{algorithm}
 \caption{Get Stat Similarity}
