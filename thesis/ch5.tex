@@ -58,7 +58,8 @@ In this thesis, I proposed a new statistical-based ontology similarity measure. 
 \label{tab:skillinsent} % is used to refer this table in the text
 \end{table}
 
-Based on such observation, we give a new statistical-based Ontology Similarity Measure. Any two concepts $a$ and $b$ in the ontology,   their similarity $S_{a,b}$ could be the ratio of two factors:
+We could see from the table, the technical close related concepts are always bing together. 
+Based on such observation, we give a new statistical-based Ontology Similarity Measure. Two concepts $a$ and $b$ in the ontology,   their similarity $S_{a,b}$ could be the ratio of two factors:
 
 \begin{enumerate}
     \item The ratio of the number of documents they exist together $N_{a \cap b}$ to the number of documents have a least one them $N_{a \cup b}$.
@@ -67,8 +68,16 @@ Based on such observation, we give a new statistical-based Ontology Similarity M
 
 $$ S(a,b) = \frac{  N_{a \cap b} / N_{a \cup b} }{avg(\log_2( mindis(doc,a,b) + 1 ))} $$
 
+We only apply this measure on the concepts pair if: 
+\begin{enumerate}
+    \item The two concepts have the same direct 
+    \item One concepts is the super  of another. 
+\end{enumerate}
+We set the restriction because the position of the concept in the ontology is defined based on their technical similarity to others. So similar technique will assigned into a same category.  If distance between two concepts are further than above situation we generally believe they are not related skills. The algorithm to calculate the similarity of two concepts is in algorithm ~\ref{alg:alg_similarity}.
+
 \begin{algorithm}
 \caption{Get Stat Similarity}
+\label{alg:alg_similarity}
 \KwIn{$Docs$£¬ $term1$, $term2$}
 \KwOut{$similarity$}
 $total=0$;
