@@ -242,7 +242,7 @@ Lu et al~\cite{lu2013recommender}. used latent Semantic Analysis(LSA) to calcula
 
 \subsection{Ontology-based semantic similarity}
 
-The Ontology technics had also been used in some JRSs, which provide a formal specification of a shared conceptualization~\cite{guarino1998formal}. 
+The Ontology technics had also been used in some JRSs, which provide a formal specification of a shared conceptualization~\cite{guarino1998formal}.
 
 There are three kinds Ontology-based similarity measure had been studied, they are:
 
@@ -250,7 +250,7 @@ There are three kinds Ontology-based similarity measure had been studied, they a
     \item Edge counting approaches.
     \item Feature-based measures.
     \item Measures based on Information Content.
-\end{enumerate} 
+\end{enumerate}
 
 \subsubsection{Edge counting approaches}
 We could view ontology as a directed graph, in which the nodes are the concepts, the edges are taxonomic relation, like (is-a). Rada, et al.,~\cite{rada1989development} measure the similarity by the distance of two nodes in the graph. So the semantic distance of two concepts a and b will be:
@@ -258,9 +258,9 @@ $$ dis_{rad}(a,b) = min |path_i(a,b)| $$
 
 Wu and Palmer ~\cite{wu1994verbs} realized that the depth in the taxonomy will impact the similarity measure of two nodes, because the more deeper of the nodes are in the tree, the semantic distance is smaller. So they gave a new measure of ontology:
 $$ sim_{w\&p}(a,b) = \frac{2 \times N_3}{N_1 + N_2 + 2 \times N_3} $$
-$N_1$ and $N_2$ is the numbers of is-a links from each term to their Least Common Subsumer(LCS), $N_3$ is the number of is-a links of the LCS to the root of the ontology. 
+$N_1$ and $N_2$ is the numbers of is-a links from each term to their Least Common Subsumer(LCS), $N_3$ is the number of is-a links of the LCS to the root of the ontology.
 
-Based on the same idea, Leacock and Chodorow~ \cite{leacock1998combining} also proposed similarity measure that combined terms a and b and the depth $D$ of the taxonomy.
+Based on the same idea, Leacock and Chodorow~ \cite{leacock1998combining} also proposed similarity measure that combined distance Np between terms a and b and the depth $D$ of the taxonomy.
 $$ sim_{l\&c}(a,b) = -\log (Np/ 2D) $$
 
 \subsubsection{Feature-based measures}

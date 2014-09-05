@@ -39,5 +39,33 @@ If just looking at the text, we can find the resume has few common words with th
 
 \section{Ontology Construction}
 
-Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts. 
- 
+Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts.
+
+\section{statistical-based Ontology Similarity Measure }
+
+\begin{algorithm}
+\caption{Get Stat Similarity}
+\KwIn{$Docs$£¬ $term1$, $term2$}
+\KwOut{$similarity$}
+$total=0$;
+$hastwo=0$;
+$dislist=\left [ ~~ \right ]$\;
+\For{$i=1;~i~\le~len(Docs);~i++$}
+{
+  \If{ $ Docs_i~has~at~least~one~term $ }
+    {
+     $ total~+=~1 $ \;
+     \If{ $ Docs_i~has~both~terms $ }
+        {
+           $ hastwo~+=~1 $ ;
+           $ mindis~=~ minimium\_distance~(Docs_i, term1, term2) $ \;
+           $ dislist.~add  ~\left(  log_2( mindis + 1 ) \right) $ \;
+        }
+    }
+}
+$ factor1~=~hastwo~ /~ total $  \;
+$ factor2~=~ avg(dislist) $  \;
+return $factor1 ~/~ factor2$\;
+$ ~~ $
+\end{algorithm}
+
