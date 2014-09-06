@@ -41,6 +41,13 @@ If just looking at the text, we can find the resume has few common words with th
 
 Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts.
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.7]{images/ontology_pro.png}
+  \caption{Part of Ontology}
+  \label{fig:ontology_pro}
+\end{figure}
+
 \section{statistical-based Ontology Similarity Measure }
 In this thesis, I proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required. From observation, we could find that related skills always exist in a job description simultaneously, e.g. HTML and CSS are always required together. Furthermore, the distance between two concepts is also a good measure of the relevance of them. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions :
 
@@ -107,7 +114,7 @@ return $factor1 ~/~ factor2$\;
 $ ~~ $
 \end{algorithm}
 
-To evaluate this measure, we select 99999 job descriptions, and 99 terms to see the result. We got the relevance matrix in table~\ref{tab:dismatrix} by using the algorithm. Considering the skill HTML, the most relevance skills in order are CSS, Javascript, and jQuery,  which is correct from the perspective of a experienced developer. The other example is Java, the most relevant skill in the matrix is JSP, which is the same as the technical relevance. 
+To evaluate this measure, we select 99999 job descriptions, and 99 terms to see the result. We got the relevance matrix in table~\ref{tab:dismatrix} by using the algorithm. Considering the skill HTML, the most relevance skills in order are CSS, Javascript, and jQuery,  which is correct from the perspective of a experienced developer. The other example is Java, the most relevant skill in the matrix is JSP, which is the same as the technical relevance.
 
 \begin{table}
 
