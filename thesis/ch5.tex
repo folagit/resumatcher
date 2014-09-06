@@ -39,15 +39,23 @@ If just looking at the text, we can find the resume has few common words with th
 
 \section{Ontology Construction}
 
-Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts.  Currently, there is no IT technology ontology build for recruiting purpose.  ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area. 
+Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts.  Currently, there is no IT technology ontology build for recruiting purpose.  ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area.
 
-Ding et al.~\cite{ding2002ontology} give a survey of approaches on how to generate ontology. These approach include some manual and some automatic methods. 
 
-The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. The task of creating such a ontology is a huge one. 
+The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. The task of creating such a ontology is a huge one. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in this paper, like the source data, concept extraction methods, Ontology representation, construction tools and so on.  Inspiring on this paper, we used semi-automatic method to construct the IT skill ontology.
+
+We use Protege to create the skeleton of the ontology. It's interface is shown in Figure~\ref{fig:Protege}. 
 
 \begin{figure}[htbp]
-  \centering
-  \includegraphics[scale=0.7]{images/ontology_pro.png}
+  
+  \includegraphics[scale=0.5]{images/protege.png}
+  \caption{Interface of Protege}
+  \label{fig:Protege}
+\end{figure} 
+
+\begin{figure}[htbp]
+
+  \includegraphics[scale=0.6]{images/ontology_pro.png}
   \caption{Part of Ontology}
   \label{fig:ontology_pro}
 \end{figure}
