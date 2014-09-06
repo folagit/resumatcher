@@ -73,7 +73,12 @@ We only apply this measure on the concepts pair if:
     \item The two concepts have the same direct 
     \item One concepts is the super  of another. 
 \end{enumerate}
-We set the restriction because the position of the concept in the ontology is defined based on their technical similarity to others. So similar technique will assigned into a same category.  If distance between two concepts are further than above situation we generally believe they are not related skills. The algorithm to calculate the similarity of two concepts is in algorithm ~\ref{alg:alg_similarity}.
+We set the restriction because the position of the concept in the ontology is defined based on their technical similarity to others. Similar techniques will assigned into a same category, they should share the same technology base, and one could be a alternate to the other. For example, we put EJB and Hibernate in the same category, because they are both J2EE persistence layer technologies, and both have the O/R mapping concept. If the applicant is familiar one of them, they could master the other very quickly. Another example, like Grail and Django, they are both web frameworks, and share some web design philosophies, but one is  designed for Java web application and the other is created for Python web application. So if one developer has some some experience with one of them, he/she still need spend a lot of time to learn the other to overcome the gap between programming languages. We could see the two examples of in figure: 
+
+ 
+
+  
+If distance between two concepts are further than above situation we generally believe they are not related skills. The algorithm to calculate the similarity of two concepts is in algorithm ~\ref{alg:alg_similarity}.
 
 \begin{algorithm}
 \caption{Get Stat Similarity}
@@ -101,4 +106,24 @@ $ factor2~=~ avg(dislist) $  \;
 return $factor1 ~/~ factor2$\;
 $ ~~ $
 \end{algorithm}
+
+To evaluate this measure, we select 99999 job descriptions, and 99 terms to see the result. We got such relevance matrix by using the algorithm . 
+
+\begin{center}
+\begin{tabular}{ c | c c c c c c c c }
+ \hline
+  TERM       & javascript & jquery &  html  &  css   &  java  & python &  ruby  &  jsp    \\  \hline
+  javascript &     1      & 0.1981 & 0.2087 & 0.2439 & 0.0665 & 0.0189 & 0.023  & 0.0253   \\
+    jquery   &   0.1981   &   1    & 0.0979 & 0.1328 & 0.0439 & 0.0142 & 0.0266 & 0.0232    \\
+     html    &   0.2087   & 0.0979 &   1    & 0.3569 & 0.0473 & 0.0175 & 0.023  & 0.0103   \\
+     css     &   0.2439   & 0.1328 & 0.3569 &   1    & 0.0537 & 0.0153 & 0.0181 & 0.015    \\
+     java    &   0.0665   & 0.0439 & 0.0473 & 0.0537 &   1    & 0.0498 & 0.0287 & 0.075    \\
+    python   &   0.0189   & 0.0142 & 0.0175 & 0.0153 & 0.0498 &   1    & 0.1333 & 0.0025   \\
+     ruby    &   0.023    & 0.0266 & 0.023  & 0.0181 & 0.0287 & 0.1333 &   1    & 0.012    \\
+     jsp     &   0.0253   & 0.0232 & 0.0103 & 0.015  & 0.075  & 0.0025 & 0.012  &   1      \\
+ \hline
+\end{tabular}
+\end{center}
+
+
 
