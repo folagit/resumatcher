@@ -49,35 +49,35 @@ In this thesis, I proposed a new statistical-based ontology similarity measure. 
 \centering % used for centering table
 \begin{tabular}{ | p{15cm}  | }
  \hline
-    A high-level language such as Java, Groovy, Ruby or Python; we use Java and Groovy extensively \newline
-    HTML5/CSS3/JavaScript, web standards, jQuery or frameworks like AngularJS would be great \newline
-    HTML CSS and Javascript a must  \newline
-    Experience with AJAX, XML, XSL, XSLT, CSS, JavaScript, JQuery, HTML and Web Services   \\ 
+    1. A high-level language such as Java, Groovy, Ruby or Python; we use Java and Groovy extensively \newline
+    2. HTML5/CSS3/JavaScript, web standards, jQuery or frameworks like AngularJS would be great \newline
+    3. HTML CSS and Javascript a must  \newline
+    4. Experience with AJAX, XML, XSL, XSLT, CSS, JavaScript, JQuery, HTML and Web Services   \\
  \hline
 \end{tabular}
 \label{tab:skillinsent} % is used to refer this table in the text
 \end{table}
 
-We could see from the table, the technical close related concepts are always bing together. 
+We could see from the table, the technical close related concepts are always bing together.
 Based on such observation, we give a new statistical-based Ontology Similarity Measure. Two concepts $a$ and $b$ in the ontology,   their similarity $S_{a,b}$ could be the ratio of two factors:
 
 \begin{enumerate}
     \item The ratio of the number of documents they exist together $N_{a \cap b}$ to the number of documents have a least one them $N_{a \cup b}$.
-    \item The average $\log$ value of their minimum distance $mindis(doc,a,b)$ in documents that have them both. 
+    \item The average $\log$ value of their minimum distance $mindis(doc,a,b)$ in documents that have them both.
 \end{enumerate}
 
 $$ S(a,b) = \frac{  N_{a \cap b} / N_{a \cup b} }{avg(\log_2( mindis(doc,a,b) + 1 ))} $$
 
-We only apply this measure on the concepts pair if: 
+We only apply this measure on the concepts pair if:
 \begin{enumerate}
-    \item The two concepts have the same direct 
-    \item One concepts is the super  of another. 
+    \item The two concepts have the same direct
+    \item One concepts is the super  of another.
 \end{enumerate}
-We set the restriction because the position of the concept in the ontology is defined based on their technical similarity to others. Similar techniques will assigned into a same category, they should share the same technology base, and one could be a alternate to the other. For example, we put EJB and Hibernate in the same category, because they are both J2EE persistence layer technologies, and both have the O/R mapping concept. If the applicant is familiar one of them, they could master the other very quickly. Another example, like Grail and Django, they are both web frameworks, and share some web design philosophies, but one is  designed for Java web application and the other is created for Python web application. So if one developer has some some experience with one of them, he/she still need spend a lot of time to learn the other to overcome the gap between programming languages. We could see the two examples of in figure: 
+We set the restriction because the position of the concept in the ontology is defined based on their technical similarity to others. Similar techniques will assigned into a same category, they should share the same technology base, and one could be a alternate to the other. For example, we put EJB and Hibernate in the same category, because they are both J2EE persistence layer technologies, and both have the O/R mapping concept. If the applicant is familiar one of them, they could master the other very quickly. Another example, like Grail and Django, they are both web frameworks, and share some web design philosophies, but one is  designed for Java web application and the other is created for Python web application. So if one developer has some some experience with one of them, he/she still need spend a lot of time to learn the other to overcome the gap between programming languages. We could see the two examples of in figure:
 
- 
 
-  
+
+
 If distance between two concepts are further than above situation we generally believe they are not related skills. The algorithm to calculate the similarity of two concepts is in algorithm ~\ref{alg:alg_similarity}.
 
 \begin{algorithm}
@@ -107,23 +107,26 @@ return $factor1 ~/~ factor2$\;
 $ ~~ $
 \end{algorithm}
 
-To evaluate this measure, we select 99999 job descriptions, and 99 terms to see the result. We got such relevance matrix by using the algorithm . 
+To evaluate this measure, we select 99999 job descriptions, and 99 terms to see the result. We got such relevance matrix by using the algorithm . From the table~\ref{tab:dismatrix}
 
-\begin{center}
+\begin{table}
+
+\caption{Skills Similarity Table}
 \begin{tabular}{ c | c c c c c c c c }
  \hline
-  TERM       & javascript & jquery &  html  &  css   &  java  & python &  ruby  &  jsp    \\  \hline
-  javascript &     1      & 0.1981 & 0.2087 & 0.2439 & 0.0665 & 0.0189 & 0.023  & 0.0253   \\
-    jquery   &   0.1981   &   1    & 0.0979 & 0.1328 & 0.0439 & 0.0142 & 0.0266 & 0.0232    \\
-     html    &   0.2087   & 0.0979 &   1    & 0.3569 & 0.0473 & 0.0175 & 0.023  & 0.0103   \\
-     css     &   0.2439   & 0.1328 & 0.3569 &   1    & 0.0537 & 0.0153 & 0.0181 & 0.015    \\
-     java    &   0.0665   & 0.0439 & 0.0473 & 0.0537 &   1    & 0.0498 & 0.0287 & 0.075    \\
-    python   &   0.0189   & 0.0142 & 0.0175 & 0.0153 & 0.0498 &   1    & 0.1333 & 0.0025   \\
-     ruby    &   0.023    & 0.0266 & 0.023  & 0.0181 & 0.0287 & 0.1333 &   1    & 0.012    \\
-     jsp     &   0.0253   & 0.0232 & 0.0103 & 0.015  & 0.075  & 0.0025 & 0.012  &   1      \\
+  Term       & Javascript & jQuery &  HTML  &  CSS   &  Java  & Python &  Ruby  &  JSP    \\  \hline
+  Javascript &     1      & 0.1981 & 0.2087 & 0.2439 & 0.0665 & 0.0189 & 0.023  & 0.0253   \\
+    jQuery   &   0.1981   &   1    & 0.0979 & 0.1328 & 0.0439 & 0.0142 & 0.0266 & 0.0232    \\
+     HTML    &   0.2087   & 0.0979 &   1    & 0.3569 & 0.0473 & 0.0175 & 0.023  & 0.0103   \\
+     CSS     &   0.2439   & 0.1328 & 0.3569 &   1    & 0.0537 & 0.0153 & 0.0181 & 0.015    \\
+     Java    &   0.0665   & 0.0439 & 0.0473 & 0.0537 &   1    & 0.0498 & 0.0287 & 0.075    \\
+    Python   &   0.0189   & 0.0142 & 0.0175 & 0.0153 & 0.0498 &   1    & 0.1333 & 0.0025   \\
+     Ruby    &   0.023    & 0.0266 & 0.023  & 0.0181 & 0.0287 & 0.1333 &   1    & 0.012    \\
+     JSP     &   0.0253   & 0.0232 & 0.0103 & 0.015  & 0.075  & 0.0025 & 0.012  &   1      \\
  \hline
 \end{tabular}
-\end{center}
+\label{tab:dismatrix}
+\end{table}
 
 
 

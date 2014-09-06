@@ -97,7 +97,7 @@ def getDisMatrixFromColletion():
             doc.extend(tokens)        
         docs.append(doc)
         
-     terms=["javascript", "jquery", "html", "css", "java", "python", "ruby", "jsp"  ]
+     terms=["javascript", "jquery", "html", "css", "java", "jsp", "python", "ruby", "ror"  ]
      result = getDistanceMatrix(docs, terms)   
      printDisMatrix(terms, result)   
       
