@@ -42,13 +42,21 @@
 
 
 
-###  http://www.jobaly.com/ontology/web_dev#AngularJS
+###  http://www.jobaly.com/ontology/web_dev#Amazon_Web_Services
 
-:AngularJS rdf:type owl:Class ;
-           
-           rdfs:label "angular" ;
-           
-           rdfs:subClassOf :Javascript_UI_Frameworks .
+:Amazon_Web_Services rdf:type owl:Class ;
+                     
+                     rdfs:label "AWS" ;
+                     
+                     rdfs:subClassOf :Cloud_Computing_Patform .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Android
+
+:Android rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Mobile_OS .
 
 
 
@@ -68,6 +76,14 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#BIg_Data_Software
+
+:BIg_Data_Software rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf :Big_Data .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Backbone_js
 
 :Backbone_js rdf:type owl:Class ;
@@ -77,6 +93,12 @@
                         "Backbone" ;
              
              rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Big_Data
+
+:Big_Data rdf:type owl:Class .
 
 
 
@@ -129,6 +151,28 @@
                     "C#" ;
          
          rdfs:subClassOf :dot_Net .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#CakePHP
+
+:CakePHP rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Php_Framework .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Cloud_Computing
+
+:Cloud_Computing rdf:type owl:Class .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Cloud_Computing_Patform
+
+:Cloud_Computing_Patform rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf :Cloud_Computing .
 
 
 
@@ -192,6 +236,14 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Django
+
+:Django rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Python .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Dojo
 
 :Dojo rdf:type owl:Class ;
@@ -251,6 +303,22 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#General_OS
+
+:General_OS rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Operating_System .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Groovy
+
+:Groovy rdf:type owl:Class ;
+        
+        rdfs:subClassOf :programming_language .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Grunt
 
 :Grunt rdf:type owl:Class ;
@@ -275,6 +343,22 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#HTTP
+
+:HTTP rdf:type owl:Class ;
+      
+      rdfs:subClassOf :web_dev_concept .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Hadoop
+
+:Hadoop rdf:type owl:Class ;
+        
+        rdfs:subClassOf :BIg_Data_Software .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Highcharts
 
 :Highcharts rdf:type owl:Class ;
@@ -288,6 +372,22 @@
 :IDE rdf:type owl:Class ;
      
      rdfs:subClassOf :Software .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#IIS
+
+:IIS rdf:type owl:Class ;
+     
+     rdfs:subClassOf :Web_Server .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Internet_protocols
+
+:Internet_protocols rdf:type owl:Class ;
+                    
+                    rdfs:subClassOf :network .
 
 
 
@@ -371,6 +471,26 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#JavaServer_Faces
+
+:JavaServer_Faces rdf:type owl:Class ;
+                  
+                  rdfs:label "JSF" ;
+                  
+                  rdfs:subClassOf :J2EE .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Java_Architecture_for_XML_Binding
+
+:Java_Architecture_for_XML_Binding rdf:type owl:Class ;
+                                   
+                                   rdfs:label "JAXB" ;
+                                   
+                                   rdfs:subClassOf :Java .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Java_Naming_and_Directory_Interface
 
 :Java_Naming_and_Directory_Interface rdf:type owl:Class ;
@@ -388,6 +508,14 @@
                   rdfs:label "JSP" ;
                   
                   rdfs:subClassOf :J2EE .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Java_Servlet
+
+:Java_Servlet rdf:type owl:Class ;
+              
+              rdfs:subClassOf :J2EE .
 
 
 
@@ -429,6 +557,14 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Javascript_test_framework
+
+:Javascript_test_framework rdf:type owl:Class ;
+                           
+                           rdfs:subClassOf :Javascript_library .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Javascript_tools
 
 :Javascript_tools rdf:type owl:Class ;
@@ -437,11 +573,21 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Kendo_UI
+
+:Kendo_UI rdf:type owl:Class ;
+          
+          rdfs:label "Kendo" ;
+          
+          rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#LAMP
 
 :LAMP rdf:type owl:Class ;
       
-      rdfs:subClassOf :programming_knowledge .
+      rdfs:subClassOf :web_dev_concept .
 
 
 
@@ -453,11 +599,21 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Lightweight_Directory_Access_Protocol
+
+:Lightweight_Directory_Access_Protocol rdf:type owl:Class ;
+                                       
+                                       rdfs:label "LDAP" ;
+                                       
+                                       rdfs:subClassOf :Internet_protocols .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Linux
 
 :Linux rdf:type owl:Class ;
        
-       rdfs:subClassOf :Operating_System .
+       rdfs:subClassOf :General_OS .
 
 
 
@@ -477,6 +633,32 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Microsoft_Azure
+
+:Microsoft_Azure rdf:type owl:Class ;
+                 
+                 rdfs:label "Azure" ;
+                 
+                 rdfs:subClassOf :Cloud_Computing_Patform .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Mobile_OS
+
+:Mobile_OS rdf:type owl:Class ;
+           
+           rdfs:subClassOf :Operating_System .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#MongoDB
+
+:MongoDB rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Nosql_Database .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#MySQL
 
 :MySQL rdf:type owl:Class ;
@@ -490,6 +672,17 @@
 :Node.js rdf:type owl:Class ;
          
          rdfs:subClassOf :Javascript_library .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Nosql_Database
+
+:Nosql_Database rdf:type owl:Class ;
+                
+                rdfs:label "NoSql" ,
+                           "No sql" ;
+                
+                rdfs:subClassOf :Database .
 
 
 
@@ -537,6 +730,14 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Perforce
+
+:Perforce rdf:type owl:Class ;
+          
+          rdfs:subClassOf :version_control_system .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Perl
 
 :Perl rdf:type owl:Class ;
@@ -550,6 +751,14 @@
 :Php_Framework rdf:type owl:Class ;
                
                rdfs:subClassOf :PHP .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#PostgreSQL
+
+:PostgreSQL rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Relational_Database .
 
 
 
@@ -605,7 +814,7 @@
                           "Ruby on Rails" ,
                           "RoR" ;
                
-               rdfs:subClassOf :Java .
+               rdfs:subClassOf :Ruby .
 
 
 
@@ -633,6 +842,14 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Scala
+
+:Scala rdf:type owl:Class ;
+       
+       rdfs:subClassOf :programming_language .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Simple_Object_Access_protocol
 
 :Simple_Object_Access_protocol rdf:type owl:Class ;
@@ -640,6 +857,14 @@
                                rdfs:label "SOAP" ;
                                
                                rdfs:subClassOf :Web_Services .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Sinon.js
+
+:Sinon.js rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Javascript_test_framework .
 
 
 
@@ -679,6 +904,8 @@
 
 :Sql_Server rdf:type owl:Class ;
             
+            rdfs:label "MSSQL" ;
+            
             rdfs:subClassOf :Relational_Database .
 
 
@@ -688,6 +915,16 @@
 :Symfony rdf:type owl:Class ;
          
          rdfs:subClassOf :Php_Framework .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Systems_development_life_cycle
+
+:Systems_development_life_cycle rdf:type owl:Class ;
+                                
+                                rdfs:label "SDLC" ;
+                                
+                                rdfs:subClassOf :programming_knowledge .
 
 
 
@@ -707,6 +944,14 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Unix
+
+:Unix rdf:type owl:Class ;
+      
+      rdfs:subClassOf :General_OS .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#VB.NET
 
 :VB.NET rdf:type owl:Class ;
@@ -721,6 +966,8 @@
 ###  http://www.jobaly.com/ontology/web_dev#Visual_Studio
 
 :Visual_Studio rdf:type owl:Class ;
+               
+               rdfs:label "Visual Studio.net" ;
                
                rdfs:subClassOf :IDE .
 
@@ -768,6 +1015,14 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Windows
+
+:Windows rdf:type owl:Class ;
+         
+         rdfs:subClassOf :General_OS .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Windows_Communication_Foundation
 
 :Windows_Communication_Foundation rdf:type owl:Class ;
@@ -775,6 +1030,14 @@
                                   rdfs:label "WCF" ;
                                   
                                   rdfs:subClassOf :dot_Net .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#Windows_Mobile
+
+:Windows_Mobile rdf:type owl:Class ;
+                
+                rdfs:subClassOf :Mobile_OS .
 
 
 
@@ -799,6 +1062,16 @@
 :XML rdf:type owl:Class ;
      
      rdfs:subClassOf :web_dev_concept .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#XML_Schema_Definition
+
+:XML_Schema_Definition rdf:type owl:Class ;
+                       
+                       rdfs:label "XSD" ;
+                       
+                       rdfs:subClassOf :XML .
 
 
 
@@ -834,6 +1107,16 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#angular.js
+
+:angular.js rdf:type owl:Class ;
+            
+            rdfs:label "angular" ;
+            
+            rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#design_pattern
 
 :design_pattern rdf:type owl:Class ;
@@ -860,11 +1143,25 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#iOS
+
+:iOS rdf:type owl:Class ;
+     
+     rdfs:subClassOf :Mobile_OS .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#jQuery
 
 :jQuery rdf:type owl:Class ;
         
         rdfs:subClassOf :Javascript_UI_Frameworks .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#network
+
+:network rdf:type owl:Class .
 
 
 
@@ -893,6 +1190,14 @@
 :struts rdf:type owl:Class ;
         
         rdfs:subClassOf :J2EE .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#sybase
+
+:sybase rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Relational_Database .
 
 
 
@@ -934,6 +1239,16 @@
 :wordpress rdf:type owl:Class ;
            
            rdfs:subClassOf :CMS .
+
+
+
+###  http://www.jobaly.com/ontology/web_dev#PL/PL_SQL
+
+<http://www.jobaly.com/ontology/web_dev#PL/PL_SQL> rdf:type owl:Class ;
+                                                   
+                                                   rdfs:label "PL/SQL" ;
+                                                   
+                                                   rdfs:subClassOf :SQL .
 
 
 

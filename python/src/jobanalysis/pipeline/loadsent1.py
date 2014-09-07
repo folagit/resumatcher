@@ -120,14 +120,7 @@ def buildTerms():
      enterprise integration    development    
      front portal  expertise systems  pages  directory connectivity    
      microsoft  solutions   technology  markup  
-     environment  scripting platform  libraries  
-     
-     stack soa informatica  sharepoint  ldap  computer 
-     discovery lightweight  practices representational  cycle naming  
-     life query portals   script servlets third   opportunity 
-     patterns  level ms  management service 
-     interfaces environments party  custom code      
-
+     environment  scripting platform  libraries   
      '''.split()
      
      
@@ -185,8 +178,8 @@ def filterTerms():
     f = open("unknowns.txt", "w")
     for key, value in sorted_x:
          print key.encode("GBK", "ignore"), value
-     #    f.write(key.encode("GBK", "ignore") + "  " + str( value ) + "\n" )
-         f.write(key.encode("GBK", "ignore") + " "  )
+         f.write(key.encode("GBK", "ignore") + "  " + str( value ) + "\n" )
+      #   f.write(key.encode("GBK", "ignore") + " "  )
   
 
 def test_wordset():
