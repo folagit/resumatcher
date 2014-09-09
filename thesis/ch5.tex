@@ -39,19 +39,21 @@ If just looking at the text, we can find the resume has few common words with th
 
 \section{Ontology Construction}
 
+\subsection{Domain Specific Ontology}
+
 Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts.  Currently, there is no IT technology ontology build for recruiting purpose.  ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area.
 
 
-The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. The task of creating such a ontology is a huge one. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in this paper, like the source data, concept extraction methods, Ontology representation, construction tools and so on.  Inspiring on this paper, we used semi-automatic method to construct the IT skill ontology.
+The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. The task of creating such a ontology is a huge one. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, construction tools and so on.  Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology.
 
-We use Protege to create the skeleton of the ontology. It's interface is shown in Figure~\ref{fig:Protege}. 
+We use Protege to create the skeleton of the ontology. It's interface is shown in Figure~\ref{fig:Protege}.
 
 \begin{figure}[htbp]
-  
+
   \includegraphics[scale=0.5]{images/protege.png}
   \caption{Interface of Protege}
   \label{fig:Protege}
-\end{figure} 
+\end{figure}
 
 \begin{figure}[htbp]
 
@@ -59,6 +61,44 @@ We use Protege to create the skeleton of the ontology. It's interface is shown i
   \caption{Part of Ontology}
   \label{fig:ontology_pro}
 \end{figure}
+
+\subsection{Domain Specific Ontology}
+
+We use semi-automatic approach to get the skills' terms from the job descriptions. From the observation, we found that  skills requirement part of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}. 
+\begin{table}[ht]
+\caption{Some sentences Job Description} % title of Table
+\centering % used for centering table
+\begin{tabular}{ | p{15cm}  | }
+ \hline
+    1. A high-level language such as Java, Groovy, Ruby or Python; we use Java and Groovy extensively \newline
+    2. HTML5/CSS3/JavaScript, web standards, jQuery or frameworks like AngularJS would be great \newline
+    3. HTML CSS and Javascript a must  \newline
+    4. Experience with AJAX, XML, XSL, XSLT, CSS, JavaScript, JQuery, HTML and Web Services   \\
+ \hline
+\end{tabular}
+\label{tab:skillrequirement} % is used to refer this table in the text
+\end{table}
+
+Based on this character£¬ we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms in job descriptions, and add them to term dictionary. We use our pattern matching tools to find sentences matching some patterns like:
+
+$$ < term > , * , *, <term>$$ 
+
+$$ < term > , * , *, and <term>$$ 
+
+\begin{table}[ht]
+\caption{Some sentences Job Description} % title of Table
+\centering % used for centering table
+\begin{tabular}{   | c | c | c | c |c | c |c | c |c | c |c | c |c | c |  }
+ \hline
+     Experience & with & TERM & , & *   & , & *   &, & TERM &, & and & *  \\
+ \hline 
+     Experience & with & AJAX & , & XML & , & XSL &, & XSLT &, & and & CSS  \\
+ \hline
+\end{tabular}
+\label{tab:termspattern} % is used to refer this table in the text
+\end{table}
+
+
 
 \section{Ontology-based semantic similarity}
 
