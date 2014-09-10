@@ -54,20 +54,25 @@ Chang et al. presented cascaded regular expressions over tokens~\cite{chang2014t
 We proposed a more flexible regular expression over tokens framework.
 One conception always have similar but different expression, like Bachelor's degree, in job description it could be written into bachelors degree, B.S., 4 years degree, and so on. IN this work, we annotate words in the sentence with semantic label.
 
-After labeling, we could use some hybrid pattern like: 
+After labeling, we could use some hybrid pattern like:
 We don't need to match the real words in the sentence, or first level of semantic label, we could just match the high level semantic label.
 
 
+\begin{table}[ht]
+\caption{Labeled sentence } % title of Table
+\centering % used for centering table
+\begin{tabular}{   | c | c | c | c |c | c |c | c |c|  }
+ \hline
+     DE LEVEL   & DEGREE & IN & MAJOR            & OR & MAJOR  &.  \\
+ \hline
+     BS LEVEL   & DEGREE & IN & MAJOR CS         & OR & MAJOR INFO & .      \\
+ \hline
+    bachelors   & degree & in & computer science & or & information systems & .     \\
+  \hline     
+\end{tabular}
+\label{tab:labeldsent} % is used to refer this table in the text\section{Pipeline of Information Extraction}
+\end{table}
 
-
-
-
-
-
-
-
-
-\section{Pipeline of Information Extraction}
 
 One important problem of this system is how to extract models from Job Descriptions and Resumes.
 In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This architecture will also be used in this system to extract models of job openings and candidate's resumes. The system will process the job opening in the following steps, which is shown in Figure~\ref{fig:Pipeline}:
