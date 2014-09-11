@@ -87,7 +87,7 @@ We create a dictionary which collect different spelling and expression to a conc
 
 ["Baccalaureate","bachelors", "bachelor" ,"B.S.", "B.S","BS","BA","BA/BS", "BABS", "BSBA", "B.A." ,"4-year","4-year", "4 year", "four year","college","Undergraduate" , "University" ]
 
-These words combining with following word ``degree'' will all have the same meaning. We know that the regular expression is a finite state machine (FSM), any word add into it, will become a state of the FSM. If we use common method, adding all these words into the regular expression, the matching process will meet problem of combinatorial explosion. Actually we don't care what the words the sentence use, we want to determine the if the words' meaning and category. So here we propose a two layers label approach. In the first level, we labeled the word with its semantic meaning, which is the value we want to extract from the sentence. In the second level, the labels are the semantic category of the first layer label. For example the word "bachelors" will be annotated in the first layer with label "BS LEVEL" which means bachelors degree level, and the word "PhD" will be labeled as "PHD LEVEL", the both be labeled with "DEGREE LEVEL" in the second layer. A labeled sentence is shown in ~\ref{tab:labeldsent}. 
+These words combining with following word ``degree'' will all have the same meaning. We know that the regular expression is a finite state machine (FSM), any word add into it, will become a state of the FSM. If we use common method, adding all these words into the regular expression, the matching process will meet problem of combinatorial explosion. Actually we don't care what the words the sentence use, we want to determine the if the words' meaning and category. So here we propose a two layers label approach. In the first level, we labeled the word with its semantic meaning, which is the value we want to extract from the sentence. In the second level, the labels are the semantic category of the first layer label. For example the word "bachelors" will be annotated in the first layer with label "BS LEVEL" which means bachelors degree level, and the word "PhD" will be labeled as "PHD LEVEL", the both be labeled with "DEGREE LEVEL" in the second layer. A labeled sentence is shown in ~\ref{tab:labeldsent}.
 
 \begin{table}[ht]
 \caption{Labeled sentence } % title of Table
@@ -105,6 +105,8 @@ These words combining with following word ``degree'' will all have the same mean
 \end{table}
 
 \section{Pattern Matching}
+
+Cascaded Finite-State Transducers has widely used approach in Information Extraction for more than 20 years. This approach had been demonstrated   very effective in extracting information from text like CIRCUS~\cite{lehnert1991university} and FASTUS~\cite{hobbs199713}.  
 
 Chang et al. presented cascaded regular expressions over tokens~\cite{chang2014tokensregex}, which defined a cascaded patterns over token sequences.
 
