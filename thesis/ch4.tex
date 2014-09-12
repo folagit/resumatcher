@@ -108,4 +108,37 @@ These words combining with following word ``degree'' will all have the same mean
 
 Cascaded Finite-State Transducers has widely used approach in Information Extraction for more than 20 years. This approach had been demonstrated   very effective in extracting information from text like CIRCUS~\cite{lehnert1991university} and FASTUS~\cite{hobbs199713}.  In the widely used NLP toolkit GATE~\cite{cunningham2002framework}, the semantic tagger JAPE (Java Annotations Pattern Engine) could describe patterns to match and annotations to be created as  a result. JAPE adopted a version of CPSL (Common Pattern  Specification Language)~\cite{appelt1998common}, which provides finite state transduction over annotations. Chang et al. presented cascaded regular expressions over tokens~\cite{chang2014tokensregex}, which proposed a cascaded patterns over token sequences.
 
-After study these frameworks, I found most them are powerful, but complex. Developers need to learn some  domain-specific language (DSL) like CPSL, and how to integrate this part into a system will also bring some problem. So here we proposed a more flexible regular expression over labeled tokens framework.
+After study these frameworks, I found most them are powerful, but complex. Developers need to learn some  domain-specific language (DSL) like CPSL, and how to integrate this part into a system will also bring some problem. So here we proposed a more flexible and lighter framework could do regular expression matching over labeled tokens.
+
+The input of the pattern is sequence of array, every array is the token and its labels in different layer, which is showed in table~\ref{tab:labeldsent}. A pattern is a concatenation of matchers£¬ which is basic unit of the pattern. A matcher could match a token or a label in any layer. Currently we support five types of matchers, UnitMatcher, SequenceMatcher,  QuestionMatcher, StarMatcher, DotMatcher, the later three matchers are the counterpart to the regular expression symbol "?, *, . ".  The framework support several styles to create a pattern, the most common one is regular expression style, like:
+
+\begin{framed}
+    \begin{lstlisting}[language=Python]
+    seqMatcher =parser.parse(" aaa | bbb  ccc?  * ddd")
+    \end{lstlisting}
+\end{framed}    
+ 
+ The seconde style is use algebra operator to connect matchers, like this: 
+ 
+\begin{framed}
+    \begin{lstlisting}[language=Python]
+    seqMatcher =  TokenMatcher("aaa") +
+           TokenMatcher("bbb") | TokenMatcher("ccc")
+    \end{lstlisting}
+\end{framed}         
+ 
+\begin{framed}
+    \begin{lstlisting}[language=C]
+
+            matcher1 = TokenMatcher("aaa")
+            matcher2 = TokenMatcher("bbb")
+            matcher3 = TokenMatcher("ccc")
+            matcher4 = AlternateMatcher([matcher1,matcher2])
+            seqMatcher = SeqMatcher([matcher3,matcher4])
+
+    \end{lstlisting}
+\end{framed} 
+
+Flexible of input, 
+ 
+
