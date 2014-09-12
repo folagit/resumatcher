@@ -110,36 +110,9 @@ Cascaded Finite-State Transducers has widely used approach in Information Extrac
 
 After study these frameworks, I found most them are powerful, but complex. Developers need to learn some  domain-specific language (DSL) like CPSL, and how to integrate this part into a system will also bring some problem. So here we proposed a more flexible and lighter framework could do regular expression matching over labeled tokens.
 
-The input of the pattern is sequence of array, every array is the token and its labels in different layer, which is showed in table~\ref{tab:labeldsent}. A pattern is a concatenation of matchers£¬ which is basic unit of the pattern. A matcher could match a token or a label in any layer. 
+The input of the pattern is sequence of array, every array is the token and its labels in different layer, which is showed in table~\ref{tab:labeldsent}. A pattern is a concatenation of matchers£¬ which is basic unit of the pattern. A matcher could match a token or a label in any layer.
 
-\begin{framed}
-    \begin{lstlisting}[language=Python]
-    seqMatcher =parser.parse(" aaa | bbb  ccc?  * ddd")
-    \end{lstlisting}
-\end{framed}
-
- The seconde style is use algebra operator to connect matchers, like this:
-
-\begin{framed}
-    \begin{lstlisting}[language=Python]
-    seqMatcher =  TokenMatcher("aaa") +
-           TokenMatcher("bbb") | TokenMatcher("ccc")
-    \end{lstlisting}
-\end{framed}
-
-We also could create complex matcher in programming style, which just like we create some programming object, create some objects, and use them create a another object.  
- 
-\begin{framed}
-    \begin{lstlisting}[language=Python]
-matcher1 = TokenMatcher("aaa")
-matcher2 = TokenMatcher("bbb")
-matcher3 = TokenMatcher("ccc")
-matcher4 = AlternateMatcher([matcher1,matcher2])
-seqMatcher = SeqMatcher([matcher3,matcher4])
-    \end{lstlisting}
-\end{framed} 
-
-Currently we support some types of matchers, we list them in table~\ref{tab:matchers} UnitMatcher, SequenceMatcher,  QuestionMatcher, StarMatcher, DotMatcher, the later three matchers are the counterpart to the regular expression symbol "?, *, . ".  The framework support several styles to create a pattern, the most common one is regular expression style, like:
+Currently we support some types of matchers, we list them in table~\ref{tab:matchers}.  The framework support several styles to create a pattern, the most common one is regular expression style, like:
 
 \begin{table}[ht]
 \caption{Matcher Class } % title of Table
@@ -161,12 +134,40 @@ Currently we support some types of matchers, we list them in table~\ref{tab:matc
  DotMatcher        &  Any token                                & .      \\
   \hline
  RegexMatcher      &  Any token matches the regular expression               &        \\
-  \hline 
-  
+  \hline
+
 \end{tabular}
 \label{tab:matchers} % is used to refer this table in the text\section{Pipeline of Information Extraction}
 \end{table}
 
-Flexible of input, 
+\begin{framed}
+    \begin{lstlisting}[language=Python]
+    seqMatcher =parser.parse(" aaa | bbb  ccc?  * ddd")
+    \end{lstlisting}
+\end{framed}
+
+ The seconde style is use algebra operator to connect matchers, like this:
+
+\begin{framed}
+    \begin{lstlisting}[language=Python]
+    seqMatcher =  TokenMatcher("aaa") +
+           TokenMatcher("bbb") | TokenMatcher("ccc")
+    \end{lstlisting}
+\end{framed}
+
+We also could create complex matcher in programming style, which just like we create some programming object, create some objects, and use them create a another object.
+
+\begin{framed}
+    \begin{lstlisting}[language=Python]
+matcher1 = TokenMatcher("aaa")
+matcher2 = TokenMatcher("bbb")
+matcher3 = TokenMatcher("ccc")
+matcher4 = AlternateMatcher([matcher1,matcher2])
+seqMatcher = SeqMatcher([matcher3,matcher4])
+    \end{lstlisting}
+\end{framed}
+
+We support these programming styles, because we want to give developers more flexibility to create patterns. The flexibility are come from the that developers could define which part of sequence should match by assign lambda expressions to matcher's catchfun and outfun. Since the every token in the sequence is an array, which is shown table~\ref{tab:labeldsent}, the lambda expressions could decide which field should be used to match, and which one should be outputed. For example,  to match the labeled sentence, the lambda expression for catchfun is "lambda x:x[2] ", and the outfun is "lambda x:x[1]", which means we match the pattern with the semantic category, and output the  the value we want. 
+
  
 
