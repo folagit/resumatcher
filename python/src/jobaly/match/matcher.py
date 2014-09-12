@@ -7,6 +7,7 @@ Created on Thu Aug 07 23:05:14 2014
 # such matcher how to handle repeat? 
 
 import copy
+import re
 
 class BaseMatcher:    
    
@@ -388,4 +389,28 @@ class PlusMatcher(RepeatMatcher):
         RepeatMatcher.__init__(self, matcher, mintimes=1) 
     def __repr__(self):        
         return '<+:'+str(self.matcher)+'>'
+ 
+
+class RegexMatcher(UnitMatcher):
     
+    def __init__(self, restr, catchfun=lambda x:x , outfun=lambda x: x):        
+        UnitMatcher.__init__(self, catchfun, outfun)
+        self.pattern = re.compile(  r"\b"+restr+ r"\b"  )   
+    
+    @staticmethod    
+    def getWord(item):
+        return item
+       
+    def match(self, words):
+        self.reset()
+        if len(words) < 1:
+            return  -1 
+        if self.pattern.search( self.getWord(words[0]) ):
+            self.catch.append(words[0])
+            self.outlist = self.catchfun(self.catch) 
+            return 1
+        else:
+            return -1      
+            
+    def __repr__(self):
+        return  str(self.pattern)  

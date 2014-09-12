@@ -144,6 +144,20 @@ class TestMatch1(unittest.TestCase):
        self.assertEqual(seq3(tokens2),9)    
        self.assertEqual( seq3.output(), ['aaa', 'bbb', 'aaa', 'bbb', 'aaa', 'bbb', 'aaa', 'bbb', 'ccc'] )
   
+    def test_regex(self):
+        matcher = RegexMatcher("a*") 
+        self.assertEqual( matcher(tokens1), 1 )
+        self.assertEqual( matcher.catch, ["aaa"] )
+        self.assertEqual( matcher.output(), ["aaa"] )
+        
+        matcher = RegexMatcher("aaa") + RegexMatcher("b+") 
+        self.assertEqual( matcher(tokens1), 2 ) 
+        self.assertEqual( matcher.catch, ["aaa", "bbb"] )
+        self.assertEqual( matcher.output(),  ['aaa', 'bbb'] )        
+        
+        matcher =  RegexMatcher("bbb") + RegexMatcher("ccc") 
+        self.assertEqual(matcher.findMatching(tokens1),1)
+        self.assertEqual( matcher.output(),  ['bbb', 'ccc'] )
        
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestMatch1)
