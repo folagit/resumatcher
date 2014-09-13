@@ -78,7 +78,7 @@ We use semi-automatic approach to get the skills' terms from the job description
 \label{tab:skillrequirement} % is used to refer this table in the text
 \end{table}
 
-Based on this character£¬ we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms in job descriptions, and add them to term dictionary. We use our pattern matching tools to find sentences matching some patterns like below, for example the sentence in ~\ref{tab:termspattern}, we could extract the words that matching *, they have high probability to be  terms. Then we could check the words in Dbpedia to if they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms. 
+Based on this character£¬ we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms in job descriptions, and add them to term dictionary. We use our pattern matching tools to find sentences matching some patterns like below, for example the sentence in ~\ref{tab:termspattern}, we could extract the words that matching *, they have high probability to be  terms. Then we could check the words in Dbpedia to if they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms.
 
 $$ < term > , * , *, <term>$$
 $$ < term > , * , *, and <term>$$
@@ -102,15 +102,10 @@ $$ < term > , * , *, and <term>$$
 
 The Ontology technics had also been used in some JRSs, which provide a formal specification of a shared conceptualization~\cite{guarino1998formal}.
 
-There are three kinds Ontology-based similarity measure had been studied, they are:
+There are three kinds Ontology-based similarity measure had been studied, they are Edge counting approaches, Feature-based measures, and Measures based on Information Content.
 
-\begin{enumerate}
-    \item Edge counting approaches.
-    \item Feature-based measures.
-    \item Measures based on Information Content.
-\end{enumerate}
 
-\subsection{Edge counting approaches}
+\subsection{Path-based approaches}
 We could view ontology as a directed graph, in which the nodes are the concepts, the edges are taxonomic relation, like (is-a). Rada, et al.,~\cite{rada1989development} measure the similarity by the distance of two nodes in the graph. So the semantic distance of two concepts a and b will be:
 $$ dis_{rad}(a,b) = min |path_i(a,b)| $$
 
@@ -121,9 +116,14 @@ $N_1$ and $N_2$ is the numbers of is-a links from each term to their Least Commo
 Based on the same idea, Leacock and Chodorow~ \cite{leacock1998combining} also proposed similarity measure that combined distance Np between terms a and b and the depth $D$ of the taxonomy.
 $$ sim_{l\&c}(a,b) = -\log (Np/ 2D) $$
 
-\subsection{Feature-based measures}
+There are some limitations of path-based approaches. First it only consider the shortest path between concept pairs, when they meet complex situation like multiple taxonomical inheritance, the accuracy of them will be low.  Another problem of path-based measures assume that all links in the taxonomy have uniform distance. 
 
 \subsection{Feature-based measures}
+Feature-based methods consider degree of overlapping between sets of ontological features, like Tversky's model~\cite{tverskyfeatures}, which subtract the non-common features from common features of two concepts.
+$$  sim_{tve}(a,b) = \alpha \cdot F \left( \Psi(a) \cap   \Psi(b)  \right) - \beta  \cdot F \left( \Psi(a) \setminus   \Psi(b)  \right) - \gamma \cdot F \left( \Psi(b) \setminus   \Psi(a)  \right)  $$
+Where F is salience of a set features, and $\alpha, \beta$ and $\gamma$ are weights of the contribution of each component. 
+
+\subsection{Content-based measures}
 
 
 \subsection{Ontology-based semantic similarity in JRSs}
@@ -137,7 +137,7 @@ $$ Sim(p1, p2) = \begin{Bmatrix}
 0, & otherwise
 \end{Bmatrix} $$
 
-Fazel \cite{fazel2009semantic} used a hybrid approach to matching job seekers and job postings, which takes advantage of the benefits of both logic-based and ontology-based matching. In his paper the description logics (DL) is used to represent the candidate and job opening, and the ontology is used to organize the skills in a skill taxonomy. He gave an equation to calculate the matching degree:
+Fazel \cite{fazel2009semantic} used a hybrid approach to matching job seekers and job postings, which takes advantage of the benefits of both logic-based and ontology-based matching. In his paper the description logics (DL) is used to represent the candidate and job opening, and the ontology is used to organize the skills in a skill taxonomy. He gave an equation to calculate  the matching degree:
 $$ sim\left(P ,j \right) = \sum x_{ij} \times u(ds_i) $$
 
 where, $x_{ji}$ is the Boolean variable indicating whether desire i is satisfied by applicant $A_{j}$ in the set of all qualified applications.
@@ -145,7 +145,7 @@ where, $x_{ji}$ is the Boolean variable indicating whether desire i is satisfied
 Liu and Dew~\cite{liu2004using} used RDF to represent and store the expertise of experts , and a RDF-based Expertise Matcher could retrieves the experts whose expertise include the required concept.
 
 
-\section{statistical-based Ontology Similarity Measure }
+\section{Statistical-based Ontology Similarity Measure }
 In this thesis, I proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required. From observation, we could find that related skills always exist in a job description simultaneously, e.g. HTML and CSS are always required together. Furthermore, the distance between two concepts is also a good measure of the relevance of them. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions :
 
 \begin{table}[ht]
