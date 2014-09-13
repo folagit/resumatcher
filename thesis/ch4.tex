@@ -167,7 +167,23 @@ seqMatcher = SeqMatcher([matcher3,matcher4])
     \end{lstlisting}
 \end{framed}
 
-We support these programming styles, because we want to give developers more flexibility to create patterns. The flexibility are come from the that developers could define which part of sequence should match by assign lambda expressions to matcher's catchfun and outfun. Since the every token in the sequence is an array, which is shown table~\ref{tab:labeldsent}, the lambda expressions could decide which field should be used to match, and which one should be outputed. For example,  to match the labeled sentence, the lambda expression for catchfun is "lambda x:x[2] ", and the outfun is "lambda x:x[1]", which means we match the pattern with the semantic category, and output the  the value we want. 
+We support these programming styles, because we want to give developers more flexibility to create patterns. The flexibility are come from the that developers could define which part of sequence should match by assign lambda expressions to matcher's catchfun and outfun. Since the every token in the sequence is an array, which is shown table~\ref{tab:labeldsent}, the lambda expressions could decide which field should be used to match, and which one should be outputed. For example,  to match the labeled sentence, the lambda expression for catchfun is "lambda x:x[2] ", and the outfun is "lambda x:x[1]", which means we match the pattern with the semantic category, and output the  the value we want. We show some patterns used to match degree in table:
+
+\begin{table}[ht]
+\caption{Patterns match degree} % title of Table
+\centering % used for centering table
+\begin{tabular}{  | l  |  }
+ \hline
+ DE\_LEVEL,  DE\_LEVEL, OR  DE\_LEVEL DEGREE   \\
+ DE\_LEVEL DEGREE ( IN  $\vert$  OF ) DT MAJOR   \\
+ MAJOR\_DEGREE  ,  MAJOR\_DEGREE OR MAJOR \\
+ DE\_LEVEL (, DE\_LEVEL)* (OR DE\_LEVEL)? BE? PERFER\_VBD   \\
+ \hline
+  
+
+\end{tabular}
+\label{tab:patterns} % is used to refer this table in the text\section{Pipeline of Information Extraction}
+\end{table}
 
  
 
