@@ -123,6 +123,9 @@ Feature-based methods consider degree of overlapping between sets of ontological
 $$  sim_{tve}(a,b) = \alpha \cdot F \left( \Psi(a) \cap   \Psi(b)  \right) - \beta  \cdot F \left( \Psi(a) \setminus   \Psi(b)  \right) - \gamma \cdot F \left( \Psi(b) \setminus   \Psi(a)  \right)  $$
 Where F is salience of a set features, and $\alpha, \beta$ and $\gamma$ are weights of the contribution of each component. 
 
+Rodr{\'\i}guez and Egenhofer~\cite{rodriguez2003determining} computed similarity by sum the weighted sum of similarities between synsets, features, and neighbour concepts.
+$$ sim_{re}(a,b) = w \cdot S_{synsets}(a,b) + u \cdot S_{features}(a,b) + v \cdot S_{neighborhoods}(a,b) $$
+
 \subsection{Content-based measures}
 
 
