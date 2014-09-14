@@ -116,19 +116,23 @@ $N_1$ and $N_2$ is the numbers of is-a links from each term to their Least Commo
 Based on the same idea, Leacock and Chodorow~ \cite{leacock1998combining} also proposed similarity measure that combined distance Np between terms a and b and the depth $D$ of the taxonomy.
 $$ sim_{l\&c}(a,b) = -\log (Np/ 2D) $$
 
-There are some limitations of path-based approaches. First it only consider the shortest path between concept pairs, when they meet complex situation like multiple taxonomical inheritance, the accuracy of them will be low.  Another problem of path-based measures assume that all links in the taxonomy have uniform distance. 
+There are some limitations of path-based approaches. First it only consider the shortest path between concept pairs, when they meet complex situation like multiple taxonomical inheritance, the accuracy of them will be low.  Another problem of path-based measures assume that all links in the taxonomy have uniform distance.
 
 \subsection{Feature-based measures}
 Feature-based methods consider degree of overlapping between sets of ontological features, like Tversky's model~\cite{tverskyfeatures}, which subtract the non-common features from common features of two concepts.
 $$  sim_{tve}(a,b) = \alpha \cdot F \left( \Psi(a) \cap   \Psi(b)  \right) - \beta  \cdot F \left( \Psi(a) \setminus   \Psi(b)  \right) - \gamma \cdot F \left( \Psi(b) \setminus   \Psi(a)  \right)  $$
-Where F is salience of a set features, and $\alpha, \beta$ and $\gamma$ are weights of the contribution of each component. 
+Where F is salience of a set features, and $\alpha, \beta$ and $\gamma$ are weights of the contribution of each component.
 
 Rodr{\'\i}guez and Egenhofer~\cite{rodriguez2003determining} computed similarity by sum the weighted sum of similarities between synsets, features, and neighbour concepts.
 $$ sim_{re}(a,b) = w \cdot S_{synsets}(a,b) + u \cdot S_{features}(a,b) + v \cdot S_{neighborhoods}(a,b) $$
 
-The feature-based methods consider more semantic knowledge than path-based methods,  
+The feature-based methods consider more semantic knowledge than path-based methods. But only big ontologies/thesauri like Wordnet~\cite{miller1995wordnet} have this kind of information. Ding et al.~\cite{ding2004swoogle} had revealed that domain ontologies very occasionally model any semantic feature apart from taxonomical relationship. 
 
 \subsection{Content-based measures}
+
+Resnik~\cite{resnik1995using} proposed similarity, which depends on the amount of shared information between two terms:
+$$ sim_{res}(a,b) = IC(LCS(a,b))$$
+LCS is the Least Common Subsumer of terms in a ontology, and IC is Information Content, which is the negative log of its probability of occurrence, $p(a)$.
 
 
 \subsection{Ontology-based semantic similarity in JRSs}
