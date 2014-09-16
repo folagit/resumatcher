@@ -197,7 +197,7 @@ def getOntoType(result):
      #   print " ^item=",item
         if item != [] and \
           labeler.ontoDict.has_key(item):
-             newresult.append({labeler.ontoDict[item]:item})
+             newresult.append((labeler.ontoDict[item],item))
     return newresult
 
 def labelSentByMatchers(matchers, sent):
