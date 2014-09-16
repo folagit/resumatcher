@@ -41,9 +41,10 @@ def removeSplash(line):
         for word in line.split(): 
             if word.find("/") != -1 and len(word)>1:
                 if  not ( word in slash_list ): 
-                    print "*****removeSplash phrase is: ",  word                            
+               #     print "*****removeSplash phrase is: ",  word                            
                     newword = re.sub("/", " / ", word)
-                    line = re.sub(word, newword, line ) 
+              #      print "newword=", newword
+                    line = line.replace(word, newword) 
                     replace = True
    
     return line
