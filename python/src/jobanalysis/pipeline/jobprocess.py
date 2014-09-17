@@ -66,18 +66,16 @@ def processLine(line):
     line = removeSplash(line)
     line = degreeWordReplace(line)
 
-    return line
-    
+    return line    
 
 def preprocess( job ):
-    jobDesc = JobDescParser.parseJobDesc(job)
-    jobid = jobDesc._id
+    jobDesc = JobDescParser.parseJobDesc(job)    
     sents = jobDesc.listAllSentences() 
-  
+    sents2 = []
     for line in sents:     
-       processLine(line)  
+        sents2.append( processLine(line)  )
     
-    return sents
+    return sents2
     
 def processSents(jobModel,  sents ):       
      
@@ -119,9 +117,10 @@ def processjobs():
      collection = srcBbClient.getCollection("daily_job_webdev")
    #  newCol = srcBbClient.getCollection("daily_job_info_2014-06-16")
       
-     for job in collection.find(): 
+     for job in collection.find():       
          sents = preprocess(job)
          jobModel = {}
+         jobModel["jobid"] = job["_id"]
          processSents(jobModel,  sents )
          
    

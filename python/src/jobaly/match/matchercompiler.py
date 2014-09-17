@@ -17,6 +17,9 @@ class MatcherCompiler:
         self.lexer = lex.lex(module=matcheryacc)
         self.parser = yacc.yacc(module=matcheryacc,  debug=debug) 
     
-    def parse(self, s):
-        return self.parser.parse(s, lexer=self.lexer)
+    def parse( self, s, outfun=None ):
+        matcher = self.parser.parse(s, lexer=self.lexer)
+        if outfun is not None: 
+            matcher.outfun = outfun
+        return matcher
        

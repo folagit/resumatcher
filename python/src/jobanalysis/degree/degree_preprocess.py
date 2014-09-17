@@ -82,14 +82,11 @@ def preProcess(data_set_name, target_set_name):
 
 def main():  
         
-
-   
    data_set_name = "output\\matching_degree_1"  
    target_set_name = "output\\degree_1" 
    
    data_set_name = "output\\degree_raw"  
-   target_set_name = "output\\degree_3" 
-  
+   target_set_name = "output\\degree_3"   
    
    preProcess(data_set_name, target_set_name)
  

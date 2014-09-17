@@ -6,7 +6,7 @@ import unittest
 
 tokens1 = ["aaa","bbb","ccc","ddd"]
 tokens2 = ["aaa","bbb","aaa","bbb","aaa","bbb","aaa","bbb","ccc","ddd"]
-
+tokens3 = [ "bachelors" ,  "Degree"]
 
 class TestCompiler1(unittest.TestCase): 
     
@@ -27,6 +27,10 @@ class TestCompiler1(unittest.TestCase):
        self.assertEqual( matcher.catch, ["aaa", "bbb"] )
        self.assertEqual( matcher.output(),  ['aaa', 'bbb'] )
      
+    def test3(self):   
+         matcher = self.compiler.parse("DE_LEVEL (, DE_LEVEL)* (OR DE_LEVEL)? DEGREE")
+         print str(matcher)
+         self.assertEqual( matcher(tokens3), 2 ) 
      
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestCompiler1)
