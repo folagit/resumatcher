@@ -15,6 +15,15 @@ sent10 = "Bachelor , Master or Doctorate  degree from an accredited course of st
 sent11 = "Bachelor , Master or Doctorate  degree from an accredited course of study , in engineering , computer science , mathematics , physics or chemistry"
 sent12 = "BSCS , BSEE Degree ( transcripts required )"
 
+degreeMatcher1 = matcherCompiler.parse("DE_LEVEL (, DE_LEVEL)* (OR DE_LEVEL)? DEGREE" )
+degreeMatcher2 = matcherCompiler.parse("DE_LEVEL (, DE_LEVEL)* (OR DE_LEVEL)? IN|OF (DT)? MAJOR ")
+degreeMatchers = [ degreeMatcher1, degreeMatcher2 ]
+
+
+majorMatcher1 = matcherCompiler.parse("(IN| OF) DT? MAJOR " )
+majorMatcher2 = matcherCompiler.parse(" IN DT? MAJOR (, MAJOR)* OR　MAJOR " )
+majorMatchers = [ majorMatcher1 , majorMatcher2 ]
+
 def test1():
     
     matcher = degreeSeq3
