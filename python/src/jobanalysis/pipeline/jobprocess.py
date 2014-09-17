@@ -114,15 +114,19 @@ def processTitle(jobModel, sent ):
 
 def processjobs():
      srcBbClient = DbClient('localhost', 27017, "jobaly_daily_test")
-     collection = srcBbClient.getCollection("daily_job_webdev")
+     jobCollName = "daily_job_webdev"
+     
+     jobmodelCollName = jobCollName+"_model"
+     collection = srcBbClient.getCollection(jobCollName)
+     modelColl = srcBbClient.getCollection(jobmodelCollName)
    #  newCol = srcBbClient.getCollection("daily_job_info_2014-06-16")
       
      for job in collection.find():       
          sents = preprocess(job)
          jobModel = {}
-         jobModel["jobid"] = job["_id"]
+         jobModel["_id"] = job["_id"]
          processSents(jobModel,  sents )
-         
+         modelColl.insert(jobModel)
    
      
 def main(): 
