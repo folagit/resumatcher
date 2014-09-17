@@ -178,7 +178,7 @@ class UnitLabelMatcher(UnitTokenMatcher):
     def getWord(self, item):
         return item[0]
         
-matcherCompiler = MatcherCompiler(tokenMatcher=UnitLabelMatcher, debug=True)        
+       
         
 class OriTextMatcher(TokenMatcher): 
     
@@ -267,3 +267,5 @@ def labelDegreeSet(matchers, data_set_name, outfileName,failfilename):
         i+=1
         print "matcher ", i, ":", matcher.matchNum
         f2.write( "\n matcher " + str( i) + ":" + str( matcher.matchNum ) )
+
+matcherCompiler = MatcherCompiler(tokenMatcher=UnitLabelMatcher, defaultOutfun=getOntoType ,  debug=True) 

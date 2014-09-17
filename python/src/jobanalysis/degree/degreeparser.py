@@ -6,12 +6,14 @@ Created on Tue Sep 16 13:56:29 2014
 """
 from degreelabeler import *
 
-degreeMatcher1 = matcherCompiler.parse("DE_LEVEL (, DE_LEVEL)* (OR DE_LEVEL)? DEGREE", getOntoType)
+degreeMatcher1 = matcherCompiler.parse("DE_LEVEL (, DE_LEVEL)* (OR DE_LEVEL)? DEGREE" )
+degreeMatcher2 = matcherCompiler.parse("DE_LEVEL (, DE_LEVEL)* (OR DE_LEVEL)? IN|OF (DT)? MAJOR ")
 
-degreeMatchers = [ degreeMatcher1 ]
+
+degreeMatchers = [ degreeMatcher1, degreeMatcher2 ]
 
 
-majorMatcher1 = matcherCompiler.parse("(IN| OF) DT? MAJOR ", getOntoType )
+majorMatcher1 = matcherCompiler.parse("(IN| OF) DT? MAJOR " )
 majorMatchers = [ majorMatcher1 ]
 
 def getDegree(labeledArray):
@@ -42,13 +44,13 @@ def getMajor(labeledArray):
     
     
 def parseDegreeSent( model, sent ): 
-    print sent.encode("GBK", "ignore")
+ #   print sent.encode("GBK", "ignore")
     degreeSent = JobSentence(sent.split())
     labeler.labelSentence(degreeSent)
  #   print degreeSent.printSentenct()  
 #    f.write( degreeSent.printSentenct().get_string() +"\n\n" )
     labeledArray = degreeSent.getLabeledArray(labeler.ontoDict)
-    print degreeSent.printLabeledArray()    
+ #   print degreeSent.printLabeledArray()    
     degrees =  getDegree(labeledArray)
     majors = getMajor(labeledArray)
     print degrees

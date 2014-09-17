@@ -12,8 +12,9 @@ from matcher import UnitTokenMatcher
 
 class MatcherCompiler:
     
-    def __init__(self, tokenMatcher=UnitTokenMatcher, debug=False):
+    def __init__(self, tokenMatcher=UnitTokenMatcher, defaultOutfun=None, debug=False):
         matcheryacc.tokenMatcher = tokenMatcher
+        self.defaultOutfun = defaultOutfun
         self.lexer = lex.lex(module=matcheryacc)
         self.parser = yacc.yacc(module=matcheryacc,  debug=debug) 
     
@@ -21,5 +22,7 @@ class MatcherCompiler:
         matcher = self.parser.parse(s, lexer=self.lexer)
         if outfun is not None: 
             matcher.outfun = outfun
+        elif self.defaultOutfun is not None:
+             matcher.outfun = self.defaultOutfun
         return matcher
        
