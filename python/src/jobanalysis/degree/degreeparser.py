@@ -8,43 +8,37 @@ from degreelabeler import *
 
 degreeMatcher1 = matcherCompiler.parse("DE_LEVEL (, DE_LEVEL)* (OR DE_LEVEL)? DEGREE")
 
-degreeMatchers = [ degreeMacher1 ]
+degreeMatchers = [ degreeMatcher1 ]
 
 
 majorMatcher1 = matcherCompiler.parse("(IN| OF) DT? MAJOR " )
 majorMatchers = [ majorMatcher1 ]
 
 def getDegree(labeledArray):
-    degreeSent, matcher = matchSent(degreeMatchers, sent) 
-    result = []     
+    matcher = matchSent(degreeMatchers, labeledArray) 
+    result = []    
+    
     if matcher is not None:
         output = matcher.output()
-        found = matcher.found
-    else:
-        output = None
-        found = None
-        
-    for item in ouput:
-        if item[0] == 'DE_LEVEL':
-            result.append(item[1])
+        found = matcher.found 
+        for item in output:
+            if item[0] == 'DE_LEVEL':
+                result.append(item[1])
     
-    result
+    
+    return result
     
 def getMajor(labeledArray): 
-    degreeSent, matcher = matchSent(majorMatchers, sent) 
+    matcher = matchSent(majorMatchers, labeledArray) 
     result = []     
     if matcher is not None:
         output = matcher.output()
-        found = matcher.found
-    else:
-        output = None
-        found = None
-        
-    for item in ouput:
-        if item[0] == 'DE_LEVEL':
-            result.append(item[1])
+        found = matcher.found 
+        for item in output:
+            if item[0] == 'DE_LEVEL':
+                result.append(item[1])
     
-    result
+    return result
     
     
 def parseDegreeSent( model, sent ): 

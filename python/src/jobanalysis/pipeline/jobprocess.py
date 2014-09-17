@@ -15,6 +15,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 from nltk.tokenize import sent_tokenize, word_tokenize
 from jobdescparser import JobDescParser, JobDesc
 from jobaly.db.dbclient import DbClient
+from degree import degreeparser
 
 def replaceCode(line):
     line =  re.sub (ur"\u2022|\u00b7|\uf09f|\uf0a7|\u0080|\u0099|\u00a2|\u0095|\u00d8|\u00bf|\u00c2|\u2219|\u20ac|\u2122", "",line)
@@ -90,7 +91,7 @@ def processSents(jobModel,  sents ):
 
 def termsMatching(terms, sent):
 
-    print sent.encode("GBK", "ignore")
+  #  print sent.encode("GBK", "ignore")
     tokens = [ token.lower() for token in word_tokenize(sent)]
     for term in  terms:      
         if term in tokens : 
@@ -105,7 +106,7 @@ def isSkillSent(sent):
     return False   
 
 def parseDegree(jobModel, sent ):
-    pass
+    degreeparser.parseDegreeSent(jobModel, sent )
        
 def parseSkill(jobModel, sent ):
     pass    
@@ -120,7 +121,7 @@ def processjobs():
       
      for job in collection.find(): 
          sents = preprocess(job)
-         jobModel = []
+         jobModel = {}
          processSents(jobModel,  sents )
          
    
