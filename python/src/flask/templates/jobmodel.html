@@ -1,0 +1,54 @@
+{% extends "simple_layout.html" %}
+
+{% block mainpart %}
+      
+      <div id="jobdetail" class="whitepaper" style="width:500px;float:left" >
+            <div   >
+                <div id="detail_jobtitle" > {{job.jobtitle}} </div>
+                <div> 
+                    <span> {{job.location}}   </span> 
+                    <span>  {{job.company}}   </span> 
+                    <a href="{{job.url}}" target="_blank" >Link</a>
+                    <a href="/jobparas.html?jobid={{job._id}}" target="_blank" >Paragraph</a>
+                </div>
+                <div style="height:1px;background-color:black;width=100%;margin-top:10px;margin-bottom:10px"></div>
+                <div> 
+                  {% autoescape false %}
+                      {{job.summary}}
+                  {% endautoescape %}
+                </div>
+            </div>     
+       </div> 
+     
+    
+       <div   class="whitepaper" style="width:500px;float:left" >
+            <div   >
+                <div id="detail_jobtitle" > {{job.jobtitle}} </div>
+                <div> 
+                    <span> {{job.location}}   </span> 
+                    <span>  {{job.company}}   </span> 
+                    <a href="{{job.url}}" target="_blank" >Link</a>
+                </div>
+                <div style="height:1px;background-color:black;width=100%;margin-top:10px;margin-bottom:10px"></div>
+                <div>                   
+                   
+                    <span style="font-size:15px" >Degree:  </span>  
+                    <ol>
+                        {% for degree in model.degree %}
+                         <li>{{degree}}</li>
+                        {% endfor %}
+                    </ol>
+                     
+                    <span style="font-size:15px" > Major: </span> 
+                    <ol>
+                        {% for major in model.major %}
+                         <li>{{major}}</li>
+                        {% endfor %}
+                    </ol>  
+                 
+                </div>
+            </div>     
+       </div> 
+     
+      
+{% endblock %}

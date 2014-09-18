@@ -11,6 +11,7 @@ dbinfo = {}
 dbinfo["pagesize"] = 20
 dbinfo['dbname'] = "jobaly_daily_test"  
 dbinfo['collname'] = "daily_job_webdev"
+dbinfo['modelcollname'] = dbinfo['collname']+"_model"
 
 app = Flask(__name__)     
 dataHandler = DataHandler()     
@@ -84,6 +85,14 @@ def  jobParagraghs():
    jobDesc = JobDescParser.parseJobDesc(job)
    paras = jobDesc.listParagraphs()
    return render_template('jobparas.html', dbinfo=dbinfo, job=job, paras=paras )
+
+@app.route('/jobmodel.html')    
+def  jobModel():   	
+   jobid = request.args.get('jobid', '').strip()
+   print " handle_match jobid=", jobid	 
+   job =  dataHandler.get_job(jobid)	 
+   model = dataHandler.get_model(jobid)	
+   return render_template('jobmodel.html', dbinfo=dbinfo, job=job, model=model )
 
 
 @app.route('/searchjobs.html')    

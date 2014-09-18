@@ -40,6 +40,13 @@ class DataHandler:
         if len(result) > 0:
             return result[0]
         else :
+            return None            
+    
+    def get_model(self, _id):
+        result=list(self.modelCollection.find({'_id': _id }))
+        if len(result) > 0:
+            return result[0]
+        else :
             return None
         
     def matchResume(self, resume):
@@ -52,7 +59,8 @@ class DataHandler:
         
         self.dbClient = DbClient('localhost', 27017, dbName)               
         self.jobCollection = self.dbClient.getCollection(collName)  
-        self.collSize = self.dbClient.getCollectionSize(collName)     
+        self.collSize = self.dbClient.getCollectionSize(collName) 
+        self.modelCollection = self.dbClient.getCollection(collName+"_model")
         
     def getJobsByPage(self, page_size ,  page_no ):
         find_sort = None
