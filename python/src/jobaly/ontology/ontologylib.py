@@ -9,6 +9,7 @@ import rdflib
 from rdflib.namespace import RDF
 from rdflib import URIRef, BNode, Literal,  RDFS
 import re
+import copy
 
 class OntologyLib:
     
@@ -38,8 +39,9 @@ class OntologyLib:
     def getLabelDict(self):   
         termDict = {}
         result = self.getAllLabels()    
-        for entity, label  in result:           
-            termDict[str(label)] = entity
+        for entity, label  in result:  
+            className = entity.rsplit('#')[-1] 
+            termDict[str(label)] = className
         return termDict
         
     def getLabelList(self):
@@ -58,11 +60,17 @@ class OntologyLib:
                     tokenDict[token] = [label]
         return tokenDict
         
-    def getAllClassNames(self):       
-       names=[]
+    def getClassNameDict(self):       
+       self.ClassNameDict={}
        classNode = URIRef("http://www.w3.org/2002/07/owl#Class")
        for s,p,o in self.g.triples( (None,  RDF.type, classNode) ):
            classname = s.rsplit('#')[-1]           
-           names.append( classname.replace("_", " ") )
-       return names
- 
+           self.ClassNameDict[ classname.replace("_", " ") ] = classname
+       return self.ClassNameDict
+       
+    def getFullDict(self): 
+        self.fullDict = copy.deepcopy( self.getLabelDict() )         
+        for key, value in self.getClassNameDict().items():
+            self.fullDict[key] = value
+        
+        return self.fullDict
