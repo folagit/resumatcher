@@ -6,8 +6,6 @@ Created on Fri Sep 05 00:03:18 2014
 """
 
 import re
-
-
 import os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -16,6 +14,10 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 from jobdescparser import JobDescParser, JobDesc
 from jobaly.db.dbclient import DbClient
 from degree import degreeparser
+from jobaly.ontology.ontologylib import OntologyLib
+from skill.skillparser import SkillParser
+
+skillParser = SkillParser()
 
 def replaceCode(line):
     line =  re.sub (ur"\u2022|\u00b7|\uf09f|\uf0a7|\u0080|\u0099|\u00a2|\u0095|\u00d8|\u00bf|\u00c2|\u2219|\u20ac|\u2122", "",line)
@@ -100,14 +102,14 @@ def isDegreeSent(sent):
      terms = ["degree", "B.S.", "M.S." ,"BS", "MS", "bachelor", "master", "phd","master's"]
      return termsMatching(terms, sent)       
 
-def isSkillSent(sent):
-    return False   
+def isSkillSent(sent):    
+    return skillParser.isSkillSent(sent)   
 
 def parseDegree(jobModel, sent ):
     degreeparser.parseDegreeSent(jobModel, sent )
        
 def parseSkill(jobModel, sent ):
-    pass    
+    skillParser.parseSkill(jobModel, sent)    
 
 def processTitle(jobModel, sent ):
     pass    
@@ -126,7 +128,7 @@ def processjobs():
          jobModel = {}
          jobModel["_id"] = job["_id"]
          processSents(jobModel,  sents )
-         modelColl.insert(jobModel)
+         modelColl.save(jobModel)
    
      
 def main(): 
