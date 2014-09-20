@@ -16,6 +16,7 @@ from jobaly.db.dbclient import DbClient
 from degree import degreeparser
 from jobaly.ontology.ontologylib import OntologyLib
 from skill.skillparser import SkillParser
+from model.jobmodel import JobModel
 
 skillParser = SkillParser()
 
@@ -125,10 +126,9 @@ def processjobs():
       
      for job in collection.find():       
          sents = preprocess(job)
-         jobModel = {}
-         jobModel["_id"] = job["_id"]
+         jobModel = JobModel(job["_id"])       
          processSents(jobModel,  sents )
-         modelColl.save(jobModel)
+         modelColl.save(jobModel.serialize())
    
      
 def main(): 

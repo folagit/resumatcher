@@ -34,17 +34,25 @@
                    
                     <span style="font-size:15px" >Degree:  </span>  
                     <ol>
-                        {% for degree in model.degree %}
+                        {% for degree in model.degrees %}
                          <li>{{degree}}</li>
                         {% endfor %}
                     </ol>
                      
                     <span style="font-size:15px" > Major: </span> 
                     <ol>
-                        {% for major in model.major %}
+                        {% for major in model.majors %}
                          <li>{{major}}</li>
                         {% endfor %}
                     </ol>  
+                    
+                    <span style="font-size:15px" > Skills: </span> 
+                    <ol>
+                        {% for skill in model.skills %}
+                         <li>{{skill}}</li>
+                        {% endfor %}
+                    </ol>  
+                 
                  
                 </div>
             </div>     

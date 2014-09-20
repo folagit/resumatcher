@@ -47,8 +47,8 @@ def parseDegreeSent( model, sent ):
     majors = getMajor(labeledArray)
     print degrees
     print majors
-    model["degree"] = degrees
-    model["major"] = majors
+    model.addDegrees( degrees)
+    model.addMajors ( majors) 
     
 def main(): 
        jobModel = {}

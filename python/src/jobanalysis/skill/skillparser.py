@@ -35,16 +35,16 @@ class SkillParser():
         
     def parseSkill(self, jobModel, sent):
         skillset = []
-        sent = sent.lower()
+        sent = " " +sent.lower()+ " "
         for term in self.skillTerms:
             if sent.find(term) != -1:
-                print sent.encode("GBK", "ignore")                
+            #    print sent.encode("GBK", "ignore")                
                 skillset.append(term.strip())
                 sent = sent.replace(term, " " )
-                print sent.encode("GBK", "ignore")
-                print "---------"
+            #    print sent.encode("GBK", "ignore")
+            #    print "---------"
                 
-        jobModel["skills"] = skillset
+        jobModel.addSkills( skillset )
         
 def main(): 
    skillParser = SkillParser()
