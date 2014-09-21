@@ -253,3 +253,5 @@ python/src/jobanalysis/degree/parsetab.py
 
 python/src/jobanalysis/skill/output/
 /proposal
+
+data/resumes/web/*.txt
