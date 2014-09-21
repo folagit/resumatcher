@@ -6,7 +6,7 @@ Created on Sat Sep 20 18:17:56 2014
 """
 from commonmodel import CommonModel
 
-class JobModel(CommonModel):
+class ResumeModel(CommonModel):
     
     def __init__(self, jobid):
         CommonModel.__init__(self)
