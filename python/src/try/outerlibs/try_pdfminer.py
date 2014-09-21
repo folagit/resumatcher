@@ -57,16 +57,26 @@ def document_to_text(filename, file_path):
     elif filename[-4:] == ".pdf":
         return convert_pdf_to_txt(file_path)
         
+def getlines(txt):
+    lines = txt.split("\n")
+    i = 1
+    print "line #", len(lines)
+    for line in lines :
+       print len(lines), ":",i, ":", len(line) , ">>" , line
+       i+=1     
+       if i > len(lines) -1  :
+           break
+        
 def main(): 
   pdffile = "frank-cv.pdf"
 #  pdffile = "simple1.pdf"
+  pdffile = "Sandeep-Java.pdf"
+  pdffile = "Huang-Liu.pdf"
+  
   txt = convert_pdf_to_txt(pdffile)
   print "len of pdf =" , len(txt)
  # print txt[:100]
-  sents = txt.split('\n')
-  for sent in sents[:50]:
-      print sent
- # print txt.encode("GBK", "ignore")
+  getlines(txt)
     
 if __name__ == "__main__": 
     main()   
