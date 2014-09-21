@@ -4,7 +4,17 @@ Created on Sun Sep 21 17:26:04 2014
 
 @author: dlmu__000
 """
-
+  
+    
+def tranferDegree(degees):
+    degreeDict = {"HS_LEVEL": 1,  "AS_LEVEL": 2,  "BS_LEVEL": 3, "MS_LEVEL": 4, "GRAD_LEVEL": 5, "PHD_LEVEL": 6 }
+    degeesList = list(degees)
+    degreeNum = []
+    for degree in degeesList:
+        degreeNum.append(degreeDict[degree])
+    degreeNum = sorted(degreeNum, reverse=True)    
+    return degreeNum
+  
 class ModelSimilarity():
     
     def __init__(self):
