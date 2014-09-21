@@ -126,5 +126,12 @@ def test_parseTree():
     sent = "He created the robot and broke it after making it."
     s = parsetree( sent , relations=True, lemmata=True)
     print repr(s)
-
-testTokenize()
+    
+def test_tokenize():
+    from pattern.en import tokenize   
+    
+    sent = "Randstad Technologies - Baltimore , MD - June 2014 to Present Responsibilities Johns Hopkins University , Krieger School of Arts & Sciences June 2014 - present Input Content for websites using the WordPress interface Modified and configured WordPress plug-ins and themes to match design Created Email template for Dean 's Newsletter Launched website and created redirects using .htaccess and Apache conf file"
+    lines =  tokenize(sent)
+    print lines
+    
+test_tokenize()
