@@ -83,12 +83,15 @@ def processLine(line):
 def preprocess( sents ) :
     sents2 = []
     for line in sents:     
-        sents2.extend( processLine(line)  )
+        newline = processLine(line)
+    #    print "newline==" , newline
+        sents2.append(  newline )
     
     return sents2
     
 def processSents(resumeModel,  sents ):  
     for sent in sents:
+      #  print "sent==" , sent
         if isDegreeSent(sent):
             print "degree = ",  sent
             parseDegree(resumeModel, sent )
@@ -157,7 +160,7 @@ def processResumes():
    #  for resume in collection.find():   
      resume = resumeColl.find_one()  
      resumeModel = parseResume(resume)   
-     modelColl.save(resumeModel.serialize())
+  #   modelColl.save(resumeModel.serialize())
      
      saveResumeModels(resumeColl, modelColl)
     
