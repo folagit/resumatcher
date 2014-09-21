@@ -9,12 +9,12 @@ class CommonModel():
     
     def __init__(self):       
         self.majors = set()
-        self.degees = set()
+        self.degrees = set()
         self.skills = set()
         
     def addDegrees(self, degrees):
         for a in degrees:
-            self.degees.add(a)            
+            self.degrees.add(a)            
             
     def addMajors(self, majors):
         for a in majors:
@@ -26,7 +26,7 @@ class CommonModel():
             
     def serialize(self):
         objDict = {}
-        objDict["degrees"] = list(self.degees)
+        objDict["degrees"] = list(self.degrees)
         objDict["majors"] = list(self.majors)
         objDict["skills"] = list(self.skills)
         

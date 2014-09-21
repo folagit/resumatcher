@@ -7,7 +7,7 @@ Created on Sun Sep 21 17:26:04 2014
   
     
 def tranferDegree(degees):
-    degreeDict = {"HS_LEVEL": 1,  "AS_LEVEL": 2,  "BS_LEVEL": 3, "MS_LEVEL": 4, "GRAD_LEVEL": 5, "PHD_LEVEL": 6 }
+    degreeDict = {"HS_LEVEL": 1,  "AS_LEVEL": 2,  "BS_LEVEL": 3, "MS_LEVEL": 4, "PHD_LEVEL": 5, "GRAD_LEVEL": 6 }
     degeesList = list(degees)
     degreeNum = []
     for degree in degeesList:
@@ -33,10 +33,18 @@ class ModelSimilarity():
         return sumValue
         
     def getDegreeSim(self, resumeModel,  jobModel):
-        resumeDegree = resumeModel.degree
-        jobDegree = jobModel.degree
+        resumeDegree = resumeModel.degrees
+        jobDegree = jobModel.degrees        
+        resumeNum = tranferDegree(resumeDegree)
+        jobNum = tranferDegree(jobDegree)
+        resumeHigh = resumeNum[0]
+        jobHigh = jobNum[0]
         
-        
+        for jobn in jobNum:
+            if resumeHigh >= jobn : 
+                return 1
+             
+        return 0
         
     def getMajorSim(self, resumeModel,  jobModel):
         return 1 
