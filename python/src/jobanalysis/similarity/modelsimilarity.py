@@ -19,9 +19,9 @@ similarity_matrix = [[1, 0.1981, 0.2087, 0.2439, 0.0665, 0.0253, 0.0189, 0.023, 
                      [0.0031, 0.0032, 0.0037, 0.0033, 0, 0.018, 0.0057, 0.0147, 1]]  
 
 def transferSkills(skills):
-    skillList = []
+    skillList = set()
     for skill in skills :
-        skillList.append(termsDict[skill])
+        skillList.add(termsDict[skill])
     return skillList
 
 def transferDegree(degees):
@@ -79,8 +79,19 @@ class ModelSimilarity():
         
     def getSkillSim(self, resumeModel,  jobModel):
         resumeSkills =  transferSkills(resumeModel.skills)
-        jobSkills =  transferSkills(jobModel.skills )  
-        
-        return 1 
+        jobSkills =  transferSkills(jobModel.skills)  
+        skillLen = len(jobSkills)
+        score = 0
+        for skill in jobSkills :
+            if skill in resumeSkills :
+                score += 1
+            else :
+                sims = []
+                for reskill in resumeSkills:
+                    s = similarity_matrix[skill][reskill]
+                    sims.append(s)
+                score += max(sims)
+        print "skill score=" , score
+        return score/skillLen 
         
         
