@@ -12,6 +12,7 @@ from nltk.tokenize import word_tokenize
 from jobaly.db.dbclient import DbClient
 import math
 from pprint import pprint 
+import json
 
 def getMinDistance(tokens, term1, term2):
     list1 = []
@@ -98,10 +99,11 @@ def getDisMatrixFromColletion():
         docs.append(doc)
         
      terms=["javascript", "jquery", "html", "css", "java", "jsp", "python", "ruby", "ror"  ]
-     terms=["java","jdbc","spring","hibernate","mysql","oracle"]
-     result = getDistanceMatrix(docs, terms)   
-     printDisMatrix(terms, result)   
-      
+ #    terms=["java","jdbc","spring","hibernate","mysql","oracle"]
+     matrix = getDistanceMatrix(docs, terms)   
+     printDisMatrix(terms, matrix)   
+     matrix_dump = json.dumps(matrix)
+     print matrix_dump
 
 sent1 = "dasf adf aaa df ewe bbb werew e ewrewre ewrwe ee ee".split()
 sent2 = "dasf adf aaa df ewe bbb werew aaa e ewrewre ewrwe ee ee".split()

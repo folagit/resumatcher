@@ -4,12 +4,27 @@ Created on Sun Sep 21 17:26:04 2014
 
 @author: dlmu__000
 """
-
+degreeDict = {"HS_LEVEL": 1,  "AS_LEVEL": 2,  "BS_LEVEL": 3, "MS_LEVEL": 4, "PHD_LEVEL": 5, "GRAD_LEVEL": 6 }
 CS_RELATED=set(["MAJOR_EE", "MAJOR_INFO", "MAJOR_CE" ])
-  
-    
-def tranferDegree(degees):
-    degreeDict = {"HS_LEVEL": 1,  "AS_LEVEL": 2,  "BS_LEVEL": 3, "MS_LEVEL": 4, "PHD_LEVEL": 5, "GRAD_LEVEL": 6 }
+terms=["javascript", "jquery", "html", "css", "java", "jsp", "python", "ruby", "ror"  ]
+termsDict={"javascript":0, "jquery":1, "html":2, "css":3, "java":4, "jsp":5, "python":6, "ruby":7, "ror":8  }
+similarity_matrix = [[1, 0.1981, 0.2087, 0.2439, 0.0665, 0.0253, 0.0189, 0.023, 0.0031], 
+                     [0.1981, 1, 0.0979, 0.1328, 0.0439, 0.0232, 0.0142, 0.0266, 0.0032], 
+                     [0.2087, 0.0979, 1, 0.3569, 0.0473, 0.0103, 0.0175, 0.023, 0.0037], 
+                     [0.2439, 0.1328, 0.3569, 1, 0.0537, 0.015, 0.0153, 0.0181, 0.0033], 
+                     [0.0665, 0.0439, 0.0473, 0.0537, 1, 0.075, 0.0498, 0.0287, 0], 
+                     [0.0253, 0.0232, 0.0103, 0.015, 0.075, 1, 0.0025, 0.012, 0.018], 
+                     [0.0189, 0.0142, 0.0175, 0.0153, 0.0498, 0.0025, 1, 0.1333, 0.0057], 
+                     [0.023, 0.0266, 0.023, 0.0181, 0.0287, 0.012, 0.1333, 1, 0.0147], 
+                     [0.0031, 0.0032, 0.0037, 0.0033, 0, 0.018, 0.0057, 0.0147, 1]]  
+
+def transferSkills(skills):
+    skillList = []
+    for skill in skills :
+        skillList.append(termsDict[skill])
+    return skillList
+
+def transferDegree(degees):
     degeesList = list(degees)
     degreeNum = []
     for degree in degeesList:
@@ -37,8 +52,8 @@ class ModelSimilarity():
     def getDegreeSim(self, resumeModel,  jobModel):
         resumeDegree = resumeModel.degrees
         jobDegree = jobModel.degrees        
-        resumeNum = tranferDegree(resumeDegree)
-        jobNum = tranferDegree(jobDegree)
+        resumeNum = transferDegree(resumeDegree)
+        jobNum = transferDegree(jobDegree)
         resumeHigh = resumeNum[0]
         jobHigh = jobNum[0]
         
@@ -63,6 +78,9 @@ class ModelSimilarity():
         return 0 
         
     def getSkillSim(self, resumeModel,  jobModel):
+        resumeSkills =  transferSkills(resumeModel.skills)
+        jobSkills =  transferSkills(jobModel.skills )  
+        
         return 1 
         
         
