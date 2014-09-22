@@ -4,6 +4,8 @@ Created on Sun Sep 21 17:26:04 2014
 
 @author: dlmu__000
 """
+
+CS_RELATED=set(["MAJOR_EE", "MAJOR_INFO", "MAJOR_CE" ])
   
     
 def tranferDegree(degees):
@@ -47,7 +49,18 @@ class ModelSimilarity():
         return 0
         
     def getMajorSim(self, resumeModel,  jobModel):
-        return 1 
+        resumeMajors = resumeModel.majors 
+        jobMajors = jobModel.majors 
+        
+        for major in resumeMajors:
+            if major in jobMajors:
+                return 1
+                
+        for major in resumeMajors:
+            if major in CS_RELATED:
+                return 0.5
+        
+        return 0 
         
     def getSkillSim(self, resumeModel,  jobModel):
         return 1 
