@@ -9,6 +9,11 @@ import re
 
 def remove_non_ascii_2(text):
     return re.sub(r'[^\x00-\x7F]',' ', text)
+    
+def pdftotxt(filename):
+    cmd = ["pdftotext.exe", "-nopgbrk", filename]    
+    result = subprocess.call(cmd)
+    return result
 
 def pdftolines(filename):    
     cmd = ["pdftotext.exe", "-nopgbrk", filename]    

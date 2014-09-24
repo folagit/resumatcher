@@ -6,7 +6,7 @@ import json
 import math
 import os
 from jobanalysis.jobdescparser import JobDescParser 
-
+from filetotxt import fileToTxt
 
 
 
@@ -201,10 +201,12 @@ def upload():
         path = os.path.join(app.config['UPLOAD_FOLDER'] , filename)
         print "path=", path
         file.save( path )
+        resume = fileToTxt(path)
+        app.config['resume'] = resume
+        content = resume.replace("\n", "<br>")
         # Redirect the user to the uploaded_file route, which
         # will basicaly show on the browser the uploaded file
-        return redirect(url_for('uploaded_file',
-                                filename=filename))
+        return render_template('set_resume.html', resume=content )
 
 # This route is expecting a parameter containing the name
 # of a file. Then it will locate that file on the upload
