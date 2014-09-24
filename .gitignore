@@ -258,3 +258,4 @@ data/resumes/web/*.txt
 python/src/jobanalysis/resume/parser.out
 python/src/jobanalysis/resume/parsetab.py
 python/src/try/flask/uploads/
+python/src/flask/uploads/
