@@ -257,3 +257,4 @@ python/src/jobanalysis/skill/output/
 data/resumes/web/*.txt
 python/src/jobanalysis/resume/parser.out
 python/src/jobanalysis/resume/parsetab.py
+python/src/try/flask/uploads/
