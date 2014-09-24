@@ -1,11 +1,16 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, \
-     render_template, flash, _app_ctx_stack
-from flask import request     
+     render_template, flash, _app_ctx_stack,  send_from_directory
+from werkzeug import secure_filename  
 from data_handler import DataHandler
 import json
 import math
-
+import os
 from jobanalysis.jobdescparser import JobDescParser 
+
+
+
+
+
 
 dbinfo = {}
 dbinfo["pagesize"] = 20
@@ -17,6 +22,9 @@ app = Flask(__name__)
 dataHandler = DataHandler()     
 dataHandler.connectJobColl(dbinfo['dbname'] , dbinfo['collname'])
   
+UPLOAD_FOLDER = 'uploads/'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'doc', 'docx'])
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
      
 @app.route('/layout.html')
 def handle_layout():
@@ -170,6 +178,43 @@ def  ajax_connectColl():
     app.logger.debug(" ajax_connectColl dbName=" + dbName +"; collName ="+ collName )
 
     result = {}
+    
+@app.route('/set_resume.html')    
+def  set_resume():    	
+	
+	return render_template('set_resume.html')
+    
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+@app.route('/uploadresume', methods=['POST'])
+def upload():
+    # Get the name of the uploaded file
+    file = request.files['file']
+    # Check if the file is one of the allowed types/extensions
+    if file and allowed_file(file.filename):
+        # Make the filename safe, remove unsupported chars
+        filename = secure_filename(file.filename)
+        # Move the file form the temporal folder to
+        # the upload folder we setup
+        path = os.path.join(app.config['UPLOAD_FOLDER'] , filename)
+        print "path=", path
+        file.save( path )
+        # Redirect the user to the uploaded_file route, which
+        # will basicaly show on the browser the uploaded file
+        return redirect(url_for('uploaded_file',
+                                filename=filename))
+
+# This route is expecting a parameter containing the name
+# of a file. Then it will locate that file on the upload
+# directory and show it on the browser, so if the user uploads
+# an image, that image is going to be show after the upload
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename)
+
 
 if __name__ == '__main__':
     
