@@ -1,18 +1,31 @@
 {% extends "simple_layout.html" %}
 
 {% block headerpart %}
-  
+   {% include "header.html" %}    
 {% endblock %}	
 
 {% block mainpart %}
    
    
    <div style="width:820px" class="whitepaper" >
-      <form action="/uploadresume" method=post enctype=multipart/form-data>
-          <p><input type=file name=file>
-             <input type=submit value=Upload>
+      <form action="/uploadresume" method="post" enctype="multipart/form-data" >
+          <p><input type="file" name="file" >
+             <input type="submit" value="Upload" >
       </form>
-       
+      
      
+    </div>
+    <div style="width:820px" class="whitepaper" >
+        
+        <div> 
+             <span style="font-size: 22px" >Resume File Name: {{filename}}</span>
+                     
+        </div>
+        <div style="height:20px; width:40px;fontweight:bold;"></div>
+         
+           {% autoescape false %}
+             {{resume}}
+           {% endautoescape %}
+       
     </div>
 {% endblock %}

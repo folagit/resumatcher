@@ -7,6 +7,11 @@ Created on Wed Sep 24 14:24:03 2014
 import os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from jobaly.pdf import pdftotxt
+import re
+
+def remove_non_ascii_2(text):
+    return re.sub(r'[^\x00-\x7F]',' ', text)
+    
 
 def fileToTxt(filepath):
      
@@ -22,7 +27,8 @@ def fileToTxt(filepath):
     print "txtfile =", filepath
     with open(txtfile, 'r') as content_file:
         content = content_file.read()
-            
+        content = remove_non_ascii_2(content) 
+        content = content.replace("\n", "<br>")
     return content
     
 def main(): 

@@ -10,8 +10,6 @@ from filetotxt import fileToTxt
 
 
 
-
-
 dbinfo = {}
 dbinfo["pagesize"] = 20
 dbinfo['dbname'] = "jobaly_daily_test"  
@@ -25,6 +23,8 @@ dataHandler.connectJobColl(dbinfo['dbname'] , dbinfo['collname'])
 UPLOAD_FOLDER = 'uploads/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'doc', 'docx'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['resume'] = ""   
+app.config['resume_name'] = ""
      
 @app.route('/layout.html')
 def handle_layout():
@@ -180,9 +180,10 @@ def  ajax_connectColl():
     result = {}
     
 @app.route('/set_resume.html')    
-def  set_resume():    	
-	
-	return render_template('set_resume.html')
+def  set_resume():    	    
+    content = app.config['resume']   
+    filename = app.config['resume_name']
+    return render_template('set_resume.html', resume=content, filename=filename )
     
 def allowed_file(filename):
     return '.' in filename and \
@@ -203,10 +204,11 @@ def upload():
         file.save( path )
         resume = fileToTxt(path)
         app.config['resume'] = resume
-        content = resume.replace("\n", "<br>")
+        app.config['resume_name'] = filename
+        
         # Redirect the user to the uploaded_file route, which
         # will basicaly show on the browser the uploaded file
-        return render_template('set_resume.html', resume=content )
+        return render_template('set_resume.html', resume=resume, filename=filename )
 
 # This route is expecting a parameter containing the name
 # of a file. Then it will locate that file on the upload
