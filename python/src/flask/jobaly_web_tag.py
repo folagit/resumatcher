@@ -181,8 +181,8 @@ def  ajax_connectColl():
     
 @app.route('/set_resume.html')    
 def  set_resume():    	    
-    content = app.config['resume']   
-    filename = app.config['resume_name']
+    content = session['resume']   
+    filename = session['resume_name']
     return render_template('set_resume.html', resume=content, filename=filename )
     
 def allowed_file(filename):
@@ -203,8 +203,8 @@ def upload():
         print "path=", path
         file.save( path )
         resume = fileToTxt(path)
-        app.config['resume'] = resume
-        app.config['resume_name'] = filename
+        session['resume'] = resume
+        session['resume_name'] = filename
         
         # Redirect the user to the uploaded_file route, which
         # will basicaly show on the browser the uploaded file
@@ -221,5 +221,5 @@ def uploaded_file(filename):
 
 
 if __name__ == '__main__':
-    
+    app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
     app.run( host='0.0.0.0',  debug=True)
