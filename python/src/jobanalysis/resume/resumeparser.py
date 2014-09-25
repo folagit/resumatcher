@@ -126,8 +126,9 @@ def parseSkill(jobModel, sent ):
 def processTitle(jobModel, sent ):
     pass 
 
-def getResumeSents(lines):
+def getResumeSents(content):
     newlines = []
+    lines = content.split("\n")
     for line in lines:
         linelist = splitSentences(line)
         for newline in linelist:
@@ -142,7 +143,10 @@ def getResumeSents(lines):
     return newlines
 
 def parseResume(resume):  
-    resumeModel = ResumeModel(str(resume["_id"]))
+    if resume.has_key("_id") :
+        resumeModel = ResumeModel(str(resume["_id"]))
+    else :
+        resumeModel = ResumeModel()
     sents = getResumeSents(resume["text"])
     sents = preprocess(sents)    
     processSents(resumeModel,  sents )       

@@ -8,7 +8,7 @@ from commonmodel import CommonModel
 
 class ResumeModel(CommonModel):
     
-    def __init__(self, resumeid):
+    def __init__(self, resumeid=None):
         CommonModel.__init__(self)
         self.resumeid = resumeid
             

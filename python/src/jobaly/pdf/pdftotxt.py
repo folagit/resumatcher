@@ -28,6 +28,18 @@ def pdftolines(filename):
             for line in content :
                 newcontent.append(remove_non_ascii_2(line))
             return newcontent
+            
+def pdfToString(filename):    
+    cmd = ["pdftotext.exe", "-nopgbrk", filename]    
+    result = subprocess.call(cmd)
+    print filename , result 
+    if result == 0 :
+        prename = filename[0:-3]         
+        txtname = prename+"txt"
+        with open(txtname) as f:
+            content = f.read()            
+            newcontent =remove_non_ascii_2(content)
+            return newcontent
     
 def main(): 
     filename = "files\\folder1\\Sandeep-Java.pdf"

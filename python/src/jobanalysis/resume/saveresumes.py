@@ -29,8 +29,8 @@ def saveResumes(path, collection):
     for pfile in pdffiles:
         filename = path+pfile
      #   print filename
-        lines = pdftotxt.pdftolines(filename)
-        collection.save({"text":lines})
+        content = pdftotxt.pdfToString(filename)
+        collection.save({"text":content})
 
 def main(): 
   path = "..\\..\\..\\..\\data\\resumes\\web\\"
@@ -38,10 +38,7 @@ def main():
   
   srcBbClient = DbClient('localhost', 27017, "jobaly_daily_test")
   resumeCollName = "web_resumes" 
-  resumemodelCollName = resumeCollName+"_model"
-  collection = srcBbClient.getCollection(resumeCollName)
-  modelColl = srcBbClient.getCollection(resumemodelCollName)
-  
+  collection = srcBbClient.getCollection(resumeCollName)  
   saveResumes(path, collection)
     
 if __name__ == "__main__": 
