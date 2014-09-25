@@ -7,7 +7,7 @@ import math
 import os
 from jobanalysis.jobdescparser import JobDescParser 
 from filetotxt import fileToTxt
-
+from jobanalysis.resume import  resumeparser  
 
 
 dbinfo = {}
@@ -205,7 +205,11 @@ def upload():
         resume = fileToTxt(path)
         session['resume'] = resume
         session['resume_name'] = filename
-        
+        resumeModel = resumeparser.parseResumeText(resume)
+        session['resumeModel'] = resumeModel
+         
+        print "ResumeModel = ", resumeModel
+                 
         # Redirect the user to the uploaded_file route, which
         # will basicaly show on the browser the uploaded file
         return render_template('set_resume.html', resume=resume, filename=filename )
@@ -218,7 +222,6 @@ def upload():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
-
 
 if __name__ == '__main__':
     app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'

@@ -19,6 +19,7 @@ from skill.skillparser import SkillParser
 from model.resumemodel import ResumeModel
 from pattern.en import tokenize   
 
+
 def splitSentences(text):
   #  print "text=", text
     lines =   text.split("   ") 
@@ -141,6 +142,13 @@ def getResumeSents(content):
   #      print i,  '>>' , line
                 
     return newlines
+
+def parseResumeText(content):
+    resumeModel = ResumeModel()
+    sents = getResumeSents(content)
+    sents = preprocess(sents)    
+    processSents(resumeModel,  sents )       
+    return resumeModel
 
 def parseResume(resume):  
     if resume.has_key("_id") :
