@@ -13,11 +13,15 @@ from nltk.tokenize import  word_tokenize
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 from jobaly.ontology.ontologylib import OntologyLib
+import os
 
 class SkillParser():
     
     def __init__(self): 
-        self.ontology = OntologyLib("..\..\jobaly\ontology\web_dev.owl")
+        cd = os.path.dirname(__file__)
+        print "cd=",cd
+        owlfile = os.path.join(cd,"..\..\jobaly\ontology\web_dev.owl" )
+        self.ontology = OntologyLib(owlfile)
         self.skillTerms = sorted( [ " "+x.lower()+" " for x in  self.ontology.getFullDict().keys() ] , key=len,  reverse=True) 
         
     def isSkillSent(self, sent):
