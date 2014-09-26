@@ -8,6 +8,7 @@ import os
 from jobanalysis.jobdescparser import JobDescParser 
 from filetotxt import fileToTxt
 from jobanalysis.resume import  resumeparser  
+from jobanalysis.similarity.modelsimilarity import ModelSimilarity
 
 
 dbinfo = {}
@@ -180,9 +181,12 @@ def  ajax_connectColl():
     result = {}
     
 @app.route('/set_resume.html')    
-def  set_resume():    	    
-    content = session['resume']   
-    filename = session['resume_name']
+def  set_resume():
+    content = ""
+    filename = ""
+    if session.has_key("resume"):    	    
+        content = session['resume']   
+        filename = session['resume_name']
     return render_template('set_resume.html', resume=content, filename=filename )
     
 def allowed_file(filename):
@@ -205,11 +209,7 @@ def upload():
         resume = fileToTxt(path)
         session['resume'] = resume
         session['resume_name'] = filename
-        resumeModel = resumeparser.parseResumeText(resume)
-        session['resumeModel'] = resumeModel
-         
-        print "ResumeModel = ", resumeModel
-                 
+                        
         # Redirect the user to the uploaded_file route, which
         # will basicaly show on the browser the uploaded file
         return render_template('set_resume.html', resume=resume, filename=filename )
@@ -222,6 +222,26 @@ def upload():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
+                               
+@app.route('/resume_match')    
+def resume_match():         
+     resume = session['resume']               
+     resumeModel = resumeparser.parseResumeText(resume)                              
+     modelColl = dataHandler.modelCollection  
+     similarity = ModelSimilarity()    
+     result = similarity.match_jobs(resumeModel , modelColl  )
+     i = 0
+     jobs = []
+     for key, value in result:
+         i += 1
+         print i,key, value
+         job = dataHandler.get_job(key)
+         job["score"] = value
+         jobs.append(job)
+         if i == 30 :
+             break
+
+     return render_template('job_match.html', jobs=jobs) 
 
 if __name__ == '__main__':
     app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'

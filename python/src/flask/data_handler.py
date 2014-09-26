@@ -17,6 +17,7 @@ class DataHandler:
           
         self.resumeCollection = self.dbClient.getCollection(gConfig["webResumeColName"]) 
         self.jobCollection = self.dbClient.getCollection(gConfig["webJobInfoCollName"])  
+        self.jobModelCollection = self.dbClient.getCollection(gConfig["jobModelCollName"])
         self.matcher = TfIdfMatch(self.jobCollection)
 
     def save_resume(self, resume_text): 
@@ -55,8 +56,7 @@ class DataHandler:
     def connectJobColl(self, dbName, collName):
         
         self.dbname = dbName 
-        self.collname = collName        
-        
+        self.collname = collName                
         self.dbClient = DbClient('localhost', 27017, dbName)               
         self.jobCollection = self.dbClient.getCollection(collName)  
         self.collSize = self.dbClient.getCollectionSize(collName) 

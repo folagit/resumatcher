@@ -4,6 +4,16 @@ Created on Sun Sep 21 17:26:04 2014
 
 @author: dlmu__000
 """
+import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+
+from jobaly.db.dbclient import DbClient
+from model.jobmodel import JobModel
+from model.resumemodel import ResumeModel
+import operator
+
 degreeDict = {"HS_LEVEL": 1,  "AS_LEVEL": 2,  "BS_LEVEL": 3, "MS_LEVEL": 4, "PHD_LEVEL": 5, "GRAD_LEVEL": 6 }
 CS_RELATED=set(["MAJOR_EE", "MAJOR_INFO", "MAJOR_CE" ])
 terms=["javascript", "jquery", "html", "css", "java", "jsp", "python", "ruby", "ror"  ]
@@ -21,7 +31,9 @@ similarity_matrix = [[1, 0.1981, 0.2087, 0.2439, 0.0665, 0.0253, 0.0189, 0.023, 
 def transferSkills(skills):
     skillList = set()
     for skill in skills :
-        skillList.add(termsDict[skill])
+  #      skill = skill.encode('ascii', errors='backslashreplace')
+        if termsDict.has_key(skill) :
+            skillList.add(termsDict[skill])
     return skillList
 
 def transferDegree(degees):
@@ -51,7 +63,13 @@ class ModelSimilarity():
         
     def getDegreeSim(self, resumeModel,  jobModel):
         resumeDegree = resumeModel.degrees
-        jobDegree = jobModel.degrees        
+        jobDegree = jobModel.degrees     
+         
+        if len(jobDegree) == 0 :
+            return 1
+        
+        if len(resumeDegree) == 0 : 
+            return 0
         resumeNum = transferDegree(resumeDegree)
         jobNum = transferDegree(jobDegree)
         resumeHigh = resumeNum[0]
@@ -81,6 +99,8 @@ class ModelSimilarity():
         resumeSkills =  transferSkills(resumeModel.skills)
         jobSkills =  transferSkills(jobModel.skills)  
         skillLen = len(jobSkills)
+        if skillLen == 0 : 
+            return 1
         score = 0
         for skill in jobSkills :
             if skill in resumeSkills :
@@ -91,7 +111,19 @@ class ModelSimilarity():
                     s = similarity_matrix[skill][reskill]
                     sims.append(s)
                 score += max(sims)
-        print "skill score=" , score
+        # print "skill score=" , score
         return score/skillLen 
-        
-        
+            
+    def match_jobs(self, resumeModel, jobColl):
+         jobscore = {}
+         for jobModelDict in jobColl.find():
+             jid = str(jobModelDict["_id"])
+             # print "jid=", jid
+             jobModel = JobModel(jid)
+             jobModel.deserialize(jobModelDict)
+             score = self.getSimilarity( resumeModel,  jobModel )
+             
+          #   print jid , "--->" ,score
+             jobscore[jid] = score
+         jobscore =  sorted(jobscore.items(), key=operator.itemgetter(1), reverse= True)     
+         return jobscore
