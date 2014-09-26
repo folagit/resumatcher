@@ -106,7 +106,7 @@ class ModelSimilarity():
             if skill in resumeSkills :
                 score += 1
             else :
-                sims = []
+                sims = [0]
                 for reskill in resumeSkills:
                     s = similarity_matrix[skill][reskill]
                     sims.append(s)
