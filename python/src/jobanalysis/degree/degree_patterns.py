@@ -55,6 +55,7 @@ degreeSeq9 = matcherCompiler.parse("DE_LEVEL , OR DEGREE_JJ")
 
 degree_matchers = [ degreeSeq2, degreeSeq4, degreeSeq6, degreeSeq7, degreeSeq8,degreeSeq9 ] 
 
+
 def main():       
 
    target_set_name = "output\\degree_3"

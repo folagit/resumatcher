@@ -33,7 +33,7 @@ def dumpTwo(listObj, fileName , lam):
 def getAllSentsInColl(collection):
     allSents = []
     for job in collection.find(): 
-      #   print "\n\n\n======",job["_id"],"============================\n"
+        print "\n\n\n======",job["_id"],"============================\n"
         jobDesc = JobDescParser.parseJobDesc(job)
         sents = [ (  jobDesc._id, sent )  for sent in  jobDesc.listAllSentences() ]
         allSents.extend(sents)  
@@ -52,6 +52,7 @@ def termsMatching(allSents,terms):
 def termMatching(allSents,term):    
     matchingSents =[]
     for (jid, sent) in allSents:
+        print sent
         tokens = [ token.lower() for token in word_tokenize(sent)]
         if term in tokens : 
             matchingSents.append((jid, sent))
@@ -80,12 +81,15 @@ def testTermsMatching():
      srcBbClient = DbClient('localhost', 27017, "jobaly_daily_test")
      newCol = srcBbClient.getCollection("daily_job_webdev")
      newCol = srcBbClient.getCollection("daily_job_info_2014-06-16")
+     newCol = srcBbClient.getCollection("daily_job_info_2014-06-10")
       
+     print "newCol=" ,newCol
      allSents =  getAllSentsInColl(newCol) 
      
      terms = ["degree", "B.S.", "M.S." ,"BS", "MS", "bachelor", "master", "phd","master's"]
      matchingSents = termsMatching(allSents,terms)     
-     dumpTwo(matchingSents, "sents\\degree_raw" , ( lambda x: x[0] + ":" + x[1] ) )     
+   #  dumpTwo(matchingSents, "sents\\degree_raw" , ( lambda x: x[0] + ":" + x[1] ) )  
+     dumpTwo(matchingSents, "sents\\degree_0610" , ( lambda x: x[0] + ":" + x[1] ) )     
   
 import   operator
 def wordStat():

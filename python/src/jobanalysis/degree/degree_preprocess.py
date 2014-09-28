@@ -88,6 +88,9 @@ def main():
    data_set_name = "output\\degree_raw"  
    target_set_name = "output\\degree_3"   
    
+   data_set_name = "output\\degree_0610"  
+   target_set_name = "output\\degree_after_0610"  
+   
    preProcess(data_set_name, target_set_name)
  
 if __name__ == "__main__": 
