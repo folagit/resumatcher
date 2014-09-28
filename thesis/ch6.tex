@@ -1,5 +1,39 @@
 \chapter{EVALUATION}
 
+The Information Extraction and the Ontology Similarity modules are two important part of the system.  We will evaluate them respectively. 
+
+\section{Experiments of Information Extraction }
+
+To evaluate the performance of information extraction, we get some sentences by the sentence filters, different sentence filter can extract different kinds of sentences. We use degree sentences to explain the process: 
+ 
+In the experiment, we selected 100 sentences from job descriptions that are requirements of candidates degree and major. The value of degree and major are labeled manually. We use patterns to  match and extract the degree information from the sentences. The pattern is gotten from the observation of sentences. As we add more pattern, the accuracy of information increased as well. When we used 6 patterns, the accuracy of degree became 94\%. Figure \ref{fig:degree_accuracy} show the accuracy with number of patterns. 
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.5]{images/degree_accuracy.png}
+  \caption{Degree Extraction  Accuracy}
+  \label{fig:degree_accuracy}
+\end{figure}
+
+
+\begin{table}[ht]
+\caption{Information Extraction} % title of Table
+\centering % used for centering table
+\begin{tabular}{   | c | c | c | c |   }
+ \hline
+                     type   & Precision & Recall     \\
+ \hline
+                     Degree & 0.94      & 0.99         \\
+ \hline
+                     Degree & 0.94      & 0.99      \\
+ \hline
+                     Degree & 0.94      & 0.99        \\
+ \hline
+\end{tabular}
+\label{tab:ie} % is used to refer this table in the text
+\end{table}
+
+
 To evaluate the system, some measures will be used. We also proposed two evaluation method: Pre-collected Data and User's direct experience.
 
 \section{Basic measures of the system}
@@ -33,7 +67,7 @@ Given a set of candidates that satisfy the filtering conditions, we would like t
 the job requirements at the top. We create a query q from the job requirements and treat the text of the candidate resumes as documents d and apply standard ad-hoc retrieval techniques to rank the candidates. The different retrieval algorithms we use are Okapi BM25 (from the Lemur toolkit), Kullback{Leibler divergence of language models with Dirichlet smoothing (also from the Lemur toolkit) and the TF-IDF scoring model in Lucene. Since the job descriptions are fairly verbose we also experiment with a retrieval model where certain terms that are important to the quality of the match are weighted up in the TF-IDF scoring model. In our experiments we extracted the skills from the job description using a simple dictionary based extraction method where the dictionary consisted of a set of skills that we extracted using the system described in Section 4 from all the resumes in our system (across all the jobs).
 
 For our experiments to compare the various retrieval methods we used 8 job descriptions and retrieved the top 20 candidate resumes for each method and judged the relevance of these against the job description. The jobs we chose had an
-average of 2000 candidates per job. Since we were interested in screening we also evaluated the 20 bottom ranked candidates. For the bottom ranked candidates, all of the methods performed equally well and we found no relevant candidates 
+average of 2000 candidates per job. Since we were interested in screening we also evaluated the 20 bottom ranked candidates. For the bottom ranked candidates, all of the methods performed equally well and we found no relevant candidates
 in that set for any of the methods. To compare performance of retrieval methods for the top results returned, we used
 both NDCG [10] and Precision @ k. Figure 12 summarizes our results and we see that Lucene TF-IDF scoring with
 boosting of skill terms performs the best. This agrees with results in [2] where it was found that finding and weighting
@@ -50,7 +84,7 @@ significantly improved (around 30 \%) by application of the filter.
 \caption{Evaluation of Job Ranking } % title of Table
 \centering % used for centering table
 \begin{tabular}{   | c | c | c | c | c | c |  }
- \hline 
+ \hline
                 & k    & Okapi BM25 & KL   & TF-IDF & Ontology Similarity  \\
  \hline
      Experience & with & TERM       & TERM & dd     & and   \\
