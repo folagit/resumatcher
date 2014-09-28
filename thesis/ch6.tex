@@ -23,6 +23,60 @@ where $Z_{kj}$ is a normalization factor calculated to make it so that a perfect
 
 Some resumes will be pre-collected, and some their matched jobs will be found manually. These jobs will be put into the job database with some other unrelated jobs.  When searching the jobs with the resume, we can get precision, recall and F measure of the system. With ranking positions of the searching results we could calculate the NDCG measure.
 
+\section{Experimental Setup}
+
+
+
+\section{Experimental Results}
+
+Given a set of candidates that satisfy the filtering conditions, we would like to display candidates that better match
+the job requirements at the top. We create a query q from the job requirements and treat the text of the candidate resumes as documents d and apply standard ad-hoc retrieval techniques to rank the candidates. The different retrieval algorithms we use are Okapi BM25 (from the Lemur toolkit), Kullback{Leibler divergence of language models with Dirichlet smoothing (also from the Lemur toolkit) and the TF-IDF scoring model in Lucene. Since the job descriptions are fairly verbose we also experiment with a retrieval model where certain terms that are important to the quality of the match are weighted up in the TF-IDF scoring model. In our experiments we extracted the skills from the job description using a simple dictionary based extraction method where the dictionary consisted of a set of skills that we extracted using the system described in Section 4 from all the resumes in our system (across all the jobs).
+
+For our experiments to compare the various retrieval methods we used 8 job descriptions and retrieved the top 20 candidate resumes for each method and judged the relevance of these against the job description. The jobs we chose had an
+average of 2000 candidates per job. Since we were interested in screening we also evaluated the 20 bottom ranked candidates. For the bottom ranked candidates, all of the methods performed equally well and we found no relevant candidates 
+in that set for any of the methods. To compare performance of retrieval methods for the top results returned, we used
+both NDCG [10] and Precision @ k. Figure 12 summarizes our results and we see that Lucene TF-IDF scoring with
+boosting of skill terms performs the best. This agrees with results in [2] where it was found that finding and weighting
+up important concepts in long queries can improve retrieval performance.
+
+While keyword based scoring functions do help in making the job of the recruiter easier, it is clear that they cannot
+capture requirements such as at least 3 years of Java development. Prospect allows recruiters to filter candidates
+based on the number of years of experience they have in certain skills. In the next experiment we compared the quality
+of the ranking and with and without the filter when the job descriptions contained a requirement in terms of the number
+of years of experience for one or more skills. We see from the results in Table 13 that the ranking performance is indeed
+significantly improved (around 30 \%) by application of the filter.
+
+\begin{table}[ht]
+\caption{Evaluation of Job Ranking } % title of Table
+\centering % used for centering table
+\begin{tabular}{   | c | c | c | c | c | c |  }
+ \hline 
+                & k    & Okapi BM25 & KL   & TF-IDF & Ontology Similarity  \\
+ \hline
+     Experience & with & TERM       & TERM & dd     & and   \\
+ \hline
+     Experience & with & TERM       & TERM & dd     & and    \\
+ \hline
+\end{tabular}
+\label{tab:job_ranking} % is used to refer this table in the text
+\end{table}
+
+
+\begin{table}[ht]
+\caption{NDCG of Job Ranking } % title of Table
+\centering % used for centering table
+\begin{tabular}{   | c | c | c | c | c | c |  }
+ \hline
+                & k    & Okapi BM25 & KL   & TF-IDF & Ontology Similarity  \\
+ \hline
+     Experience & with & TERM       & TERM & dd     & and   \\
+ \hline
+     Experience & with & TERM       & TERM & dd     & and    \\
+ \hline
+\end{tabular}
+\label{tab:job_ndcg} % is used to refer this table in the text
+\end{table}
+
 \section{User Study}
 Users will be asked to use both the system and current job finding web site. We can compare some factors to evaluate the system, such as:
 \begin{enumerate}
