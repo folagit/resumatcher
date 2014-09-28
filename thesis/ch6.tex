@@ -6,7 +6,7 @@ The Information Extraction and the Ontology Similarity modules are two important
 
 To evaluate the performance of information extraction, we get some sentences by the sentence filters, different sentence filter can extract different kinds of sentences. We use degree sentences to explain the process: 
  
-In the experiment, we selected 100 sentences from job descriptions that are requirements of candidates degree and major. The value of degree and major are labeled manually. We use patterns to  match and extract the degree information from the sentences. The pattern is gotten from the observation of sentences. As we add more pattern, the accuracy of information increased as well. When we used 6 patterns, the accuracy of degree became 94\%. Figure \ref{fig:degree_accuracy} show the accuracy with number of patterns. 
+In the experiment, we selected 100 sentences from job descriptions that are requirements of candidates degree and major. The value of degree and major are labeled manually. We use patterns to  match and extract the degree information from the sentences. The pattern is gotten from the observation of sentences. As we add more pattern, the accuracy of information increased as well. When we used 6 patterns, the accuracy of degree became 94\%. Figure \ref{fig:degree_accuracy} show the accuracy with number of patterns. The accuracies of three fields are shown in \ref{tab:ieaccura}
 
 \begin{figure}[htbp]
   \centering
@@ -21,16 +21,16 @@ In the experiment, we selected 100 sentences from job descriptions that are requ
 \centering % used for centering table
 \begin{tabular}{   | c | c | c | c |   }
  \hline
-                     type   & Precision & Recall     \\
+                     Field   & Pattern Num & Accuracy     \\
  \hline
-                     Degree & 0.94      & 0.99         \\
+                     Degree & 6         & 0.94         \\
  \hline
-                     Degree & 0.94      & 0.99      \\
+                     Major  & 10        & 0.85      \\
  \hline
-                     Degree & 0.94      & 0.99        \\
+                     Skill  & 6         & 0.82        \\
  \hline
 \end{tabular}
-\label{tab:ie} % is used to refer this table in the text
+\label{tab:ieaccura} % is used to refer this table in the text
 \end{table}
 
 
