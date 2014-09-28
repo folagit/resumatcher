@@ -126,7 +126,7 @@ Where F is salience of a set features, and $\alpha, \beta$ and $\gamma$ are weig
 Rodr{\'\i}guez and Egenhofer~\cite{rodriguez2003determining} computed similarity by sum the weighted sum of similarities between synsets, features, and neighbour concepts.
 $$ sim_{re}(a,b) = w \cdot S_{synsets}(a,b) + u \cdot S_{features}(a,b) + v \cdot S_{neighborhoods}(a,b) $$
 
-The feature-based methods consider more semantic knowledge than path-based methods. But only big ontologies/thesauri like Wordnet~\cite{miller1995wordnet} have this kind of information. Ding et al.~\cite{ding2004swoogle} had revealed that domain ontologies very occasionally model any semantic feature apart from taxonomical relationship. 
+The feature-based methods consider more semantic knowledge than path-based methods. But only big ontologies/thesauri like Wordnet~\cite{miller1995wordnet} have this kind of information. Ding et al.~\cite{ding2004swoogle} had revealed that domain ontologies very occasionally model any semantic feature apart from taxonomical relationship.
 
 \subsection{Content-based measures}
 
@@ -222,9 +222,28 @@ $ ~~ $
 
 To evaluate this measure, we select 99999 job descriptions, and 99 terms to see the result. We got the relevance matrix in table~\ref{tab:dismatrix} by using the algorithm. Considering the skill HTML, the most relevance skills in order are CSS, Javascript, and jQuery,  which is correct from the perspective of a experienced developer. The other example is Java, the most relevant skill in the matrix is JSP, which is the same as the technical relevance.
 
+
 \begin{table}
 
-\caption{Skills Similarity Table}
+\caption{Skills Similarity Table 1}
+\begin{tabular}{ c | c c c c c c   }
+ \hline
+  Term       &  Java  &  JDBC  & Spring & Hibernate & MySql  & Oracle   \\  \hline
+  Java   &   1    & 0.0523 & 0.091  &   0.0458  & 0.0339 & 0.0608    \\  \hline
+    JDBC   & 0.0523 &   1    & 0.0525 &   0.0799  & 0.006  & 0.0616   \\  \hline
+   Spring  & 0.091  & 0.0525 &   1    &   0.2008  & 0.0194 & 0.0878   \\  \hline
+ Hibernate & 0.0458 & 0.0799 & 0.2008 &     1     & 0.0073 & 0.115    \\  \hline
+   MySql   & 0.0339 & 0.006  & 0.0194 &   0.0073  &   1    & 0.049    \\  \hline
+   Oracle  & 0.0608 & 0.0616 & 0.0878 &   0.115   & 0.049  &   1      \\  \hline
+ \hline
+\end{tabular}
+\label{tab:dismatrix1}
+\end{table}
+
+
+\begin{table}
+
+\caption{Skills Similarity Table 2 }
 \begin{tabular}{ c | c c c c c c c c }
  \hline
   Term       & Javascript & jQuery &  HTML  &  CSS   &  Java  & Python &  Ruby  &  JSP    \\  \hline
@@ -238,7 +257,7 @@ To evaluate this measure, we select 99999 job descriptions, and 99 terms to see 
      JSP     &   0.0253   & 0.0232 & 0.0103 & 0.015  & 0.075  & 0.0025 & 0.012  &   1      \\
  \hline
 \end{tabular}
-\label{tab:dismatrix}
+\label{tab:dismatrix1}
 \end{table}
 
 
