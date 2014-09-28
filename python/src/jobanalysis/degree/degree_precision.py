@@ -10,7 +10,11 @@ import random
 
 dumpLam2 = lambda x: x[0] + " | " + str( x[1] ) + " | " + x[2]
 
- 
+
+degree_matchers_local = [ degreeSeq2  ]
+degree_matchers_local = [ degreeSeq2, degreeSeq4 ] 
+
+degree_matchers_local = [ degreeSeq2, degreeSeq4, degreeSeq6, degreeSeq7, degreeSeq8,degreeSeq9 ] 
 
 def getRadom(srcname, n):      
       data = datautils.loadJson(srcname)
@@ -33,13 +37,13 @@ def testDegree(srcname, n):
    outfileName = target_set_name + "_array.txt"
    failfilename =  target_set_name + "_array_fail.txt"
   
-   labelDegreeSet(degree_matchers, target_set_name,outfileName, failfilename) 
+   labelDegreeSet(degree_matchers_local, target_set_name,outfileName, failfilename) 
       
 def main():    
     src_set_name = "output\\degree_3"
     src_set_name = "output\\degree_after_0610"  
     n = 100
-    getRadom(src_set_name, n)
+  #    getRadom(src_set_name, n)
     testDegree(src_set_name, n)
   
 if __name__ == "__main__": 
