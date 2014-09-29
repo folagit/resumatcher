@@ -35,16 +35,16 @@ In the experiment, we selected 100 sentences from job descriptions that are requ
 
 \section{Experiments of Ontology Similarity}
 
-From the table ~\ref{tab:dismatrix2} we got similarity value between skills. There is no standard criteria to measure the similarity of two entities.  To evaluate the accuracy of our result, we compare the result with human labeled data. We tested the two data sets. 
+From the table ~\ref{tab:dismatrix2} we got similarity value between skills. There is no standard criteria to measure the similarity of two entities.  To evaluate the accuracy of our result, we compare the result with human labeled data. We tested the two data sets.
 
-  
- 
+
+
 \begin{table}
 \centering
 \caption{ Javascript Similarity Evaluation : NDCG = 0.94 }
 \begin{tabular}{ | c | c | c  | c |  }
  \hline
-    Term     &  Similarity Value  &  Position   & Relevance     \\  \hline  
+    Term     &  Similarity Value  &  Position   & Relevance     \\  \hline
     jQuery   &  0.1981            &      4      &   8        \\
      HTML    &  0.2087            &      3      &   4         \\
      CSS     &  0.2439            &      2      &   3   \\
@@ -76,89 +76,68 @@ From the table ~\ref{tab:dismatrix2} we got similarity value between skills. The
 \label{tab:simcompare2}
 \end{table}
 
-  
+
 
 To evaluate the system, some measures will be used. We also proposed two evaluation method: Pre-collected Data and User's direct experience.
 
 \section{Basic measures of the system}
 
-In traditional information retrieval system, some measures are widely used~\cite{manning2008introduction}. These measures include:
-
-\begin{enumerate}
-    \item Precision ($P$) is the fraction of retrieved documents that are relevant .
+In traditional information retrieval system, precision and NDCG are widely used measures ~\cite{manning2008introduction}.     Precision ($P$) is the fraction of retrieved documents that are relevant .
        $$  Precision =  \frac{ \#(releveant~items~ retrieved)}{ \#(retrieved~items)}$$
-    \item Recall ($R$) is the fraction of relevant documents that are retrieved.
-       $$  Recall =  \frac{ \#(releveant~items~ retrieved)}{ \#(releveant~items)}$$
-    \item $F measure$ ($F_1 score$) trades off precision versus recall.
-       $$ F_1 = 2 \cdot \frac{ Precision \cdot Recall}{ Precision + Recall } $$
-    \item Since the results are ranked, $ Normalized~Discounted~Cumulative~Gain ( NDCG )$ will be an important measure to evaluate the ranked retrieval results. For a set of queries $Q$, let $R(j,d)$ be the relevance score assessors gave to document $d$ for query $j$.
+   
+Since the results are ranked, $ Normalized~Discounted~Cumulative~Gain ( NDCG )$ will be an important measure to evaluate the ranked retrieval results. For a set of queries $Q$, let $R(j,d)$ be the relevance score assessors gave to document $d$ for query $j$.
        $$ NDCG(Q,k) = \frac {1}{|Q|} \sum_{j=1}^{|Q|}{Z_{kj}} \sum_{m=1}^{k} \frac{2^{R(j,m)} - 1}{ \log_2(1+m)} $$
+       
 where $Z_{kj}$ is a normalization factor calculated to make it so that a perfect ranking's NDCG at $k$ for query $j$ is 1. For queries for which $k' < k$ documents are retrieved, the last summation is done up to $k'$.
-
-\end{enumerate}
-
-\section{Pre-collected Data}
-
-Some resumes will be pre-collected, and some their matched jobs will be found manually. These jobs will be put into the job database with some other unrelated jobs.  When searching the jobs with the resume, we can get precision, recall and F measure of the system. With ranking positions of the searching results we could calculate the NDCG measure.
+ 
 
 \section{Experimental Setup}
 
-
+We collected some resumes from internet manually, and   job descriptions were collected by web crawler and stored in the database. In the evaluation phrase, we created a set of 100 job descriptions, which includes several kinds of jobs, like web developers, back-end developers, mobile developers and so on. The relevance value of job descriptions to each resume will be set manually. We would like to display jobs  that better match the candidate' resumes at the top. We create a query q from the resume, and treat the text of the job descriptions as documents d and apply standard ad-hoc retrieval techniques to rank the jobs.  The different retrieval algorithms we use are Okapi BM25~\cite{robertson2009probabilistic} ,   Kullback-Leibler divergence, and the TF-IDF. Since the job descriptions are fairly verbose we also experiment with a retrieval model where certain terms that are important to the quality of the match are weighted up in the TF-IDF scoring model.
 
 \section{Experimental Results}
 
-Given a set of candidates that satisfy the filtering conditions, we would like to display candidates that better match
-the job requirements at the top. We create a query q from the job requirements and treat the text of the candidate resumes as documents d and apply standard ad-hoc retrieval techniques to rank the candidates. The different retrieval algorithms we use are Okapi BM25 (from the Lemur toolkit), Kullback{Leibler divergence of language models with Dirichlet smoothing (also from the Lemur toolkit) and the TF-IDF scoring model in Lucene. Since the job descriptions are fairly verbose we also experiment with a retrieval model where certain terms that are important to the quality of the match are weighted up in the TF-IDF scoring model. In our experiments we extracted the skills from the job description using a simple dictionary based extraction method where the dictionary consisted of a set of skills that we extracted using the system described in Section 4 from all the resumes in our system (across all the jobs).
-
-For our experiments to compare the various retrieval methods we used 8 job descriptions and retrieved the top 20 candidate resumes for each method and judged the relevance of these against the job description. The jobs we chose had an
-average of 2000 candidates per job. Since we were interested in screening we also evaluated the 20 bottom ranked candidates. For the bottom ranked candidates, all of the methods performed equally well and we found no relevant candidates
-in that set for any of the methods. To compare performance of retrieval methods for the top results returned, we used
-both NDCG [10] and Precision @ k. Figure 12 summarizes our results and we see that Lucene TF-IDF scoring with
-boosting of skill terms performs the best. This agrees with results in [2] where it was found that finding and weighting
+For our experiments to compare the various retrieval methods we used 8 candidate resumes  and retrieved the top 20 job descriptions  each method and judged the relevance of these against the resumes. The resumes we chose had an
+average of 100 jobs per resume.  To compare performance of retrieval methods for the top results returned, we used
+both Precision @ k e~\ref{tab:job_precision} and NDCG, shown in Table~\ref{tab:job_ndcg} . The result  shows that Ontology Similarity  performs the best. This agrees with results in  where it was found that finding and weighting
 up important concepts in long queries can improve retrieval performance.
 
-While keyword based scoring functions do help in making the job of the recruiter easier, it is clear that they cannot
-capture requirements such as at least 3 years of Java development. Prospect allows recruiters to filter candidates
-based on the number of years of experience they have in certain skills. In the next experiment we compared the quality
-of the ranking and with and without the filter when the job descriptions contained a requirement in terms of the number
-of years of experience for one or more skills. We see from the results in Table 13 that the ranking performance is indeed
-significantly improved (around 30 \%) by application of the filter.
-
 \begin{table}[ht]
-\caption{Evaluation of Job Ranking } % title of Table
+\caption{Precision of Job Ranking } % title of Table
 \centering % used for centering table
-\begin{tabular}{   | c | c | c | c | c | c |  }
+\begin{tabular}{    | c | c | c | c | c |  }
  \hline
-                & k    & Okapi BM25 & KL   & TF-IDF & Ontology Similarity  \\
+       k     & Okapi BM25 & KL    & TF-IDF & Ontology Similarity  \\
  \hline
-     Experience & with & TERM       & TERM & dd     & and   \\
+       5     & 0.13       & 0.40  & 0.54     & 0.74   \\
  \hline
-     Experience & with & TERM       & TERM & dd     & and    \\
+       10    & 0.16       & 0.36  & 0.50     & 0.66   \\
  \hline
+       20    & 0.16       & 0.35  & 0.49     & 0.61   \\
+ \hline
+
 \end{tabular}
-\label{tab:job_ranking} % is used to refer this table in the text
+\label{tab:job_precision} % is used to refer this table in the text
 \end{table}
 
 
 \begin{table}[ht]
 \caption{NDCG of Job Ranking } % title of Table
 \centering % used for centering table
-\begin{tabular}{   | c | c | c | c | c | c |  }
+\begin{tabular}{    | c | c | c | c | c |  }
  \hline
-                & k    & Okapi BM25 & KL   & TF-IDF & Ontology Similarity  \\
+       k    & Okapi BM25 & KL    & TF-IDF & Ontology Similarity  \\
  \hline
-     Experience & with & TERM       & TERM & dd     & and   \\
+       5    & 0.15       & 0.34  & 0.45     & 0.78   \\
  \hline
-     Experience & with & TERM       & TERM & dd     & and    \\
+       10   & 0.18       & 0.44  & 0.47     & 0.72   \\
  \hline
+       20   & 0.19       & 0.35  & 0.45     & 0.66   \\
+ \hline
+ 
 \end{tabular}
 \label{tab:job_ndcg} % is used to refer this table in the text
 \end{table}
 
-\section{User Study}
-Users will be asked to use both the system and current job finding web site. We can compare some factors to evaluate the system, such as:
-\begin{enumerate}
-    \item The time consumed to find satisfying jobs.
-    \item The satisfaction of search results.
-    \item The user subjective experience with the both systems.
-\end{enumerate}
+
+
