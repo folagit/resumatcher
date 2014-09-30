@@ -1,2 +1,27 @@
 \chapter{CONCLUSION}
-In this proposal I proposed a personalized job-resume matching system, which could help job seeker to find appropriate jobs more easily. In the system, job descriptions and resumes will be process by pipeline; and a finite automated tool will be used to extract the model of them. The job descriptions will be matched the user's resume, the result will be sorted by the ontology similarity. Since the most appreciate jobs will be returned in front of other jobs, the users of the system could get better result than current job finding web site. 
+In this thesis£¬ we described JobFinder a personalized job-resume matching system, which could help job seeker to find appropriate jobs more easily. 
+The key technical components of the system are information extraction and ontology matching.  
+
+In the system, job descriptions and resumes will be processed by pipeline; and a finite automated tool will be used to extract the models from them. The models include fields like degree, major, skills. 
+To find the appropriate jobs, similarities between the resume and job descriptions will be calculated.  The job descriptions will be matched the user's resume, the result will be sorted by the ontology similarity. Since the most appreciate jobs will be returned in front of other jobs, the users of the system could get better result than current job finding web site.
+
+
+ The key technical
+component that makes Prospect possible is the extraction
+of various pieces of information from resumes. Since job
+requirements often specify requirements such as at least 3
+years of Java development" we use information extracted
+from resumes to provide lters that allow screeners to nd
+candidates that match such criteria. This allows us to overcome the limitations inherent in purely keyword based matching.
+In piloting Prospect with screeners we estimated that using the tool roughly sped up the screening process by a factor
+of 20 as compared to manual screening. This speedup can be
+attributed mainly to a combination of two factors. Firstly,
+ranking the candidates by match to the job description and
+use of the lters provided based on various information extracted from the resume allows the screeners to inspect far
+fewer resumes to shortlist a given number of candidates. Secondly, showing snippets of the resume based on its match to
+the requirements of the job and based on the information
+extracted from the resume allows a screener to shortlist or
+reject candidates much faster than if they had to scan the
+entire resume.
+Despite these benets, we did receive qualitative feedback
+that could help improving Prospect. One major area of improvement is in the consideration of three factors that the screeners considered to be important in the ranking function. In order of importance t
