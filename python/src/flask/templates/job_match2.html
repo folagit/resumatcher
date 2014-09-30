@@ -1,0 +1,44 @@
+{% extends "simple_layout.html" %}
+
+{% block headerpart %}
+   {% include "header.html" %}    
+{% endblock %}	
+
+{% block mainpart %}
+      
+   
+    <div style="width:820px" class="whitepaper" >
+        
+         <div id="joblist"   >
+            <div   >
+                {% set i = 0 %}
+                {% for job in jobs %}
+                    {% set i=(i+1)%2 %} 
+                    <div class="jobitem " jobid="{{job._id}}" >
+                        <div>
+                         
+                           <a class="jobtitle_a" target="_blank" href="jobdetail.html?jobid={{job._id}}" >{{job.jobtitle}}</a>
+                           <span style="float:right" >
+                                 <div style="" class="score_block" > {{job.score}} </div>
+                                 <span   >  &nbsp;&nbsp; &nbsp;&nbsp; </span>
+                           </span>
+                           
+                        </div>
+                        <div>
+                            <span style="width:200;"> Company: <b>{{job.company}} </b> </span>  
+                            <span style="width:200;"> &nbsp;  &nbsp; &nbsp; Location : <b>{{job.location}}</b>  </span>  
+                             <span style="width:200;"> &nbsp;&nbsp; &nbsp;&nbsp; Score: <b>{{job.score}} </b> </span> 
+                        </div>
+                        <div>
+                            {% autoescape false %}
+                             {{job.summary}}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                {% endfor %}
+                 
+            </div>     
+       </div> 
+       
+    </div>
+{% endblock %}

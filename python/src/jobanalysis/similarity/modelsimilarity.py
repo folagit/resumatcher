@@ -4,6 +4,8 @@ Created on Sun Sep 21 17:26:04 2014
 
 @author: dlmu__000
 """
+import operator
+import random
 import os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -12,7 +14,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 from jobaly.db.dbclient import DbClient
 from model.jobmodel import JobModel
 from model.resumemodel import ResumeModel
-import operator
+
 
 degreeDict = {"HS_LEVEL": 1,  "AS_LEVEL": 2,  "BS_LEVEL": 3, "MS_LEVEL": 4, "PHD_LEVEL": 5, "GRAD_LEVEL": 6 }
 CS_RELATED=set(["MAJOR_EE", "MAJOR_INFO", "MAJOR_CE" ])
@@ -121,7 +123,22 @@ class ModelSimilarity():
              # print "jid=", jid
              jobModel = JobModel(jid)
              jobModel.deserialize(jobModelDict)
-             score = self.getSimilarity( resumeModel,  jobModel )
+             score = int (self.getSimilarity( resumeModel,  jobModel )*100) 
+             
+          #   print jid , "--->" ,score
+             jobscore[jid] = score
+         jobscore =  sorted(jobscore.items(), key=operator.itemgetter(1), reverse= True)     
+         return jobscore
+         
+    def match_jobsr(self, resumeModel, jobColl):
+         jobscore = {}
+         for jobModelDict in jobColl.find():
+             jid = str(jobModelDict["_id"])
+             # print "jid=", jid
+             jobModel = JobModel(jid)
+             jobModel.deserialize(jobModelDict)
+             score = random.randint(1, 90)
+
              
           #   print jid , "--->" ,score
              jobscore[jid] = score

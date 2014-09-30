@@ -239,3 +239,28 @@ box-shadow: 0px 0px 20px 3px #d3d3d3;
 border-radius:4px;
 background-color:#ffffff; 
 }
+
+.score_block  
+{
+width:20px;
+height:18px;
+display:inline-block;
+color:#FFFFFF;
+background-color:#5D9CDF;
+font-weight:bold;
+font-size:12px;
+text-align:center;
+padding-left:10px;
+padding-right:10px;
+padding-top:3px;
+padding-bottom:4px;
+text-decoration:none;
+margin-left:0;
+/*margin-left:5px;*/
+margin-top:0px;
+margin-bottom:5px;
+border:1px solid #aaaaaa;
+border:1px solid #0552A2;
+border-radius:5px;
+white-space:nowrap;
+}

@@ -243,7 +243,7 @@ def resume_match():
          if i == 30 :
              break
 
-     return render_template('job_match.html', jobs=jobs) 
+     return render_template('job_match2.html', jobs=jobs) 
 
 if __name__ == '__main__':
     app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
