@@ -96,7 +96,13 @@ $$ < term > , * , *, and <term>$$
 \label{tab:termspattern} % is used to refer this table in the text
 \end{table}
 
+For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If the any of ``dcterms:subject'' fields have the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we could indignity the word is a technical term, and pop them up. After getting a list of new terms, we could check the category of terms in Dbpedia, and put them into right position of our domain specific ontology. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
 
+\begin{figure}[htbp]
+  \includegraphics[scale=0.6]{images/genonto.png}
+  \caption{Find Technical Terms}
+  \label{fig:gen_onto}
+\end{figure}
 
 \section{Ontology-based semantic similarity}
 
