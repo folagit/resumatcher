@@ -31,3 +31,13 @@ class CommonModel():
         objDict["skills"] = list(self.skills)
         
         return objDict
+        
+    def deserialize(self, dictModel):
+        degrees = dictModel["degrees"]
+        majors = dictModel["majors"]
+        skills = dictModel["skills"]
+        self.addMajors(majors)
+        self.addDegrees(degrees)  
+        self.addSkills(skills)  
+        
+         

@@ -187,6 +187,7 @@ def  set_resume():
     if session.has_key("resume"):    	    
         content = session['resume']   
         filename = session['resume_name']
+        print  "session resume name =>>=", session['resume_name']
     return render_template('set_resume.html', resume=content, filename=filename )
     
 def allowed_file(filename):
@@ -209,6 +210,7 @@ def upload():
         resume = fileToTxt(path)
         session['resume'] = resume
         session['resume_name'] = filename
+        print  "session resume name ===", session['resume_name']
                         
         # Redirect the user to the uploaded_file route, which
         # will basicaly show on the browser the uploaded file
