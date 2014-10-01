@@ -12,7 +12,7 @@ Created on Tue Sep 30 18:04:51 2014
 @author: dlmu__000
 """
 
-from whoosh.index import create_in
+from whoosh import index 
 from whoosh.fields import *
 from whoosh.qparser import QueryParser
 
@@ -21,11 +21,12 @@ import re
 TAG_RE = re.compile(r'<[^>]+>')
 
 def remove_tags(text):
-    return TAG_RE.sub('', text)
+    return TAG_RE.sub(' ', text)
 
-schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT)
+schema = Schema(jobtitle=TEXT(stored=False), jobid=ID(stored=True), content=TEXT)
 indexdir = "index"
-ix = create_in(indexdir, schema)
+
+#searcher = myindex.searcher()
 jobColl = dataHandler.jobCollection
 
 def removeHtml():
@@ -35,26 +36,45 @@ def removeHtml():
          job["notag"] = content
          jobColl.save(job)
 
-def createIndex(coll):
-    
+def createIndex():
+    coll =  jobColl
+    ix = index.create_in(indexdir, schema)
     writer = ix.writer()
-    for job in coll.find():
-        content = "d"
-        writer.add_document(title=u"First document", path=u"/a",
-              content=u"This is the first document we've added!")
+    for job in coll.find():  
+        
+ #       print    job["_id"] , ">>" , job["jobtitle"].encode("GBK", "ignore")
+       # print     job["notag"].encode("GBK", "ignore")
+        writer.add_document(jobtitle= job["jobtitle"], jobid=job["_id"],
+              content=job["notag"])
          
     writer.commit()
 
 def search(keyoword):
+    ix = index.open_dir(indexdir)
     with ix.searcher() as searcher:
-      query = QueryParser("content", ix.schema).parse("first")
-      results = searcher.search(query)
-      print results[0]
+       query = QueryParser("content", ix.schema).parse(keyoword)
+       print "query =", query 
+       results = searcher.search(query, limit=20)
+       ids = []
+       for result in results:
+        #   print result
+           ids.append(result["jobid"])
+       return ids
       
 def createJobIndex():
     coll = dataHandler.jobCollection
     createIndex(coll)
     
+def test_search():
+    results =  search("Java")
+    i = 0
+    for result in results:
+        i+=1
+        print i, ":" , result
+        
+    
 if __name__ == '__main__':
     
-    removeHtml()
+  #  removeHtml()
+  # createIndex()
+    test_search()
