@@ -41,7 +41,11 @@ class DataHandler:
         if len(result) > 0:
             return result[0]
         else :
-            return None            
+            return None      
+            
+    def get_job_ids(self, ids):
+        result=list(self.jobCollection.find({"_id": {"$in": ids}}))        
+        return result              
     
     def get_model(self, _id):
         result=list(self.modelCollection.find({'_id': _id }))

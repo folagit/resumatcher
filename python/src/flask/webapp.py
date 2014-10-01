@@ -9,7 +9,7 @@ from jobanalysis.jobdescparser import JobDescParser
 from filetotxt import fileToTxt
 from jobanalysis.resume import  resumeparser  
 from jobanalysis.similarity.modelsimilarity import ModelSimilarity
-
+import indexer
 
 dbinfo = {}
 dbinfo["pagesize"] = 20
@@ -108,8 +108,14 @@ def  jobModel():
 def  searchjob():    
    query = request.args.get('query', '').strip()
    qtype = request.args.get('qtype', '').strip()
-	 
-   jobs, pageno, resultnum =  dataHandler.searchjobs(query,qtype )	
+   print "qtype=", qtype
+   if qtype=="keyword" :
+       jids = indexer.search(query)
+       jobs = dataHandler.get_job_ids(jids)
+       pageno = 1
+       resultnum = len(jobs)
+   else : 
+       jobs, pageno, resultnum =  dataHandler.searchjobs(query,qtype )	
        
    dbinfo["pageno"] = pageno
    dbinfo['collsize'] =  resultnum
