@@ -14,29 +14,84 @@ from jobaly.ontology.ontologylib import OntologyLib
 import math
 import json
 
-def getMinDistance(tokens, term1, term2):
-    list1 = []
-    last = None
-    mindis = len(tokens)
-    hasterm = False
-    for i in range(len(tokens)): 
-        if  term1 == tokens[i] or term2 == tokens[i]:  
-            hasterm = True
-            node = (i, tokens[i] )
-            list1.append( (i, tokens[i] ) )             
-            if last is not None:
-                if last[1] != node[1] and i-last[0] < mindis :
-                    mindis = i-last[0]
-                    if mindis == 1:
-                        break
-            last = node
-            
-    if mindis == len(tokens):
-        return (-1, hasterm ) 
+def findTokens( _words, tokens, scope=None, lower=True):
+    if scope is None :
+        scope = (0, len(_words))    
+    
+    start =  scope[0]
+    word_len = scope[1]
+    j  = 0
+    l1  = len(tokens) 
+    
+    if word_len < l1 :
+        return -1 
+    
+    if len(tokens) == 1 and len(tokens[0]) < 4 :
+        words =  _words         
     else :
-        return ( mindis, hasterm ) 
+        if  lower :
+            words = [word.lower() for word in _words]
+        else :
+            words =  _words
         
-def getDistanceInSents(sents, term1, term2):    
+    i = start
+    while i < start + word_len:
+        i1 = i
+        j = 0
+        while j < l1 and i1 < start + word_len and tokens[j] == words[i1] :
+             j+=1
+             i1+=1
+        if j == l1 :
+            return i
+        elif i1 == start + word_len :
+            return -1
+        else:
+            i+=1            
+            
+    return -1
+
+def findTerms(doc, terms):
+    result = []
+    i = 0
+    find = 0
+    terms = [x.split() for x in terms]
+      
+    for term in terms: 
+       i = 0 ; find = 0
+       while find != -1 :  
+           find = findTokens( doc[i:],  term)
+           if find != -1 :
+               result.append(i+find)
+               i += find+len(term)
+               
+       print " term= ", term, "--- result =", result 
+    return sorted(result)
+
+
+def getDistanceInsent(sent, terms1, terms2): 
+    hasterm = False
+    
+    for term in terms1:
+        find1 = sent.find(term)
+        if  find1 != -1 :
+            break
+        
+    for term in terms2:
+        find2 = sent.find(term)
+        if  find2 != -1 :
+            break
+            
+    if ( find1 != 1 ) and ( find2 != -1 ) :
+        mindis = math.abs(find1 - find2 )
+        print "mindis = ", mindis
+        return (mindis, True)
+    elif ( find1 != 1 ) or ( find2 != -1 ) :
+        return (-1, True ) 
+    else : 
+        return (-1, False ) 
+   
+        
+def getDistanceInSents(doc, terms1, terms2):    
     result = []
     total = 0 
     for sent in sents: 
@@ -68,10 +123,11 @@ def getPairDistanceInColl():
       #   print "\n\n\n======",job["_id"],"============================\n"
         jobDesc = JobDescParser.parseJobDesc(job)
         sents = jobDesc.listAllSentences() 
+       
         doc =[]
         for sent in sents:
-            sent = " "+sent+" "               
-            doc.extend(sent)        
+            tokens = [ token.lower() for token in word_tokenize(sent)]              
+            doc.extend(tokens)      
         docs.append(doc)    
     
      owlfile = "..\\..\\jobaly\\ontology\\web_dev.owl"
@@ -84,17 +140,30 @@ def getPairDistanceInColl():
      return 
      
 def getPairDistance(ontology, ref1, ref2, docs):
-     terms1 = ontology.getTerms(ref1)
-     terms2 = ontology.getTerms(ref2)
-   
-     matrix = getDistanceMatrix(docs, terms)   
-     printDisMatrix(terms, matrix)   
-     matrix_dump = json.dumps(matrix)
-     print matrix_dump
+     terms1 = [ x.split() for x in ontology.getTerms(ref1)]
+     terms2 = [ x.split() for x in ontology.getTerms(ref2)]
+     print "terms1=" , terms1
+     print "terms2=" , terms2
+     for doc in docs: 
+         for sent in doc:
+             pass
+
+    
+def test_findTokens():
+    words = "bbbe ccc aaa dd ccc".split()
+    result = findTokens( words, ["aaa"])
+    print result
+    
+def test_findTerms():
+    words = "aaa bbbe ccc aaa dd ccc dd".split()
+    result = findTerms( words, ["aaa", "bbb", "dd ccc"])
+    print result
 
 
 def main():   
-    getPairDistance()
+   # getPairDistance()
+     test_findTerms()
+   # test_findTokens()
     
 if __name__ == "__main__": 
     main()   
