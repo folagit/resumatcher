@@ -74,9 +74,12 @@ def testGetSubClasses():
         print type(o), ":" , o
         
 def testGetLabels():
-     ontology = OntologyLib()    
-     result = ontology.getLabels(ontology.ns.SoftwareDeveloper)
-    
+     ontology = OntologyLib("web_dev.owl")    
+     result = ontology.getLabels(ontology.ns.Nosql_Database)
+     for r in result :
+         print r
+     return
+     
      result = ontology.getAllLabels()    
      #for entity, label  in result:
      #    print type(label), ":" , label
@@ -136,6 +139,11 @@ def test_getSimilarityPair():
     pairs = ontology.getSimilarityPair()
     for pair in pairs:
         print "pair=", pair
+        
+def test_getTerms():
+    ontology = OntologyLib("web_dev.owl")
+    ref1 = ontology.toURIRef("Nosql_Database")
+    print ontology.getTerms(ref1)
     
 def main():
   # test_getTokenDict()
@@ -149,7 +157,8 @@ def main():
   #   testFindSuperClass()
    
   #   test_haveSameSuperClass()
-   test_getSimilarityPair()
+  # test_getSimilarityPair()
+   test_getTerms()
 
 if __name__ == "__main__": 
     main()

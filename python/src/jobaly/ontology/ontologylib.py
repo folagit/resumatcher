@@ -75,6 +75,17 @@ class OntologyLib:
                     tokenDict[token] = [label]
         return tokenDict
         
+    def getTerms(self, ref):
+        terms = []
+        term1 = (ref.rsplit('#')[-1]).replace("_", " " ) 
+        terms.append(term1)
+        result = self.g.objects(ref, predicate=RDFS.label)
+        for c in result :
+              c = str(c)
+              if not (c in terms):
+                  terms.append(c)
+        return terms
+        
     def getClassNameDict(self):       
        self.ClassNameDict={}
        classNode = URIRef("http://www.w3.org/2002/07/owl#Class")
