@@ -108,7 +108,7 @@ class OntologyLib:
            classes.append(s)
        return classes   
        
-    def getSimilarityPair(self):
+    def getSimilarityPairs(self):
         classes = self.getClasses()
         pairs = []
         for i in range(len(classes)):
