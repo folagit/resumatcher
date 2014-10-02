@@ -110,8 +110,7 @@ def getDistanceInSents(sents, terms1, terms2):
   #  print term1, term2, factor1, factor2, result    
     return result
     
-           
-def getPairDistanceInColl(): 
+def createDocs():
      srcBbClient = DbClient('localhost', 27017, "jobaly_daily_test")
      collection = srcBbClient.getCollection("daily_job_webdev")
      
@@ -125,8 +124,14 @@ def getPairDistanceInColl():
         for sent in sents:
             tokens = [ token.lower() for token in word_tokenize(sent)]              
             doc.extend(tokens)      
-        docs.append(doc)    
+        docs.append(doc)   
     
+     return docs
+    
+           
+def getPairDistanceInColl(): 
+     
+     docs = createDocs()
      owlfile = "..\\..\\jobaly\\ontology\\web_dev.owl"
      ontology = OntologyLib(owlfile)
      pairs = ontology.getSimilarityPairs()
@@ -151,6 +156,8 @@ def getPairDistance(ontology, ref1, ref2, docs):
      for doc in docs: 
         find1 = findTerms(doc, terms1)
         find2 = findTerms(doc, terms2)
+     #   print 'find1=',find1
+     #   print 'find2=',find2
         dis, hasterm = getMinDistance(find1,find2)        
   #      print dis, hasterm
         if hasterm :
@@ -190,13 +197,29 @@ def test_getPairDistanceInColl():
     pairdict = getPairDistanceInColl()
     for pair, value in pairdict.items():
         print pair, "-->>", value
+        
+def test_getPairDistance():
+     docs = createDocs()
+     owlfile = "..\\..\\jobaly\\ontology\\web_dev.owl"
+     ontology = OntologyLib(owlfile)
+     
+     ref1 = ontology.toURIRef("HTML")
+     ref2 = ontology.toURIRef("CSS")
+     name1 = ref1.rsplit('#')[-1]    
+     name2 = ref2.rsplit('#')[-1]   
+     
+     value = getPairDistance(ontology, ref1, ref2, docs)
+     print value    
+     return value
+    
 
 def main():   
    # getPairDistance()
    #  test_findTerms()
    # test_findTokens()
-   test_getPairDistanceInColl()
+   #test_getPairDistanceInColl()
   #  dumpPairValues()
+   test_getPairDistance()
     
 if __name__ == "__main__": 
     main()   
