@@ -54,8 +54,9 @@ def printLableDict(lableDict):
         print label, ":", entity
 
 def testFindSuperClass():
-    ontology = OntologyLib("jobaly_v1.owl")
-    ref = ontology.toURIRef("NOSQL")
+    ontology = OntologyLib("web_dev.owl")
+    ref = ontology.toURIRef("Nosql_Database")
+    print ref
     result = ontology.getSuperClass(ref)
     
     for o  in result:
@@ -97,6 +98,38 @@ def test_getFullDict():
     fullDict = ontology.getFullDict()
     for  label, className  in fullDict.items():           
            print  label ,"->" , className    
+           
+def test_getClasses():
+    ontology = OntologyLib("web_dev.owl")
+    classes = ontology.getClasses()
+    for c in classes:
+        print c
+        
+def test_isSuperClass():
+    ontology = OntologyLib("web_dev.owl")
+    ref1 = ontology.toURIRef("Nosql_Database")
+    ref2 = ontology.toURIRef("Database")
+    ref3 = ontology.toURIRef("Software")
+    print ontology.isSuperClass( ref1, ref2 )
+    print ontology.isSuperClass( ref1, ref3 )
+    print ontology.isSuperClass( ref2, ref3 )
+    print ontology.isSuperClass( ref3, ref2 )
+    
+def test_haveSameSuperClass():
+    ontology = OntologyLib("web_dev.owl")
+    ref1 = ontology.toURIRef("Database")
+    ref2 = ontology.toURIRef("MySQL")
+    ref3 = ontology.toURIRef("Software") 
+    ref4 = ontology.toURIRef("Sql_Server")
+    ref5 = ontology.toURIRef("Nosql_Database") 
+    ref6 = ontology.toURIRef("Relational_Database") 
+  #  print ref4
+  #  result = ontology.getSuperClass(ref4)
+    
+    print ontology.haveSameSuperClass(ref4, ref2)
+    print ontology.haveSameSuperClass(ref2, ref3)
+    print ontology.haveSameSuperClass(ref5, ref6)
+    print ontology.haveSameSuperClass(ref5, ref4)
     
 def main():
   # test_getTokenDict()
@@ -104,8 +137,12 @@ def main():
    # testFindSuperClass()
   # test_getAllLabels()
   # testGetClassnames()
-    test_getFullDict()
+   # test_getClasses()
   #  test_getLabelDict()
+  #   test_isSuperClass()
+  #   testFindSuperClass()
+   
+     test_haveSameSuperClass()
 
 if __name__ == "__main__": 
     main()

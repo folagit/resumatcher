@@ -13,10 +13,10 @@ import copy
 
 class OntologyLib:
     
-    def __init__(self, owlFilename, fileFormat="turtle"):
+    def __init__(self, owlFilename, fileFormat="turtle", ns="http://www.jobaly.com/ontology/web_dev#"):
         self.g = rdflib.Graph()
         self.g.parse(owlFilename, format=fileFormat)
-        self.ns = rdflib.Namespace("http://jobaly.com/ontology/")
+        self.ns = rdflib.Namespace(ns)
         self.labels = self.getLabelList()        
         self.tokenDict = self.getTokenDict()        
         
@@ -26,6 +26,21 @@ class OntologyLib:
     def getSuperClass(self, subclass ):
         result = self.g.objects(subclass, predicate=RDFS.subClassOf)
         return result
+        
+    def isSuperClass(self, subclass, superclass ):
+        result = self.g.objects(subclass, predicate=RDFS.subClassOf) 
+        return ( superclass in result )
+        
+    def haveSameSuperClass(self, subclass1, subclass2 ):
+        result1 = self.g.objects(subclass1, predicate=RDFS.subClassOf) 
+        result2 = self.g.objects(subclass2, predicate=RDFS.subClassOf) 
+    
+        for c in result1:
+       #     print c 
+            if c in result2: 
+                return True
+        return False
+       
         
     def getSubClasses(self, superClass):
         return self.g.subjects(RDFS.subClassOf, superClass)
@@ -74,3 +89,11 @@ class OntologyLib:
             self.fullDict[key] = value
         
         return self.fullDict
+        
+    def getClasses(self):
+       classes = []
+       classNode = URIRef("http://www.w3.org/2002/07/owl#Class")
+       for s,p,o in self.g.triples( (None,  RDF.type, classNode) ):
+           classes.append(s)
+       return classes        
+    
