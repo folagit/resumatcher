@@ -54,7 +54,7 @@ def findTerms(doc, terms):
     result = []
     i = 0
     find = 0
-    terms = [x.split() for x in terms]
+#    terms = [x.split() for x in terms]
       
     for term in terms: 
        i = 0 ; find = 0
@@ -64,34 +64,31 @@ def findTerms(doc, terms):
                result.append(i+find)
                i += find+len(term)
                
-       print " term= ", term, "--- result =", result 
+   #    print " term= ", term, "--- result =", result 
     return sorted(result)
 
 
-def getDistanceInsent(sent, terms1, terms2): 
-    hasterm = False
+def getMinDistance(find1, find2):
     
-    for term in terms1:
-        find1 = sent.find(term)
-        if  find1 != -1 :
-            break
-        
-    for term in terms2:
-        find2 = sent.find(term)
-        if  find2 != -1 :
-            break
-            
-    if ( find1 != 1 ) and ( find2 != -1 ) :
-        mindis = math.abs(find1 - find2 )
-        print "mindis = ", mindis
-        return (mindis, True)
-    elif ( find1 != 1 ) or ( find2 != -1 ) :
-        return (-1, True ) 
-    else : 
+    len1 = len(find1)
+    len2 = len(find2)
+    if len1 == 0 and len2 == 0:
         return (-1, False ) 
+    elif len1 == 0 or len2 == 0:
+        return (-1, True ) 
+    
+    mindis = 99999
+    
+    for i in find1:
+        for j in find2:
+            dis =  abs(i-j)
+            if mindis< dis:
+                mindis = dis
+            
+    return (mindis, True)
    
         
-def getDistanceInSents(doc, terms1, terms2):    
+def getDistanceInSents(sents, terms1, terms2):    
     result = []
     total = 0 
     for sent in sents: 
@@ -133,21 +130,50 @@ def getPairDistanceInColl():
      owlfile = "..\\..\\jobaly\\ontology\\web_dev.owl"
      ontology = OntologyLib(owlfile)
      pairs = ontology.getSimilarityPairs()
+     pairdict = {}
      for p in pairs:
          ref1, ref2 =  p
-         getPairDistance(ontology, ref1, ref2, docs)
+         name1 = ref1.rsplit('#')[-1]    
+         name2 = ref2.rsplit('#')[-1]   
+         
+         value = getPairDistance(ontology, ref1, ref2, docs)
+         pairdict[(name1, name2)] = value
        
-     return 
+     return pairdict
      
 def getPairDistance(ontology, ref1, ref2, docs):
      terms1 = [ x.split() for x in ontology.getTerms(ref1)]
      terms2 = [ x.split() for x in ontology.getTerms(ref2)]
      print "terms1=" , terms1
      print "terms2=" , terms2
+     total = 0
+     result = []
      for doc in docs: 
-         for sent in doc:
-             pass
-
+        find1 = findTerms(doc, terms1)
+        find2 = findTerms(doc, terms2)
+        dis, hasterm = getMinDistance(find1,find2)        
+  #      print dis, hasterm
+        if hasterm :
+            total+=1
+        if dis != -1 :
+            result.append(dis)
+     if len(result) == 0 : 
+        return 0
+ #   print len(result),  total
+     factor1 = float (len(result)) / total
+  #  logdis = [   math.log(x+1,2) for x in result ]
+     logdis = [   math.log(x+1,2) for x in result ]
+     factor2 = sum(logdis)/len(result)
+  #  print term1, term2, factor1, logdis, factor2, factor1 / factor2
+     value = round(factor1 / factor2, 4 )
+  #  print term1, term2, factor1, factor2, result  
+     print "value=",value
+     return value
+     
+def dumpPairValues():
+    pairdict=  getPairDistanceInColl()    
+    with open('pairvalue.txt', 'w') as outfile:
+       json.dump(pairdict, outfile)
     
 def test_findTokens():
     words = "bbbe ccc aaa dd ccc".split()
@@ -159,11 +185,18 @@ def test_findTerms():
     result = findTerms( words, ["aaa", "bbb", "dd ccc"])
     print result
 
+def test_getPairDistanceInColl():
+    
+    pairdict = getPairDistanceInColl()
+    for pair, value in pairdict.items():
+        print pair, "-->>", value
 
 def main():   
    # getPairDistance()
-     test_findTerms()
+   #  test_findTerms()
    # test_findTokens()
+   test_getPairDistanceInColl()
+  #  dumpPairValues()
     
 if __name__ == "__main__": 
     main()   
