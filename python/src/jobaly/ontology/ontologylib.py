@@ -95,5 +95,22 @@ class OntologyLib:
        classNode = URIRef("http://www.w3.org/2002/07/owl#Class")
        for s,p,o in self.g.triples( (None,  RDF.type, classNode) ):
            classes.append(s)
-       return classes        
+       return classes   
+       
+    def getSimilarityPair(self):
+        classes = self.getClasses()
+        pairs = []
+        for i in range(len(classes)):
+            c1 = classes[i]
+       #     print "c1=",c1
+            for j in range(i+1,len(classes) ) :
+                c2 = classes[j]
+         #       print "c2 =",  c2                
+                if self.isSuperClass(c1, c2) or self.isSuperClass(c2,c1) \
+                   or self.haveSameSuperClass(c1, c2) :
+         #              print c1, c2
+                       pairs.append( (c1, c2) )
+        return pairs
+                
+        
     

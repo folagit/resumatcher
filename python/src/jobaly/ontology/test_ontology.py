@@ -131,6 +131,12 @@ def test_haveSameSuperClass():
     print ontology.haveSameSuperClass(ref5, ref6)
     print ontology.haveSameSuperClass(ref5, ref4)
     
+def test_getSimilarityPair():
+    ontology = OntologyLib("web_dev.owl")
+    pairs = ontology.getSimilarityPair()
+    for pair in pairs:
+        print "pair=", pair
+    
 def main():
   # test_getTokenDict()
    #printGraph()
@@ -142,7 +148,8 @@ def main():
   #   test_isSuperClass()
   #   testFindSuperClass()
    
-     test_haveSameSuperClass()
+  #   test_haveSameSuperClass()
+   test_getSimilarityPair()
 
 if __name__ == "__main__": 
     main()
