@@ -99,7 +99,7 @@ def getDisMatrixFromColletion():
         docs.append(doc)
         
      terms=["javascript", "jquery", "html", "css", "java", "jsp", "python", "ruby", "ror"  ]
-     terms=["java","jdbc","spring","hibernate","mysql","oracle"]
+    # terms=["java","jdbc","spring","hibernate","mysql","oracle"]
      matrix = getDistanceMatrix(docs, terms)   
      printDisMatrix(terms, matrix)   
      matrix_dump = json.dumps(matrix)

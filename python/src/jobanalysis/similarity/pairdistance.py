@@ -113,9 +113,13 @@ def getDistanceInSents(sents, terms1, terms2):
 def createDocs():
      srcBbClient = DbClient('localhost', 27017, "jobaly_daily_test")
      collection = srcBbClient.getCollection("daily_job_webdev")
-     
+     maxnum =99999
      docs = []
+     i= 0
      for job in collection.find(): 
+        i+=1
+        if i == maxnum: 
+             break
       #   print "\n\n\n======",job["_id"],"============================\n"
         jobDesc = JobDescParser.parseJobDesc(job)
         sents = jobDesc.listAllSentences() 
@@ -147,17 +151,18 @@ def getPairDistanceInColl():
      return pairdict
      
 def getPairDistance(ontology, ref1, ref2, docs):
-     terms1 = [ x.split() for x in ontology.getTerms(ref1)]
-     terms2 = [ x.split() for x in ontology.getTerms(ref2)]
-     print "terms1=" , terms1
-     print "terms2=" , terms2
+     terms1 = [ x.lower().split() for x in ontology.getTerms(ref1)]
+     terms2 = [ x.lower().split() for x in ontology.getTerms(ref2)]
+   #  print "terms1=" , terms1
+   #  print "terms2=" , terms2
      total = 0
      result = []
      for doc in docs: 
+   #     print doc
         find1 = findTerms(doc, terms1)
         find2 = findTerms(doc, terms2)
-     #   print 'find1=',find1
-     #   print 'find2=',find2
+   #     print 'find1=',find1
+   #     print 'find2=',find2
         dis, hasterm = getMinDistance(find1,find2)        
   #      print dis, hasterm
         if hasterm :
@@ -174,13 +179,20 @@ def getPairDistance(ontology, ref1, ref2, docs):
   #  print term1, term2, factor1, logdis, factor2, factor1 / factor2
      value = round(factor1 / factor2, 4 )
   #  print term1, term2, factor1, factor2, result  
-     print "value=",value
+   #  print "value=",value
      return value
      
 def dumpPairValues():
     pairdict=  getPairDistanceInColl()    
+    result = []
+    for key ,value in pairdict.items():
+        term1, term2 = key
+        result.append( [ term1, term2, value] )   
+        if value > 0 :
+            print term1, term2, value
+        
     with open('pairvalue.txt', 'w') as outfile:
-       json.dump(pairdict, outfile)
+       json.dump(result, outfile)
     
 def test_findTokens():
     words = "bbbe ccc aaa dd ccc".split()
@@ -205,12 +217,19 @@ def test_getPairDistance():
      
      ref1 = ontology.toURIRef("HTML")
      ref2 = ontology.toURIRef("CSS")
+     su = ontology.getSuperClass(ref1)
+     for c in su:
+         print c
+         
+     su = ontology.getSuperClass(ref2)
+     for c in su:
+         print c
+         
      name1 = ref1.rsplit('#')[-1]    
      name2 = ref2.rsplit('#')[-1]   
      
      value = getPairDistance(ontology, ref1, ref2, docs)
-     print value    
-     return value
+     print "dd---" ,value    
     
 
 def main():   
@@ -218,8 +237,8 @@ def main():
    #  test_findTerms()
    # test_findTokens()
    #test_getPairDistanceInColl()
-  #  dumpPairValues()
-   test_getPairDistance()
+   dumpPairValues()
+ #  test_getPairDistance()
     
 if __name__ == "__main__": 
     main()   

@@ -117,8 +117,9 @@ class OntologyLib:
             for j in range(i+1,len(classes) ) :
                 c2 = classes[j]
          #       print "c2 =",  c2                
-                if self.isSuperClass(c1, c2) or self.isSuperClass(c2,c1) \
-                   or self.haveSameSuperClass(c1, c2) :
+         #       if self.isSuperClass(c1, c2) or self.isSuperClass(c2,c1) \
+         #          or self.haveSameSuperClass(c1, c2) :
+                if self.haveSameSuperClass(c1, c2):         #         
          #              print c1, c2
                        pairs.append( (c1, c2) )
         return pairs

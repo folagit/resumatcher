@@ -136,9 +136,12 @@ def test_haveSameSuperClass():
     
 def test_getSimilarityPair():
     ontology = OntologyLib("web_dev.owl")
-    pairs = ontology.getSimilarityPair()
+    pairs = ontology.getSimilarityPairs()
+    i = 0
     for pair in pairs:
-        print "pair=", pair
+        ref1, ref2 = pair   
+        i+=1
+        print i, " : " , (ref1.rsplit('#')[-1]) , "---" ,  (ref2.rsplit('#')[-1]) 
         
 def test_getTerms():
     ontology = OntologyLib("web_dev.owl")
@@ -157,8 +160,8 @@ def main():
   #   testFindSuperClass()
    
   #   test_haveSameSuperClass()
-  # test_getSimilarityPair()
-   test_getTerms()
+   test_getSimilarityPair()
+ #  test_getTerms()
 
 if __name__ == "__main__": 
     main()
