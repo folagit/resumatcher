@@ -68,7 +68,11 @@ def findTerms(doc, terms):
     return sorted(result)
 
 
-def getMinDistance(find1, find2):
+def getMinDistance(doc, terms1, terms2):
+    find1 = findTerms(doc, terms1)
+    find2 = findTerms(doc, terms2)
+  #  print 'find1=',find1
+  #  print 'find2=',find2
     
     len1 = len(find1)
     len2 = len(find2)
@@ -82,33 +86,10 @@ def getMinDistance(find1, find2):
     for i in find1:
         for j in find2:
             dis =  abs(i-j)
-            if mindis< dis:
+            if mindis > dis:
                 mindis = dis
             
-    return (mindis, True)
-   
-        
-def getDistanceInSents(sents, terms1, terms2):    
-    result = []
-    total = 0 
-    for sent in sents: 
-        dis, hasterm = getMinDistance(sent, term1, term2)
-     #   print dis, hasterm
-        if hasterm :
-            total+=1
-        if dis != -1 :
-            result.append(dis)
-    if len(result) == 0 : 
-        return 0
- #   print len(result),  total
-    factor1 = float (len(result)) / total
-  #  logdis = [   math.log(x+1,2) for x in result ]
-    logdis = [   math.log(x+1,2) for x in result ]
-    factor2 = sum(logdis)/len(result)
-  #  print term1, term2, factor1, logdis, factor2, factor1 / factor2
-    result = round(factor1 / factor2, 4 )
-  #  print term1, term2, factor1, factor2, result    
-    return result
+    return (mindis, True)   
     
 def createDocs():
      srcBbClient = DbClient('localhost', 27017, "jobaly_daily_test")
@@ -157,13 +138,8 @@ def getPairDistance(ontology, ref1, ref2, docs):
    #  print "terms2=" , terms2
      total = 0
      result = []
-     for doc in docs: 
-   #     print doc
-        find1 = findTerms(doc, terms1)
-        find2 = findTerms(doc, terms2)
-   #     print 'find1=',find1
-   #     print 'find2=',find2
-        dis, hasterm = getMinDistance(find1,find2)        
+     for doc in docs:        
+        dis, hasterm = getMinDistance(doc, terms1, terms2)        
   #      print dis, hasterm
         if hasterm :
             total+=1
