@@ -162,13 +162,25 @@ def dumpPairValues():
     pairdict=  getPairDistanceInColl()    
     result = []
     for key ,value in pairdict.items():
-        term1, term2 = key
-        result.append( [ term1, term2, value] )   
+        term1, term2 = key        
         if value > 0 :
             print term1, term2, value
-        
+            result.append( [ term1, term2, value] )   
+    print "len=", len(result)    
     with open('pairvalue.txt', 'w') as outfile:
        json.dump(result, outfile)
+       
+def loadPairValues():
+     path = os.path.dirname(os.path.realpath(__file__))
+     distanceFile = path+"\\"+"pairvalue.txt"
+     with open(distanceFile, 'r') as outfile:
+         result = json.load(outfile)
+     pairdict = {}
+     for line in result:
+         term1, term2, value = line
+  #       print term1, term2, value
+         pairdict[(term1, term2)] = value
+     return pairdict
     
 def test_findTokens():
     words = "bbbe ccc aaa dd ccc".split()
@@ -213,8 +225,11 @@ def main():
    #  test_findTerms()
    # test_findTokens()
    #test_getPairDistanceInColl()
-   dumpPairValues()
+ #  
  #  test_getPairDistance()
+   
+ #  dumpPairValues()
+   loadPairValues()
     
 if __name__ == "__main__": 
     main()   

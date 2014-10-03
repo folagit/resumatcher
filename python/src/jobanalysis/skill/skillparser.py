@@ -22,7 +22,9 @@ class SkillParser():
         print "cd=",cd
         owlfile = os.path.join(cd,"..\..\jobaly\ontology\web_dev.owl" )
         self.ontology = OntologyLib(owlfile)
-        self.skillTerms = sorted( [ " "+x.lower()+" " for x in  self.ontology.getFullDict().keys() ] , key=len,  reverse=True) 
+        self.termDict = self.ontology.getFullDict()
+        self.skillTerms = sorted( [ " "+x.lower()+" " for x in  self.termDict.keys() ] , key=len,  reverse=True) 
+        print self.skillTerms
         
     def isSkillSent(self, sent):
         sent = sent.lower()
@@ -42,8 +44,10 @@ class SkillParser():
         sent = " " +sent.lower()+ " "
         for term in self.skillTerms:
             if sent.find(term) != -1:
-            #    print sent.encode("GBK", "ignore")                
-                skillset.append(term.strip())
+            #    print sent.encode("GBK", "ignore")   
+                ontoClass =      self.termDict[term.strip()]  
+                print "ontoClass=" , ontoClass
+                skillset.append(ontoClass)
                 sent = sent.replace(term, " " )
             #    print sent.encode("GBK", "ignore")
             #    print "---------"

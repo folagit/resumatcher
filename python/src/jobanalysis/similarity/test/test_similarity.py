@@ -18,12 +18,12 @@ from modelsimilarity import ModelSimilarity
 resumeModel1 = ResumeModel("r001")
 resumeModel1.addDegrees(["BS_LEVEL"])
 resumeModel1.addMajors(["MAJOR_INFO"])
-resumeModel1.addSkills([ "html", "css", "java","ruby", "ror"])
+resumeModel1.addSkills([   "CSS", "Java","Ruby", "ror"])
 
 jobModel1 = JobModel("j001")
 jobModel1.addDegrees(["BS_LEVEL",  "MS_LEVEL" ])
 jobModel1.addMajors(["MAJOR_CE", "MAJOR_RELATED"])
-jobModel1.addSkills([ "html", "css", "jquery", "ruby"])
+jobModel1.addSkills([ "Javascript", "HTML", "Jquery", "Ruby"])
 
 def test_tranferDegree():
     degrees = set(["AS_LEVEL",  "BS_LEVEL", "MS_LEVEL", "GRAD_LEVEL"])
@@ -36,6 +36,10 @@ def test_similarity():
     similarity = ModelSimilarity()    
     result = similarity.getSimilarity(resumeModel1 , jobModel1 )
     print "result=", result
+    
+def test_getOntoDistance():
+    similarity = ModelSimilarity() 
+    print "dis=", similarity.getOntoDistance("CSS","HTML")
     
 def test_match():
      srcBbClient = DbClient('localhost', 27017, "jobaly_daily_test")
@@ -53,4 +57,6 @@ def test_match():
          i += 1
          print i,key, value
 
-test_match()    
+#test_match()   
+test_similarity() 
+test_getOntoDistance()
