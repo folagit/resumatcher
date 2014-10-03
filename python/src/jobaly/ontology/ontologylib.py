@@ -131,5 +131,5 @@ def createOntology():
     path = os.path.dirname(os.path.realpath(__file__))
     owlfile = path+"\\"+"web_dev.owl"
     ontology = OntologyLib(owlfile)
-    print "path=", path
+ #   print "path=", path
     return ontology
