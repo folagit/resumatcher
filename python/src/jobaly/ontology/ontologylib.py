@@ -10,6 +10,7 @@ from rdflib.namespace import RDF
 from rdflib import URIRef, BNode, Literal,  RDFS
 import re
 import copy
+import os
 
 class OntologyLib:
     
@@ -56,7 +57,7 @@ class OntologyLib:
         result = self.getAllLabels()    
         for entity, label  in result:  
             className = entity.rsplit('#')[-1] 
-            termDict[str(label)] = className
+            termDict[str(label)] = className           
         return termDict
         
     def getLabelList(self):
@@ -124,5 +125,9 @@ class OntologyLib:
                        pairs.append( (c1, c2) )
         return pairs
                 
-        
-    
+def createOntology():
+    path = os.path.dirname(os.path.realpath(__file__))
+    owlfile = path+"\\"+"web_dev.owl"
+    ontology = OntologyLib(owlfile)
+    print "path=", path
+    return ontology

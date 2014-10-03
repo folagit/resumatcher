@@ -5,6 +5,7 @@ Created on Mon Sep 01 23:53:18 2014
 @author: dlmu__000
 """
 from ontologylib import OntologyLib
+import ontologylib
 from rdflib import URIRef, BNode, Literal,  RDFS
 
 def printGraph():
@@ -148,6 +149,11 @@ def test_getTerms():
     ref1 = ontology.toURIRef("Nosql_Database")
     print ontology.getTerms(ref1)
     
+def test_createOntology():
+    ontology = ontologylib.createOntology()
+    for  label , className in ontology.getLabelDict().items():           
+        print  label ,"->" , className 
+    
 def main():
   # test_getTokenDict()
    #printGraph()
@@ -160,8 +166,9 @@ def main():
   #   testFindSuperClass()
    
   #   test_haveSameSuperClass()
-   test_getSimilarityPair()
+   #test_getSimilarityPair()
  #  test_getTerms()
+   test_createOntology()
 
 if __name__ == "__main__": 
     main()
