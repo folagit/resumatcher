@@ -96,9 +96,11 @@ class OntologyLib:
        return self.ClassNameDict
        
     def getFullDict(self): 
-        self.fullDict = copy.deepcopy( self.getLabelDict() )         
+        self.fullDict = {}
+        for key, value in self.getLabelDict().items():
+            self.fullDict[key.lower()] = value
         for key, value in self.getClassNameDict().items():
-            self.fullDict[key] = value
+            self.fullDict[key.lower()] = value
         
         return self.fullDict
         
