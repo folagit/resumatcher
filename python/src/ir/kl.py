@@ -32,7 +32,7 @@ class KL(BaseIr):
              for key in resumetf.keys():
                  if tf.has_key(key):
                      job_p =  float (tf[key]) / job["length"]
-                     print "job_p=", job_p
+                #     print "job_p=", job_p
                      score += resume_pq[key] * math.log10 (resume_pq[key] / job_p  )  
              job["score"] = score
              

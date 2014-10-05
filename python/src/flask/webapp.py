@@ -26,6 +26,8 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'doc', 'docx'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['resume'] = ""   
 app.config['resume_name'] = ""
+
+similarity = ModelSimilarity() 
      
 @app.route('/layout.html')
 def handle_layout():
@@ -236,8 +238,8 @@ def resume_match():
      resume = session['resume']               
      resumeModel = resumeparser.parseResumeText(resume)                              
      modelColl = dataHandler.modelCollection  
-     similarity = ModelSimilarity()    
-     result = similarity.match_jobs(resumeModel , modelColl  )
+
+     result = similarity.match_jobColl(resumeModel , modelColl  )
      i = 0
      jobs = []
      for key, value in result:
@@ -250,6 +252,40 @@ def resume_match():
              break
 
      return render_template('job_match2.html', jobs=jobs) 
+     
+@app.route('/resume_keyword.html')    
+def resume_keyword():
+    content = ""
+    filename = ""
+    if session.has_key("resume"):    	    
+        content = session['resume']   
+        filename = session['resume_name']
+        print  "session resume name =>>=", session['resume_name']
+    return render_template('resume_keyword.html', resume=content, filename=filename )
+    
+@app.route('/resume_search')    
+def resume_search():         
+     query = request.args.get('query', '').strip()
+     session['query'] = query
+     jids = indexer.search(query)
+   #  jobs = dataHandler.get_job_ids(jids)
+     jobmodels = dataHandler.get_jobmodel_ids(jids)
+     resume = session['resume']               
+     resumeModel = resumeparser.parseResumeText(resume)           
+     result = similarity.match_jobModels(resumeModel , jobmodels  )
+     i = 0
+     jobs = []
+     for key, value in result:
+         i += 1
+         print i,key, value
+         job = dataHandler.get_job(key)
+         job["score"] = value
+         jobs.append(job)
+         if i == 30 :
+             break
+
+     return render_template('job_resume_keyword.html', jobs=jobs)     
+    
 
 if __name__ == '__main__':
     app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'

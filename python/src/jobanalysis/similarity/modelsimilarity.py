@@ -121,9 +121,23 @@ class ModelSimilarity():
              return 0
           
             
-    def match_jobs(self, resumeModel, jobColl):
+    def match_jobColl(self, resumeModel, jobColl):
          jobscore = {}
          for jobModelDict in jobColl.find():
+             jid = str(jobModelDict["_id"])
+             # print "jid=", jid
+             jobModel = JobModel(jid)
+             jobModel.deserialize(jobModelDict)
+             score = int (self.getSimilarity( resumeModel,  jobModel )*100) 
+             
+          #   print jid , "--->" ,score
+             jobscore[jid] = score
+         jobscore =  sorted(jobscore.items(), key=operator.itemgetter(1), reverse= True)     
+         return jobscore
+         
+    def match_jobModels(self, resumeModel, jobModels):
+         jobscore = {}
+         for jobModelDict in jobModels:
              jid = str(jobModelDict["_id"])
              # print "jid=", jid
              jobModel = JobModel(jid)
