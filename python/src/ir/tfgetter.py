@@ -1,4 +1,6 @@
-
+import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 import re
 import jobaly.utils as utils
 
@@ -43,7 +45,7 @@ class TfGetter():
 def main():
 
     tfgetter =  TfGetter()   
-    print tfgetter.getTf("the book is pretty good good one book")
+    print tfgetter.getTf("the book is pretty good good one book".split())
     
         
 if __name__ == "__main__": 
