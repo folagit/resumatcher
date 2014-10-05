@@ -27,13 +27,15 @@ class Okapi(BaseIr):
          for item in jobcoll.find(): 
              content = irutils.processText(item["summary"])    
              tokens =  self.tfgetter.getTokens(content)
-             tf = self.tfgetter.getTf(content)          
+             tf = self.tfgetter.getTf(tokens)      
+   #          print "tf=",  tf
              item['tf'] =  tf
              item['length'] = len(tokens)
              self.jobs.append(item)
              self.doc_num+=1
              sum_length += item['length']
          self.avgLength = sum_length/self.doc_num
+         print "self.avgLength =", self.avgLength
          
     def calculateScores(self,resume):
         resume_content = irutils.processText(resume) 
@@ -47,8 +49,9 @@ class Okapi(BaseIr):
                  tf = job["tf"]
                  if tf.has_key(token):
                      tokenNum+=1
+     #       print token, tokenNum
             idfdict[token] = math.log10( ( self.doc_num - tokenNum + 0.5 ) / (tokenNum + 0.5)  )
-        
+     #   print "idfdict=", idfdict
         for job in self.jobs:
              tf = job["tf"]
              score = 0
