@@ -1,4 +1,4 @@
-from common import  * 
+from common import  gConfig 
 from bson.objectid import ObjectId
 import datetime
 from jobaly.db.dbclient import DbClient 

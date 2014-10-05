@@ -24,7 +24,7 @@ class SkillParser():
         self.ontology = OntologyLib(owlfile)
         self.termDict = self.ontology.getFullDict()
         self.skillTerms = sorted( [ " "+x.lower()+" " for x in  self.termDict.keys() ] , key=len,  reverse=True) 
-        print self.skillTerms
+      #  print "self.skillTerms=",self.skillTerms
         
     def isSkillSent(self, sent):
         sent = sent.lower()
