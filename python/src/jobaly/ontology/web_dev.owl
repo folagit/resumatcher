@@ -945,6 +945,16 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#Universal_Description_Discovery_and_Integration
+
+:Universal_Description_Discovery_and_Integration rdf:type owl:Class ;
+                                                 
+                                                 rdfs:label "UDDI" ;
+                                                 
+                                                 rdfs:subClassOf :Web_Services .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Unix
 
 :Unix rdf:type owl:Class ;
@@ -1250,16 +1260,6 @@
                                                    rdfs:label "PL/SQL" ;
                                                    
                                                    rdfs:subClassOf :SQL .
-
-
-
-###  http://www.jobaly.com/ontology/web_dev#Universal_Description_Discovery_and_Integration
-
-<http://www.jobaly.com/ontology/web_dev#Universal_Description_Discovery_and_Integration> rdf:type owl:Class ;
-                                                                                                                                     
-                                                                                                                                     rdfs:label "UDDI" ;
-                                                                                                                                     
-                                                                                                                                     rdfs:subClassOf :Web_Services .
 
 
 
