@@ -41,14 +41,15 @@ class TfIdfGetter():
         self.tfgetter =  TfGetter()   
         
     def getTf(self, content):
-        return self.tfgetter.getTf(content)
+        tokens =  self.tfgetter.getTokens(content)
+        return self.tfgetter.getTf(tokens)
 
     def saveJobTfIdf(self, jobcoll , idfColl):
          
          df = {}    
          doc_num = 0
          for item in jobcoll.find(): 
-             content = processText(item["summary"])       
+             content = irutils.processText(item["summary"])  
              tf = self.getTf(content)
              item['tf'] = tf
              item['wtf'] =  getwtf(tf)

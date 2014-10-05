@@ -2,6 +2,7 @@
 from jobaly.db.dbclient import DbClient 
 from tfidf_getter import *
 import math
+import irutils
 
 def getQueryWtfIdf(wtf,idf):
     wtfidf = {} 
@@ -21,7 +22,7 @@ class TfIdfMatch():
         self.jobs_idf , self.jobs = self.tfIdfGetter.getJobTfIdf(self.jobCollection)
         
     def getResumeWight(self, resume):
-        content = processText(resume)       
+        content = irutils.processText(resume)       
         tf = self.tfIdfGetter.getTf(content)
         wtf = getwtf(tf)
         wtfidf, length  = getQueryWtfIdf(wtf, self.jobs_idf)

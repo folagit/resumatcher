@@ -18,3 +18,5 @@ def processText(txt):
     txt = striphtml(txt)  
     txt = clearReturn(txt)
     return txt
+    
+ 

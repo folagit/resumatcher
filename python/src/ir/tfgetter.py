@@ -11,10 +11,13 @@ class TfGetter():
      #   print _stopwords
         TfGetter.stopwords = set(_stopwords)
         TfGetter.term_num_docs = {}    
+        
+     def getTokens(self, content):
+         tokens =   re.split(' |,|;|\n|!|\r|\||\-|\/|\\\\',content)
+         tokens =   self.filterTokens(tokens) 
+         return tokens
    
-     def getTf(self, content):        
-        tokens =   re.split(' |,|;|\n|!|\r|\||\-|\/|\\\\',content)
-        tokens =   self.filterTokens(tokens)    
+     def getTf(self, tokens):    
         term_freq = {}
         for token in tokens:
             if term_freq.has_key(token):
