@@ -1,0 +1,32 @@
+{% extends "simple_layout.html" %}
+
+{% block headerpart %}
+   {% include "header.html" %}    
+{% endblock %}	
+
+{% block mainpart %}
+   
+   
+   <div style="width:820px" class="whitepaper" >
+      
+      <form action="/resume_search" >
+            <input  name="query" type="input" style="margin-left:20px;float:left;width:200px"   />                      
+           
+            <input  style="margin-left:10px;" type="submit" value="Search Jobs" />
+      </form>
+       
+    </div>
+    <div style="width:820px" class="whitepaper" >
+        
+        <div> 
+             <span style="font-size: 22px" >Resume File Name: {{filename}}</span>
+                     
+        </div>
+        <div style="height:20px; width:40px;fontweight:bold;"></div>
+         
+           {% autoescape false %}
+             {{resume}}
+           {% endautoescape %}
+       
+    </div>
+{% endblock %}
