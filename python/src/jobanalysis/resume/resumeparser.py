@@ -97,7 +97,7 @@ def processSents(resumeModel,  sents ):
             print "degree = ",  sent
             parseDegree(resumeModel, sent )
         if isSkillSent(sent):
-            print "skill = ",  sent
+      #      print "skill = ",  sent
             parseSkill(resumeModel, sent )
             
     return resumeModel 

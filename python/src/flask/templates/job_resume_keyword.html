@@ -5,6 +5,16 @@
 {% endblock %}	
 
 {% block mainpart %}
+    
+    <div style="width:820px" class="whitepaper" >
+      
+       <div> Keyword is:  <span style="font-weight:bold" > {{keyword}} </span> </div>
+       <form action="/resume_search" >
+            <input  name="query" type="input" style="margin-left:20px;float:left;width:200px"   />                      
+           
+            <input  style="margin-left:10px;" type="submit" value="Search Jobs" />
+       </form>
+    </div>
       
    
     <div style="width:820px" class="whitepaper" >

@@ -284,7 +284,7 @@ def resume_search():
          if i == 30 :
              break
 
-     return render_template('job_resume_keyword.html', jobs=jobs)     
+     return render_template('job_resume_keyword.html', jobs=jobs, keyword=query)     
     
 
 if __name__ == '__main__':

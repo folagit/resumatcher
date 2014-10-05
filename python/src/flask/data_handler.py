@@ -48,7 +48,7 @@ class DataHandler:
         return result  
 
     def get_jobmodel_ids(self, ids):
-        result=list(self.jobCollection.find({"_id": {"$in": ids}}))        
+        result=list(self.modelCollection.find({"_id": {"$in": ids}}))        
         return result            
     
     def get_model(self, _id):
@@ -80,7 +80,7 @@ class DataHandler:
             result=list(self.jobCollection.find({'_id': query }))
             pageno = 1  
         elif  qtype == "jobtitle" :   
-            result=list(self.modelCollection.find({'jobtitle': query }))
+            result=list(self.jobCollection.find({'jobtitle': query }))
             pageno = 1              
             
         resultnum = len(result)
