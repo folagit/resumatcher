@@ -403,14 +403,16 @@ Currently we support some types of matchers, we list them in table~\ref{tab:matc
 \end{table}
 
 \begin{framed}
+\small
     \begin{lstlisting}[language=Python]
-seqMatcher =parser.parse(" aaa | bbb  ccc?  * ddd")
+seqMatcher =parser.parse("aaa | bbb ccc? * ddd")
     \end{lstlisting}
 \end{framed}
 
  The seconde style is use algebra operator to connect matchers, like this:
 
 \begin{framed}
+\small
     \begin{lstlisting}[language=Python]
 seqMatcher =  TokenMatcher("aaa") +
     TokenMatcher("bbb") | TokenMatcher("ccc")
@@ -420,6 +422,7 @@ seqMatcher =  TokenMatcher("aaa") +
 We also could create complex matcher in programming style, which just like we create some programming object, create some objects, and use them create a another object.
 
 \begin{framed}
+\small
     \begin{lstlisting}[language=Python]
 matcher1 = TokenMatcher("aaa")
 matcher2 = TokenMatcher("bbb")
@@ -523,6 +526,7 @@ $$ < term > , * , *, <term>$$
 $$ < term > , * , *, and <term>$$
 
 \begin{table}[ht]
+\small
 \caption{Some sentences Job Description} % title of Table
 \centering % used for centering table
 \begin{tabular}{   | c | c | c | c |c | c |c | c |c | c |c | c |c | c |  }
@@ -621,7 +625,7 @@ $dislist=\left [ ~~ \right ]$\;
      \If{ $ Docs_i~has~both~terms $ }
         {
            $ hastwo~+=~1 $ ;
-           $ mindis~=~ minimium\_distance~(Docs_i, term1, term2) $ \;
+           $ mindis~=~ min\_distance~(Docs_i, term1, term2) $ \;
            $ dislist.~add  ~\left(  log_2( mindis + 1 ) \right) $ \;
         }
     }
