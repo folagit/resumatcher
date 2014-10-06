@@ -65,7 +65,7 @@ breaklinks=true,
 % End of preamble. Here it comes the document.
 \begin{document}
 
-\title{SIGCHI Conference Proceedings Format}
+\title{JobFinder: A Personalized Resume-Job Matching System}
 
 \numberofauthors{3}
 \author{
@@ -89,12 +89,7 @@ breaklinks=true,
 \maketitle
 
 \begin{abstract}
-In this paper we describe the formatting requirements for
-SIGCHI Conference Proceedings, and this sample file
-offers recommendations on writing for the worldwide
-SIGCHI readership. Please review this document even if
-you have submitted to SIGCHI conferences before, some
-format details have changed relative to previous years.
+Today, online recruiting web sites such as Monster and Indeed have become one of the main channels for people to find jobs. These web platforms have provided their services for more than ten years, and have saved a lot of time and cost for both job seekers and organizations who want to hire people. However, traditional information retrieval techniques may not be appropriate for users. The reason is because the number of results returned to a job seeker may be huge, so job seekers are required to spend a significant amount of time reading and reviewing their options. One popular approach to resolve this difficulty for users are recommender systems, which is a technology that has been studied for a long time. This proposal will present a personalized resume-job matching system, which will obtain the models from the job descriptions and resumes, and use ontology techniques to find appropriate jobs for job seekers.
 \end{abstract}
 
 \keywords{
@@ -113,326 +108,189 @@ and descriptors. \newline
 but strongly encouraged. On the submission page only the classifiers¡¯
 letter-number combination will need to be entered.}
 
+
 \section{Introduction}
 
-This format is to be used for submissions that are
-published in the conference proceedings.  We wish to give
-this volume a consistent, high-quality appearance. We
-therefore ask that authors follow some simple
-guidelines. In essence, you should format your paper
-exactly like this document. The easiest way to do this is
-simply to download a template from the conference web
-site, and replace the content with your own material.
-
-\section{Page Size and Columns}
-
-On each page your material (not including the page number) should fit
-within a rectangle of 18 x 23.5 cm (7 x 9.25 in.), centered on a US
-letter page, beginning 1.9 cm (.75 in.) from the top of the page, with
-a .85 cm (.33 in.) space between two 8.4 cm (3.3 in.) columns.  Right
-margins should be justified, not ragged. Beware, especially when using
-this template on a Macintosh, Word can change these dimensions in
-unexpected ways. Please be sure that your PDF is US letter and not
-A4. If your PDF or paper are formatted for A4, the submission will be
-returned to you to fix.
-
-\section{Typeset Text}
-
-Prepare your submissions on a word processor or typesetter.  Please
-note that page layout may change slightly depending upon the printer
-you have specified.  \LaTeX\ sometimes will create overfull lines
-that extend into columns.  To attempt to combat this, the .cls
-file has a command, {\textbackslash}sloppy, that essentially asks
-\LaTeX\ to prefer underfull lines with extra whitespace.  For more
-details on this, and info on how to control it more finely, check out
-{\url{http://www.economics.utoronto.ca/osborne/latex/PMAKEUP.HTM}}.
-
-\subsection{Title and Authors}
-
-Your paper's title, authors and affiliations should run across the
-full width of the page in a single column 17.8 cm (7 in.) wide.  The
-title should be in Helvetica 18-point bold; use Arial if Helvetica is
-not available.  Authors' names should be in Times Roman 12-point bold,
-and affiliations in Times Roman 12-point.  For more than three authors,
-you may have to place some address information in a footnote, or in a named
-section at the end of your paper. Please use full international addresses and
-telephone dialing prefixes.  Leave one 10-pt line of white space below the last
-line of affiliations.
-
-\subsection{Abstract and Keywords}
-
-Every submission should begin with an abstract of about 150 words,
-followed by a set of keywords. The abstract and keywords should be
-placed in the left column of the first page under the left half of the
-title. The abstract should be a concise statement of the problem,
-approach and conclusions of the work described.  It should clearly
-state the paper's contribution to the field of HCI.
-
-The first set of keywords will be used to index the paper in the
-proceedings. The second set are used to catalogue the paper in the ACM
-Digital Library. The latter are entries from the ACM Classification
-System~\cite{acm_categories}.  In general, it should only be necessary
-to pick one or more of the H5 subcategories, see
-\url{http://www.acm.org/class/1998/ccs98.html}
-
-\subsection{Normal or Body Text}
-
-Please use a 10-point Times Roman font or, if this is unavailable,
-another proportional font with serifs, as close as possible in
-appearance to Times Roman 10-point. The Press 10-point font available
-to users of Script is a good substitute for Times Roman. If Times
-Roman is not available, try the font named Computer Modern Roman. On a
-Macintosh, use the font named Times and not Times New Roman. Please
-use sans-serif or non-proportional fonts only for special purposes,
-such as headings or source code text.
-
-\subsection{First Page Copyright Notice}
-
-Leave 3 cm (1.25 in.) of blank space for the copyright notice at the
-bottom of the left column of the first page. In this template a
-floating text box will automatically generate the required space. Note
-however that the text box is anchored to the \textbf{ABSTRACT}
-heading, so if that heading is deleted the text box will disappear as
-well.  You can replace the default copyright notice by uncommenting
-the {\textbackslash}toappear block at the beginning of the document
-and inserting your own text, for example, for versions under review.
+Currently the main channel for job seekers are online job finding web sites, like indeed or  monster etc, that make the job finding process easier and decrease the recruitment time. But most such web sites only allow users to use key word to search the jobs, which makes job searching as tedious and blind task. For example, I used keyword ``Java'' to search jobs with location restriction Mountain View, CA on the job searching site indeed.com, the web site returned about 7,000 jobs (Figure~\ref{fig:Indeed}). The number of results of job searching is huge but un-ranked, so the job seeker has to review every job description. Since no one has enough time to read all the jobs in the searching result, the actual quality of job searching service is low. This is a classic problem of information overflow.
 
 
-\subsection{Subsequent Pages}
-
-On pages beyond the first, start at the top of the page and continue
-in double-column format.  The two columns on the last page should be
-of equal length.
-
-\begin{figure}[!h]
-\centering
-\includegraphics[width=0.9\columnwidth]{Figure1}
-\caption{With Caption Below, be sure to have a good resolution image
-  (see item D within the preparation instructions).}
-\label{fig:figure1}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.4]{images/indeed1.png}
+  \caption{Search result of Indeed}
+  \label{fig:Indeed}
 \end{figure}
 
-\subsection{References and Citations}
+The reason for such result is because current job searching web sites use the same information retrieval technology like ``Inverted index'' \cite{zobel2006inverted} as the common search engines, which just use keywords to map all the stored documents. Modern search engines all have some ranking algorithms to sort the searching result, like page rank \cite{page1999pagerank}, so the top results always be the most related ones. But such algorithms are unavailable to the job searching systems, because the criteria  of how to rank the job searching result is very personalized. A great job opening for one job seeker maybe looks not good to the other, because the goodness of a job to a specular job seeker is heavily depend on his personal background, like his education or professional experience etc.
 
-Use a numbered list of references at the end of the article, ordered
-alphabetically by first author, and referenced by numbers in brackets
-\cite{ethics,
-  Klemmer:2002:WSC:503376.503378,
-  Mather:2000:MUT,
-  Zellweger:2001:FAO:504216.504224}. For
-papers from conference proceedings, include the title of the paper and
-an abbreviated name of the conference (e.g., for Interact 2003
-proceedings, use \textit{Proc. Interact 2003}). Do not include the
-location of the conference or the exact date; do include the page
-numbers if available. See the examples of citations at the end of this
-document. Within this template file, use the \texttt{References} style
-for the text of your citation.
+Since the people's resumes contain the most important background information, we believe the content of the resume could be used to rank the job openings. My proposal is to create a web system which could use the resumes of job seekers to find the jobs that match their profiles best. The main idea is to calculate the similarity between the candidate model and job models, which should be generated from resumes and job descriptions. I want to transfer the job searching task from key word searching to candidate model matching. The matching result should be sorted by the matching score, higher matching score means a better matching. The matching algorithm not only help job seekers to find the appreciate job opening, but also offer priority to them.~\cite{gueutal2006brave}  The job with higher matching score means the job is more appropriate to the job seeker, and if he applies the job, the chance of getting the interview will be higher as well. Figure~\ref{fig:Matching} shows how this approach works.
 
-Your references should be published materials accessible to the
-public.  Internal technical reports may be cited only if they are
-easily accessible (i.e., you provide the address for obtaining the
-report within your citation) and may be obtained by any reader for a
-nominal fee.  Proprietary information may not be cited. Private
-communications should be acknowledged in the main text, not referenced
-(e.g., ``[Robertson, personal communication]'').
 
-\begin{table}
+\begin{figure}[htbp]
   \centering
-  \begin{tabular}{|c|c|c|}
-    \hline
-    \tabhead{Objects} &
-    \multicolumn{1}{|p{0.3\columnwidth}|}{\centering\tabhead{Caption --- pre-2002}} &
-    \multicolumn{1}{|p{0.4\columnwidth}|}{\centering\tabhead{Caption --- 2003 and afterwards}} \\
-    \hline
-    Tables & Above & Below \\
-    \hline
-    Figures & Below & Below \\
-    \hline
-  \end{tabular}
-  \caption{Table captions should be placed below the table.}
-  \label{tab:table1}
+  \includegraphics[scale=0.5]{images/matching.png}
+  \caption{Matching the job opening with Resume}
+  \label{fig:Matching}
+\end{figure}
+
+\subsection{Contribution}
+
+we make the following contributions in this work:
+
+\begin{enumerate}
+    \item  We create a finite automata based matching tool to extract information from text.
+    \item  We define some pattern for labeled text to extract information.
+    \item  We create a domain specific Ontology for recruitment.
+    \item  We proposed statistical based Ontology similarity measure.
+    \item  We proposed a approach to calculate the similarity between job and resume.
+\end{enumerate}
+
+\subsection{Organizations}
+The subsequent chapters are organized as follows: We first describe what has been done in terms of prior work.  We introduce some basic conception of recommender systems, and how to apply recommendation approached into Job Recommender Systems. Some previous Job Recommender Systems will be introduced and their advantages and limits will be discussed. Then two import problems of content-based Job Recommender Recommender Systems, Information Extraction and Similarity Calculation, will be
+
+We then propose a finite automata matching tool which match pattern in sentence, and extract related information. We will compare this tool to some others tools, demonstrate its flexibility. Some patterns will be presented.
+
+Ontology play an important role in this system. We will present how to construct the domain specific Ontology. We also give a brief review of different Ontology similarity measures. We proposed a statistical-based Ontology Similarity measure. The algorithm will be presented, and some evaluation will be given.
+
+Finally, we evaluate our system by using some pre-collected data from Internet. Using our improved algorithm we were able to achieve an accuracy of 90\% for a 10 digit gesture set, 82\% accuracy for the 26 English characters and over 95\% accuracy for a set of seven commonly used gestures.
+
+\section{Related Works}
+
+
+Rafter et al. \cite{rafter2000personalised} began to use ACF (Automated Collaborative Filtering) in Job Recommender system, ``CASPER''. In the system user profiles are gotten from server logs, that included: revisit data, read time data, and activity data. All these factors were viewed as measure of relevance among users. The system recommend jobs in two steps. First the system find a set of user related to the target user, second the jobs that related users liked will be recommend to the target user. The system use cluster-based Collaborative Filtering strategy. The similarity between users are based on how many jobs they both reviewed, or applied.
+
+The CASPER also allows user search jobs by a query which is a combination of some fields, like location, salary, and skill etc. The system use such query to find jobs, and the returned jobs will be ranked with above collaborative filtering algorithm.
+In their paper, they didn't give a detail description on how to detect the related fields they need and how to the transfer semi-structured job description to structured one. This system is helping job seeker to find jobs.
+
+The shortage of Collaborative Filtering:
+ First since the searching result is huge, and the result is sorted randomly, even two very similar users may review different jobs,  or say the probability of two similar users reviewing the same job is low. The authors also noticed the such sparseness problem in users profile, so they try to user cluster-based solution to resolve this problem.
+
+ Second because recommended jobs are from others users searching result, since the current quality of current searching result is low, so the quality of recommendation cannot be high.
+
+F{\"a}rber et al \cite{farber2003automated}. presented a recommender system built on a hybrid approach. The system integrated two methods, content-based filtering and collaborative filtering, and tried to overcome the problem of rating data sparsity by leveraging synergies of a combined model, et. the  latent aspect model. The data they used were synthetic resume. The model they are shown in Figure
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.4]{images/la.png}
+  \caption{Latent Aspect Model}
+  \label{fig:la}
+\end{figure}
+
+In Malinowski et al. \cite{malinowski2006matching}, they classified the job recommender systems into two categories,  CV-recommender, which to recommend CVs to recruiter. The job-recommender, which recommend jobs to job seekers.
+
+The system collect the users' profile data by asking input their profiles to the web form based interface field by field. The input data collected are:
+
+\begin{enumerate}
+    \item  Demographic data (e.g. date of birth, contact information)
+
+    \item  Educational data (e.g. school courses, grades, university, type of degree, intermediate and final university examinations, postgraduate studies)
+
+    \item  Job experience (e.g. name of the company, type of employment, industry group, occupational field)
+    \item  Language skills (e.g. language, level of knowledge)
+    \item  IT skills (e.g. type of skill, level of knowledge)
+    \item  Awards, scholarships, publications, others
+
+\end{enumerate}
+
+
+The system also asked the users upload their resumes, but that's for facilitating the human judgment.
+
+From the paper we know, the model latent aspect model is statistical model, which need to be trained before be applied into recommendation. But training need user to label to data, since current quality of result of job searching is poor, it will take a lot of time for user to train model.
+
+
+Drigas* et al.\cite{malinowski2006matching} al presented a expert system to match jobs and job seekers, and recommend unemployed to  The expert system used Neuro-Fuzzy rule to evaluate the matching:
+Candidate's X matches X Criterion
+
+
+
+
+The system represent the job in six fields:
+\begin{enumerate}
+    \item  Age
+    \item  Education
+    \item  Additional Education(Training)
+    \item  Previous Employment (Experience)
+    \item  Foreign Language
+    \item  Computer Knowledge
+\end{enumerate}
+
+
+ The system use a relation matrix to represent the fuzzy relation between these specialities. The system need the training data to train that Neuro-fuzzy network.
+
+Both resume data and job info data were manually input into the system  . The fields they selected are relative small.
+
+Daramola et al.  also proposed a fuzzy logic based expert system(FES) tool for online personnel resctuitments. In the paper, the authors assumed that the information already be collected. The system use a fuzzy distance metric to rank candidates' profile in the order of their eligibility for the job. The fuzy hamming distance is given as:
+$$ \delta \left ( O,R \right )=\sum_{i=1}^{n}\left | \mu_O(x_i) - \mu_R(x_i)  \right | $$
+
+Ioannis et al. used a machine learned prediction model to recommend new jobs to job seekers~\cite{paparrizos2011machine}.  The features used by the prediction model includes:
+
+
+
+\begin{table}[ht]
+\caption{Resume and Job Description} % title of Table
+\centering % used for centering table
+\begin{tabular}{ l l r }
+ \hline
+ Feature type &  Feature  &  Range   \\ \hline
+              &  company title   & String  \\
+Institution   &  industry        & String  \\
+              &  company type    & \{public, private\} \\
+              &  number of employees &    Num \\
+ \hline
+              &  number of jobs         & Num  \\
+              &  position title         & String  \\
+  employee    &  best position title    & String \\
+              &  years of experience    &    Num \\
+              &  number of universities &    Num \\
+              &  education degree       & String \\
+ \hline
+\end{tabular}
+\label{tab:predictionmodel} % is used to refer this table in the text
 \end{table}
 
-\section{Sections}
 
-The heading of a section should be in Helvetica 9-point bold, all in
-capitals. Use Arial if Helvetica is not available. Sections should
-not be numbered.
 
-\subsection{Subsections}
+when applying a job, the common method is let the candidates upload their resumes, sometimes the company want user to enter details like personal information, education and experience details, skills. However, in real life, the candidates do not input a lot information in the on-line form. ~\cite{singh2010prospect}
 
-Headings of subsections should be in Helvetica 9-point bold with
-initial letters capitalized.  For
-sub-sections and sub-subsections, a word like \emph{the} or \emph{of}
-is not capitalized unless it is the first word of the heading.)
+Some big IT companies had meet a similar problem of information overflow. Any position they published, will receive a lot applications, the recruiter need to screen the all the applications, but this task is also tedious and time consuming, highly cumbersome and inefficient. so these company tried to build the system to help screen the position candidates.
 
-\subsubsection{Sub-subsections}
+Amit et al. in IBM presented a system, ``PROSPECT'', ~\cite{singh2010prospect} to aid in the shortlisting of candidates for jobs. The system uses a resume miner to extract the information from resumes, which use a CRF model to segment and label the resumes. The CRF model used three kinds of features, they are: Lexicon, Visual, Named Entity, Text, and Conjunction. The paper compared some algorithms to ranked the candidates applicants, such methods include: Okapi BM25, KL, Lucene Scoring, and Lucene Scoring + SkillBoost.
 
-Headings for sub-subsections should be in Helvetica 9-point italic
-with initial letters capitalized.  Standard {\textbackslash}section,
-{\textbackslash}subsection, and {\textbackslash}subsubsection commands
-will work fine.
+HP also built a system to solve the similar problem, which was introduced in Gonzalez et al.'s paper ~\cite{gonzalez2012adaptive}. The system also pay a lot of attention to information extraction. The IE architecture they use is shown in figure ~\ref{fig:hpie}.
 
-\section{Figures/Captions}
 
-Place figures and tables at the top or bottom of the appropriate
-column or columns, on the same page as the relevant text
-(see Figure~\ref{fig:figure1}). A figure or table may extend across both
-columns to a maximum width of 17.78 cm (7 in.).
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.5]{images/hpie.png}
+  \caption{IE Framework}
+  \label{fig:hpie}
+\end{figure}
 
-Captions should be Times New Roman 9-point bold.  They should be numbered (e.g.,
-``Table~\ref{tab:table1}'' or ``Figure~\ref{fig:figure2}''), centered
-and placed beneath the figure or table.  Please note that the words
-``Figure'' and ``Table'' should be spelled out (e.g., ``Figure''
-rather than ``Fig.'') wherever they occur.
+The scholars in this paper, the dictionaries which were used to tag entities should be updated often since there always new terms appears. So an adaptive learning module was used to achieve two objectives: use semantic data to enhance the information extraction and to discover new terms.
+A domain-oriented ontology is used to represent knowledge, inference rules are defined based on the ontology knowledge base. When a detected term found, the system will search in external knowledge base, like DBpedia etc. The resume also be classified to different categories like ``Web Technology'' and ``No Web Technology'' by naive Bayes classifier. The company could allocate appropriate employees to required positions.
 
-Papers and notes may use color figures, which are included in the page
-limit; the figures must be usable when printed in black and white in
-the proceedings.  The paper may be accompanied by a short video figure
-up to five minutes in length.  However, the paper should stand on its
-own without the video figure, as the video may not be available to
-everyone who reads the paper.
 
-\section{Language, Style and Content}
+Yao et al.~\cite{lu2013recommender} also presented a hybrid recommender system which integrated content-based and interaction-based relation. In content-based part, relations between job-job, job-job seeker, and job seeker - job seeker could be identified by their similarity of profiles.
 
-The written and spoken language of SIGCHI is English. Spelling and
-punctuation may use any dialect of English (e.g., British, Canadian,
-US, etc.) provided this is done consistently. Hyphenation is
-optional. To ensure suitability for an international audience, please
-pay attention to the following:
+There two approaches are used to calculate the similarities: For the structured data, like age gender  etc., the weight sum values will be returned, for the unstructured data like similarity between job and user profile the Latent Semantic Analysis will be used.
 
-\begin{itemize}
-\item Write in a straightforward style.
-\item Try to avoid long or complex sentence structures.
-\item Briefly define or explain all technical terms that may be
-  unfamiliar to readers.
-\item Explain all acronyms the first time they are used in your text---e.g.,
-``Digital Signal Processing (DSP)''.
-\item Explain local references (e.g., not everyone knows all city
-  names in a particular country).
-\item Explain ``insider'' comments. Ensure that your whole audience
-  understands any reference whose meaning you do not describe (e.g.,
-  do not assume that everyone has used a Macintosh or a particular
-  application).
-\item Explain colloquial language and puns. Understanding phrases like
-  ``red herring'' may require a local knowledge of English.  Humor and
-  irony are difficult to translate.
-\item Use unambiguous forms for culturally localized concepts, such as
-  times, dates, currencies and numbers (e.g., ``1-5-97'' or ``5/1/97''
-  may mean 5 January or 1 May, and ``seven o'clock'' may mean 7:00 am or
-  19:00).  For currencies, indicate equivalences---e.g., ``Participants
-  were paid 10,000 lire, or roughly \$5.''
-\item Be careful with the use of gender-specific pronouns (he, she)
-  and other gendered words (chairman, manpower, man-months). Use
-  inclusive language that is gender-neutral (e.g., she or he, they,
-  s/he, chair, staff, staff-hours,
-  person-years). See~\cite{Schwartz:1995:GBF} for further advice and
-  examples regarding gender and other personal attributes.
-\item If possible, use the full (extended) alphabetic character set
-  for names of persons, institutions, and places (e.g.,
-  Gr{\o}nb{\ae}k, Lafreni\'ere, S\'anchez, Universit{\"a}t,
-  Wei{\ss}enbach, Z{\"u}llighoven, \r{A}rhus, etc.).  These characters
-  are already included in most versions of Times, Helvetica, and Arial
-  fonts.
-\end{itemize}
+This system was build on the assumption: The users with similar profiles tend to have similar interests. But here we could find two problems: At first, people with similar profile may not have similar interest, this is a very common fact. For example two students both graduate from same department with the same degree at the same year, when they look for jobs, they may have different preference. Second, to job's part, the accuracy of similarity calculation will effect a lot on the result of the system, since two very similar job may be classified as different jobs in the system.
 
-\section{Accessibility}
-The Executive Council of SIGCHI has committed to making SIGCHI conferences more inclusive for researchers, practitioners, and educators with disabilities. As a part of this goal, the all authors are asked to work on improving the accessibility of their submissions. Specifically, we encourage authors to carry out the following five steps:
-\begin{enumerate}
-	\item Add alternative text to all figures
-	\item Mark table headings
-	\item Add tags to the PDF
-	\item Verify the default language
-	\item Set the tab order to ``Use Document Structure''
-\end{enumerate}
-Unfortunately good tools do not yet exist to create tagged PDF files from Latex. LaTeX users will need to carry out all of the above steps in the PDF directly using Adobe Acrobat, after the PDF has been generated.
 
-For more information and links to instructions and resources, please see:
-{\url{http://chi2014.acm.org/authors/guide-to-an-accessible-submission}}.
 
-\section{Page Numbering, Headers and Footers}
-Your final submission SHOULD NOT contain any footer or header string information
-at the top or bottom of each page. The submissions will be paginated in a determined
-order by the chairs and page numbers added to the pdf during the compiling,
-indexing, and pagination processes.
 
-\section{Producing and Testing PDF Files}
 
-We recommend that you produce a PDF version of your submission well
-before the final deadline.  Your PDF file must be ACM DL
-Compliant. The requirements for an ACM Compliant PDF are available at:
-{\url{http://www.sheridanprinting.com/typedept/ACM-distilling-settings.htm}}.
+Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framework to get the detailed information from the job seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is used to segment the resume into consecutive blocks. Based on the result, a SVM model is used to obtain the detailed information in the certain block, the information include: name, address, education etc.
 
-Test your PDF file by viewing or printing it with the same software we
-will use when we receive it, Adobe Acrobat Reader Version 7. This is
-widely available at no cost from~\cite{acrobat}.  Note that most
-reviewers will use a North American/European version of Acrobat
-reader, which cannot handle documents containing non-North American or
-non-European fonts (e.g. Asian fonts).  Please therefore do not use
-Asian fonts, and verify this by testing with a North American/European
-Acrobat reader (obtainable as above). Something as minor as including
-a space or punctuation character in a two-byte font can render a file
-unreadable.
+ Celik Duygua and Elci Atilla proposed a Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology}, which uses ontology to assistant the information extraction process. The system process the resume in following steps: convert the resume files into plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts in the sentences, normalize all the terms, at last the system will classify the sentences to get the wanted terms.
 
-\section{Blind Review}
+\section{Matching Algorithms}
 
-For archival submissions, CHI requires a ``blind review.'' To prepare
-your submission for blind review, remove author and institutional
-identities in the title and header areas of the paper. You may also
-need to remove part or all of the Acknowledgments text.  Further
-suppression of identity in the body of the paper and references is
-left to the authors' discretion. For more details, see the submission
-guidelines and checklist for your submission category.
+Lu et al~\cite{lu2013recommender}. used latent Semantic Analysis(LSA) to calculate similarities between jobs and candidates, but they only selected two factors ``interest'' and ``education''  to compare candidates. Xing et al. ~\cite{yi2007matching} used Structured Relevance Models (SRM) to  match resumes and jobs.
 
-\section{Conclusion}
 
-It is important that you write for the SIGCHI audience.  Please read
-previous years' Proceedings to understand the writing style and
-conventions that successful authors have used.  It is particularly
-important that you state clearly what you have done, not merely what
-you plan to do, and explain how your work is different from previously
-published work, i.e., what is the unique contribution that your work
-makes to the field?  Please consider what the reader will learn from
-your submission, and how they will find your work useful.  If you
-write with these questions in mind, your work is more likely to be
-successful, both in being accepted into the Conference, and in
-influencing the work of our field.
-
-\section{Acknowledgments}
-
-We thank CHI, PDC and CSCW volunteers, and all publications support
-and staff, who wrote and provided helpful comments on previous
-versions of this document.  Some of the references cited in this paper
-are included for illustrative purposes only.  \textbf{Don't forget
-to acknowledge funding sources as well}, so you don't wind up
-having to correct it later.
-
-% Balancing columns in a ref list is a bit of a pain because you
-% either use a hack like flushend or balance, or manually insert
-% a column break.  http://www.tex.ac.uk/cgi-bin/texfaq2html?label=balance
-% multicols doesn't work because we're already in two-column mode,
-% and flushend isn't awesome, so I choose balance.  See this
-% for more info: http://cs.brown.edu/system/software/latex/doc/balance.pdf
-%
-% Note that in a perfect world balance wants to be in the first
-% column of the last page.
-%
-% If balance doesn't work for you, you can remove that and
-% hard-code a column break into the bbl file right before you
-% submit:
-%
-% http://stackoverflow.com/questions/2149854/how-to-manually-equalize-columns-
-% in-an-ieee-paper-if-using-bibtex
-%
-% Or, just remove \balance and give up on balancing the last page.
-%
-\balance
-
-\section{References format}
-References must be the same font size as other body text.
-% REFERENCES FORMAT
-% References must be the same font size as other body text.
 
 \bibliographystyle{acm-sigchi}
-\bibliography{sample}
+\bibliography{jobaly}
 \end{document}
