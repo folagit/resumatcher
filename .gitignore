@@ -263,3 +263,6 @@ python/src/flask/parser.out
 python/src/flask/parsetab.py
 python/src/flask/index/
 data/lemur/
+iui/images/
+iui/*.pdf
+iui/*.out

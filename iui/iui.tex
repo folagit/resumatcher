@@ -23,6 +23,11 @@
 \usepackage{times}    % comment if you want LaTeX's default font
 \usepackage{url}      % llt: nicely formatted URLs
 
+%my pachages
+\usepackage{framed}
+\usepackage{listings}
+\usepackage[]{algorithm2e}
+
 % llt: Define a global style for URLs, rather that the default one
 \makeatletter
 \def\url@leostyle{%
@@ -285,9 +290,538 @@ Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framew
 
  Celik Duygua and Elci Atilla proposed a Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology}, which uses ontology to assistant the information extraction process. The system process the resume in following steps: convert the resume files into plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts in the sentences, normalize all the terms, at last the system will classify the sentences to get the wanted terms.
 
-\section{Matching Algorithms}
+\section{System Features}
+The system will use rule based information extraction technique to parse the job description and resume, and get information such as skill, specialties and background. These information will be used to create the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching.
 
-Lu et al~\cite{lu2013recommender}. used latent Semantic Analysis(LSA) to calculate similarities between jobs and candidates, but they only selected two factors ``interest'' and ``education''  to compare candidates. Xing et al. ~\cite{yi2007matching} used Structured Relevance Models (SRM) to  match resumes and jobs.
+The model of candidates will include their specialties, working experience and education background, all the them should be extracted from the resumes. The job model will be extracted from job description, the information will include: company name, location, job title, education requirement, skill requirements and working experiences etc. When a job seeker searches the jobs by his resume, the system will calculate the similarity between the candidate model and the job models, give every job model a similarity score.
+
+In the initial phase I will only focus on the positions of IT job, because IT jobs have a special character,  skill set oriented, which means the person that the company want to hire must have some special skills and knowledge, like some programming languages, databases or software etc.
+
+User¡¯s personal preference should be considered as well. In the previous user survey, some factors will impact a lot on the user¡¯s expectation of good jobs, such factors include: location, the reputation of the company, the salary etc. These factors will be treated as weight factors in the job matching algorithm.
+
+\section{System Architecture}
+
+Figure ~\ref{fig:Pipeline} shows the architecture of the whole system, which include such modules:
+
+\begin{enumerate}
+    \item The web scrawler could search and download all new IT job opening web pages  from indeed.com everyday.
+    \item Job parser could parse the job opening web page, extract the information and create the job model.
+    \item Resume Parser is much like the Job parser, it will parse the resume and create the candidate model.
+    \item All the job models will be stored in the Job Description database.
+    \item When user make a query request, the ontology matcher will calculate the matching score of each job, return the jobs ranked by their scores.
+\end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.5]{images/arch.png}
+  \caption{System Architecture}
+  \label{fig:arch}
+\end{figure}
+
+\section{Information Extraction}
+
+
+One important the problem of this system is how to build the models from Job Description and Resume. The first step of model generating is information extraction. Both resumes and job descriptions are written in natural language, so we need to extract information from such un-structured or semi-structured data source, and transfer them to some designed structure.
+
+\subsection{Text Processing Pipeline}
+
+One important problem of this system is how to extract models from Job Descriptions and Resumes.
+In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This architecture will also be used in this system to extract models of job openings and candidate's resumes. The system will process the job opening in the following steps, which is shown in Figure~\ref{fig:Pipeline}:
+
+\begin{enumerate}
+    \item HTML parser will parse the job description web pages that are obtained from web scrawler. It will get the HTML element that contains the main content of the job description.
+    \item Segment module will separate the job description into paragraphs according to HTML tags at first, then separate each paragraph into sentences.
+    \item The sentences will be tokenized as string array, and sent to the Classification module. Classification module will determine the category of the sentence, and mark the category of the sentence.
+    \item Preprocessing module will delete unreadable characters, normalize some spelling tokens in the sentence.
+    \item Annotation module will annotate the tokens with sematic and ontology labels. The sentences will be transferred to multi-layered data structure.
+    \item The layered sentences will be matched with pre-defined patterns. If any pattern could be matched, the ontology information will be stored in the job model.
+    \item After every sentence has be processed in the pipeline, the job model will be stored into database.
+\end{enumerate}
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.4]{images/pipeline.png}
+  \caption{Job Description Process Pipeline}
+  \label{fig:Pipeline}
+\end{figure}
+
+
+ 
+Chiticariu et al. \cite{chiticariu2013rule}summarized the pros and cons of machine learning (ML) and rule-based IE technologies in Table
+
+ 
+
+In this work, we prefer the rule-based approach because:
+\begin{enumerate}
+    \item Most of sentences that contain the information we needed followed some common pattern.
+    \item Lots of sentences are not grammatical correct, some of them missing subject, some of them are just a list of skills.
+    \item Processing speed is also a big concern, rule-based pattern matching is faster.
+\end{enumerate}
+
+
+\subsection{Semantic Label}
+
+One conception always have similar but different expression, like Bachelor's degree, in job descriptions it could be written into bachelors degree, B.S., 4 years degree, and so on. In this work, we annotate words in the sentence with semantic label.
+
+We create a dictionary which collect different spelling and expression to a concept. For example  Bachelor's degree has such dictionary entry.
+
+["Baccalaureate","bachelors", "bachelor" ,"B.S.", "B.S","BS","BA","BA/BS", "BABS", "BSBA", "B.A." ,"4-year","4-year", "4 year", "four year","college","Undergraduate" , "University" ]
+
+These words combining with following word ``degree'' will all have the same meaning. We know that the regular expression is a finite state machine (FSM), any word add into it, will become a state of the FSM. If we use common method, adding all these words into the regular expression, the matching process will meet problem of combinatorial explosion. Actually we don't care what the words the sentence use, we want to determine the if the words' meaning and category. So here we propose a two layers label approach. In the first level, we labeled the word with its semantic meaning, which is the value we want to extract from the sentence. In the second level, the labels are the semantic category of the first layer label. For example the word "bachelors" will be annotated in the first layer with label "BS LEVEL" which means bachelors degree level, and the word "PhD" will be labeled as "PHD LEVEL", the both be labeled with "DEGREE LEVEL" in the second layer. A labeled sentence is shown in ~\ref{tab:labeldsent}.
+
+\begin{table}[ht]
+\caption{Labeled sentence } % title of Table
+\centering % used for centering table
+\begin{tabular}{  | c | c | c | c | c |c | c |c | c | c |  }
+ \hline
+ layer 2 & DE LEVEL   & DEGREE & IN & MAJOR            & OR & MAJOR  &.  \\
+ \hline
+ layer 1 &  BS LEVEL   & DEGREE & IN & MAJOR CS         & OR & MAJOR INFO & .      \\
+ \hline
+   words & bachelors   & degree & in & computer science & or & information systems & .     \\
+  \hline
+\end{tabular}
+\label{tab:labeldsent} % is used to refer this table in the text\section{Pipeline of Information Extraction}
+\end{table}
+
+\subsection{Regular Expression Over Labeled Tokens}
+
+Cascaded Finite-State Transducers has widely used approach in Information Extraction for more than 20 years. This approach had been demonstrated   very effective in extracting information from text like CIRCUS~\cite{lehnert1991university} and FASTUS~\cite{hobbs199713}.  In the widely used NLP toolkit GATE~\cite{cunningham2002framework}, the semantic tagger JAPE (Java Annotations Pattern Engine) could describe patterns to match and annotations to be created as  a result. JAPE adopted a version of CPSL (Common Pattern  Specification Language)~\cite{appelt1998common}, which provides finite state transduction over annotations. Chang et al. presented cascaded regular expressions over tokens~\cite{chang2014tokensregex}, which proposed a cascaded patterns over token sequences.
+
+After study these frameworks, I found most them are powerful, but complex. Developers need to learn some  domain-specific language (DSL) like CPSL, and how to integrate this part into a system will also bring some problem. So here we proposed a more flexible and lighter framework could do regular expression matching over labeled tokens.
+
+The input of the pattern is sequence of array, every array is the token and its labels in different layer, which is showed in table~\ref{tab:labeldsent}. A pattern is a concatenation of matchers£¬ which is basic unit of the pattern. A matcher could match a token or a label in any layer.
+
+Currently we support some types of matchers, we list them in table~\ref{tab:matchers}.  The framework support several styles to create a pattern, the most common one is regular expression style, like:
+
+\begin{table}[ht]
+\caption{Matcher Class } % title of Table
+\centering % used for centering table
+\begin{tabular}{  | l | l | l |  }
+ \hline
+ Class Name        &  Function                                 & Counter Part of regex    \\
+ \hline
+ UnitMatcher       &  token is matches the it                  & character  in regex       \\
+ \hline
+ SequenceMatcher   &  A list of Matcher                        & sequence of characters       \\
+  \hline
+ QuestionMatcher   &  One or more of the preceding token       & ?       \\
+  \hline
+ StarMatcher       &  Zero or more of the preceding token      & *       \\
+  \hline
+ PlusMatcher       &  Zero or one of the preceding token       & +       \\
+  \hline
+ DotMatcher        &  Any token                                & .      \\
+  \hline
+ RegexMatcher      &  Any token matches the regular expression               &        \\
+  \hline
+
+\end{tabular}
+\label{tab:matchers} % is used to refer this table in the text\section{Pipeline of Information Extraction}
+\end{table}
+
+\begin{framed}
+    \begin{lstlisting}[language=Python]
+    seqMatcher =parser.parse(" aaa | bbb  ccc?  * ddd")
+    \end{lstlisting}
+\end{framed}
+
+ The seconde style is use algebra operator to connect matchers, like this:
+
+\begin{framed}
+    \begin{lstlisting}[language=Python]
+    seqMatcher =  TokenMatcher("aaa") +
+           TokenMatcher("bbb") | TokenMatcher("ccc")
+    \end{lstlisting}
+\end{framed}
+
+We also could create complex matcher in programming style, which just like we create some programming object, create some objects, and use them create a another object.
+
+\begin{framed}
+    \begin{lstlisting}[language=Python]
+matcher1 = TokenMatcher("aaa")
+matcher2 = TokenMatcher("bbb")
+matcher3 = TokenMatcher("ccc")
+matcher4 = AlternateMatcher([matcher1,matcher2])
+seqMatcher = SeqMatcher([matcher3,matcher4])
+    \end{lstlisting}
+\end{framed}
+
+We support these programming styles, because we want to give developers more flexibility to create patterns. The flexibility are come from the that developers could define which part of sequence should match by assign lambda expressions to matcher's catchfun and outfun. Since the every token in the sequence is an array, which is shown table~\ref{tab:labeldsent}, the lambda expressions could decide which field should be used to match, and which one should be outputed. For example,  to match the labeled sentence, the lambda expression for catchfun is "lambda x:x[2] ", and the outfun is "lambda x:x[1]", which means we match the pattern with the semantic category, and output the  the value we want. We show some patterns used to match degree in table:
+
+\begin{table}[ht]
+\caption{Patterns match degree} % title of Table
+\centering % used for centering table
+\begin{tabular}{  | l  |  }
+ \hline
+ DE\_LEVEL,  DE\_LEVEL, OR  DE\_LEVEL DEGREE   \\
+ DE\_LEVEL DEGREE ( IN  $\vert$  OF ) DT MAJOR   \\
+ MAJOR\_DEGREE  ,  MAJOR\_DEGREE OR MAJOR \\
+ DE\_LEVEL (, DE\_LEVEL)* (OR DE\_LEVEL)? BE? PERFER\_VBD   \\
+ \hline
+
+
+\end{tabular}
+\label{tab:patterns} % is used to refer this table in the text\section{Pipeline of Information Extraction}
+\end{table}
+
+\section{Ontology Similarity}
+
+
+We notice that simple keyword of skill name matching is far from enough, because job description and resume are both written in human language, even the same concepts, they could be written in different ways. For example, Table~\ref{tab:resume_jd}  is part of the resume of a job seeker, and part of a job description:
+
+\begin{table}[ht]
+\caption{Resume and Job Description} % title of Table
+\centering % used for centering table
+\begin{tabular}{ | p{8cm} | p{7cm} | }
+ \hline
+   \textbf{Part of Resume}                 &   \textbf{Part of Job Description}   \\ \hline
+
+    B.S. degree in computer science \newline
+    5+ years Java \newline
+    2+ year   C++  \newline
+    Some experience in Oracle database \newline
+    Other experience like: \newline
+    Hibernate, JBOSS, JUnit, Tomcat etc.
+  &
+  BS degree above   \newline
+  4+ years Java  \newline
+  Some experience of Python   \newline
+    Mysql, MS-SQL   \newline
+    Java web application Server   \newline
+    OOA/OOD   \\
+ \hline
+\end{tabular}
+\label{tab:resume_jd} % is used to refer this table in the text
+\end{table}
+
+If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use key word matching, the system won't give a good matching result in this very common situation. So when design the new ontology matching algorithm, we have such considerations:
+
+\begin{enumerate}
+    \item How to normalize the same concept with different name or spelling
+    \item If one concept in the job description but there is no the same one in the resume, how to calculate the similarity between its related concepts.
+    \item If one concept in the job description has multiple similar concepts in the resume, how to summarize total similarity of them.
+    \item When calculating the similarity between resume and job description, how to give weights to each concepts.
+\end{enumerate}
+
+\subsection{Ontology Construction} 
+
+Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts.  Currently, there is no IT technology ontology build for recruiting purpose.  ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area.
+
+The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. The task of creating such a ontology is a huge one. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, construction tools and so on.  Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology.
+
+We use Protege to create the skeleton of the ontology. It's interface is shown in Figure~\ref{fig:Protege}.
+
+\begin{figure}[htbp]
+
+  \includegraphics[scale=0.5]{images/protege.png}
+  \caption{Interface of Protege}
+  \label{fig:Protege}
+\end{figure}
+
+\begin{figure}[htbp]
+
+  \includegraphics[scale=0.6]{images/ontology_pro.png}
+  \caption{Part of Ontology}
+  \label{fig:ontology_pro}
+\end{figure}
+
+We use semi-automatic approach to get the skills' terms from the job descriptions. From the observation, we found that  skills requirement part of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}.
+\begin{table}[ht]
+\caption{Some sentences Job Description} % title of Table
+\centering % used for centering table
+\begin{tabular}{ | p{15cm}  | }
+ \hline
+    1. A high-level language such as Java, Groovy, Ruby or Python; we use Java and Groovy extensively \newline
+    2. HTML5/CSS3/JavaScript, web standards, jQuery or frameworks like AngularJS would be great \newline
+    3. HTML CSS and Javascript a must  \newline
+    4. Experience with AJAX, XML, XSL, XSLT, CSS, JavaScript, JQuery, HTML and Web Services   \\
+ \hline
+\end{tabular}
+\label{tab:skillrequirement} % is used to refer this table in the text
+\end{table}
+
+Based on this character£¬ we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms in job descriptions, and add them to term dictionary. We use our pattern matching tools to find sentences matching some patterns like below, for example the sentence in ~\ref{tab:termspattern}, we could extract the words that matching *, they have high probability to be  terms. Then we could check the words in Dbpedia to if they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms.
+
+$$ < term > , * , *, <term>$$
+$$ < term > , * , *, and <term>$$
+
+\begin{table}[ht]
+\caption{Some sentences Job Description} % title of Table
+\centering % used for centering table
+\begin{tabular}{   | c | c | c | c |c | c |c | c |c | c |c | c |c | c |  }
+ \hline
+     Experience & with & TERM & , & *   & , & *   &, & TERM &, & and & *  \\
+ \hline
+     Experience & with & AJAX & , & XML & , & XSL &, & XSLT &, & and & CSS  \\
+ \hline
+\end{tabular}
+\label{tab:termspattern} % is used to refer this table in the text
+\end{table}
+
+For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If the any of ``dcterms:subject'' fields have the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we could indignity the word is a technical term, and pop them up. After getting a list of new terms, we could check the category of terms in Dbpedia, and put them into right position of our domain specific ontology. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
+
+\begin{figure}[htbp]
+  \includegraphics[scale=0.6]{images/genonto.png}
+  \caption{Find Technical Terms}
+  \label{fig:gen_onto}
+\end{figure}
+
+\subsection{Ontology-based semantic similarity}
+
+The Ontology technics had also been used in some JRSs, which provide a formal specification of a shared conceptualization~\cite{guarino1998formal}.
+
+There are three kinds Ontology-based similarity measure had been studied, they are Edge counting approaches, Feature-based measures, and Measures based on Information Content.
+
+We could view ontology as a directed graph, in which the nodes are the concepts, the edges are taxonomic relation, like (is-a). Rada, et al.,~\cite{rada1989development} measure the similarity by the distance of two nodes in the graph. So the semantic distance of two concepts a and b will be:
+$$ dis_{rad}(a,b) = min |path_i(a,b)| $$
+
+Wu and Palmer ~\cite{wu1994verbs} realized that the depth in the taxonomy will impact the similarity measure of two nodes, because the more deeper of the nodes are in the tree, the semantic distance is smaller. So they gave a new measure of ontology:
+$$ sim_{w\&p}(a,b) = \frac{2 \times N_3}{N_1 + N_2 + 2 \times N_3} $$
+$N_1$ and $N_2$ is the numbers of is-a links from each term to their Least Common Subsumer(LCS), $N_3$ is the number of is-a links of the LCS to the root of the ontology.
+
+Based on the same idea, Leacock and Chodorow~ \cite{leacock1998combining} also proposed similarity measure that combined distance Np between terms a and b and the depth $D$ of the taxonomy.
+$$ sim_{l\&c}(a,b) = -\log (Np/ 2D) $$
+
+There are some limitations of path-based approaches. First it only consider the shortest path between concept pairs, when they meet complex situation like multiple taxonomical inheritance, the accuracy of them will be low.  Another problem of path-based measures assume that all links in the taxonomy have uniform distance.
+ 
+\subsection{Statistical-based Ontology Similarity Measure }
+In this thesis, I proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required. From observation, we could find that related skills always exist in a job description simultaneously, e.g. HTML and CSS are always required together. Furthermore, the distance between two concepts is also a good measure of the relevance of them. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions :
+
+\begin{table}[ht]
+\caption{Some sentences Job Description} % title of Table
+\centering % used for centering table
+\begin{tabular}{ | p{15cm}  | }
+ \hline
+    1. A high-level language such as Java, Groovy, Ruby or Python; we use Java and Groovy extensively \newline
+    2. HTML5/CSS3/JavaScript, web standards, jQuery or frameworks like AngularJS would be great \newline
+    3. HTML CSS and Javascript a must  \newline
+    4. Experience with AJAX, XML, XSL, XSLT, CSS, JavaScript, JQuery, HTML and Web Services   \\
+ \hline
+\end{tabular}
+\label{tab:skillinsent} % is used to refer this table in the text
+\end{table}
+
+We could see from the table, the technical close related concepts are always bing together.
+Based on such observation, we give a new statistical-based Ontology Similarity Measure. Two concepts $a$ and $b$ in the ontology,   their similarity $S_{a,b}$ could be the ratio of two factors:
+
+\begin{enumerate}
+    \item The ratio of the number of documents they exist together $N_{a \cap b}$ to the number of documents have a least one them $N_{a \cup b}$.
+    \item The average $\log$ value of their minimum distance $mindis(doc,a,b)$ in documents that have them both.
+\end{enumerate}
+
+$$ S(a,b) = \frac{  N_{a \cap b} / N_{a \cup b} }{avg(\log_2( mindis(doc,a,b) + 1 ))} $$
+
+We only apply this measure on the concepts pair if:
+\begin{enumerate}
+    \item The two concepts have the same direct
+    \item One concepts is the super  of another.
+\end{enumerate}
+We set the restriction because the position of the concept in the ontology is defined based on their technical similarity to others. Similar techniques will assigned into a same category, they should share the same technology base, and one could be a alternate to the other. For example, we put EJB and Hibernate in the same category, because they are both J2EE persistence layer technologies, and both have the O/R mapping concept. If the applicant is familiar one of them, they could master the other very quickly. Another example, like Grail and Django, they are both web frameworks, and share some web design philosophies, but one is  designed for Java web application and the other is created for Python web application. So if one developer has some some experience with one of them, he/she still need spend a lot of time to learn the other to overcome the gap between programming languages. We could see the two examples of in figure:
+
+
+
+
+If distance between two concepts are further than above situation we generally believe they are not related skills. The algorithm to calculate the similarity of two concepts is in algorithm ~\ref{alg:alg_similarity}.
+
+\begin{algorithm}
+\caption{Get Stat Similarity}
+\label{alg:alg_similarity}
+\KwIn{$Docs$£¬ $term1$, $term2$}
+\KwOut{$similarity$}
+$total=0$;
+$hastwo=0$;
+$dislist=\left [ ~~ \right ]$\;
+\For{$i=1;~i~\le~len(Docs);~i++$}
+{
+  \If{ $ Docs_i~has~at~least~one~term $ }
+    {
+     $ total~+=~1 $ \;
+     \If{ $ Docs_i~has~both~terms $ }
+        {
+           $ hastwo~+=~1 $ ;
+           $ mindis~=~ minimium\_distance~(Docs_i, term1, term2) $ \;
+           $ dislist.~add  ~\left(  log_2( mindis + 1 ) \right) $ \;
+        }
+    }
+}
+$ factor1~=~hastwo~ /~ total $  \;
+$ factor2~=~ avg(dislist) $  \;
+return $factor1 ~/~ factor2$\;
+$ ~~ $
+\end{algorithm}
+
+To evaluate this measure, we select 99999 job descriptions, and 99 terms to see the result. We got the relevance matrix in table~\ref{tab:dismatrix} by using the algorithm. Considering the skill HTML, the most relevance skills in order are CSS, Javascript, and jQuery,  which is correct from the perspective of a experienced developer. The other example is Java, the most relevant skill in the matrix is JSP, which is the same as the technical relevance.
+
+
+\begin{table}
+
+\caption{Skills Similarity Table 1}
+\begin{tabular}{ c | c c c c c c   }
+ \hline
+  Term       &  Java  &  JDBC  & Spring & Hibernate & MySql  & Oracle   \\  \hline
+  Java   &   1    & 0.0523 & 0.091  &   0.0458  & 0.0339 & 0.0608    \\  \hline
+    JDBC   & 0.0523 &   1    & 0.0525 &   0.0799  & 0.006  & 0.0616   \\  \hline
+   Spring  & 0.091  & 0.0525 &   1    &   0.2008  & 0.0194 & 0.0878   \\  \hline
+ Hibernate & 0.0458 & 0.0799 & 0.2008 &     1     & 0.0073 & 0.115    \\  \hline
+   MySql   & 0.0339 & 0.006  & 0.0194 &   0.0073  &   1    & 0.049    \\  \hline
+   Oracle  & 0.0608 & 0.0616 & 0.0878 &   0.115   & 0.049  &   1      \\  \hline
+ \hline
+\end{tabular}
+\label{tab:dismatrix1}
+\end{table}
+
+\section{EVALUATION}
+
+The Information Extraction and the Ontology Similarity modules are two important part of the system.  We will evaluate them respectively.
+
+\subsection{Experiments of Information Extraction }
+
+To evaluate the performance of information extraction, we get some sentences by the sentence filters, different sentence filter can extract different kinds of sentences. We use degree sentences to explain the process:
+
+In the experiment, we selected 100 sentences from job descriptions that are requirements of candidates degree and major. The value of degree and major are labeled manually. We use patterns to  match and extract the degree information from the sentences. The pattern is gotten from the observation of sentences. As we add more pattern, the accuracy of information increased as well. When we used 6 patterns, the accuracy of degree became 94\%. Figure \ref{fig:degree_accuracy} show the accuracy with number of patterns. The accuracies of three fields are shown in \ref{tab:ieaccura}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.5]{images/degree_accuracy.png}
+  \caption{Degree Extraction  Accuracy}
+  \label{fig:degree_accuracy}
+\end{figure}
+
+
+\begin{table}[ht]
+\caption{Information Extraction} % title of Table
+\centering % used for centering table
+\begin{tabular}{   | c | c | c | c |   }
+ \hline
+                     Field   & Pattern Num & Accuracy     \\
+ \hline
+                     Degree & 6         & 94\%         \\
+ \hline
+                     Major  & 10        & 0.85\%      \\
+ \hline
+                     Skill  & 6         & 0.82 \%      \\
+ \hline
+\end{tabular}
+\label{tab:ieaccura} % is used to refer this table in the text
+\end{table}
+
+\subsection{Experiments of Ontology Similarity}
+
+From the table ~\ref{tab:dismatrix2} we got similarity value between skills. There is no standard criteria to measure the similarity of two entities.  To evaluate the accuracy of our result, we compare the result with human labeled data. We tested the two data sets.
+
+
+
+\begin{table}
+\centering
+\caption{ Javascript Similarity Evaluation : NDCG = 0.94 }
+\begin{tabular}{ | c | c | c  | c |  }
+ \hline
+    Term     &  Similarity Value  &  Position   & Relevance     \\  \hline
+    jQuery   &  0.1981            &      4      &   8        \\
+     HTML    &  0.2087            &      3      &   4         \\
+     CSS     &  0.2439            &      2      &   3   \\
+     Java    &  0.0665            &      5      &   1   \\
+    Python   &  0.0189            &      8      &   1   \\
+     Ruby    &  0.023             &      7      &   1    \\
+     JSP     &  0.0253            &      6      &   2    \\
+ \hline
+\end{tabular}
+\label{tab:simcompare1}
+\end{table}
+
+
+\begin{table}
+\centering
+\caption{ HTML Similarity Evaluation : NDCG = 0.97 }
+\begin{tabular}{ | c | c | c  | c |  }
+ \hline
+    Term      &  Similarity Value  &  Position   & Relevance     \\  \hline
+  Javascript   &  0.2087           &      2      &   3        \\
+     jQuery    &  0.0979           &      3      &   3         \\
+     CSS     &  0.3569             &      1      &   5   \\
+     Java    &  0.0473             &      4      &   1   \\
+    Python   &  0.0175             &      6      &   1   \\
+     Ruby    &  0.023              &      5      &   1    \\
+     JSP     &  0.0103             &      7      &   3    \\
+ \hline
+\end{tabular}
+\label{tab:simcompare2}
+\end{table}
+
+
+
+To evaluate the system, some measures will be used. We also proposed two evaluation method: Pre-collected Data and User's direct experience.
+
+\subsection{Evaluation of the System}
+
+In traditional information retrieval system, precision and NDCG are widely used measures ~\cite{manning2008introduction}.     Precision ($P$) is the fraction of retrieved documents that are relevant .
+       $$  Precision =  \frac{ \#(releveant~items~ retrieved)}{ \#(retrieved~items)}$$
+
+Since the results are ranked, $ Normalized~Discounted~Cumulative~Gain ( NDCG )$ will be an important measure to evaluate the ranked retrieval results. For a set of queries $Q$, let $R(j,d)$ be the relevance score assessors gave to document $d$ for query $j$.
+       $$ NDCG(Q,k) = \frac {1}{|Q|} \sum_{j=1}^{|Q|}{Z_{kj}} \sum_{m=1}^{k} \frac{2^{R(j,m)} - 1}{ \log_2(1+m)} $$
+
+where $Z_{kj}$ is a normalization factor calculated to make it so that a perfect ranking's NDCG at $k$ for query $j$ is 1. For queries for which $k' < k$ documents are retrieved, the last summation is done up to $k'$.
+
+
+We collected some resumes from internet manually, and   job descriptions were collected by web crawler and stored in the database. In the evaluation phrase, we created a set of 100 job descriptions, which includes several kinds of jobs, like web developers, back-end developers, mobile developers and so on. The relevance value of job descriptions to each resume will be set manually. We would like to display jobs  that better match the candidate' resumes at the top. We create a query q from the resume, and treat the text of the job descriptions as documents d and apply standard ad-hoc retrieval techniques to rank the jobs.  The different retrieval algorithms we use are Okapi BM25~\cite{robertson2009probabilistic} ,   Kullback-Leibler divergence, and the TF-IDF. Since the job descriptions are fairly verbose we also experiment with a retrieval model where certain terms that are important to the quality of the match are weighted up in the TF-IDF scoring model.
+
+\subsection{Experimental Results}
+
+For our experiments to compare the various retrieval methods we used 8 candidate resumes  and retrieved the top 20 job descriptions  each method and judged the relevance of these against the resumes. The resumes we chose had an
+average of 100 jobs per resume.  To compare performance of retrieval methods for the top results returned, we used
+both Precision @ k e~\ref{tab:job_precision} and NDCG, shown in Table~\ref{tab:job_ndcg} . The result  shows that Ontology Similarity  performs the best. This agrees with results in  where it was found that finding and weighting
+up important concepts in long queries can improve retrieval performance.
+
+\begin{table}[ht]
+\caption{Precision of Job Ranking } % title of Table
+\centering % used for centering table
+\begin{tabular}{    | c | c | c | c | c |  }
+ \hline
+       k     & Okapi BM25 & KL    & TF-IDF & Ontology Similarity  \\
+ \hline
+       5     & 0.13       & 0.40  & 0.54     & 0.74   \\
+ \hline
+       10    & 0.16       & 0.36  & 0.50     & 0.66   \\
+ \hline
+       20    & 0.16       & 0.35  & 0.49     & 0.61   \\
+ \hline
+
+\end{tabular}
+\label{tab:job_precision} % is used to refer this table in the text
+\end{table}
+
+
+\begin{table}[ht]
+\caption{NDCG of Job Ranking } % title of Table
+\centering % used for centering table
+\begin{tabular}{    | c | c | c | c | c |  }
+ \hline
+       k    & Okapi BM25 & KL    & TF-IDF & Ontology Similarity  \\
+ \hline
+       5    & 0.15       & 0.34  & 0.45     & 0.78   \\
+ \hline
+       10   & 0.18       & 0.44  & 0.47     & 0.72   \\
+ \hline
+       20   & 0.19       & 0.35  & 0.45     & 0.66   \\
+ \hline
+
+\end{tabular}
+\label{tab:job_ndcg} % is used to refer this table in the text
+\end{table}
+
+\section{CONCLUSION and FUTURE WORK }
+In this thesis£¬ we described JobFinder a personalized job-resume matching system, which could help job seeker to find appropriate jobs more easily. The key technical components of the system are information extraction and ontology matching.
+
+In the system, job descriptions and resumes will be processed by pipeline; and a finite automated tool will be used to extract the models from them. The models include fields like degree, major, skills.
+To find the appropriate jobs, similarities between resume model and job description models will be calculated. The result will be sorted by the ontology similarity score, which is the sum of weighted multiple similarities of fields.
+
+We proposed a finite automata matching library to matching the patterns in the sentences and extraction the information. We designed the a semi-automated algorithm to construct the domain specific ontology of skill set. To get the similarity between the skills, we proposed a statistical-based Ontology similarity measure.
+
+Since finding a job is a complex process, which includes some subjective and objective factors.  Our work is just a initial work to solving  this problem, there are still a lof of parts could be improved.
+
+First for the Information Extraction part, currently the method we used is pattern matching, we could try some machine learning approaches in future. In the resume model part, we could build more complex model, like resume model, which should consider the hiring history and project experience of of job seekers, and for job description model, the company's reputation and industry should be put into the model as well.
 
 
 
