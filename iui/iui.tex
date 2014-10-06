@@ -118,14 +118,6 @@ letter-number combination will need to be entered.}
 
 Currently the main channel for job seekers are online job finding web sites, like indeed or  monster etc, that make the job finding process easier and decrease the recruitment time. But most such web sites only allow users to use key word to search the jobs, which makes job searching as tedious and blind task. For example, I used keyword ``Java'' to search jobs with location restriction Mountain View, CA on the job searching site indeed.com, the web site returned about 7,000 jobs (Figure~\ref{fig:Indeed}). The number of results of job searching is huge but un-ranked, so the job seeker has to review every job description. Since no one has enough time to read all the jobs in the searching result, the actual quality of job searching service is low. This is a classic problem of information overflow.
 
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[scale=0.4]{images/indeed1.png}
-  \caption{Search result of Indeed}
-  \label{fig:Indeed}
-\end{figure}
-
 The reason for such result is because current job searching web sites use the same information retrieval technology like ``Inverted index'' \cite{zobel2006inverted} as the common search engines, which just use keywords to map all the stored documents. Modern search engines all have some ranking algorithms to sort the searching result, like page rank \cite{page1999pagerank}, so the top results always be the most related ones. But such algorithms are unavailable to the job searching systems, because the criteria  of how to rank the job searching result is very personalized. A great job opening for one job seeker maybe looks not good to the other, because the goodness of a job to a specular job seeker is heavily depend on his personal background, like his education or professional experience etc.
 
 Since the people's resumes contain the most important background information, we believe the content of the resume could be used to rank the job openings. My proposal is to create a web system which could use the resumes of job seekers to find the jobs that match their profiles best. The main idea is to calculate the similarity between the candidate model and job models, which should be generated from resumes and job descriptions. I want to transfer the job searching task from key word searching to candidate model matching. The matching result should be sorted by the matching score, higher matching score means a better matching. The matching algorithm not only help job seekers to find the appreciate job opening, but also offer priority to them.~\cite{gueutal2006brave}  The job with higher matching score means the job is more appropriate to the job seeker, and if he applies the job, the chance of getting the interview will be higher as well. Figure~\ref{fig:Matching} shows how this approach works.
@@ -133,7 +125,7 @@ Since the people's resumes contain the most important background information, we
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[scale=0.5]{images/matching.png}
+  \includegraphics[scale=0.2]{images/matching.png}
   \caption{Matching the job opening with Resume}
   \label{fig:Matching}
 \end{figure}
@@ -174,13 +166,6 @@ The shortage of Collaborative Filtering:
 
 F{\"a}rber et al \cite{farber2003automated}. presented a recommender system built on a hybrid approach. The system integrated two methods, content-based filtering and collaborative filtering, and tried to overcome the problem of rating data sparsity by leveraging synergies of a combined model, et. the  latent aspect model. The data they used were synthetic resume. The model they are shown in Figure
 
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[scale=0.4]{images/la.png}
-  \caption{Latent Aspect Model}
-  \label{fig:la}
-\end{figure}
 
 In Malinowski et al. \cite{malinowski2006matching}, they classified the job recommender systems into two categories,  CV-recommender, which to recommend CVs to recruiter. The job-recommender, which recommend jobs to job seekers.
 
@@ -265,13 +250,6 @@ Amit et al. in IBM presented a system, ``PROSPECT'', ~\cite{singh2010prospect} t
 HP also built a system to solve the similar problem, which was introduced in Gonzalez et al.'s paper ~\cite{gonzalez2012adaptive}. The system also pay a lot of attention to information extraction. The IE architecture they use is shown in figure ~\ref{fig:hpie}.
 
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[scale=0.5]{images/hpie.png}
-  \caption{IE Framework}
-  \label{fig:hpie}
-\end{figure}
-
 The scholars in this paper, the dictionaries which were used to tag entities should be updated often since there always new terms appears. So an adaptive learning module was used to achieve two objectives: use semantic data to enhance the information extraction and to discover new terms.
 A domain-oriented ontology is used to represent knowledge, inference rules are defined based on the ontology knowledge base. When a detected term found, the system will search in external knowledge base, like DBpedia etc. The resume also be classified to different categories like ``Web Technology'' and ``No Web Technology'' by naive Bayes classifier. The company could allocate appropriate employees to required positions.
 
@@ -313,7 +291,7 @@ Figure ~\ref{fig:Pipeline} shows the architecture of the whole system, which inc
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[scale=0.5]{images/arch.png}
+  \includegraphics[scale=0.3]{images/arch.png}
   \caption{System Architecture}
   \label{fig:arch}
 \end{figure}
@@ -341,7 +319,7 @@ In Nature Language Processing, especially in Information Extraction, pipeline is
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[scale=0.4]{images/pipeline.png}
+  \includegraphics[scale=0.25]{images/pipeline.png}
   \caption{Job Description Process Pipeline}
   \label{fig:Pipeline}
 \end{figure}
@@ -509,20 +487,13 @@ If just looking at the text, we can find the resume has few common words with th
 
 Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts.  Currently, there is no IT technology ontology build for recruiting purpose.  ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area.
 
-The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. The task of creating such a ontology is a huge one. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, construction tools and so on.  Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology.
+The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. The task of creating such a ontology is a huge one. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, construction tools and so on.  Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology. We use Protege to create the skeleton of the ontology. It's interface is shown in Figure~\ref{fig:Protege}.
 
-We use Protege to create the skeleton of the ontology. It's interface is shown in Figure~\ref{fig:Protege}.
-
-\begin{figure}[htbp]
-
-  \includegraphics[scale=0.5]{images/protege.png}
-  \caption{Interface of Protege}
-  \label{fig:Protege}
-\end{figure}
+ 
 
 \begin{figure}[htbp]
 
-  \includegraphics[scale=0.6]{images/ontology_pro.png}
+  \includegraphics[scale=0.4]{images/ontology_pro.png}
   \caption{Part of Ontology}
   \label{fig:ontology_pro}
 \end{figure}
@@ -563,7 +534,7 @@ $$ < term > , * , *, and <term>$$
 For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If the any of ``dcterms:subject'' fields have the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we could indignity the word is a technical term, and pop them up. After getting a list of new terms, we could check the category of terms in Dbpedia, and put them into right position of our domain specific ontology. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
 
 \begin{figure}[htbp]
-  \includegraphics[scale=0.6]{images/genonto.png}
+  \includegraphics[scale=0.4]{images/genonto.png}
   \caption{Find Technical Terms}
   \label{fig:gen_onto}
 \end{figure}
