@@ -185,3 +185,18 @@ We support these programming styles, because we want to give developers more fle
 \end{table}
 
 \section{Implementation of Finite Automata Matching Library }
+
+To transfer a token regular expression to a Finite Automata Transducers(FST), we need to steps: One is parsing  the expression to tree of structure of matchers, the other is transfer the tree of matchers to the Finite Automata Transducers.
+
+We use PLY(Python Lex-Yacc) as the grammar parser, which  is a pure-Python implementation of the popular compiler construction tools lex and yacc. We defined  grammars of token regular expression in the parser, which can parse the token regular expression. 
+
+We use the algorithm proposed by Thompson and Ken\cite{thompson1968programming} to construct the FST from the tree. The expression like ``DL (, DL])*  (or DL)? DEGREE'' could be transferred to an FST in Figure ~\ref{fig:fst}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.4]{images/test_tokenre2_6.png}
+  \caption{Finite Automata Transducers}
+  \label{fig:fst}
+\end{figure}
+
+

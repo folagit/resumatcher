@@ -1,3 +1,18 @@
+\chapter{PROBLEM}
+
+The basic problem in this thesis is how to found appropriate job descriptions by user's resume. The systems will parse the job descriptions to the job models, and store them in database. When user searches the jobs by their resume in the system, the system will compare the resume to all the job models, and return the job descriptions sorted by their similarity value.
+
+The core idea of our algorithm is calculate similarity between resume model and job model.
+We give a formal definition of our problem. All of the notations will be used frequently throughout the thesis.
+
+We use $r$ denote the user's resume model, $R$ has some features $f_i$ like academic degree, their major, their skill set and so on. The symbol $J$ is the set of job models stored in the database, $j_i$ is the $ith$ job model. The similarity function $sim(r, j)$ gives the similarity value between resume $r$ and job $j$. The return list of search function $search(r,J)$ will calculate all the similarity value in the database, and the result of the function will be the job description list ranked their similarity value. The equation of how to calculate similarity value is given below:
+
+$$ sim(r, j) = \sum_{i=1}^{n} simfun_i(r_i,j_i) \times w_i $$
+
+The value of $sim(r, j)$ is summation of similarity value of different fields times their corresponding weight, which means different fields like major and skills,  may have different approaches to calculate their similarity value. We will describe the similarity functions of individual fields in later parts.
+
+
+
 \chapter{System Overview}
 
 \section{System Features}
@@ -28,12 +43,3 @@ Figure ~\ref{fig:Pipeline} shows the architecture of the whole system, which inc
   \label{fig:arch}
 \end{figure}
 
-The system should include such features:
-
-\begin{enumerate}
-    \item User could import his resume in different format, like txt, doc and pdf.
-    \item User could search jobs by his resume. The search result will be sorted by the matching scores.
-    \item User could set their searching preference, like location, company type, reputation, salary level, etc.
-    \item The system should be able to change the parameters of the matching algorithm adaptively according to the record of user's preference
-    \item The user could set multiple searching agents, each one of which is a composition of different preferences, like one for remote location with high salary, another for local company with low salary.
-\end{enumerate}
