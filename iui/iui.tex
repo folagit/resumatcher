@@ -94,7 +94,7 @@ breaklinks=true,
 \maketitle
 
 \begin{abstract}
-Today, online recruiting web sites such as Monster and Indeed have become one of the main channels for people to find jobs. These web platforms have provided their services for more than ten years, and have saved a lot of time and cost for both job seekers and organizations who want to hire people. However, traditional information retrieval techniques may not be appropriate for users. The reason is because the number of results returned to a job seeker may be huge, so job seekers are required to spend a significant amount of time reading and reviewing their options. One popular approach to resolve this difficulty for users are recommender systems, which is a technology that has been studied for a long time. This proposal will present a personalized resume-job matching system, which will obtain the models from the job descriptions and resumes, and use ontology techniques to find appropriate jobs for job seekers.
+Today, online recruiting web sites such as Monster and Indeed have become one of the main channels for people to find jobs. These web platforms have provided their services for more than ten years, and have saved a lot of time and cost for both job seekers and organizations who want to hire people. However, traditional information retrieval techniques may not be appropriate for users. The reason is because the number of results returned to a job seeker may be huge, so job seekers are required to spend a significant amount of time reading and reviewing their options. One popular approach to resolve this difficulty for users are recommender systems, which is a technology that has been studied for a long time. This paper will present a personalized resume-job matching system, which will obtain the models from the job descriptions and resumes, and use ontology techniques to find appropriate jobs for job seekers.
 \end{abstract}
 
 \keywords{
@@ -120,7 +120,7 @@ Currently the main channel for job seekers are online job finding web sites, lik
 
 The reason for such result is because current job searching web sites use the same information retrieval technology like ``Inverted index'' \cite{zobel2006inverted} as the common search engines, which just use keywords to map all the stored documents. Modern search engines all have some ranking algorithms to sort the searching result, like page rank \cite{page1999pagerank}, so the top results always be the most related ones. But such algorithms are unavailable to the job searching systems, because the criteria  of how to rank the job searching result is very personalized. A great job opening for one job seeker maybe looks not good to the other, because the goodness of a job to a specular job seeker is heavily depend on his personal background, like his education or professional experience etc.
 
-Since the people's resumes contain the most important background information, we believe the content of the resume could be used to rank the job openings. My proposal is to create a web system which could use the resumes of job seekers to find the jobs that match their profiles best. The main idea is to calculate the similarity between the candidate model and job models, which should be generated from resumes and job descriptions. I want to transfer the job searching task from key word searching to candidate model matching. The matching result should be sorted by the matching score, higher matching score means a better matching. The matching algorithm not only help job seekers to find the appreciate job opening, but also offer priority to them.~\cite{gueutal2006brave}  The job with higher matching score means the job is more appropriate to the job seeker, and if he applies the job, the chance of getting the interview will be higher as well. Figure~\ref{fig:Matching} shows how this approach works.
+Since the people's resumes contain the most important background information, we believe the content of the resume could be used to rank the job openings. My paper is to create a web system which could use the resumes of job seekers to find the jobs that match their profiles best. The main idea is to calculate the similarity between the candidate model and job models, which should be generated from resumes and job descriptions. I want to transfer the job searching task from key word searching to candidate model matching. The matching result should be sorted by the matching score, higher matching score means a better matching. The matching algorithm not only help job seekers to find the appreciate job opening, but also offer priority to them.~\cite{gueutal2006brave}  The job with higher matching score means the job is more appropriate to the job seeker, and if he applies the job, the chance of getting the interview will be higher as well. Figure~\ref{fig:Matching} shows how this approach works.
 
 
 \begin{figure}[htbp]
@@ -261,9 +261,6 @@ There two approaches are used to calculate the similarities: For the structured 
 This system was build on the assumption: The users with similar profiles tend to have similar interests. But here we could find two problems: At first, people with similar profile may not have similar interest, this is a very common fact. For example two students both graduate from same department with the same degree at the same year, when they look for jobs, they may have different preference. Second, to job's part, the accuracy of similarity calculation will effect a lot on the result of the system, since two very similar job may be classified as different jobs in the system.
 
 
-
-
-
 Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framework to get the detailed information from the job seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is used to segment the resume into consecutive blocks. Based on the result, a SVM model is used to obtain the detailed information in the certain block, the information include: name, address, education etc.
 
  Celik Duygua and Elci Atilla proposed a Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology}, which uses ontology to assistant the information extraction process. The system process the resume in following steps: convert the resume files into plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts in the sentences, normalize all the terms, at last the system will classify the sentences to get the wanted terms.
@@ -325,10 +322,10 @@ In Nature Language Processing, especially in Information Extraction, pipeline is
 \end{figure}
 
 
- 
+
 Chiticariu et al. \cite{chiticariu2013rule}summarized the pros and cons of machine learning (ML) and rule-based IE technologies in Table
 
- 
+
 
 In this work, we prefer the rule-based approach because:
 \begin{enumerate}
@@ -378,11 +375,10 @@ Currently we support some types of matchers, we list them in table~\ref{tab:matc
 \small
 \caption{Matcher Class } % title of Table
 \centering % used for centering table
-\begin{tabular}{  | l | l | l |  }
+\begin{tabular}{  | p{2cm} | p{3cm} | p{3cm} |  }
  \hline
- Class Name        &  Function                                 & Counter Part       \\
-                   &                                           &  of Regex           \\
- \hline
+ Class Name        &  Function                                 & Counter Part of Regex       \\
+  \hline
  UnitMatcher       &  token is matches the it                  & character  in regex       \\
  \hline
  SequenceMatcher   &  A list of Matcher                        & sequence of characters       \\
@@ -491,13 +487,13 @@ If just looking at the text, we can find the resume has few common words with th
     \item When calculating the similarity between resume and job description, how to give weights to each concepts.
 \end{enumerate}
 
-\subsection{Ontology Construction} 
+\subsection{Ontology Construction}
 
 Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts.  Currently, there is no IT technology ontology build for recruiting purpose.  ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area.
 
 The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. The task of creating such a ontology is a huge one. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, construction tools and so on.  Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology. We use Protege to create the skeleton of the ontology. It's interface is shown in Figure~\ref{fig:Protege}.
 
- 
+
 
 \begin{figure}[htbp]
 
@@ -565,7 +561,7 @@ Based on the same idea, Leacock and Chodorow~ \cite{leacock1998combining} also p
 $$ sim_{l\&c}(a,b) = -\log (Np/ 2D) $$
 
 There are some limitations of path-based approaches. First it only consider the shortest path between concept pairs, when they meet complex situation like multiple taxonomical inheritance, the accuracy of them will be low.  Another problem of path-based measures assume that all links in the taxonomy have uniform distance.
- 
+
 \subsection{Statistical-based Ontology Similarity Measure }
 In this thesis, I proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required. From observation, we could find that related skills always exist in a job description simultaneously, e.g. HTML and CSS are always required together. Furthermore, the distance between two concepts is also a good measure of the relevance of them. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions :
 
@@ -575,12 +571,12 @@ In this thesis, I proposed a new statistical-based ontology similarity measure. 
 \centering % used for centering table
 \begin{tabular}{ | p{8cm}  | }
  \hline
-    1. A high-level language such as Java, Groovy, Ruby or Python;  
+    1. A high-level language such as Java, Groovy, Ruby or Python;
        we use Java and Groovy extensively \newline
-    2. HTML5/CSS3/JavaScript, web standards, jQuery or frameworks   
+    2. HTML5/CSS3/JavaScript, web standards, jQuery or frameworks
        like AngularJS would be great \newline
     3. HTML CSS and Javascript a must  \newline
-    4. Experience with AJAX, XML, XSL, XSLT, CSS, JavaScript,  
+    4. Experience with AJAX, XML, XSL, XSLT, CSS, JavaScript,
        JQuery, HTML and Web Services   \\
  \hline
 \end{tabular}
@@ -807,7 +803,6 @@ We proposed a finite automata matching library to matching the patterns in the s
 Since finding a job is a complex process, which includes some subjective and objective factors.  Our work is just a initial work to solving  this problem, there are still a lof of parts could be improved.
 
 First for the Information Extraction part, currently the method we used is pattern matching, we could try some machine learning approaches in future. In the resume model part, we could build more complex model, like resume model, which should consider the hiring history and project experience of of job seekers, and for job description model, the company's reputation and industry should be put into the model as well.
-
 
 
 \bibliographystyle{acm-sigchi}
