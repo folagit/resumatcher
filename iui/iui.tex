@@ -203,8 +203,7 @@ Figure ~\ref{fig:Pipeline} shows the architecture of the whole system, which inc
 
 \section{Information Extraction}
 
-
-One important the problem of this system is how to build the models from Job Description and Resume. The first step of model generating is information extraction. Both resumes and job descriptions are written in natural language, so we need to extract information from such un-structured or semi-structured data source, and transfer them to some designed structure.
+The first step of creating the models from Job Description and Resume is to extract information from resumes and job descriptions. Both resumes and job descriptions are written in natural language, so the challenge is how to extract information from such un-structured or semi-structured data source, and transfer them to some designed structure.
 
 Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framework to get the detailed information from the job seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is used to segment the resume into consecutive blocks. Based on the result, a SVM model is used to obtain the detailed information in the certain block, the information include: name, address, education etc.
 
@@ -212,8 +211,7 @@ Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framew
 
 \subsection{Text Processing Pipeline}
 
-One important problem of this system is how to extract models from Job Descriptions and Resumes.
-In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This architecture will also be used in this system to extract models of job openings and candidate's resumes. The system will process the job opening in the following steps, which is shown in Figure~\ref{fig:Pipeline}:
+In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This architecture will also be used in this system to extract models of job openings and candidate's resumes. The system processes the job description in the following steps, which is shown in Figure~\ref{fig:Pipeline}:
 
 \begin{enumerate}
     \item HTML parser will parse the job description web pages that are obtained from web scrawler. It will get the HTML element that contains the main content of the job description.
@@ -232,12 +230,6 @@ In Nature Language Processing, especially in Information Extraction, pipeline is
   \caption{Job Description Process Pipeline}
   \label{fig:Pipeline}
 \end{figure}
-
-
-
-Chiticariu et al. \cite{chiticariu2013rule}summarized the pros and cons of machine learning (ML) and rule-based IE technologies in Table
-
-
 
 In this work, we prefer the rule-based approach because:
 \begin{enumerate}
