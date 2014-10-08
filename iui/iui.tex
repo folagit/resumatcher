@@ -123,15 +123,7 @@ Since people's resumes contain their most important background information, we b
 
 \subsection{Contribution}
 
-The list below highlights the core contributions in this paper. 
-
-\begin{enumerate}
-    \item  We create a finite automata based matching tool to extract information from text.
-    \item  We define some pattern for labeled text to extract information.
-    \item  We create a domain specific Ontology for recruitment.
-    \item  We proposed statistical based Ontology similarity measure.
-    \item  We proposed a approach to calculate the similarity between job and resume.
-\end{enumerate}
+We had made three key contributions in this work. The first is creation of a Finite State Transducer-based matching tool, which is a lightweight and flexible library, can be extend in very easy ways. The second is is the introduction of a semi-automatic approach, which could collect technical terms from data sources. The third contribution is a statistical based Ontology similarity measure for comparing the job seeker's resumes and job descriptions.
 
 \section{Related Works}
 This section provides a discussion of related research in Job Recommender Systems.
@@ -158,7 +150,7 @@ Some big IT companies had meet a similar problem of information overflow. Any po
 
 Amit et al. in IBM presented a system, ``PROSPECT'', ~\cite{singh2010prospect} to aid in the shortlisting of candidates for jobs. The system uses a resume miner to extract the information from resumes, which use a CRF model to segment and label the resumes. The CRF model used three kinds of features, they are: Lexicon, Visual, Named Entity, Text, and Conjunction. The paper compared some algorithms to ranked the candidates applicants, such methods include: Okapi BM25, KL, Lucene Scoring, and Lucene Scoring + SkillBoost.
 
-HP also built a system to solve the similar problem, which was introduced in Gonzalez et al.'s paper ~\cite{gonzalez2012adaptive}. The system also pay a lot of attention to information extraction. 
+HP also built a system to solve the similar problem, which was introduced in Gonzalez et al.'s paper ~\cite{gonzalez2012adaptive}. The system also pay a lot of attention to information extraction.
 
 \subsection{Ontology-based Approaches}
 A domain-oriented ontology is used to represent knowledge, inference rules are defined based on the ontology knowledge base. When a detected term found, the system will search in external knowledge base, like DBpedia etc. The resume also be classified to different categories like ``Web Technology'' and ``No Web Technology'' by naive Bayes classifier. The company could allocate appropriate employees to required positions.
