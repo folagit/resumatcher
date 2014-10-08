@@ -100,7 +100,7 @@ In this thesis we have made an effort to propose a personalized job-resume match
 \end{abstract}
 
 \keywords{
-User Interfaces; Recommender Systems; Semantic Web; Information Retrieval 
+User Interfaces; Recommender Systems; Semantic Web; Information Retrieval
 }
 
 \category{H.5.m.}{Information Interfaces and Presentation (e.g. HCI)}{Miscellaneous}
@@ -115,19 +115,11 @@ letter-number combination will need to be entered.}
 
 \section{Introduction}
 
-Currently the main channel for job seekers are online job finding web sites, like indeed or  monster etc, that make the job finding process easier and decrease the recruitment time. But most such web sites only allow users to use key word to search the jobs, which makes job searching as tedious and blind task. For example, I used keyword ``Java'' to search jobs with location restriction Mountain View, CA on the job searching site indeed.com, the web site returned about 7,000 jobs (Figure~\ref{fig:Indeed}). The number of results of job searching is huge but un-ranked, so the job seeker has to review every job description. Since no one has enough time to read all the jobs in the searching result, the actual quality of job searching service is low. This is a classic problem of information overflow.
+Currently, the main channel for job seekers are online job finding web sites, such as Indeed or Monster, that make the job finding process easier and reduce the recruitment time. However, most of these web sites only allow users to use keywords to search for jobs, which makes job searching both tedious and random. For example, if a user types the keyword ``java'' to search for jobs with locations restricted to Mountain View in California on job search site indeed.com, then the web site would return approximately 7,000 jobs. While the number of job search results is huge, it is also not ranked in order of relevancy, so the job seeker has to manually review every job description. Since an individual does not have the time to read over all the jobs in the search result, the actual quality of the job searching service is low. This is a classic problem of information overflow.
 
-The reason for such result is because current job searching web sites use the same information retrieval technology like ``Inverted index'' \cite{zobel2006inverted} as the common search engines, which just use keywords to map all the stored documents. Modern search engines all have some ranking algorithms to sort the searching result, like page rank \cite{page1999pagerank}, so the top results always be the most related ones. But such algorithms are unavailable to the job searching systems, because the criteria  of how to rank the job searching result is very personalized. A great job opening for one job seeker maybe looks not good to the other, because the goodness of a job to a specular job seeker is heavily depend on his personal background, like his education or professional experience etc.
+The reason for such results is because current job searching web sites use the same type of information retrieval technology like ``Inverted index'' \cite{zobel2006inverted} that are generally used in their search engines, which just rely on keywords to map all the stored documents. Current search engines all use some sort of ranking algorithms to sort these search result, like page rank \cite{page1999pagerank}, so the top results are the most related ones. But such algorithms are unavailable to the job searching systems, because the criteria  of how to rank the job searching result is very personalized. A great job opening for one job seeker may not look as good to someone else, because the goodness of a job to a different job seeker heavily depends on their personal background, like their education or professional experience and so on.
 
-Since the people's resumes contain the most important background information, we believe the content of the resume could be used to rank the job openings. My paper is to create a web system which could use the resumes of job seekers to find the jobs that match their profiles best. The main idea is to calculate the similarity between the candidate model and job models, which should be generated from resumes and job descriptions. I want to transfer the job searching task from key word searching to candidate model matching. The matching result should be sorted by the matching score, higher matching score means a better matching. The matching algorithm not only help job seekers to find the appreciate job opening, but also offer priority to them.~\cite{gueutal2006brave}  The job with higher matching score means the job is more appropriate to the job seeker, and if he applies the job, the chance of getting the interview will be higher as well. Figure~\ref{fig:Matching} shows how this approach works.
-
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[scale=0.2]{images/matching.png}
-  \caption{Matching the job opening with Resume}
-  \label{fig:Matching}
-\end{figure}
+Since people's resumes contain their most important background information, we believe the content of the resume could be used to rank the job openings. I propose to create an online system that could use the resumes of job seekers to find the jobs that best match their profiles. The main idea is to calculate the similarity between the candidate model and job models, which should be generated from resumes and job descriptions. An important goal of the research is therefore to transfer the job searching task from keyword searching to job and resume models matching. The matching result will be sorted by the matching score, where the higher matching score means a better matching. The matching algorithm will not only help job seekers find the appreciate job opening, but will also offer priority to them~\cite{gueutal2006brave}. We hope the job matching process could help job seeker search and rank the job opening, and save them some time. We will evaluate whether the job with the higher matching score is more appropriate to the job seeker. 
 
 \subsection{Contribution}
 
