@@ -134,105 +134,33 @@ The list below highlights the core contributions in this paper.
 \end{enumerate}
 
 \section{Related Works}
+This section provides a discussion of related research in Job Recommender Systems.
 
-
-Rafter et al. \cite{rafter2000personalised} began to use ACF (Automated Collaborative Filtering) in Job Recommender system, ``CASPER''. In the system user profiles are gotten from server logs, that included: revisit data, read time data, and activity data. All these factors were viewed as measure of relevance among users. The system recommend jobs in two steps. First the system find a set of user related to the target user, second the jobs that related users liked will be recommend to the target user. The system use cluster-based Collaborative Filtering strategy. The similarity between users are based on how many jobs they both reviewed, or applied.
-
-The CASPER also allows user search jobs by a query which is a combination of some fields, like location, salary, and skill etc. The system use such query to find jobs, and the returned jobs will be ranked with above collaborative filtering algorithm.
-In their paper, they didn't give a detail description on how to detect the related fields they need and how to the transfer semi-structured job description to structured one. This system is helping job seeker to find jobs.
+\subsection{Job Recommender Systems}
+Rafter et al. \cite{rafter2000personalised} began to use ACF (Automated Collaborative Filtering) in their Job Recommender system, ``CASPER''. In the system user profiles are gotten from server logs, that included: revisit data, read time data, and activity data. All these factors were viewed as measure of relevance among users. The system recommend jobs in two steps. First the system find a set of user related to the target user, second the jobs that related users liked will be recommend to the target user. The system use cluster-based Collaborative Filtering strategy. The similarity between users are based on how many jobs they both reviewed, or applied.
 
 The shortage of Collaborative Filtering:
  First since the searching result is huge, and the result is sorted randomly, even two very similar users may review different jobs,  or say the probability of two similar users reviewing the same job is low. The authors also noticed the such sparseness problem in users profile, so they try to user cluster-based solution to resolve this problem.
 
  Second because recommended jobs are from others users searching result, since the current quality of current searching result is low, so the quality of recommendation cannot be high.
 
-F{\"a}rber et al \cite{farber2003automated}. presented a recommender system built on a hybrid approach. The system integrated two methods, content-based filtering and collaborative filtering, and tried to overcome the problem of rating data sparsity by leveraging synergies of a combined model, et. the  latent aspect model. The data they used were synthetic resume. The model they are shown in Figure
+F{\"a}rber et al \cite{farber2003automated}. presented a recommender system built on a hybrid approach. The system integrated two methods, content-based filtering and collaborative filtering. They tried to overcome the problem of rating data sparsity by leveraging synergies of a combined model, et. the  latent aspect model.
 
-
-In Malinowski et al. \cite{malinowski2006matching}, they classified the job recommender systems into two categories,  CV-recommender, which to recommend CVs to recruiter. The job-recommender, which recommend jobs to job seekers.
-
-The system collect the users' profile data by asking input their profiles to the web form based interface field by field. The input data collected are:
-
-\begin{enumerate}
-    \item  Demographic data (e.g. date of birth, contact information)
-
-    \item  Educational data (e.g. school courses, grades, university, type of degree, intermediate and final university examinations, postgraduate studies)
-
-    \item  Job experience (e.g. name of the company, type of employment, industry group, occupational field)
-    \item  Language skills (e.g. language, level of knowledge)
-    \item  IT skills (e.g. type of skill, level of knowledge)
-    \item  Awards, scholarships, publications, others
-
-\end{enumerate}
-
-
-The system also asked the users upload their resumes, but that's for facilitating the human judgment.
-
-From the paper we know, the model latent aspect model is statistical model, which need to be trained before be applied into recommendation. But training need user to label to data, since current quality of result of job searching is poor, it will take a lot of time for user to train model.
-
-
-Drigas* et al.\cite{malinowski2006matching} al presented a expert system to match jobs and job seekers, and recommend unemployed to  The expert system used Neuro-Fuzzy rule to evaluate the matching:
-Candidate's X matches X Criterion
-
-
-
-
-The system represent the job in six fields:
-\begin{enumerate}
-    \item  Age
-    \item  Education
-    \item  Additional Education(Training)
-    \item  Previous Employment (Experience)
-    \item  Foreign Language
-    \item  Computer Knowledge
-\end{enumerate}
-
-
- The system use a relation matrix to represent the fuzzy relation between these specialities. The system need the training data to train that Neuro-fuzzy network.
-
-Both resume data and job info data were manually input into the system  . The fields they selected are relative small.
-
-Daramola et al.  also proposed a fuzzy logic based expert system(FES) tool for online personnel resctuitments. In the paper, the authors assumed that the information already be collected. The system use a fuzzy distance metric to rank candidates' profile in the order of their eligibility for the job. The fuzy hamming distance is given as:
+Daramola et al.  proposed a fuzzy logic based expert system(FES) tool for online personnel resctuitments. In the paper, the authors assumed that the information already be collected. The system use a fuzzy distance metric to rank candidates' profile in the order of their eligibility for the job. The fuzy hamming distance is given as:
 $$ \delta \left ( O,R \right )=\sum_{i=1}^{n}\left | \mu_O(x_i) - \mu_R(x_i)  \right | $$
-
-Ioannis et al. used a machine learned prediction model to recommend new jobs to job seekers~\cite{paparrizos2011machine}.  The features used by the prediction model includes:
-
-
-
-\begin{table}[ht]
-\caption{Resume and Job Description} % title of Table
-\centering % used for centering table
-\begin{tabular}{ l l r }
- \hline
- Feature type &  Feature  &  Range   \\ \hline
-              &  company title   & String  \\
-Institution   &  industry        & String  \\
-              &  company type    & \{public, private\} \\
-              &  number of employees &    Num \\
- \hline
-              &  number of jobs         & Num  \\
-              &  position title         & String  \\
-  employee    &  best position title    & String \\
-              &  years of experience    &    Num \\
-              &  number of universities &    Num \\
-              &  education degree       & String \\
- \hline
-\end{tabular}
-\label{tab:predictionmodel} % is used to refer this table in the text
-\end{table}
-
 
 
 when applying a job, the common method is let the candidates upload their resumes, sometimes the company want user to enter details like personal information, education and experience details, skills. However, in real life, the candidates do not input a lot information in the on-line form. ~\cite{singh2010prospect}
+
+\subsection{Information Extraction}
 
 Some big IT companies had meet a similar problem of information overflow. Any position they published, will receive a lot applications, the recruiter need to screen the all the applications, but this task is also tedious and time consuming, highly cumbersome and inefficient. so these company tried to build the system to help screen the position candidates.
 
 Amit et al. in IBM presented a system, ``PROSPECT'', ~\cite{singh2010prospect} to aid in the shortlisting of candidates for jobs. The system uses a resume miner to extract the information from resumes, which use a CRF model to segment and label the resumes. The CRF model used three kinds of features, they are: Lexicon, Visual, Named Entity, Text, and Conjunction. The paper compared some algorithms to ranked the candidates applicants, such methods include: Okapi BM25, KL, Lucene Scoring, and Lucene Scoring + SkillBoost.
 
-HP also built a system to solve the similar problem, which was introduced in Gonzalez et al.'s paper ~\cite{gonzalez2012adaptive}. The system also pay a lot of attention to information extraction. The IE architecture they use is shown in figure ~\ref{fig:hpie}.
+HP also built a system to solve the similar problem, which was introduced in Gonzalez et al.'s paper ~\cite{gonzalez2012adaptive}. The system also pay a lot of attention to information extraction. 
 
-
-The scholars in this paper, the dictionaries which were used to tag entities should be updated often since there always new terms appears. So an adaptive learning module was used to achieve two objectives: use semantic data to enhance the information extraction and to discover new terms.
+\subsection{Ontology-based Approaches}
 A domain-oriented ontology is used to represent knowledge, inference rules are defined based on the ontology knowledge base. When a detected term found, the system will search in external knowledge base, like DBpedia etc. The resume also be classified to different categories like ``Web Technology'' and ``No Web Technology'' by naive Bayes classifier. The company could allocate appropriate employees to required positions.
 
 
@@ -243,11 +171,9 @@ There two approaches are used to calculate the similarities: For the structured 
 This system was build on the assumption: The users with similar profiles tend to have similar interests. But here we could find two problems: At first, people with similar profile may not have similar interest, this is a very common fact. For example two students both graduate from same department with the same degree at the same year, when they look for jobs, they may have different preference. Second, to job's part, the accuracy of similarity calculation will effect a lot on the result of the system, since two very similar job may be classified as different jobs in the system.
 
 
-Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framework to get the detailed information from the job seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is used to segment the resume into consecutive blocks. Based on the result, a SVM model is used to obtain the detailed information in the certain block, the information include: name, address, education etc.
 
- Celik Duygua and Elci Atilla proposed a Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology}, which uses ontology to assistant the information extraction process. The system process the resume in following steps: convert the resume files into plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts in the sentences, normalize all the terms, at last the system will classify the sentences to get the wanted terms.
 
-\section{System Features}
+\section{System Overview}
 The system will use rule based information extraction technique to parse the job description and resume, and get information such as skill, specialties and background. These information will be used to create the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching.
 
 The model of candidates will include their specialties, working experience and education background, all the them should be extracted from the resumes. The job model will be extracted from job description, the information will include: company name, location, job title, education requirement, skill requirements and working experiences etc. When a job seeker searches the jobs by his resume, the system will calculate the similarity between the candidate model and the job models, give every job model a similarity score.
@@ -256,7 +182,7 @@ In the initial phase I will only focus on the positions of IT job, because IT jo
 
 User¡¯s personal preference should be considered as well. In the previous user survey, some factors will impact a lot on the user¡¯s expectation of good jobs, such factors include: location, the reputation of the company, the salary etc. These factors will be treated as weight factors in the job matching algorithm.
 
-\section{System Architecture}
+\subsection{System Architecture}
 
 Figure ~\ref{fig:Pipeline} shows the architecture of the whole system, which include such modules:
 
@@ -279,6 +205,10 @@ Figure ~\ref{fig:Pipeline} shows the architecture of the whole system, which inc
 
 
 One important the problem of this system is how to build the models from Job Description and Resume. The first step of model generating is information extraction. Both resumes and job descriptions are written in natural language, so we need to extract information from such un-structured or semi-structured data source, and transfer them to some designed structure.
+
+Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framework to get the detailed information from the job seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is used to segment the resume into consecutive blocks. Based on the result, a SVM model is used to obtain the detailed information in the certain block, the information include: name, address, education etc.
+
+ Celik Duygua and Elci Atilla proposed a Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology}, which uses ontology to assistant the information extraction process. The system process the resume in following steps: convert the resume files into plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts in the sentences, normalize all the terms, at last the system will classify the sentences to get the wanted terms.
 
 \subsection{Text Processing Pipeline}
 
