@@ -176,14 +176,14 @@ User¡¯s personal preference should be considered as well. In the previous user s
 
 \subsection{System Architecture}
 
-Figure ~\ref{fig:Pipeline} shows the architecture of the whole system, which include such modules:
+The architecture of the system is shown in Figure ~\ref{fig:Pipeline}, which includes several modules:
 
 \begin{enumerate}
     \item The web crawler could search and download all new IT job opening web pages  from indeed.com everyday.
-    \item Job parser could parse the job opening web page, extract the information and create the job model.
-    \item Resume Parser is much like the Job parser, it will parse the resume and create the candidate model.
+    \item The job parser could parse the job opening web page, extract the information and create the job model.
+    \item The resume Parser is much like the Job parser, it will parse the resume and create the candidate model.
     \item All the job models will be stored in the Job Description database.
-    \item When user make a query request, the ontology matcher will calculate the matching score of each job, return the jobs ranked by their scores.
+    \item When user makes a match request, the ontology matcher will calculate the matching score of each job, and return the jobs ranked by the scores.
 \end{enumerate}
 
 \begin{figure}[htbp]
@@ -203,15 +203,15 @@ Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framew
 
 \subsection{Text Processing Pipeline}
 
-In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This architecture will also be used in this system to extract models of job openings and candidate's resumes. The system processes the job description in the following steps, which is shown in Figure~\ref{fig:Pipeline}:
+In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This architecture will also be used in this system to extract models of job descriptions and candidate's resumes. The system processes the job description in the following steps, which is shown in Figure~\ref{fig:Pipeline}:
 
 \begin{enumerate}
-    \item HTML parser will parse the job description web pages that are obtained from web crawler. It will get the HTML element that contains the main content of the job description.
+    \item The HTML parser will parse the web pages of job descriptions, which are obtained from web crawler. The parser will get the HTML element that contains the main content of the job description.
     \item Segment module will separate the job description into paragraphs according to HTML tags at first, then separate each paragraph into sentences.
-    \item The sentences will be tokenized as string array, and sent to the Classification module. Classification module will determine the category of the sentence, and mark the category of the sentence.
-    \item Preprocessing module will delete unreadable characters, normalize some spelling tokens in the sentence.
-    \item Annotation module will annotate the tokens with sematic and ontology labels. The sentences will be transferred to multi-layered data structure.
-    \item The layered sentences will be matched with pre-defined patterns. If any pattern could be matched, the ontology information will be stored in the job model.
+    \item The sentences will be tokenized into string arrays, and be sent to the classification module. The classification module will determine the category of the sentence, and the sentence a category mark.
+    \item The preprocessing module will delete unreadable characters, and correct some tokens spelling.
+    \item The annotation module will annotate the tokens with semantic and ontology labels. After labeling, the sentences will have a multi-layered data structure.
+    \item The layered sentences will be matched with pre-defined patterns with the FST library. If any pattern could be matched, the ontology information will be extract and stored in the job model.
     \item After every sentence has be processed in the pipeline, the job model will be stored into database.
 \end{enumerate}
 
@@ -223,23 +223,16 @@ In Nature Language Processing, especially in Information Extraction, pipeline is
   \label{fig:Pipeline}
 \end{figure}
 
-In this work, we prefer the rule-based approach because:
-\begin{enumerate}
-    \item Most of sentences that contain the information we needed followed some common pattern.
-    \item Lots of sentences are not grammatical correct, some of them missing subject, some of them are just a list of skills.
-    \item Processing speed is also a big concern, rule-based pattern matching is faster.
-\end{enumerate}
+
 
 
 \subsection{Semantic Label}
 
-One conception always have similar but different expression, like Bachelor's degree, in job descriptions it could be written into bachelors degree, B.S., 4 years degree, and so on. In this work, we annotate words in the sentence with semantic label.
-
-We create a dictionary which collect different spelling and expression to a concept. For example  Bachelor's degree has such dictionary entry.
+In the natural language, one concept always have some different expressions. Like bachelor's degree, the simple concept has several expression in job descriptions, like B.S., BA/BS, 4 years degree, and so on. To resolve this problem, we create a dictionary which collects different spellings and expressions mapping to one concept. For example  Bachelor's degree has such dictionary entries in below. These words combining with following word ``degree'' are all have the same meaning of bachelor's degree.
 
 ["Baccalaureate","bachelors", "bachelor" ,"B.S.", "B.S","BS","BA","BA/BS", "BABS", "BSBA", "B.A." ,"4-year","4-year", "4 year", "four year","college","Undergraduate" , "University" ]
 
-These words combining with following word ``degree'' will all have the same meaning. We know that the regular expression is a finite state machine (FSM), any word add into it, will become a state of the FSM. If we use common method, adding all these words into the regular expression, the matching process will meet problem of combinatorial explosion. Actually we don't care what the words the sentence use, we want to determine the if the words' meaning and category. So here we propose a two layers label approach. In the first level, we labeled the word with its semantic meaning, which is the value we want to extract from the sentence. In the second level, the labels are the semantic category of the first layer label. For example the word "bachelors" will be annotated in the first layer with label "BS LEVEL" which means bachelors degree level, and the word "PhD" will be labeled as "PHD LEVEL", the both be labeled with "DEGREE LEVEL" in the second layer. A labeled sentence is shown in ~\ref{tab:labeldsent}.
+ We know that the regular expression is a finite state machine (FSM), any word add into it, will become a state of the FST. If we add  all these words into the regular expression, the matching process will meet problem of combinatorial explosion. Actually in this system, we don't care what the words the sentence use, we want to determine the if the words' meaning and category. So here we propose a two layers label approach. In the first level, we labeled the word with its semantic meaning, which is the value we want to extract from the sentence. In the second level, the labels are the semantic category of the first layer label. For example the word "bachelors" will be annotated in the first layer with label "BS LEVEL" which means bachelors degree level, and the word "PhD" will be labeled as "PHD LEVEL", the both be labeled with "DEGREE LEVEL" in the second layer. A labeled sentence is shown in ~\ref{tab:labeldsent}.
 
 \begin{table}[ht]
 \small
@@ -259,13 +252,20 @@ These words combining with following word ``degree'' will all have the same mean
 
 \subsection{Regular Expression Over Labeled Tokens}
 
+In this work, we prefer the rule-based approach because:
+\begin{enumerate}
+    \item Most of sentences that contain the information we needed followed some common pattern.
+    \item Lots of sentences are not grammatical correct, some of them missing subject, some of them are just a list of skills.
+    \item Processing speed is also a big concern, rule-based pattern matching is faster.
+\end{enumerate}
+
 Cascaded Finite-State Transducers has widely used approach in Information Extraction for more than 20 years. This approach had been demonstrated   very effective in extracting information from text like CIRCUS~\cite{lehnert1991university} and FASTUS~\cite{hobbs199713}.  In the widely used NLP toolkit GATE~\cite{cunningham2002framework}, the semantic tagger JAPE (Java Annotations Pattern Engine) could describe patterns to match and annotations to be created as  a result. JAPE adopted a version of CPSL (Common Pattern  Specification Language)~\cite{appelt1998common}, which provides finite state transduction over annotations. Chang et al. presented cascaded regular expressions over tokens~\cite{chang2014tokensregex}, which proposed a cascaded patterns over token sequences.
 
 After study these frameworks, I found most them are powerful, but complex. Developers need to learn some  domain-specific language (DSL) like CPSL, and how to integrate this part into a system will also bring some problem. So here we proposed a more flexible and lighter framework could do regular expression matching over labeled tokens.
 
-The input of the pattern is sequence of array, every array is the token and its labels in different layer, which is showed in table~\ref{tab:labeldsent}. A pattern is a concatenation of matchers£¬ which is basic unit of the pattern. A matcher could match a token or a label in any layer.
+The input of the pattern is sequence of arrays, each array includes the token and its labels in different layer, which is showed in table~\ref{tab:labeldsent}. A pattern is a concatenation of matchers£¬ which is basic unit of the pattern. A matcher could match a token or a label in any layer.
 
-Currently we support some types of matchers, we list them in table~\ref{tab:matchers}.  The framework support several styles to create a pattern, the most common one is regular expression style, like:
+Currently we support seven types of matchers, those are listed in table~\ref{tab:matchers}.  The framework support several styles to create a pattern, the most common one is regular expression style, like:
 
 \begin{table}[ht]
 \small
@@ -301,7 +301,7 @@ seqMatcher =parser.parse("aaa | bbb ccc? * ddd")
     \end{lstlisting}
 \end{framed}
 
- The seconde style is use algebra operator to connect matchers, like this:
+ The seconde style is use algebra operator to connect matchers, as follows:
 
 \begin{framed}
 \small
@@ -311,7 +311,7 @@ seqMatcher =  TokenMatcher("aaa") +
     \end{lstlisting}
 \end{framed}
 
-We also could create complex matcher in programming style, which just like we create some programming object, create some objects, and use them create a another object.
+We also could create complex matcher in programming style, which just like we create and use some objects in programming.
 
 \begin{framed}
 \small
@@ -324,7 +324,7 @@ seqMatcher = SeqMatcher([matcher3,matcher4])
     \end{lstlisting}
 \end{framed}
 
-We support these programming styles, because we want to give developers more flexibility to create patterns. The flexibility are come from the that developers could define which part of sequence should match by assign lambda expressions to matcher's catchfun and outfun. Since the every token in the sequence is an array, which is shown table~\ref{tab:labeldsent}, the lambda expressions could decide which field should be used to match, and which one should be outputed. For example,  to match the labeled sentence, the lambda expression for catchfun is "lambda x:x[2] ", and the outfun is "lambda x:x[1]", which means we match the pattern with the semantic category, and output the  the value we want. We show some patterns used to match degree in table:
+ The library support these programming styles, because we want to give developers more flexibility to create patterns. The flexibility are come from the that developers could define which part of sequence should match by assign lambda expressions to matcher's catchfun and outfun. Since the every token in the sequence is an array, which is shown table~\ref{tab:labeldsent}, the lambda expressions could decide which field should be used to match, and which one should be outputed. For example,  to match the labeled sentence, the lambda expression for catchfun is "lambda x:x[2] ", and the outfun is "lambda x:x[1]", which means we match the pattern with the semantic category, and output the  the value we want. We show some patterns used to match degree in table:
 
 \begin{table}[ht]
 \small
