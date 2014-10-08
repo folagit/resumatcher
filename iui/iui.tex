@@ -179,7 +179,7 @@ User¡¯s personal preference should be considered as well. In the previous user s
 Figure ~\ref{fig:Pipeline} shows the architecture of the whole system, which include such modules:
 
 \begin{enumerate}
-    \item The web scrawler could search and download all new IT job opening web pages  from indeed.com everyday.
+    \item The web crawler could search and download all new IT job opening web pages  from indeed.com everyday.
     \item Job parser could parse the job opening web page, extract the information and create the job model.
     \item Resume Parser is much like the Job parser, it will parse the resume and create the candidate model.
     \item All the job models will be stored in the Job Description database.
@@ -206,7 +206,7 @@ Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framew
 In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This architecture will also be used in this system to extract models of job openings and candidate's resumes. The system processes the job description in the following steps, which is shown in Figure~\ref{fig:Pipeline}:
 
 \begin{enumerate}
-    \item HTML parser will parse the job description web pages that are obtained from web scrawler. It will get the HTML element that contains the main content of the job description.
+    \item HTML parser will parse the job description web pages that are obtained from web crawler. It will get the HTML element that contains the main content of the job description.
     \item Segment module will separate the job description into paragraphs according to HTML tags at first, then separate each paragraph into sentences.
     \item The sentences will be tokenized as string array, and sent to the Classification module. Classification module will determine the category of the sentence, and mark the category of the sentence.
     \item Preprocessing module will delete unreadable characters, normalize some spelling tokens in the sentence.
@@ -245,11 +245,11 @@ These words combining with following word ``degree'' will all have the same mean
 \small
 \caption{Labeled sentence } % title of Table
 \centering % used for centering table
-\begin{tabular}{  | c | c | c | c | c |c | c |c |  }
+\begin{tabular}{  | c | c | c | p{1cm} | c |c | c | p{1cm}  |  }
  \hline
- DE LEVEL   & DEGREE & IN & MAJOR            & OR & MAJOR   \\
+  DE LEVEL   & DEGREE & IN & MAJOR            & OR & MAJOR   \\
  \hline
-  BS LEVEL   & DEGREE & IN & MAJOR CS         & OR & MAJOR INFO      \\
+  BS LEVEL   & DEGREE & IN &  MAJOR CS        & OR &  MAJOR INFO      \\
  \hline
  bachelors   & degree & in & computer science & or & information systems      \\
   \hline
@@ -435,7 +435,7 @@ $$ < term > , * , *, and <term>$$
 For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If the any of ``dcterms:subject'' fields have the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we could indignity the word is a technical term, and pop them up. After getting a list of new terms, we could check the category of terms in Dbpedia, and put them into right position of our domain specific ontology. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
 
 \begin{figure}[htbp]
- Some sentences Job Description  \includegraphics[scale=0.4]{images/genonto.png}
+  \includegraphics[scale=0.4]{images/genonto.png}
   \caption{Find Technical Terms}
   \label{fig:gen_onto}
 \end{figure}
@@ -459,25 +459,8 @@ $$ sim_{l\&c}(a,b) = -\log (Np/ 2D) $$
 There are some limitations of path-based approaches. First it only consider the shortest path between concept pairs, when they meet complex situation like multiple taxonomical inheritance, the accuracy of them will be low.  Another problem of path-based measures assume that all links in the taxonomy have uniform distance.
 
 \subsection{Statistical-based Ontology Similarity Measure }
-In this thesis, I proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required. From observation, we could find that related skills always exist in a job description simultaneously, e.g. HTML and CSS are always required together. Furthermore, the distance between two concepts is also a good measure of the relevance of them. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions :
-
-\begin{table}[ht]
-
-\caption{Some sentences Job Description} % title of Table
-\centering % used for centering table
-\begin{tabular}{ | p{8cm}  | }
- \hline
-    1. A high-level language such as Java, Groovy, Ruby or Python;
-       we use Java and Groovy extensively \newline
-    2. HTML5/CSS3/JavaScript, web standards, jQuery or frameworks
-       like AngularJS would be great \newline
-    3. HTML CSS and Javascript a must  \newline
-    4. Experience with AJAX, XML, XSL, XSLT, CSS, JavaScript,
-       JQuery, HTML and Web Services   \\
- \hline
-\end{tabular}
-\label{tab:skillinsent} % is used to refer this table in the text
-\end{table}
+In this thesis, I proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required. From observation, we could find that related skills always exist in a job description simultaneously, e.g. HTML and CSS are always required together. Furthermore, the distance between two concepts is also a good measure of the relevance of them. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions.
+ 
 
 We could see from the table, the technical close related concepts are always bing together.
 Based on such observation, we give a new statistical-based Ontology Similarity Measure. Two concepts $a$ and $b$ in the ontology,   their similarity $S_{a,b}$ could be the ratio of two factors:
@@ -689,7 +672,7 @@ up important concepts in long queries can improve retrieval performance.
 \end{table}
 
 \section{CONCLUSION and FUTURE WORK }
-In this thesis£¬ we described JobFinder a personalized job-resume matching system, which could help job seeker to find appropriate jobs more easily. The key technical components of the system are information extraction and ontology matching.
+In this paper£¬ we described JobFinder a personalized job-resume matching system, which could help job seeker to find appropriate jobs more easily. The key technical components of the system are information extraction and ontology matching.
 
 In the system, job descriptions and resumes will be processed by pipeline; and a finite automated tool will be used to extract the models from them. The models include fields like degree, major, skills.
 To find the appropriate jobs, similarities between resume model and job description models will be calculated. The result will be sorted by the ontology similarity score, which is the sum of weighted multiple similarities of fields.
