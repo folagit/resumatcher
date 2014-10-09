@@ -129,6 +129,9 @@ We had made three key contributions in this work. The first is creation of a Fin
 This section provides a discussion of related research in Job Recommender Systems.
 
 \subsection{Job Recommender Systems}
+
+Recommender Systems are sfotware tools and techniques providing suggestions for items to be of use to a user~\cite{ricci2011introduction}. 
+
 Rafter et al. \cite{rafter2000personalised} began to use ACF (Automated Collaborative Filtering) in their Job Recommender system, ``CASPER''. In the system user profiles are gotten from server logs, that included: revisit data, read time data, and activity data. All these factors were viewed as measure of relevance among users. The system recommend jobs in two steps. First the system find a set of user related to the target user, second the jobs that related users liked will be recommend to the target user. The system use cluster-based Collaborative Filtering strategy. The similarity between users are based on how many jobs they both reviewed, or applied.
 
 The shortage of Collaborative Filtering:
@@ -146,24 +149,24 @@ when applying a job, the common method is let the candidates upload their resume
 
 \subsection{Information Extraction}
 
-Some big IT companies had meet a similar problem of information overflow. Any position they published, will receive a lot applications, the recruiter need to screen the all the applications, but this task is also tedious and time consuming, highly cumbersome and inefficient. so these company tried to build the system to help screen the position candidates.
+The content-based recommender systems need the structured information of items. But the items in JRS are resumes and job descriptions written in natural language, so how to get information from the documents is an important problem. Information extraction (IE) is the task of automatically extracting structured information from unstructured and/or semi-structured machine-readable documents. 
 
 Amit et al. in IBM presented a system, ``PROSPECT'', ~\cite{singh2010prospect} to aid in the shortlisting of candidates for jobs. The system uses a resume miner to extract the information from resumes, which use a CRF model to segment and label the resumes. The CRF model used three kinds of features, they are: Lexicon, Visual, Named Entity, Text, and Conjunction. The paper compared some algorithms to ranked the candidates applicants, such methods include: Okapi BM25, KL, Lucene Scoring, and Lucene Scoring + SkillBoost.
 
 HP also built a system to solve the similar problem, which was introduced in Gonzalez et al.'s paper ~\cite{gonzalez2012adaptive}. The system also pay a lot of attention to information extraction.
 
-\subsection{Ontology-based Approaches}
-A domain-oriented ontology is used to represent knowledge, inference rules are defined based on the ontology knowledge base. When a detected term found, the system will search in external knowledge base, like DBpedia etc. The resume also be classified to different categories like ``Web Technology'' and ``No Web Technology'' by naive Bayes classifier. The company could allocate appropriate employees to required positions.
+Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framework to get the detailed information from the job seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is used to segment the resume into consecutive blocks. Based on the result, a SVM model is used to obtain the detailed information in the certain block, the information include: name, address, education etc.
 
+ Celik Duygua and Elci Atilla proposed a Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology}, which uses ontology to assistant the information extraction process. The system process the resume in following steps: convert the resume files into plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts in the sentences, normalize all the terms, at last the system will classify the sentences to get the wanted terms.
+
+\subsection{Ontology-based Approaches}
+
+A domain-oriented ontology is used to represent knowledge, inference rules are defined based on the ontology knowledge base. When a detected term found, the system will search in external knowledge base, like DBpedia etc. The resume also be classified to different categories like ``Web Technology'' and ``No Web Technology'' by naive Bayes classifier. The company could allocate appropriate employees to required positions.
+The Ontology technics had also been used in some JRSs, which provide a formal specification of a shared conceptualization~\cite{guarino1998formal}.
 
 Yao et al.~\cite{lu2013recommender} also presented a hybrid recommender system which integrated content-based and interaction-based relation. In content-based part, relations between job-job, job-job seeker, and job seeker - job seeker could be identified by their similarity of profiles.
 
-There two approaches are used to calculate the similarities: For the structured data, like age gender  etc., the weight sum values will be returned, for the unstructured data like similarity between job and user profile the Latent Semantic Analysis will be used.
-
 This system was build on the assumption: The users with similar profiles tend to have similar interests. But here we could find two problems: At first, people with similar profile may not have similar interest, this is a very common fact. For example two students both graduate from same department with the same degree at the same year, when they look for jobs, they may have different preference. Second, to job's part, the accuracy of similarity calculation will effect a lot on the result of the system, since two very similar job may be classified as different jobs in the system.
-
-
-
 
 \section{System Overview}
 The system will use rule based information extraction technique to parse the job description and resume, and get information such as skill, specialties and background. These information will be used to create the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching.
@@ -196,10 +199,6 @@ The architecture of the system is shown in Figure ~\ref{fig:Pipeline}, which inc
 \section{Information Extraction}
 
 The first step of creating the models from Job Description and Resume is to extract information from resumes and job descriptions. Both resumes and job descriptions are written in natural language, so the challenge is how to extract information from such un-structured or semi-structured data source, and transfer them to some designed structure.
-
-Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framework to get the detailed information from the job seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is used to segment the resume into consecutive blocks. Based on the result, a SVM model is used to obtain the detailed information in the certain block, the information include: name, address, education etc.
-
- Celik Duygua and Elci Atilla proposed a Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology}, which uses ontology to assistant the information extraction process. The system process the resume in following steps: convert the resume files into plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts in the sentences, normalize all the terms, at last the system will classify the sentences to get the wanted terms.
 
 \subsection{Text Processing Pipeline}
 
@@ -383,66 +382,8 @@ If just looking at the text, we can find the resume has few common words with th
     \item When calculating the similarity between resume and job description, how to give weights to each concepts.
 \end{enumerate}
 
-\subsection{Ontology Construction}
-
-Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts.  Currently, there is no IT technology ontology build for recruiting purpose.  ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area.
-
-The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. The task of creating such a ontology is a huge one. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, construction tools and so on.  Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology. We use Protege to create the skeleton of the ontology. It's interface is shown in Figure~\ref{fig:Protege}.
-
-
-
-\begin{figure}[htbp]
-
-  \includegraphics[scale=0.4]{images/ontology_pro.png}
-  \caption{Part of Ontology}
-  \label{fig:ontology_pro}
-\end{figure}
-
-We use semi-automatic approach to get the skills' terms from the job descriptions. From the observation, we found that  skills requirement part of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}.
-\begin{table}[ht]
-\caption{Some sentences Job Description} % title of Table
-\centering % used for centering table
-\begin{tabular}{ | p{8cm}  | }
- \hline
-    1. A high-level language such as Java, Groovy, Ruby or Python; we use Java and Groovy extensively \newline
-    2. HTML5/CSS3/JavaScript, web standards, jQuery or frameworks like AngularJS would be great \newline
-    3. HTML CSS and Javascript a must  \newline
-    4. Experience with AJAX, XML, XSL, XSLT, CSS, JavaScript, JQuery, HTML and Web Services   \\
- \hline
-\end{tabular}
-\label{tab:skillrequirement} % is used to refer this table in the text
-\end{table}
-
-Based on this character£¬ we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms in job descriptions, and add them to term dictionary. We use our pattern matching tools to find sentences matching some patterns like below, for example the sentence in ~\ref{tab:termspattern}, we could extract the words that matching *, they have high probability to be  terms. Then we could check the words in Dbpedia to if they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms.
-
-$$ < term > , * , *, <term>$$
-$$ < term > , * , *, and <term>$$
-
-\begin{table}[ht]
-\small
-\caption{Some sentences Job Description} % title of Table
-\centering % used for centering table
-\begin{tabular}{   | c | c | c | c |c | c |c | c |c | c |c | c |c | c |  }
- \hline
-     Experience & with & TERM & , & *   & , & *   &, & TERM &, & and & *  \\
- \hline
-     Experience & with & AJAX & , & XML & , & XSL &, & XSLT &, & and & CSS  \\
- \hline
-\end{tabular}
-\label{tab:termspattern} % is used to refer this table in the text
-\end{table}
-
-For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If the any of ``dcterms:subject'' fields have the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we could indignity the word is a technical term, and pop them up. After getting a list of new terms, we could check the category of terms in Dbpedia, and put them into right position of our domain specific ontology. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
-
-\begin{figure}[htbp]
-  \includegraphics[scale=0.4]{images/genonto.png}
-  \caption{Find Technical Terms}
-  \label{fig:gen_onto}
-\end{figure}
 
 \subsection{Ontology-based semantic similarity}
-
-The Ontology technics had also been used in some JRSs, which provide a formal specification of a shared conceptualization~\cite{guarino1998formal}.
 
 There are three kinds Ontology-based similarity measure had been studied, they are Edge counting approaches, Feature-based measures, and Measures based on Information Content.
 
@@ -460,7 +401,7 @@ There are some limitations of path-based approaches. First it only consider the 
 
 \subsection{Statistical-based Ontology Similarity Measure }
 In this thesis, I proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required. From observation, we could find that related skills always exist in a job description simultaneously, e.g. HTML and CSS are always required together. Furthermore, the distance between two concepts is also a good measure of the relevance of them. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions.
- 
+
 
 We could see from the table, the technical close related concepts are always bing together.
 Based on such observation, we give a new statistical-based Ontology Similarity Measure. Two concepts $a$ and $b$ in the ontology,   their similarity $S_{a,b}$ could be the ratio of two factors:
@@ -523,12 +464,69 @@ $ ~~ $
     JDBC   & 0.0523 &   1    & 0.0525 &   0.0799  & 0.006  & 0.0616   \\  \hline
    Spring  & 0.091  & 0.0525 &   1    &   0.2008  & 0.0194 & 0.0878   \\  \hline
  Hibernate & 0.0458 & 0.0799 & 0.2008 &     1     & 0.0073 & 0.115    \\  \hline
-   MySql   & 0.0339 & 0.006  & 0.0194 &   0.0073  &   1    & 0.049    \\  \hline
-   Oracle  & 0.0608 & 0.0616 & 0.0878 &   0.115   & 0.049  &   1      \\  \hline
+   MySql   & 0.0339 & 0.006  & 0.0194 &   0.0073  &   1    & 0.049    \\
+ \hline
+   Oracle  & 0.0608 & 0.0616 & 0.0878 &   0.115   & 0.049  &   1      \\
  \hline
 \end{tabular}
 \label{tab:dismatrix1}
 \end{table}
+
+\subsection{Ontology Construction}
+
+Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts.  Currently, there is no IT technology ontology build for recruiting purpose.  ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area.
+
+The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. The task of creating such a ontology is a huge one. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, construction tools and so on.  Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology. We use Protege to create the skeleton of the ontology.
+
+\begin{figure}[htbp]
+
+  \includegraphics[scale=0.4]{images/ontology_pro.png}
+  \caption{Part of Ontology}
+  \label{fig:ontology_pro}
+\end{figure}
+
+We use semi-automatic approach to get the skills' terms from the job descriptions. From the observation, we found that  skills requirement part of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}.
+\begin{table}[ht]
+\caption{Some sentences Job Description} % title of Table
+\centering % used for centering table
+\begin{tabular}{ | p{8cm}  | }
+ \hline
+    1. A high-level language such as Java, Groovy, Ruby or Python; we use Java and Groovy extensively \newline
+    2. HTML5/CSS3/JavaScript, web standards, jQuery or frameworks like AngularJS would be great \newline
+    3. HTML CSS and Javascript a must  \newline
+    4. Experience with AJAX, XML, XSL, XSLT, CSS, JavaScript, JQuery, HTML and Web Services   \\
+ \hline
+\end{tabular}
+\label{tab:skillrequirement} % is used to refer this table in the text
+\end{table}
+
+Based on this character£¬ we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms in job descriptions, and add them to term dictionary. We use our pattern matching tools to find sentences matching some patterns like below, for example the sentence in ~\ref{tab:termspattern}, we could extract the words that matching *, they have high probability to be  terms. Then we could check the words in Dbpedia to if they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms.
+
+$$ < term > , * , *, <term>$$
+$$ < term > , * , *, and <term>$$
+
+\begin{table}[ht]
+\small
+\caption{Some sentences Job Description} % title of Table
+\centering % used for centering table
+\begin{tabular}{   | c | c | c | c |c | c |c | c |c | c |c | c |c | c |  }
+ \hline
+     Experience & with & TERM & , & *   & , & *   &, & TERM &, & and & *  \\
+ \hline
+     Experience & with & AJAX & , & XML & , & XSL &, & XSLT &, & and & CSS  \\
+ \hline
+\end{tabular}
+\label{tab:termspattern} % is used to refer this table in the text
+\end{table}
+
+For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If the any of ``dcterms:subject'' fields have the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we could indignity the word is a technical term, and pop them up. After getting a list of new terms, we could check the category of terms in Dbpedia, and put them into right position of our domain specific ontology. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
+
+\begin{figure}[htbp]
+  \includegraphics[scale=0.4]{images/genonto.png}
+  \caption{Find Technical Terms}
+  \label{fig:gen_onto}
+\end{figure}
+
 
 \section{EVALUATION}
 
@@ -555,11 +553,11 @@ In the experiment, we selected 100 sentences from job descriptions that are requ
  \hline
                      Field   & Pattern Num & Accuracy     \\
  \hline
-                     Degree & 6         & 94\%         \\
+                     Degree & 6         & 0.94          \\
  \hline
-                     Major  & 10        & 0.85\%      \\
+                     Major  & 10        & 0.85       \\
  \hline
-                     Skill  & 6         & 0.82 \%      \\
+                     Skill  & 6         & 0.82        \\
  \hline
 \end{tabular}
 \label{tab:ieaccura} % is used to refer this table in the text
@@ -567,8 +565,7 @@ In the experiment, we selected 100 sentences from job descriptions that are requ
 
 \subsection{Experiments of Ontology Similarity}
 
-From the table ~\ref{tab:dismatrix2} we got similarity value between skills. There is no standard criteria to measure the similarity of two entities.  To evaluate the accuracy of our result, we compare the result with human labeled data. We tested the two data sets.
-
+From the table ~\ref{tab:dismatrix1} we got similarity value between skills. There is no standard criteria to measure the similarity of two entities.  To evaluate the accuracy of our result, we compare the result with human labeled data. We tested the two data sets.
 
 
 \begin{table}
@@ -610,9 +607,11 @@ From the table ~\ref{tab:dismatrix2} we got similarity value between skills. The
 
 
 
-To evaluate the system, some measures will be used. We also proposed two evaluation method: Pre-collected Data and User's direct experience.
+
 
 \subsection{Evaluation of the System}
+
+To evaluate the system, some measures will be used. We also proposed two evaluation method: Pre-collected Data and User's direct experience.
 
 In traditional information retrieval system, precision and NDCG are widely used measures ~\cite{manning2008introduction}.     Precision ($P$) is the fraction of retrieved documents that are relevant .
        $$  Precision =  \frac{ \#(releveant~items~ retrieved)}{ \#(retrieved~items)}$$
