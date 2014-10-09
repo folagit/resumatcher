@@ -231,9 +231,11 @@ The regular expression is a finite state machine (FSM) with states that are the 
 
 Actually in this system, we don't care what the words the sentence use, we want to determine the if the words' meaning and category. 
 
-To resolve this problem, we create a dictionary, in which the key is the different spellings and expressions, and the value is the meaning of the concept. For example the list above are all keys of the dictionary, and the values of these keys are all ``bachelors''.  
+To resolve this problem, we create a dictionary, in which the key is the different spellings and expressions, and the value is the meaning of the concept. For example the list above are all keys of the dictionary, and the values of these keys are all ``bachelors''. 
+ 
+The input of the pattern is sequence of arrays, each array includes the token and its labels in different layer, which is showed in table~\ref{tab:labeldsent}. A matcher could match a token or a label in any layer.
 
-  So here we propose a two layers label approach. In the first level, we labeled the word with its semantic meaning, which is the value we want to extract from the sentence. In the second level, the labels are the semantic category of the first layer label. For example the word "bachelors" will be annotated in the first layer with label "BS LEVEL" which means bachelors degree level, and the word "PhD" will be labeled as "PHD LEVEL", the both be labeled with "DEGREE LEVEL" in the second layer. A labeled sentence is shown in ~\ref{tab:labeldsent}.
+So here we propose a two layers label approach. In the first level, we labeled the word with its semantic meaning, which is the value we want to extract from the sentence. In the second level, the labels are the semantic category of the first layer label. For example the word "bachelors" will be annotated in the first layer with label "BS LEVEL" which means bachelors degree level, and the word "PhD" will be labeled as "PHD LEVEL", the both be labeled with "DEGREE LEVEL" in the second layer. A labeled sentence is shown in ~\ref{tab:labeldsent}.
 
 \begin{table}[ht]
 \small
@@ -254,18 +256,14 @@ To resolve this problem, we create a dictionary, in which the key is the differe
 \subsection{Regular Expression Over Labeled Tokens}
 There is two completive techniques in Information Extraction, one is machine learning-based approach, the other is rule-based approach. Chiticariu et al. \cite{chiticariu2013rule}summarized the pros and cons of machine learning (ML) and rule-based IE technologies. In this work, we prefer the rule-based approach because:
 \begin{enumerate}
-    \item Most of sentences that contain the information we needed followed some common patterns.
-    \item Lots of sentences are not grammatical complete, some of them missing subject, some of them are just a list of skills.
-    \item Processing speed is also a concern, and generally rule-based pattern matching is faster.
+    \item Most of sentences that contain the information share some common patterns that can be easily identified. 
+    \item A lot of sentences are not grammatical completed as a sentence, for example some of them missing subject, and some of them are just a list of terms.
+    \item Processing speed is also a concern, and generally rule-based approach is faster.
 \end{enumerate}
 
-Cascaded Finite-State Transducer as a tool to match patterns and extract information for more than 20 years. It has been demonstrated very effective in extracting information from text in the systems like in CIRCUS~\cite{lehnert1991university} and FASTUS~\cite{hobbs199713}.   JAPE (Java Annotations Pattern Engine), the key component of the widely used NLP toolkit GATE~\cite{cunningham2002framework}, can describe patterns  annotations to be created as  a result. JAPE adopted a version of CPSL (Common Pattern  Specification Language)~\cite{appelt1998common}, which provides finite state transduction over annotations. Chang et al. proposed a tool for cascaded regular expressions over tokens~\cite{chang2014tokensregex}, which can define and matching patterns over token sequences.
+Cascaded Finite-State Transducer as a tool to match patterns and extract information for more than 20 years. It has been demonstrated very effective in extracting information from text in the systems like in CIRCUS~\cite{lehnert1991university} and FASTUS~\cite{hobbs199713}.   JAPE (Java Annotations Pattern Engine), the key component of the widely used NLP toolkit GATE~\cite{cunningham2002framework}, can describe patterns and annotations with its domain-specific language (DSL).  JAPE adopted a version of CPSL (Common Pattern  Specification Language)~\cite{appelt1998common}, which provides finite state transduction over annotations. Chang et al. proposed another tool for cascaded regular expressions over tokens~\cite{chang2014tokensregex}, which can define and matching patterns over token sequences.
 
-After study these frameworks, we found most them are powerful, but complex. Developers need to learn some  domain-specific language (DSL) like CPSL, and how to integrate this part into a system will also bring some problem. So here we proposed a more flexible and lighter framework could do regular expression matching over labeled tokens.
-
-The input of the pattern is sequence of arrays, each array includes the token and its labels in different layer, which is showed in table~\ref{tab:labeldsent}. A pattern is a concatenation of matchers£¬ which is basic unit of the pattern. A matcher could match a token or a label in any layer.
-
-Currently we support seven types of matchers, those are listed in table~\ref{tab:matchers}.  The framework support several styles to create a pattern, the most common one is regular expression style, like:
+After studying these tools, we found most them are powerful, complex, but not very flexible. Because at first, developers need to learn some DSLs like CPSL, and second to integrate the pattern matching tool in  into the system need extra efforts. So here we proposed a more flexible and lightweight framework, which can do regular expression matching over labeled tokens. In the library, a pattern is a concatenation of matchers£¬ which are basic units of the pattern. Currently we support seven types of matchers, those are listed in table~\ref{tab:matchers}.  
 
 \begin{table}[ht]
 \small
@@ -294,37 +292,39 @@ Currently we support seven types of matchers, those are listed in table~\ref{tab
 \label{tab:matchers} % is used to refer this table in the text\section{Pipeline of Information Extraction}
 \end{table}
 
+The framework support three styles to create patterns, which gives developers big flexibility. The most common style is define pattern expression in a string, which is much like traditional regular expression. We give an example as follows:
+ 
 \begin{framed}
-\small
-    \begin{lstlisting}[language=Python]
+\small 
+\begin{lstlisting}[language=Python]
 seqMatcher =parser.parse("aaa | bbb ccc? * ddd")
-    \end{lstlisting}
+\end{lstlisting}
 \end{framed}
 
- The seconde style is use algebra operator to connect matchers, as follows:
-
+The seconde style is using algebra operator to connect matchers, as follows:
 \begin{framed}
 \small
-    \begin{lstlisting}[language=Python]
+\begin{lstlisting}[language=Python]
 seqMatcher =  TokenMatcher("aaa") +
     TokenMatcher("bbb") | TokenMatcher("ccc")
-    \end{lstlisting}
+\end{lstlisting}
 \end{framed}
 
-We also could create complex matcher in programming style, which just like we create and use some objects in programming.
+We also could create complex matcher in programming style, which like we create and use some objects when programming, like this:
 
 \begin{framed}
 \small
-    \begin{lstlisting}[language=Python]
+\begin{lstlisting}[language=Python]
 matcher1 = TokenMatcher("aaa")
 matcher2 = TokenMatcher("bbb")
 matcher3 = TokenMatcher("ccc")
 matcher4 = AlternateMatcher([matcher1,matcher2])
 seqMatcher = SeqMatcher([matcher3,matcher4])
-    \end{lstlisting}
+\end{lstlisting}
 \end{framed}
 
- The library support these programming styles, because we want to give developers more flexibility to create patterns. The flexibility are come from the that developers could define which part of sequence should match by assign lambda expressions to matcher's catchfun and outfun. Since the every token in the sequence is an array, which is shown table~\ref{tab:labeldsent}, the lambda expressions could decide which field should be used to match, and which one should be outputed. For example,  to match the labeled sentence, the lambda expression for catchfun is "lambda x:x[2] ", and the outfun is "lambda x:x[1]", which means we match the pattern with the semantic category, and output the  the value we want. We show some patterns used to match degree in table:
+
+The library support these programming styles, because we want to give developers more flexibility to create patterns. The flexibility are come from the that developers could define which part of sequence should match by assign lambda expressions to matcher's catchfun and outfun. Since the every token in the sequence is an array, which is shown table~\ref{tab:labeldsent}, the lambda expressions could decide which field should be used to match, and which one should be outputed. For example,  to match the labeled sentence, the lambda expression for catchfun is "lambda x:x[2] ", and the outfun is "lambda x:x[1]", which means we match the pattern with the semantic category, and output the  the value we want. We show some patterns used to match degree in table:
 
 \begin{table}[ht]
 \small
@@ -342,6 +342,7 @@ seqMatcher = SeqMatcher([matcher3,matcher4])
 \end{tabular}
 \label{tab:patterns} % is used to refer this table in the text\section{Pipeline of Information Extraction}
 \end{table}
+
 
 \section{Ontology Construction and Similarity}
 
