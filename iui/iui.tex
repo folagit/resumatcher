@@ -130,7 +130,7 @@ This section provides a discussion of related research in Job Recommender System
 
 \subsection{Job Recommender Systems}
 
-Recommender Systems are sfotware tools and techniques providing suggestions for items to be of use to a user~\cite{ricci2011introduction}. 
+Recommender Systems are sfotware tools and techniques providing suggestions for items to be of use to a user~\cite{ricci2011introduction}.
 
 Rafter et al. \cite{rafter2000personalised} began to use ACF (Automated Collaborative Filtering) in their Job Recommender system, ``CASPER''. In the system user profiles are gotten from server logs, that included: revisit data, read time data, and activity data. All these factors were viewed as measure of relevance among users. The system recommend jobs in two steps. First the system find a set of user related to the target user, second the jobs that related users liked will be recommend to the target user. The system use cluster-based Collaborative Filtering strategy. The similarity between users are based on how many jobs they both reviewed, or applied.
 
@@ -149,7 +149,7 @@ when applying a job, the common method is let the candidates upload their resume
 
 \subsection{Information Extraction}
 
-The content-based recommender systems need the structured information of items. But the items in JRS are resumes and job descriptions written in natural language, so how to get information from the documents is an important problem. Information extraction (IE) is the task of automatically extracting structured information from unstructured and/or semi-structured machine-readable documents. 
+The content-based recommender systems need the structured information of items. But the items in JRS are resumes and job descriptions written in natural language, so how to get information from the documents is an important problem. Information extraction (IE) is the task of automatically extracting structured information from unstructured and/or semi-structured machine-readable documents.
 
 Amit et al. in IBM presented a system, ``PROSPECT'', ~\cite{singh2010prospect} to aid in the shortlisting of candidates for jobs. The system uses a resume miner to extract the information from resumes, which use a CRF model to segment and label the resumes. The CRF model used three kinds of features, they are: Lexicon, Visual, Named Entity, Text, and Conjunction. The paper compared some algorithms to ranked the candidates applicants, such methods include: Okapi BM25, KL, Lucene Scoring, and Lucene Scoring + SkillBoost.
 
@@ -172,8 +172,6 @@ This system was build on the assumption: The users with similar profiles tend to
 The system will use rule based information extraction technique to parse the job description and resume, and get information such as skill, specialties and background. These information will be used to create the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching.
 
 The model of candidates will include their specialties, working experience and education background, all the them should be extracted from the resumes. The job model will be extracted from job description, the information will include: company name, location, job title, education requirement, skill requirements and working experiences etc. When a job seeker searches the jobs by his resume, the system will calculate the similarity between the candidate model and the job models, give every job model a similarity score.
-
-In the initial phase I will only focus on the positions of IT job, because IT jobs have a special character,  skill set oriented, which means the person that the company want to hire must have some special skills and knowledge, like some programming languages, databases or software etc.
 
 User¡¯s personal preference should be considered as well. In the previous user survey, some factors will impact a lot on the user¡¯s expectation of good jobs, such factors include: location, the reputation of the company, the salary etc. These factors will be treated as weight factors in the job matching algorithm.
 
@@ -198,11 +196,11 @@ The architecture of the system is shown in Figure ~\ref{fig:Pipeline}, which inc
 
 \section{Information Extraction}
 
-The first step of creating the models from Job Description and Resume is to extract information from resumes and job descriptions. Both resumes and job descriptions are written in natural language, so the challenge is how to extract information from such un-structured or semi-structured data source, and transfer them to some designed structure.
+To create the models from Job Descriptions and Resumes, the system need to extract information from resumes and job descriptions. Both resumes and job descriptions are written in natural language, so the challenge is how to extract information from such unstructured or semi-structured data source, and transfer them to some designed structure.
 
 \subsection{Text Processing Pipeline}
 
-In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This architecture will also be used in this system to extract models of job descriptions and candidate's resumes. The system processes the job description in the following steps, which is shown in Figure~\ref{fig:Pipeline}:
+In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This pipeline to process the job descriptions in the system has eight stages, which is shown in Figure~\ref{fig:Pipeline}:
 
 \begin{enumerate}
     \item The HTML parser will parse the web pages of job descriptions, which are obtained from web crawler. The parser will get the HTML element that contains the main content of the job description.
@@ -223,15 +221,19 @@ In Nature Language Processing, especially in Information Extraction, pipeline is
 \end{figure}
 
 
-
-
 \subsection{Semantic Label}
 
-In the natural language, one concept always have some different expressions. Like bachelor's degree, the simple concept has several expression in job descriptions, like B.S., BA/BS, 4 years degree, and so on. To resolve this problem, we create a dictionary which collects different spellings and expressions mapping to one concept. For example  Bachelor's degree has such dictionary entries in below. These words combining with following word ``degree'' are all have the same meaning of bachelor's degree.
+In the natural language, one concept always have some different expressions. Like bachelor's degree, the simple concept has several expression in job descriptions, like B.S., BA/BS, 4 years degree, and so on. We list the words that if followed with word "degree", have the meaning ``bachelor's degree'' at here:
 
 ["Baccalaureate","bachelors", "bachelor" ,"B.S.", "B.S","BS","BA","BA/BS", "BABS", "BSBA", "B.A." ,"4-year","4-year", "4 year", "four year","college","Undergraduate" , "University" ]
 
- We know that the regular expression is a finite state machine (FSM), any word add into it, will become a state of the FST. If we add  all these words into the regular expression, the matching process will meet problem of combinatorial explosion. Actually in this system, we don't care what the words the sentence use, we want to determine the if the words' meaning and category. So here we propose a two layers label approach. In the first level, we labeled the word with its semantic meaning, which is the value we want to extract from the sentence. In the second level, the labels are the semantic category of the first layer label. For example the word "bachelors" will be annotated in the first layer with label "BS LEVEL" which means bachelors degree level, and the word "PhD" will be labeled as "PHD LEVEL", the both be labeled with "DEGREE LEVEL" in the second layer. A labeled sentence is shown in ~\ref{tab:labeldsent}.
+The regular expression is a finite state machine (FSM) with states that are the tokens need to be matched with. If all above words are added to the regular expression, the FSM will have too many states, and the matching process will be very slow because of the problem of combinatorial explosion.
+
+Actually in this system, we don't care what the words the sentence use, we want to determine the if the words' meaning and category. 
+
+To resolve this problem, we create a dictionary, in which the key is the different spellings and expressions, and the value is the meaning of the concept. For example the list above are all keys of the dictionary, and the values of these keys are all ``bachelors''.  
+
+  So here we propose a two layers label approach. In the first level, we labeled the word with its semantic meaning, which is the value we want to extract from the sentence. In the second level, the labels are the semantic category of the first layer label. For example the word "bachelors" will be annotated in the first layer with label "BS LEVEL" which means bachelors degree level, and the word "PhD" will be labeled as "PHD LEVEL", the both be labeled with "DEGREE LEVEL" in the second layer. A labeled sentence is shown in ~\ref{tab:labeldsent}.
 
 \begin{table}[ht]
 \small
@@ -250,17 +252,16 @@ In the natural language, one concept always have some different expressions. Lik
 \end{table}
 
 \subsection{Regular Expression Over Labeled Tokens}
-
-In this work, we prefer the rule-based approach because:
+There is two completive techniques in Information Extraction, one is machine learning-based approach, the other is rule-based approach. Chiticariu et al. \cite{chiticariu2013rule}summarized the pros and cons of machine learning (ML) and rule-based IE technologies. In this work, we prefer the rule-based approach because:
 \begin{enumerate}
-    \item Most of sentences that contain the information we needed followed some common pattern.
-    \item Lots of sentences are not grammatical correct, some of them missing subject, some of them are just a list of skills.
-    \item Processing speed is also a big concern, rule-based pattern matching is faster.
+    \item Most of sentences that contain the information we needed followed some common patterns.
+    \item Lots of sentences are not grammatical complete, some of them missing subject, some of them are just a list of skills.
+    \item Processing speed is also a concern, and generally rule-based pattern matching is faster.
 \end{enumerate}
 
-Cascaded Finite-State Transducers has widely used approach in Information Extraction for more than 20 years. This approach had been demonstrated   very effective in extracting information from text like CIRCUS~\cite{lehnert1991university} and FASTUS~\cite{hobbs199713}.  In the widely used NLP toolkit GATE~\cite{cunningham2002framework}, the semantic tagger JAPE (Java Annotations Pattern Engine) could describe patterns to match and annotations to be created as  a result. JAPE adopted a version of CPSL (Common Pattern  Specification Language)~\cite{appelt1998common}, which provides finite state transduction over annotations. Chang et al. presented cascaded regular expressions over tokens~\cite{chang2014tokensregex}, which proposed a cascaded patterns over token sequences.
+Cascaded Finite-State Transducer as a tool to match patterns and extract information for more than 20 years. It has been demonstrated very effective in extracting information from text in the systems like in CIRCUS~\cite{lehnert1991university} and FASTUS~\cite{hobbs199713}.   JAPE (Java Annotations Pattern Engine), the key component of the widely used NLP toolkit GATE~\cite{cunningham2002framework}, can describe patterns  annotations to be created as  a result. JAPE adopted a version of CPSL (Common Pattern  Specification Language)~\cite{appelt1998common}, which provides finite state transduction over annotations. Chang et al. proposed a tool for cascaded regular expressions over tokens~\cite{chang2014tokensregex}, which can define and matching patterns over token sequences.
 
-After study these frameworks, I found most them are powerful, but complex. Developers need to learn some  domain-specific language (DSL) like CPSL, and how to integrate this part into a system will also bring some problem. So here we proposed a more flexible and lighter framework could do regular expression matching over labeled tokens.
+After study these frameworks, we found most them are powerful, but complex. Developers need to learn some  domain-specific language (DSL) like CPSL, and how to integrate this part into a system will also bring some problem. So here we proposed a more flexible and lighter framework could do regular expression matching over labeled tokens.
 
 The input of the pattern is sequence of arrays, each array includes the token and its labels in different layer, which is showed in table~\ref{tab:labeldsent}. A pattern is a concatenation of matchers£¬ which is basic unit of the pattern. A matcher could match a token or a label in any layer.
 
@@ -342,7 +343,7 @@ seqMatcher = SeqMatcher([matcher3,matcher4])
 \label{tab:patterns} % is used to refer this table in the text\section{Pipeline of Information Extraction}
 \end{table}
 
-\section{Ontology Similarity}
+\section{Ontology Construction and Similarity}
 
 
 We notice that simple keyword of skill name matching is far from enough, because job description and resume are both written in human language, even the same concepts, they could be written in different ways. For example, Table~\ref{tab:resume_jd}  is part of the resume of a job seeker, and part of a job description:
@@ -400,7 +401,7 @@ $$ sim_{l\&c}(a,b) = -\log (Np/ 2D) $$
 There are some limitations of path-based approaches. First it only consider the shortest path between concept pairs, when they meet complex situation like multiple taxonomical inheritance, the accuracy of them will be low.  Another problem of path-based measures assume that all links in the taxonomy have uniform distance.
 
 \subsection{Statistical-based Ontology Similarity Measure }
-In this thesis, I proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required. From observation, we could find that related skills always exist in a job description simultaneously, e.g. HTML and CSS are always required together. Furthermore, the distance between two concepts is also a good measure of the relevance of them. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions.
+In this thesis, We proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required. From observation, we could find that related skills always exist in a job description simultaneously, e.g. HTML and CSS are always required together. Furthermore, the distance between two concepts is also a good measure of the relevance of them. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions.
 
 
 We could see from the table, the technical close related concepts are always bing together.
