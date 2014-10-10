@@ -461,13 +461,15 @@ For example, we extract the word  ''XSL'', which currently not in the skill set.
 
 \section{EVALUATION}
 
+In this section, we will test the performance of key components of firstly, and then the whole system.
+
 The Information Extraction and the Ontology Similarity modules are two important part of the system.  We will evaluate them respectively.
 
 \subsection{Experiments of Information Extraction }
 
 To evaluate the performance of information extraction, we get some sentences by the sentence filters, different sentence filter can extract different kinds of sentences. We use degree sentences to explain the process:
 
-In the experiment, we selected 100 sentences from job descriptions that are requirements of candidates degree and major. The value of degree and major are labeled manually. We use patterns to  match and extract the degree information from the sentences. The pattern is gotten from the observation of sentences. As we add more pattern, the accuracy of information increased as well. When we used 6 patterns, the accuracy of degree became 94\%. Figure \ref{fig:degree_accuracy} show the accuracy with number of patterns. The accuracies of three fields are shown in \ref{tab:ieaccura}
+In the experiment, we selected 100 sentences from job descriptions that are requirements of candidates' degree and major. The value of degree and major in the sentences are labeled manually. We use patterns to  match and extract the degree information from the sentences. The pattern is gotten from the observation of sentences. As we add more patterns, the accuracy of information increased as well. When we used 6 patterns, the accuracy of degree become 94\%. Figure \ref{fig:degree_accuracy} shows the accuracy with number of patterns. The accuracies of three fields are shown in \ref{tab:ieaccura}
 
 \begin{figure}[htbp]
   \centering
@@ -496,7 +498,12 @@ In the experiment, we selected 100 sentences from job descriptions that are requ
 
 \subsection{Experiments of Ontology Similarity}
 
-From the table ~\ref{tab:dismatrix1} we got similarity value between skills. There is no standard criteria to measure the similarity of two entities.  To evaluate the accuracy of our result, we compare the result with human labeled data. We tested the two data sets.
+We use $ Normalized~Discounted~Cumulative~Gain ( NDCG )$ to evaluate the statistical-based similarity. NDCG is an important measure to evaluate the ranked retrieval results. For a set of queries $Q$, let $R(j,d)$ be the relevance score assessors gave to document $d$ for query $j$.
+       $$ NDCG(Q,k) = \frac {1}{|Q|} \sum_{j=1}^{|Q|}{Z_{kj}} \sum_{m=1}^{k} \frac{2^{R(j,m)} - 1}{ \log_2(1+m)} $$
+
+where $Z_{kj}$ is a normalization factor calculated to make it so that a perfect ranking's NDCG at $k$ for query $j$ is 1. For queries for which $k' < k$ documents are retrieved, the last summation is done up to $k'$.
+
+Table ~\ref{tab:dismatrix1} shows similarity values between skills, which is calculated from  from 500 job descriptions. The values in the table are the similarities between skills, the higher the value, the greater of the similarity, so the similarity of one skill itself is one. We select one concept, rank other concepts by their similarity value to this concept. The ranked concepts are also be given relevance scores by human judge, so we can use NDCG to evaluate the effectiveness of our approach. 
 
 
 \begin{table}
@@ -516,6 +523,8 @@ From the table ~\ref{tab:dismatrix1} we got similarity value between skills. The
 \end{tabular}
 \label{tab:dismatrix1}
 \end{table}
+
+The table ~\ref{tab:simcompare1} shows how we evaluate the similarity between the concept ``Javascript'' and some other concepts. The first column is some skill names, second column is their similarity values to Javascript, third column is their positions ranked by the similarity values, and the fourth column is relevance value given by judge. The NDCG value for concept Javascript is 0.94, and in table ~\ref{tab:simcompare2},  NDCG value for concept HTML is 0.97. 
 
 \begin{table}
 \centering
@@ -565,17 +574,14 @@ To evaluate the system, some measures will be used. We also proposed two evaluat
 In traditional information retrieval system, precision and NDCG are widely used measures ~\cite{manning2008introduction}.     Precision ($P$) is the fraction of retrieved documents that are relevant .
        $$  Precision =  \frac{ \#(releveant~items~ retrieved)}{ \#(retrieved~items)}$$
 
-Since the results are ranked, $ Normalized~Discounted~Cumulative~Gain ( NDCG )$ will be an important measure to evaluate the ranked retrieval results. For a set of queries $Q$, let $R(j,d)$ be the relevance score assessors gave to document $d$ for query $j$.
-       $$ NDCG(Q,k) = \frac {1}{|Q|} \sum_{j=1}^{|Q|}{Z_{kj}} \sum_{m=1}^{k} \frac{2^{R(j,m)} - 1}{ \log_2(1+m)} $$
 
-where $Z_{kj}$ is a normalization factor calculated to make it so that a perfect ranking's NDCG at $k$ for query $j$ is 1. For queries for which $k' < k$ documents are retrieved, the last summation is done up to $k'$.
 
 
 We collected some resumes from internet manually, and   job descriptions were collected by web crawler and stored in the database. In the evaluation phrase, we created a set of 100 job descriptions, which includes several kinds of jobs, like web developers, back-end developers, mobile developers and so on. The relevance value of job descriptions to each resume will be set manually. We would like to display jobs  that better match the candidate' resumes at the top. We create a query q from the resume, and treat the text of the job descriptions as documents d and apply standard ad-hoc retrieval techniques to rank the jobs.  The different retrieval algorithms we use are Okapi BM25~\cite{robertson2009probabilistic} ,   Kullback-Leibler divergence, and the TF-IDF. Since the job descriptions are fairly verbose we also experiment with a retrieval model where certain terms that are important to the quality of the match are weighted up in the TF-IDF scoring model.
 
 \subsection{Experimental Results}
 
-For our experiments to compare the various retrieval methods we used 8 candidate resumes  and retrieved the top 20 job descriptions  each method and judged the relevance of these against the resumes. The resumes we chose had an
+For our experiments to compare the various retrieval methods we used 5 candidate resumes  and retrieved the top 20 job descriptions  each method and judged the relevance of these against the resumes. The resumes we chose had an
 average of 100 jobs per resume.  To compare performance of retrieval methods for the top results returned, we used
 both Precision @ k e~\ref{tab:job_precision} and NDCG, shown in Table~\ref{tab:job_ndcg} . The result  shows that Ontology Similarity  performs the best. This agrees with results in  where it was found that finding and weighting
 up important concepts in long queries can improve retrieval performance.
