@@ -96,7 +96,7 @@ breaklinks=true,
 \begin{abstract}
 Today, online recruiting web sites such as Monster and Indeed have become one of the main channels for people to find jobs. These web platforms have provided their services for more than ten years, and have saved a lot of time and cost for both job seekers and organizations who want to hire people. However, traditional information retrieval techniques may not be appropriate for users. The reason is because the number of results returned to a job seeker may be huge, so job seekers are required to spend a significant amount of time reading and reviewing their options. One popular approach to resolve this difficulty for users are recommender systems, which is a technology that has been studied for a long time.
 
-In this thesis we have made an effort to propose a personalized job-resume matching system, which could help job seekers to find appropriate IT jobs more easily.  We create a finite state transducer based information extraction library to extract models from resumes and job descriptions. We devised a new Statistical-based ontology similarity measure to compare the resume models and the job models. Since the most appreciate jobs will be returned in front of other jobs, the users of the system could get better result than current job finding website. To evaluate the system, we had compared NDCG of the job searching results of the system to other classic information retrieval approaches, and the result showed that the system has obvious advantage than those approaches
+In this paper we have made an effort to propose a personalized job-resume matching system, which could help job seekers to find appropriate IT jobs more easily.  We create a finite state transducer based information extraction library to extract models from resumes and job descriptions. We devised a new Statistical-based ontology similarity measure to compare the resume models and the job models. Since the most appreciate jobs will be returned in front of other jobs, the users of the system could get better result than current job finding website. To evaluate the system, we had compared NDCG of the job searching results of the system to other classic information retrieval approaches, and the result showed that the system has obvious advantage than those approaches
 \end{abstract}
 
 \keywords{
@@ -119,7 +119,7 @@ Currently, the main channel for job seekers are online job finding web sites, su
 
 The reason for such results is because current job searching web sites use the same type of information retrieval technology like ``Inverted index'' \cite{zobel2006inverted} that are generally used in their search engines, which just rely on keywords to map all the stored documents. Current search engines all use some sort of ranking algorithms to sort these search result, like page rank \cite{page1999pagerank}, so the top results are the most related ones. But such algorithms are unavailable to the job searching systems, because the criteria  of how to rank the job searching result is very personalized. A great job opening for one job seeker may not look as good to someone else, because the goodness of a job to a different job seeker heavily depends on their personal background, like their education or professional experience and so on.
 
-Since people's resumes contain their most important background information, we believe the content of the resume could be used to rank the job openings. We propose an online system that could use the resumes of job seekers to find the jobs that best match their profiles. The main idea is to calculate the similarity between the candidate model and job models, which should be generated from resumes and job descriptions. An important goal of the research is therefore to transfer the job searching task from keyword searching to job and resume models matching. The matching result will be sorted by the matching score, where the higher matching score means a better matching. The matching algorithm will not only help job seekers find the appreciate job opening, but will also offer priority to them~\cite{gueutal2006brave}. We hope the job matching process could help job seeker search and rank the job opening, and save them some time.
+Since people's resumes contain their most important background information, we believe the content of the resume could be used to rank the job openings. We propose an online system that could use the resumes of job seekers to find the jobs that best match their profiles. The main idea is to calculate the similarity between the candidate model and job models, which should be generated from resumes and job descriptions. An important goal of the research is therefore to transfer the job searching task from keywords searching to job and resume models matching. The matching result will be sorted by the matching score, where the higher matching score means a better matching. The matching algorithm will not only help job seekers find the appreciate job opening, but will also offer priority to them~\cite{gueutal2006brave}. We hope the job matching process could help job seeker search and rank the job opening, and save them some time.
 
 \subsection{Contribution}
 
@@ -292,7 +292,7 @@ seqMatcher = SeqMatcher([matcher3,matcher4])
 \end{framed}
 
 
-\subsection{Semantic Label}
+\subsection{Semantic Labeling}
 
 In the text of natural language, one concept always have some different expressions. Like bachelor's degree, the simple concept has several expression in job descriptions, like B.S., BA/BS, 4 years degree, and so on. We list the words that if followed with word "degree", have the meaning ``bachelor's degree'' is shown is table ~\ref{tab:multispelling}:
 
@@ -354,8 +354,7 @@ After labeling, the sentence become a sequence of arrays, each array includes th
 
 \section{Ontology Construction and Similarity}
 
-
-We notice that simple keyword of skill name matching is far from enough, because job description and resume are both written in human language, even the same concepts, they could be written in different ways. For example, Table~\ref{tab:resume_jd}  is part of the resume of a job seeker, and part of a job description:
+We noticed that simple keywords matching is far from satisfied, because the same concepts could be written in different ways, and some different concepts have a close relationship. For example, Table~\ref{tab:resume_jd}  is part of the resume of a job seeker, and part of a job description:
 
 \begin{table}[ht]
 \caption{Resume and Job Description} % title of Table
@@ -383,38 +382,14 @@ We notice that simple keyword of skill name matching is far from enough, because
 \label{tab:resume_jd} % is used to refer this table in the text
 \end{table}
 
-If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use key word matching, the system won't give a good matching result in this very common situation. So when design the new ontology matching algorithm, we have such considerations:
-
-\begin{enumerate}
-    \item How to normalize the same concept with different name or spelling
-    \item If one concept in the job description but there is no the same one in the resume, how to calculate the similarity between its related concepts.
-    \item If one concept in the job description has multiple similar concepts in the resume, how to summarize total similarity of them.
-    \item When calculating the similarity between resume and job description, how to give weights to each concepts.
-\end{enumerate}
-
+If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use keywords matching, the system won't give a good matching result in this very common situation. So we use ontology as a knowledge base to store all the relations of concepts, and a measurement of similarity between two concepts. 
 
 \subsection{Ontology-based semantic similarity}
 
-There are three kinds Ontology-based similarity measure had been studied, they are Edge counting approaches, Feature-based measures, and Measures based on Information Content.
-
-We could view ontology as a directed graph, in which the nodes are the concepts, the edges are taxonomic relation, like (is-a). Rada, et al.,~\cite{rada1989development} measure the similarity by the distance of two nodes in the graph. So the semantic distance of two concepts a and b will be:
-$$ dis_{rad}(a,b) = min |path_i(a,b)| $$
-
-Wu and Palmer ~\cite{wu1994verbs} realized that the depth in the taxonomy will impact the similarity measure of two nodes, because the more deeper of the nodes are in the tree, the semantic distance is smaller. So they gave a new measure of ontology:
-$$ sim_{w\&p}(a,b) = \frac{2 \times N_3}{N_1 + N_2 + 2 \times N_3} $$
-$N_1$ and $N_2$ is the numbers of is-a links from each term to their Least Common Subsumer(LCS), $N_3$ is the number of is-a links of the LCS to the root of the ontology.
-
-Based on the same idea, Leacock and Chodorow~ \cite{leacock1998combining} also proposed similarity measure that combined distance Np between terms a and b and the depth $D$ of the taxonomy.
-$$ sim_{l\&c}(a,b) = -\log (Np/ 2D) $$
-
-There are some limitations of path-based approaches. First it only consider the shortest path between concept pairs, when they meet complex situation like multiple taxonomical inheritance, the accuracy of them will be low.  Another problem of path-based measures assume that all links in the taxonomy have uniform distance.
+There are three kinds Ontology-based similarity measures have been studied, they are edge counting approaches, feature-based measures, and Measures based on Information Content. Rada, et al.,~\cite{rada1989development} measure the similarity by the distance of two nodes in the graph. 
 
 \subsection{Statistical-based Ontology Similarity Measure }
-In this thesis, We proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required. From observation, we could find that related skills always exist in a job description simultaneously, e.g. HTML and CSS are always required together. Furthermore, the distance between two concepts is also a good measure of the relevance of them. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions.
-
-
-We could see from the table, the technical close related concepts are always bing together.
-Based on such observation, we give a new statistical-based Ontology Similarity Measure. Two concepts $a$ and $b$ in the ontology,   their similarity $S_{a,b}$ could be the ratio of two factors:
+ In most of job descriptions, they will list many skills the job required. From observation, we found that related skills always exist in a job description simultaneously, and the positions of them are always close, e.g. HTML and CSS are always required together, and appear in the same sentence. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions. Based on such observation, we give a new statistical-based Ontology Similarity Measure. Two concepts can get similarity If the two concepts $a$ and $b$ have the same direct hypernym or one  is the hypernym of the other one, their similarity $S_{a,b}$ could be the ratio of two factors:
 
 \begin{enumerate}
     \item The ratio of the number of documents they exist together $N_{a \cap b}$ to the number of documents have a least one them $N_{a \cup b}$.
@@ -423,64 +398,8 @@ Based on such observation, we give a new statistical-based Ontology Similarity M
 
 $$ S(a,b) = \frac{  N_{a \cap b} / N_{a \cup b} }{avg(\log_2( mindis(doc,a,b) + 1 ))} $$
 
-We only apply this measure on the concepts pair if:
-\begin{enumerate}
-    \item The two concepts have the same direct
-    \item One concepts is the super  of another.
-\end{enumerate}
-We set the restriction because the position of the concept in the ontology is defined based on their technical similarity to others. Similar techniques will assigned into a same category, they should share the same technology base, and one could be a alternate to the other. For example, we put EJB and Hibernate in the same category, because they are both J2EE persistence layer technologies, and both have the O/R mapping concept. If the applicant is familiar one of them, they could master the other very quickly. Another example, like Grail and Django, they are both web frameworks, and share some web design philosophies, but one is  designed for Java web application and the other is created for Python web application. So if one developer has some some experience with one of them, he/she still need spend a lot of time to learn the other to overcome the gap between programming languages. We could see the two examples of in figure:
+We set the restriction because the position of the concepts in the ontology are based on their technical similarity to others. Similar techniques will assigned into a same category, they should share the same technology base, and one could be a alternate or similar to the other. For example, we put EJB and Hibernate in the same category, because they are both J2EE persistence layer technologies, and both have the O/R mapping concept. If the applicant is familiar one of them, they can master the other very quickly. Another example, like Grail and Django, they are both web frameworks, and share some web design philosophies, but one is  designed for Java web application and the other is created for Python web application. So if one developer has some some experience with one of them, he/she still need spend a lot of time to learn the other to overcome the gap between programming languages. 
 
-
-
-
-If distance between two concepts are further than above situation we generally believe they are not related skills. The algorithm to calculate the similarity of two concepts is in algorithm ~\ref{alg:alg_similarity}.
-
-\begin{algorithm}
-\small
-\caption{Get Stat Similarity}
-\label{alg:alg_similarity}
-\KwIn{$Docs$£¬ $term1$, $term2$}
-\KwOut{$similarity$}
-$total=0$;
-$hastwo=0$;
-$dislist=\left [ ~~ \right ]$\;
-\For{$i=1;~i~\le~len(Docs);~i++$}
-{
-  \If{ $ Docs_i~has~at~least~one~term $ }
-    {
-     $ total~+=~1 $ \;
-     \If{ $ Docs_i~has~both~terms $ }
-        {
-           $ hastwo~+=~1 $ ;
-           $ mindis~=~ min\_distance~(Docs_i, term1, term2) $ \;
-           $ dislist.~add  ~\left(  log_2( mindis + 1 ) \right) $ \;
-        }
-    }
-}
-$ factor1~=~hastwo~ /~ total $  \;
-$ factor2~=~ avg(dislist) $  \;
-return $factor1 ~/~ factor2$\;
-$ ~~ $
-\end{algorithm}
-
-
-\begin{table}
-\small
-\caption{Skills Similarity Table 1}
-\begin{tabular}{ c | c c c c c c   }
- \hline
-  Term       &  Java  &  JDBC  & Spring & Hibernate & MySql  & Oracle   \\  \hline
-  Java   &   1    & 0.0523 & 0.091  &   0.0458  & 0.0339 & 0.0608    \\  \hline
-    JDBC   & 0.0523 &   1    & 0.0525 &   0.0799  & 0.006  & 0.0616   \\  \hline
-   Spring  & 0.091  & 0.0525 &   1    &   0.2008  & 0.0194 & 0.0878   \\  \hline
- Hibernate & 0.0458 & 0.0799 & 0.2008 &     1     & 0.0073 & 0.115    \\  \hline
-   MySql   & 0.0339 & 0.006  & 0.0194 &   0.0073  &   1    & 0.049    \\
- \hline
-   Oracle  & 0.0608 & 0.0616 & 0.0878 &   0.115   & 0.049  &   1      \\
- \hline
-\end{tabular}
-\label{tab:dismatrix1}
-\end{table}
 
 \subsection{Ontology Construction}
 
@@ -577,6 +496,24 @@ In the experiment, we selected 100 sentences from job descriptions that are requ
 
 From the table ~\ref{tab:dismatrix1} we got similarity value between skills. There is no standard criteria to measure the similarity of two entities.  To evaluate the accuracy of our result, we compare the result with human labeled data. We tested the two data sets.
 
+
+\begin{table}
+\small
+\caption{Skills Similarity Table 1}
+\begin{tabular}{ c | c c c c c c   }
+ \hline
+  Term       &  Java  &  JDBC  & Spring & Hibernate & MySql  & Oracle   \\  \hline
+  Java   &   1    & 0.0523 & 0.091  &   0.0458  & 0.0339 & 0.0608    \\  \hline
+    JDBC   & 0.0523 &   1    & 0.0525 &   0.0799  & 0.006  & 0.0616   \\  \hline
+   Spring  & 0.091  & 0.0525 &   1    &   0.2008  & 0.0194 & 0.0878   \\  \hline
+ Hibernate & 0.0458 & 0.0799 & 0.2008 &     1     & 0.0073 & 0.115    \\  \hline
+   MySql   & 0.0339 & 0.006  & 0.0194 &   0.0073  &   1    & 0.049    \\
+ \hline
+   Oracle  & 0.0608 & 0.0616 & 0.0878 &   0.115   & 0.049  &   1      \\
+ \hline
+\end{tabular}
+\label{tab:dismatrix1}
+\end{table}
 
 \begin{table}
 \centering
