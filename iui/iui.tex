@@ -345,8 +345,6 @@ After labeling, the sentence become a sequence of arrays, each array includes th
  MAJOR\_DEGREE  ,  MAJOR\_DEGREE OR MAJOR \\
  DE\_LEVEL (, DE\_LEVEL)* (OR DE\_LEVEL)? BE? PERFER\_VBD   \\
  \hline
-
-
 \end{tabular}
 \label{tab:patterns} % is used to refer this table in the text\section{Pipeline of Information Extraction}
 \end{table}
@@ -389,7 +387,23 @@ If just looking at the text, we can find the resume has few common words with th
 There are three kinds Ontology-based similarity measures have been studied, they are edge counting approaches, feature-based measures, and Measures based on Information Content. Rada, et al.,~\cite{rada1989development} measure the similarity by the distance of two nodes in the graph. 
 
 \subsection{Statistical-based Ontology Similarity Measure }
- In most of job descriptions, they will list many skills the job required. From observation, we found that related skills always exist in a job description simultaneously, and the positions of them are always close, e.g. HTML and CSS are always required together, and appear in the same sentence. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions. Based on such observation, we give a new statistical-based Ontology Similarity Measure. Two concepts can get similarity If the two concepts $a$ and $b$ have the same direct hypernym or one  is the hypernym of the other one, their similarity $S_{a,b}$ could be the ratio of two factors:
+ In most of job descriptions, they will list many skills the job required. From observation, we found that related skills always exist in a job description simultaneously, and the positions of them are always close, e.g. HTML and CSS are always required together, and appear in the same sentence. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions. 
+ 
+\begin{table}[ht]
+\caption{Some sentences Job Description} % title of Table
+\centering % used for centering table
+\begin{tabular}{ | p{8cm}  | }
+ \hline
+    1. A high-level language such as Java, Groovy, Ruby or Python; we use Java and Groovy extensively \newline
+    2. HTML5/CSS3/JavaScript, web standards, jQuery or frameworks like AngularJS would be great \newline
+    3. HTML CSS and Javascript a must  \newline
+    4. Experience with AJAX, XML, XSL, XSLT, CSS, JavaScript, JQuery, HTML and Web Services   \\
+ \hline
+\end{tabular}
+\label{tab:skillrequirement} % is used to refer this table in the text
+\end{table} 
+ 
+ Based on such observation, we give a new statistical-based Ontology Similarity Measure. Two concepts can get similarity If the two concepts $a$ and $b$ have the same direct hypernym or one  is the hypernym of the other one, their similarity $S_{a,b}$ could be the ratio of two factors:
 
 \begin{enumerate}
     \item The ratio of the number of documents they exist together $N_{a \cap b}$ to the number of documents have a least one them $N_{a \cup b}$.
@@ -403,7 +417,7 @@ We set the restriction because the position of the concepts in the ontology are 
 
 \subsection{Ontology Construction}
 
-Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts.  Currently, there is no IT technology ontology build for recruiting purpose.  ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area.
+Before calculate the similarity between concepts, we need construct the Ontology at first.  Semantic web have been a hot research topic in these years, thousands of domain ontologies had been -created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, a general purpose thesaurus, which contains more than 100,00 general English concepts.  Currently, there is no technology ontology build for recruiting purpose.  ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area.
 
 The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. The task of creating such a ontology is a huge one. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, construction tools and so on.  Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology. We use Protege to create the skeleton of the ontology.
 
@@ -414,41 +428,29 @@ The IT ontology for recruiting should include a lot detailed information, like p
   \label{fig:ontology_pro}
 \end{figure}
 
-We use semi-automatic approach to get the skills' terms from the job descriptions. From the observation, we found that  skills requirement part of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}.
-\begin{table}[ht]
-\caption{Some sentences Job Description} % title of Table
-\centering % used for centering table
-\begin{tabular}{ | p{8cm}  | }
- \hline
-    1. A high-level language such as Java, Groovy, Ruby or Python; we use Java and Groovy extensively \newline
-    2. HTML5/CSS3/JavaScript, web standards, jQuery or frameworks like AngularJS would be great \newline
-    3. HTML CSS and Javascript a must  \newline
-    4. Experience with AJAX, XML, XSL, XSLT, CSS, JavaScript, JQuery, HTML and Web Services   \\
- \hline
-\end{tabular}
-\label{tab:skillrequirement} % is used to refer this table in the text
-\end{table}
-
-Based on this character£¬ we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms in job descriptions, and add them to term dictionary. We use our pattern matching tools to find sentences matching some patterns like below, for example the sentence in ~\ref{tab:termspattern}, we could extract the words that matching *, they have high probability to be  terms. Then we could check the words in Dbpedia to if they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms.
-
-$$ < term > , * , *, <term>$$
-$$ < term > , * , *, and <term>$$
+From the observation, we found that  skills requirement part of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}. Based on this character£¬we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms from job descriptions, and add them to the term list. Then we use our pattern matching tools to find tokens matching some patterns in table \ref{tab:patterns}. For example, we could extract the words matching star * from the sentence in ~\ref{tab:termspattern}, they have high probability to be technical terms. Then we could check the words in Dbpedia to check whether they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms, and add them to the terms list.
 
 \begin{table}[ht]
 \small
 \caption{Some sentences Job Description} % title of Table
 \centering % used for centering table
-\begin{tabular}{   | c | c | c | c |c | c |c | c |c | c |c | c |c | c |  }
+\begin{tabular}{   | p{8cm} |  }
  \hline
-     Experience & with & TERM & , & *   & , & *   &, & TERM &, & and & *  \\
- \hline
-     Experience & with & AJAX & , & XML & , & XSL &, & XSLT &, & and & CSS  \\
+   < term > , * , *, <term> \\  \hline
+   < term > , * , *, and <term>  \\ 
  \hline
 \end{tabular}
-\label{tab:termspattern} % is used to refer this table in the text
+\label{tab:patterns} % is used to refer this table in the text
 \end{table}
 
-For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If the any of ``dcterms:subject'' fields have the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we could indignity the word is a technical term, and pop them up. After getting a list of new terms, we could check the category of terms in Dbpedia, and put them into right position of our domain specific ontology. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
+$$ < term > , * , *, <term>$$
+$$ < term > , * , *, and <term>$$
+
+
+Experience & with & AJAX & , & XML & , & XSL &, & XSLT &, & and & CSS 
+
+
+For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If any of ``dcterms:subject'' fields have the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we  indicate  the word is a technical term, and pop them up. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
 
 \begin{figure}[htbp]
   \includegraphics[scale=0.4]{images/genonto.png}
