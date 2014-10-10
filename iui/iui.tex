@@ -310,7 +310,7 @@ In the text of natural language, one concept always have some different expressi
 
 The regular expression over tokens is a finite state machine (FSM) with states that are the tokens need to be matched with. If all above words are added to the regular expression, the FSM will have too many states, and the matching process will be very slow because of the problem of combinatorial explosion.
 
-To resolve this problem, we proposed an approach to use the patterns match the semantic label of the sentences, not the the original text. Because in this system, we don't care what the words the sentences really use, we want to extract the semantic value from the matching phrases. 
+To resolve this problem, we proposed an approach to use the patterns match the semantic label of the sentences, not the the original text. Because in this system, we don't care what the words the sentences really use, we want to extract the semantic value from the matching phrases.
 
 We propose a two layers labeling approach. In the first layer, we labeled the word with its semantic meaning, which is the value that we want to extract from the sentence. In the second layer, the labels are the semantic categories of the first layer labels. For example the word "bachelors" will be labeled in the first layer with label "BS LEVEL", which means bachelors degree level, and the word "PhD" will be labeled as "PHD LEVEL". In the second layer, they both be labeled with "DEGREE LEVEL". A labeled sentence is shown in ~\ref{tab:labeldsent}.
 
@@ -380,15 +380,15 @@ We noticed that simple keywords matching is far from satisfied, because the same
 \label{tab:resume_jd} % is used to refer this table in the text
 \end{table}
 
-If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use keywords matching, the system won't give a good matching result in this very common situation. So we use ontology as a knowledge base to store all the relations of concepts, and a measurement of similarity between two concepts. 
+If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use keywords matching, the system won't give a good matching result in this very common situation. So we use ontology as a knowledge base to store all the relations of concepts, and a measurement of similarity between two concepts.
 
 \subsection{Ontology-based semantic similarity}
 
-There are three kinds Ontology-based similarity measures have been studied, they are edge counting approaches, feature-based measures, and Measures based on Information Content. Rada, et al.,~\cite{rada1989development} measure the similarity by the distance of two nodes in the graph. 
+There are three kinds Ontology-based similarity measures have been studied, they are edge counting approaches, feature-based measures, and Measures based on Information Content. Rada, et al.,~\cite{rada1989development} measure the similarity by the distance of two nodes in the graph.
 
 \subsection{Statistical-based Ontology Similarity Measure }
- In most of job descriptions, they will list many skills the job required. From observation, we found that related skills always exist in a job description simultaneously, and the positions of them are always close, e.g. HTML and CSS are always required together, and appear in the same sentence. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions. 
- 
+ In most of job descriptions, they will list many skills the job required. From observation, we found that related skills always exist in a job description simultaneously, and the positions of them are always close, e.g. HTML and CSS are always required together, and appear in the same sentence. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions.
+
 \begin{table}[ht]
 \caption{Some sentences Job Description} % title of Table
 \centering % used for centering table
@@ -401,8 +401,8 @@ There are three kinds Ontology-based similarity measures have been studied, they
  \hline
 \end{tabular}
 \label{tab:skillrequirement} % is used to refer this table in the text
-\end{table} 
- 
+\end{table}
+
  Based on such observation, we give a new statistical-based Ontology Similarity Measure. Two concepts can get similarity If the two concepts $a$ and $b$ have the same direct hypernym or one  is the hypernym of the other one, their similarity $S_{a,b}$ could be the ratio of two factors:
 
 \begin{enumerate}
@@ -412,7 +412,7 @@ There are three kinds Ontology-based similarity measures have been studied, they
 
 $$ S(a,b) = \frac{  N_{a \cap b} / N_{a \cup b} }{avg(\log_2( mindis(doc,a,b) + 1 ))} $$
 
-We set the restriction because the position of the concepts in the ontology are based on their technical similarity to others. Similar techniques will assigned into a same category, they should share the same technology base, and one could be a alternate or similar to the other. For example, we put EJB and Hibernate in the same category, because they are both J2EE persistence layer technologies, and both have the O/R mapping concept. If the applicant is familiar one of them, they can master the other very quickly. Another example, like Grail and Django, they are both web frameworks, and share some web design philosophies, but one is  designed for Java web application and the other is created for Python web application. So if one developer has some some experience with one of them, he/she still need spend a lot of time to learn the other to overcome the gap between programming languages. 
+We set the restriction because the position of the concepts in the ontology are based on their technical similarity to others. Similar techniques will assigned into a same category, they should share the same technology base, and one could be a alternate or similar to the other. For example, we put EJB and Hibernate in the same category, because they are both J2EE persistence layer technologies, and both have the O/R mapping concept. If the applicant is familiar one of them, they can master the other very quickly. Another example, like Grail and Django, they are both web frameworks, and share some web design philosophies, but one is  designed for Java web application and the other is created for Python web application. So if one developer has some some experience with one of them, he/she still need spend a lot of time to learn the other to overcome the gap between programming languages.
 
 
 \subsection{Ontology Construction}
@@ -428,7 +428,7 @@ The IT ontology for recruiting should include a lot detailed information, like p
   \label{fig:ontology_pro}
 \end{figure}
 
-From the observation, we found that  skills requirement part of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}. Based on this character£¬we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms from job descriptions, and add them to the term list. Then we use our pattern matching tools to find tokens matching some patterns in table \ref{tab:patterns}. For example, we could extract the words matching star * from the sentence in ~\ref{tab:termspattern}, they have high probability to be technical terms. Then we could check the words in Dbpedia to check whether they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms, and add them to the terms list.
+From the observation, we found that  skills requirement part of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}. Based on this character£¬we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms from job descriptions, and add them to the term list. Then we use our pattern matching tools to find tokens matching some patterns in table \ref{tab:patterns}.  The terms we get have high probability to be technical terms. Then we could check the words in Dbpedia to check whether they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms, and add them to the terms list.
 
 \begin{table}[ht]
 \small
@@ -437,7 +437,7 @@ From the observation, we found that  skills requirement part of job description 
 \begin{tabular}{   | p{8cm} |  }
  \hline
    < term > , * , *, <term> \\  \hline
-   < term > , * , *, and <term>  \\ 
+   < term > , * , *, and <term>  \\
  \hline
 \end{tabular}
 \label{tab:patterns} % is used to refer this table in the text
@@ -447,10 +447,10 @@ $$ < term > , * , *, <term>$$
 $$ < term > , * , *, and <term>$$
 
 
-Experience & with & AJAX & , & XML & , & XSL &, & XSLT &, & and & CSS 
+$$ Experience with AJAX , XML , XSL, XSLT, and CSS $$
 
 
-For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If any of ``dcterms:subject'' fields have the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we  indicate  the word is a technical term, and pop them up. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
+For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If any element in ``dcterms:subject'' has the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we  indicate  the word is a technical term, and pop them up. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
 
 \begin{figure}[htbp]
   \includegraphics[scale=0.4]{images/genonto.png}
