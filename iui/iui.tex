@@ -422,33 +422,25 @@ Before calculate the similarity between concepts, we need construct the Ontology
 The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. The task of creating such a ontology is a huge one. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, construction tools and so on.  Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology. We use Protege to create the skeleton of the ontology.
 
 \begin{figure}[htbp]
-
-  \includegraphics[scale=0.4]{images/ontology_pro.png}
+  \hspace{-20px}
+  \includegraphics[scale=0.4]{images/ontology_pro2.png}
   \caption{Part of Ontology}
   \label{fig:ontology_pro}
 \end{figure}
 
 From the observation, we found that  skills requirement part of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}. Based on this character£¬we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms from job descriptions, and add them to the term list. Then we use our pattern matching tools to find tokens matching some patterns in table \ref{tab:patterns}.  The terms we get have high probability to be technical terms. Then we could check the words in Dbpedia to check whether they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms, and add them to the terms list.
 
-\begin{table}[ht]
-\small
-\caption{Some sentences Job Description} % title of Table
+\begin{table}[ht] 
+\caption{Patterns to extract terms} % title of Table
 \centering % used for centering table
 \begin{tabular}{   | p{8cm} |  }
  \hline
-   < term > , * , *, <term> \\  \hline
-   < term > , * , *, and <term>  \\
+     term   , * , *,  term  \\  \hline
+     term  , * , *, and  term   \\
  \hline
 \end{tabular}
 \label{tab:patterns} % is used to refer this table in the text
 \end{table}
-
-$$ < term > , * , *, <term>$$
-$$ < term > , * , *, and <term>$$
-
-
-$$ Experience with AJAX , XML , XSL, XSLT, and CSS $$
-
 
 For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If any element in ``dcterms:subject'' has the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we  indicate  the word is a technical term, and pop them up. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
 
