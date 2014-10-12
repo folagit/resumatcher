@@ -45,7 +45,7 @@ Figure ~\ref{fig:Pipeline} shows the architecture of the whole system, which inc
 
 \section{System Implementation}
 
-We describe some implementation details here. The whole system was implemented in Python, and used some third party libraries and frameworks. For the web module we used Flask, a lightweight web framework. We used Rdflib as the OWL file parser, PLY(Python Lex-Yacc) as the token regular expression compiler, whoosh as the unversed index builder and Beautiful Soup as the HTML parser.  All the jobs get by the web crawler are stored in the MongoDB NoSQL database.  For the natural language processing part, we used NLTK and pattern to extract the sentences and tokenized the sentences.  
+We describe some implementation details here. The whole system was implemented in Python, and used some third party libraries and frameworks. For the web module we used Flask, a lightweight web framework. We used Rdflib as the OWL file parser, PLY(Python Lex-Yacc) as the token regular expression compiler, whoosh as the unversed index builder and Beautiful Soup as the HTML parser.  All the jobs get by the web crawler are stored in the MongoDB NoSQL database.  For the natural language processing part, we used NLTK and pattern to extract the sentences and tokenized the sentences.
 
 \section{System Interface}
 
@@ -54,7 +54,7 @@ The system provide some interface to end users. The most important interface inc
 \begin{figure}[htbp]
   \centering
   \includegraphics[scale=0.5]{images/joblist.png}
-  \caption{System Architecture}
+  \caption{Job Description List}
   \label{fig:joblist}
 \end{figure}
 
@@ -62,26 +62,26 @@ The system provide some interface to end users. The most important interface inc
 \begin{figure}[htbp]
   \centering
   \includegraphics[scale=0.5]{images/upload_resume.png}
-  \caption{System Architecture}
+  \caption{Upload Resume}
   \label{fig:upload_resume}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[scale=0.5]{images/match_resume.png}
-  \caption{System Architecture}
+  \caption{Resume Job matching }
   \label{fig:match_resume}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[scale=0.5]{images/keyword_resume.png}
-  \caption{System Architecture}
+  \caption{Combine the Keyword and Resume Matching}
   \label{fig:keyword_resume}
 \end{figure}
 
 
 
 
- 
+
 
