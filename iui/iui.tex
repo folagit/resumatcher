@@ -399,7 +399,7 @@ There are three kinds Ontology-based similarity measures have been studied, they
  Based on such observation, we give a new statistical-based Ontology Similarity Measure. Similarity between two concepts can be calculated,  if the two concepts $a$ and $b$ have the same direct hypernym or one  is the hypernym of the other. Their similarity $S_{a,b}$ could be the ratio of two factors:
 
 \begin{enumerate}
-    \item The ratio of the number of documents they have both concepts ( $N_{a \cap b}$ ) to the number of documents have a least one them $N_{a \cup b}$.
+    \item The ratio of the number of documents they have both concepts ( $N_{a \cap b}$ ) to the number of documents have a least one concept $N_{a \cup b}$.
     \item The average $\log$ value of their minimum distance $mindis(doc,a,b)$ in documents that have them both.
 \end{enumerate}
 
@@ -446,9 +446,7 @@ For example, we extract the word  ''XSL'', which currently not in the skill set.
 
 \section{EVALUATION}
 
-In this section, we will test the performance of key components of firstly, and then the whole system.
-
-The Information Extraction and the Ontology Similarity modules are two important part of the system.  We will evaluate them respectively.
+In this section, we will test the performance of key components of firstly, and then the whole system. The Information Extraction and the Ontology Similarity modules are two important part of the system.  We will evaluate them respectively.
 
 \subsection{Experiments of Information Extraction }
 

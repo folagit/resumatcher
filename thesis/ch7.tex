@@ -1,14 +1,14 @@
 \chapter{CONCLUSION AND FUTURE WORK}
 
 \section{Conclusion}
-In this thesis£¬ we described JobFinder a personalized job-resume matching system, which could help job seeker to find appropriate jobs more easily. The key technical components of the system are information extraction and ontology matching.
+In this thesis£¬ we described JobFinder a personalized job-resume matching system, which could help job seeker to find appropriate jobs more easily. The key technical components of the system are information extraction and ontology matching module.
 
 In the system, job descriptions and resumes will be processed by pipeline; and a finite automated tool will be used to extract the models from them. The models include fields like degree, major, skills.
 To find the appropriate jobs, similarities between resume model and job description models will be calculated. The result will be sorted by the ontology similarity score, which is the sum of weighted multiple similarities of fields.
 
-We proposed a finite automata matching library to matching the patterns in the sentences and extraction the information. We designed the a semi-automated algorithm to construct the domain specific ontology of skill set. To get the similarity between the skills, we proposed a statistical-based Ontology similarity measure.
+We proposed a finite state transducer matching library to matching the patterns in the sentences and extraction the information. We designed the a semi-automated algorithm to construct the domain specific ontology of skill set. To get the similarity between the skills, we proposed a statistical-based Ontology similarity measure.
 
-In the experiment phrase, we evaluated the accuracy  of information extraction by  the accuracy. The ontology similarity was evaluated by NDCG. Finally, the performance of resume job matching were also tested, and get better searching result than pure key word searching.
+In the experiment phrase, we evaluated the accuracy  of information extraction. The ontology similarity was evaluated by NDCG. Finally, the performance of resume job matching were also tested by precision @ k and NDCG that shows our algorithm can get better searching result than other information retrieval models.
 
 
 \section{Future work}
