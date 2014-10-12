@@ -1,7 +1,7 @@
-\chapter{Ontology Similarity}
+\chapter{Ontology Construction and Similarity}
 
 
-We notice that simple keyword of skill name matching is far from enough, because job description and resume are both written in human language, even the same concepts, they could be written in different ways. For example, Table~\ref{tab:resume_jd}  is part of the resume of a job seeker, and part of a job description:
+We notice that simple keywords matching is not a good similarity measure, because job description and resume are both written in human language, even one concept, they could be written in different ways, and and some different concepts have a close relationship. For example, Table~\ref{tab:resume_jd}  is part of the resume of a job seeker, and part of a job description:
 
 \begin{table}[ht]
 \caption{Resume and Job Description} % title of Table
@@ -28,24 +28,22 @@ We notice that simple keyword of skill name matching is far from enough, because
 \label{tab:resume_jd} % is used to refer this table in the text
 \end{table}
 
-If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use key word matching, the system won't give a good matching result in this very common situation. So when design the new ontology matching algorithm, we have such considerations:
+If just looking at the text, we can find the resume has few common words with the job description. But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use key word matching, the system won't give a good matching result in this very common situation. So when designing the ontology matching algorithm, we have such considerations:
 
 \begin{enumerate}
-    \item How to normalize the same concept with different name or spelling
+    \item How to normalize one concept with different name or spelling
     \item If one concept in the job description but there is no the same one in the resume, how to calculate the similarity between its related concepts.
-    \item If one concept in the job description has multiple similar concepts in the resume, how to summarize total similarity of them.
-    \item When calculating the similarity between resume and job description, how to give weights to each concepts.
+    \item How to quantify the similarity between two concepts. 
 \end{enumerate}
 
 \section{Ontology Construction}
 
 \subsection{Domain Specific Ontology}
+Before calculate the similarity between concepts, we need construct the Ontology at first. Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts. ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area. Currently, there is no IT technology ontology build for recruiting purpose.
 
-Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts.  Currently, there is no IT technology ontology build for recruiting purpose.  ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area.
+The IT ontology for recruiting should include a lot of technical terms, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, construction tools and so on.  Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology.
 
-The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. The task of creating such a ontology is a huge one. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, construction tools and so on.  Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology.
-
-We use Protege to create the skeleton of the ontology. It's interface is shown in Figure~\ref{fig:Protege}.
+We use Protege~\ref{noy2001creating}, an open source ontology editor, to create the skeleton of the ontology. It's interface is shown in Figure~\ref{fig:Protege}.
 
 \begin{figure}[htbp]
 
@@ -61,7 +59,7 @@ We use Protege to create the skeleton of the ontology. It's interface is shown i
   \label{fig:ontology_pro}
 \end{figure}
 
-\subsection{Domain Specific Ontology}
+\subsection{The Semi-automatic Approach}
 
 We use semi-automatic approach to get the skills' terms from the job descriptions. From the observation, we found that  skills requirement part of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}.
 \begin{table}[ht]
@@ -78,10 +76,19 @@ We use semi-automatic approach to get the skills' terms from the job description
 \label{tab:skillrequirement} % is used to refer this table in the text
 \end{table}
 
-Based on this character£¬ we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms in job descriptions, and add them to term dictionary. We use our pattern matching tools to find sentences matching some patterns like below, for example the sentence in ~\ref{tab:termspattern}, we could extract the words that matching *, they have high probability to be  terms. Then we could check the words in Dbpedia to if they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms.
+Based on this character£¬we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms from job descriptions, and add them to the term list. Then we use our pattern matching tools to find tokens matching some patterns in table \ref{tab:patterns}.  The terms we get have high probability to be technical terms. Then we could check the words in Dbpedia to check whether they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms, and add them to the terms list. Part of the technical ontology is shown in Figure ~\ref{fig:ontology_pro}.
 
-$$ < term > , * , *, <term>$$
-$$ < term > , * , *, and <term>$$
+\begin{table}[ht]
+\caption{Patterns to extract terms} % title of Table
+\centering % used for centering table
+\begin{tabular}{   | p{8cm} |  }
+ \hline
+     term   , * , *,  term  \\  \hline
+     term  , * , *, and  term   \\
+ \hline
+\end{tabular}
+\label{tab:patterns} % is used to refer this table in the text
+\end{table}
 
 \begin{table}[ht]
 \caption{Some sentences Job Description} % title of Table
@@ -96,7 +103,7 @@ $$ < term > , * , *, and <term>$$
 \label{tab:termspattern} % is used to refer this table in the text
 \end{table}
 
-For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If the any of ``dcterms:subject'' fields have the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we could indignity the word is a technical term, and pop them up. After getting a list of new terms, we could check the category of terms in Dbpedia, and put them into right position of our domain specific ontology. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
+For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If any element in ``dcterms:subject'' has the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we can indicate taht the word is a technical term, and pop them up. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
 
 \begin{figure}[htbp]
   \includegraphics[scale=0.6]{images/genonto.png}
@@ -161,7 +168,7 @@ Liu and Dew~\cite{liu2004using} used RDF to represent and store the expertise of
 
 
 \section{Statistical-based Ontology Similarity Measure }
-In this thesis, I proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required. From observation, we could find that related skills always exist in a job description simultaneously, e.g. HTML and CSS are always required together. Furthermore, the distance between two concepts is also a good measure of the relevance of them. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions :
+In this thesis, I proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required.  From observation, we found that related skills always exist in a job description simultaneously, and the positions of them are always close, e.g. HTML and CSS are always required together, and appear in the same sentence. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions.
 
 \begin{table}[ht]
 \caption{Some sentences Job Description} % title of Table
@@ -177,8 +184,7 @@ In this thesis, I proposed a new statistical-based ontology similarity measure. 
 \label{tab:skillinsent} % is used to refer this table in the text
 \end{table}
 
-We could see from the table, the technical close related concepts are always bing together.
-Based on such observation, we give a new statistical-based Ontology Similarity Measure. Two concepts $a$ and $b$ in the ontology,   their similarity $S_{a,b}$ could be the ratio of two factors:
+We could see from the table, the technical close related concepts are always have short distance. Based on such observation, we give a new statistical-based Ontology Similarity Measure. Similarity between two concepts can be calculated,  if the two concepts $a$ and $b$ have the same direct hypernym or one  is the hypernym of the other. Their similarity $S_{a,b}$ could be the ratio of two factors:
 
 \begin{enumerate}
     \item The ratio of the number of documents they exist together $N_{a \cap b}$ to the number of documents have a least one them $N_{a \cup b}$.
@@ -192,12 +198,12 @@ We only apply this measure on the concepts pair if:
     \item The two concepts have the same direct
     \item One concepts is the super  of another.
 \end{enumerate}
-We set the restriction because the position of the concept in the ontology is defined based on their technical similarity to others. Similar techniques will assigned into a same category, they should share the same technology base, and one could be a alternate to the other. For example, we put EJB and Hibernate in the same category, because they are both J2EE persistence layer technologies, and both have the O/R mapping concept. If the applicant is familiar one of them, they could master the other very quickly. Another example, like Grail and Django, they are both web frameworks, and share some web design philosophies, but one is  designed for Java web application and the other is created for Python web application. So if one developer has some some experience with one of them, he/she still need spend a lot of time to learn the other to overcome the gap between programming languages. We could see the two examples of in figure:
 
+If distance between two concepts are further than above situation we generally believe they are not related skills. We set the restriction because the position of the concepts in the ontology are based on their technical similarity to others. Similar techniques will assigned into a same category, they should share the same technology base, and one could be a alternate or similar to the other. For example, we put EJB and Hibernate in the same category, because they are both J2EE persistence layer technologies, and both have the O/R mapping concept. If the applicant is familiar one of them, they can master the other very quickly. Another example, like Grail and Django, they are both web frameworks, and share some web design philosophies, but one is  designed for Java web application and the other is created for Python web application. So if one developer has some some experience with one of them, he/she still need spend a lot of time to learn the other to overcome the gap between programming languages. We could see the two examples of in figure:
 
+Figure Figure FigureFigure Figure FigureFigure Figure FigureFigure Figure FigureFigure Figure FigureFigure Figure Figure
 
-
-If distance between two concepts are further than above situation we generally believe they are not related skills. The algorithm to calculate the similarity of two concepts is in algorithm ~\ref{alg:alg_similarity}.
+ The algorithm to calculate the similarity of two concepts is in algorithm ~\ref{alg:alg_similarity}.
 
 \begin{algorithm}
 \caption{Get Stat Similarity}
@@ -226,7 +232,7 @@ return $factor1 ~/~ factor2$\;
 $ ~~ $
 \end{algorithm}
 
-To evaluate this measure, we select 99999 job descriptions, and 99 terms to see the result. We got the relevance matrix in table~\ref{tab:dismatrix} by using the algorithm. Considering the skill HTML, the most relevance skills in order are CSS, Javascript, and jQuery,  which is correct from the perspective of a experienced developer. The other example is Java, the most relevant skill in the matrix is JSP, which is the same as the technical relevance.
+We got the relevance matrix in table~\ref{tab:dismatrix} by using the algorithm from 500 job descritptions. Considering the skill HTML, the most relevance skills in order are CSS, Javascript, and jQuery,  which is correct from the perspective of a experienced developer. The other example is Java, the most relevant skill in the matrix is JSP, which is the same as the technical relevance.
 
 
 \begin{table}
@@ -268,4 +274,4 @@ To evaluate this measure, we select 99999 job descriptions, and 99 terms to see 
 
 \section{Combine Keyword Search and Ontology Matching }
 
-Using ontology matching, the system can give job seekers some jobs appropriate to their background. But in some cases, job seekers have their own preference when choosing jobs. These cases are not very rare, for example, some people may want to try some new positions or industries they have no or few experience, because they are boring with current positions, or they want to learn perspective technology.  Considering such situation, we add a new search function to the system, which combine the traditional keyword searching and our ontology matching method. At first, users need to upload their resume, and then they can use keywords to search jobs. The system will jobs that contain the keywords, and the jobs are ranked by their similarity values to the users' resume. The keywords represent user's preference, that jobs satisfied this criteria will be returned, and the ontology similarity become the ranking algorithm, which make the top items of the searching result more remanence to user. 
+Using ontology matching, the system can give job seekers some jobs appropriate to their background. But in some cases, job seekers have their own preference when choosing jobs. These cases are not very rare, for example, some people may want to try some new positions or industries they have no or few experience, because they are boring with current positions, or they want to learn perspective technology.  Considering such situation, we add a new search function to the system, which combine the traditional keyword searching and our ontology matching method. At first, users need to upload their resume, and then they can use keywords to search jobs. The system will jobs that contain the keywords, and the jobs are ranked by their similarity values to the users' resume. The keywords represent user's preference, that jobs satisfied this criteria will be returned, and the ontology similarity become the ranking algorithm, which make the top items of the searching result more remanence to user.
