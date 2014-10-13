@@ -130,14 +130,14 @@ This section provides a discussion of related research in Job Recommender System
 
 \subsection{Job Recommender Systems}
 
-Recommender Systems are sfotware tools and techniques providing suggestions for items to be of use to a user~\cite{ricci2011introduction}.
+Recommender Systems are software tools and techniques providing suggestions for items to be of use to a user~\cite{ricci2011introduction}.
 
 Rafter et al. \cite{rafter2000personalised} began to use ACF (Automated Collaborative Filtering) in their Job Recommender system, ``CASPER''. In the system user profiles are gotten from server logs, that included: revisit data, read time data, and activity data. All these factors were viewed as measure of relevance among users. The system recommend jobs in two steps. First the system find a set of user related to the target user, second the jobs that related users liked will be recommend to the target user. The system use cluster-based Collaborative Filtering strategy. The similarity between users are based on how many jobs they both reviewed, or applied.
 
 The shortage of Collaborative Filtering:
- First since the searching result is huge, and the result is sorted randomly, even two very similar users may review different jobs,  or say the probability of two similar users reviewing the same job is low. The authors also noticed the such sparseness problem in users profile, so they try to user cluster-based solution to resolve this problem.
+First since the searching result is huge, and the result is sorted randomly, even two very similar users may review different jobs,  or say the probability of two similar users reviewing the same job is low. The authors also noticed the such sparseness problem in users profile, so they try to user cluster-based solution to resolve this problem.
 
- Second because recommended jobs are from others users searching result, since the current quality of current searching result is low, so the quality of recommendation cannot be high.
+Second because recommended jobs are from others users searching result, since the current quality of current searching result is low, so the quality of recommendation cannot be high.
 
 F{\"a}rber et al \cite{farber2003automated}. presented a recommender system built on a hybrid approach. The system integrated two methods, content-based filtering and collaborative filtering. They tried to overcome the problem of rating data sparsity by leveraging synergies of a combined model, et. the  latent aspect model.
 
@@ -164,8 +164,14 @@ This system was build on the assumption: The users with similar profiles tend to
 \section{System Overview}
 The system will use rule based information extraction technique to parse the job description and resume, and get information such as skill, specialties and background. These information will be used to create the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching.
 
-The model of candidates will include their specialties, working experience and education background, all the them should be extracted from the resumes. The job model will be extracted from job description, the information will include: company name, location, job title, education requirement, skill requirements and working experiences etc. When a job seeker searches the jobs by his resume, the system will calculate the similarity between the candidate model and the job models, give every job model a similarity score.
+The model of candidates will include their specialties, working experience and education background, all the them should be extracted from the resumes. The job model will be extracted from job description, the information will include: company name, location, job title, education requirement, skill requirements and working experiences etc. When a job seeker searches the jobs by his resume, the system will calculate the similarity between the candidate model and the job models, give every job model a similarity score. The interface of job matching is shown in Figure ~\ref{fig:match_resume}.
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.35]{images/match_resume.png}
+  \caption{Resume Job matching }
+  \label{fig:match_resume}
+\end{figure}
 
 \subsection{System Architecture}
 
@@ -229,7 +235,7 @@ After studying these tools, we found most them are powerful, complex, but not ve
 \small
 \caption{Matcher Class } % title of Table
 \centering % used for centering table
-\begin{tabular}{  | p{2cm} | p{3cm} | p{3cm} |  }
+\begin{tabular}{  | p{2cm} | p{3cm} | p{2cm} |  }
  \hline
  Class Name        &  Function                                 & Counter Part of Regex       \\
   \hline
@@ -291,9 +297,9 @@ In the text of natural language, one concept always have some different expressi
 \begin{table}[ht]
 \caption{All words have meaning bachelors } % title of Table
 \centering % used for centering table
-\begin{tabular}{  | p{8cm} |  }
+\begin{tabular}{  | p{8.3cm} |  }
  \hline
- "Baccalaureate","bachelors", "bachelor" ,"B.S.", "B.S","BS","BA","BA/BS", "BABS", "BSBA", "B.A." ,"4-year","4-year", "4 year", "four year","college","Undergraduate" , "University" \\
+ "Baccalaureate",~"bachelors",~"bachelor",~"BS",~"BA",~"B.S.",~"B.S",~"BA/BS",~"BABS", "BSBA",~"B.A.",~"4-year",~"4-year",~"4 year",~"four year",~"college",~"Undergraduate", ~"University" \\
   \hline
 \end{tabular}
 \label{tab:multispelling} % is used to refer this table in the text\section{Pipeline of Information Extraction}
