@@ -1,19 +1,19 @@
 \chapter{Information Extraction}
 
-One important the problem of this system is how to build the models from Job Description and Resume. The first step of model generating is information extraction. Both resumes and job descriptions are written in natural language, so we need to extract information from such un-structured or semi-structured data source, and transfer them to some designed structure.
+The content-based recommender systems need the structured information of items. But the items in JRS are resumes and job descriptions written in natural language, so how to get information from the documents is a big challenge. Information extraction (IE) is the task of automatically extracting structured information from unstructured and/or semi-structured machine-readable documents.
 
 \section{Text Processing Pipeline}
 
-One important problem of this system is how to extract models from Job Descriptions and Resumes.
-In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. This architecture will also be used in this system to extract models of job openings and candidate's resumes. The system will process the job opening in the following steps, which is shown in Figure~\ref{fig:Pipeline}:
+
+In Nature Language Processing, especially in Information Extraction, pipeline is a well adopted architecture~\cite{sarawagi2008information}. The pipeline to process the job descriptions in the system has eight stages, which is shown in Figure~\ref{fig:Pipeline}:
 
 \begin{enumerate}
-    \item HTML parser will parse the job description web pages that are obtained from web scrawler. It will get the HTML element that contains the main content of the job description.
+    \item The HTML parser will parse the web pages of job descriptions, which are obtained from web crawler. The parser will get the HTML element that contains the main content of the job description.
     \item Segment module will separate the job description into paragraphs according to HTML tags at first, then separate each paragraph into sentences.
-    \item The sentences will be tokenized as string array, and sent to the Classification module. Classification module will determine the category of the sentence, and mark the category of the sentence.
-    \item Preprocessing module will delete unreadable characters, normalize some spelling tokens in the sentence.
-    \item Annotation module will annotate the tokens with sematic and ontology labels. The sentences will be transferred to multi-layered data structure.
-    \item The layered sentences will be matched with pre-defined patterns. If any pattern could be matched, the ontology information will be stored in the job model.
+    \item The sentences will be tokenized into string arrays, and be sent to the classification module. The classification module will determine the category of the sentence, and the sentence a category mark.
+    \item The preprocessing module will delete unreadable characters, and correct some tokens spelling.
+    \item The annotation module will annotate the tokens with semantic and ontology labels. After labeling, the sentences will have a multi-layered data structure.
+    \item The layered sentences will be matched with pre-defined patterns with the FST library. If any pattern could be matched, the ontology information will be extract and stored in the job model.
     \item After every sentence has be processed in the pipeline, the job model will be stored into database.
 \end{enumerate}
 
@@ -28,7 +28,7 @@ In Nature Language Processing, especially in Information Extraction, pipeline is
 
 \section{Machine learning and Rule-based IE technologies}
 
-Chiticariu et al. \cite{chiticariu2013rule}summarized the pros and cons of machine learning (ML) and rule-based IE technologies in Table
+There are two completive techniques in Information Extraction, one is machine learning-based approach, the other is rule-based approach. Chiticariu et al. \cite{chiticariu2013rule}summarized the pros and cons of machine learning (ML) and rule-based IE technologies in Table \ref{tab:mlrb}.
 
 \begin{table}[ht]
 \caption{Pros and Cons of ML and Rule-Based IE technologies } % title of Table
@@ -71,9 +71,9 @@ ML-based &
 
 In this work, we prefer the rule-based approach because:
 \begin{enumerate}
-    \item Most of sentences that contain the information we needed followed some common pattern.
-    \item Lots of sentences are not grammatical correct, some of them missing subject, some of them are just a list of skills.
-    \item Processing speed is also a big concern, rule-based pattern matching is faster.
+    \item Most of sentences that contain the information share some common patterns that can be easily identified.
+    \item A lot of sentences are not grammatical completed as a sentence, for example some of them missing subject, and some of them are just a list of terms.
+    \item Processing speed is also a concern, and generally rule-based approach is faster.
 \end{enumerate}
 
 
@@ -188,7 +188,7 @@ We support these programming styles, because we want to give developers more fle
 
 To transfer a token regular expression to a Finite Automata Transducers(FST), we need to steps: One is parsing  the expression to tree of structure of matchers, the other is transfer the tree of matchers to the Finite Automata Transducers.
 
-We use PLY(Python Lex-Yacc) as the grammar parser, which  is a pure-Python implementation of the popular compiler construction tools lex and yacc. We defined  grammars of token regular expression in the parser, which can parse the token regular expression. 
+We use PLY(Python Lex-Yacc) as the grammar parser, which  is a pure-Python implementation of the popular compiler construction tools lex and yacc. We defined  grammars of token regular expression in the parser, which can parse the token regular expression.
 
 We use the algorithm proposed by Thompson and Ken\cite{thompson1968programming} to construct the FST from the tree. The expression like ``DL (, DL])*  (or DL)? DEGREE'' could be transferred to an FST in Figure ~\ref{fig:fst}.
 
