@@ -77,41 +77,11 @@ In this work, we prefer the rule-based approach because:
 \end{enumerate}
 
 
-
-\section{Semantic Label}
-
-One conception always have similar but different expression, like Bachelor's degree, in job descriptions it could be written into bachelors degree, B.S., 4 years degree, and so on. In this work, we annotate words in the sentence with semantic label.
-
-We create a dictionary which collect different spelling and expression to a concept. For example  Bachelor's degree has such dictionary entry.
-
-["Baccalaureate","bachelors", "bachelor" ,"B.S.", "B.S","BS","BA","BA/BS", "BABS", "BSBA", "B.A." ,"4-year","4-year", "4 year", "four year","college","Undergraduate" , "University" ]
-
-These words combining with following word ``degree'' will all have the same meaning. We know that the regular expression is a finite state machine (FSM), any word add into it, will become a state of the FSM. If we use common method, adding all these words into the regular expression, the matching process will meet problem of combinatorial explosion. Actually we don't care what the words the sentence use, we want to determine the if the words' meaning and category. So here we propose a two layers label approach. In the first level, we labeled the word with its semantic meaning, which is the value we want to extract from the sentence. In the second level, the labels are the semantic category of the first layer label. For example the word "bachelors" will be annotated in the first layer with label "BS LEVEL" which means bachelors degree level, and the word "PhD" will be labeled as "PHD LEVEL", the both be labeled with "DEGREE LEVEL" in the second layer. A labeled sentence is shown in ~\ref{tab:labeldsent}.
-
-\begin{table}[ht]
-\caption{Labeled sentence } % title of Table
-\centering % used for centering table
-\begin{tabular}{  | c | c | c | c | c |c | c |c | c | c |  }
- \hline
- layer 2 & DE LEVEL   & DEGREE & IN & MAJOR            & OR & MAJOR  &.  \\
- \hline
- layer 1 &  BS LEVEL   & DEGREE & IN & MAJOR CS         & OR & MAJOR INFO & .      \\
- \hline
-   words & bachelors   & degree & in & computer science & or & information systems & .     \\
-  \hline
-\end{tabular}
-\label{tab:labeldsent} % is used to refer this table in the text\section{Pipeline of Information Extraction}
-\end{table}
-
 \section{Regular Expression Over Labeled Tokens}
 
-Cascaded Finite-State Transducers has widely used approach in Information Extraction for more than 20 years. This approach had been demonstrated   very effective in extracting information from text like CIRCUS~\cite{lehnert1991university} and FASTUS~\cite{hobbs199713}.  In the widely used NLP toolkit GATE~\cite{cunningham2002framework}, the semantic tagger JAPE (Java Annotations Pattern Engine) could describe patterns to match and annotations to be created as  a result. JAPE adopted a version of CPSL (Common Pattern  Specification Language)~\cite{appelt1998common}, which provides finite state transduction over annotations. Chang et al. presented cascaded regular expressions over tokens~\cite{chang2014tokensregex}, which proposed a cascaded patterns over token sequences.
+Cascaded Finite-State Transducer as a tool to match patterns and extract information for more than 20 years. This approach had been demonstrated very effective in extracting information from text like CIRCUS~\cite{lehnert1991university} and FASTUS~\cite{hobbs199713}.  In the widely used NLP toolkit GATE~\cite{cunningham2002framework}, the semantic tagger JAPE (Java Annotations Pattern Engine) could describe patterns that are used to match and annotate tokens. JAPE adopted a version of CPSL (Common Pattern  Specification Language)~\cite{appelt1998common}, which provides finite state transduction over annotations. Chang et al. presented cascaded regular expressions over tokens~\cite{chang2014tokensregex}, which proposed a cascaded pattern matching tool over token sequences.
 
-After study these frameworks, I found most them are powerful, but complex. Developers need to learn some  domain-specific language (DSL) like CPSL, and how to integrate this part into a system will also bring some problem. So here we proposed a more flexible and lighter framework could do regular expression matching over labeled tokens.
-
-The input of the pattern is sequence of array, every array is the token and its labels in different layer, which is showed in table~\ref{tab:labeldsent}. A pattern is a concatenation of matchers£¬ which is basic unit of the pattern. A matcher could match a token or a label in any layer.
-
-Currently we support some types of matchers, we list them in table~\ref{tab:matchers}.  The framework support several styles to create a pattern, the most common one is regular expression style, like:
+After studying these tools, we found most them are powerful, complex, but not very flexible. Because at first, developers need to learn some DSLs like CPSL, and second to integrate the pattern matching tool in  into the system need extra efforts. So here we proposed a more flexible and lightweight framework, which can do regular expression matching over labeled tokens. The difference between this library and regular expression is that the basic unit to be matched is token, not character. In the library, a pattern is a concatenation of matchers£¬ which can match a single token, or can be a wrapper of other matchers. Currently we support seven types of matchers, those are listed in table~\ref{tab:matchers}.
 
 \begin{table}[ht]
 \caption{Matcher Class } % title of Table
@@ -139,50 +109,36 @@ Currently we support some types of matchers, we list them in table~\ref{tab:matc
 \label{tab:matchers} % is used to refer this table in the text\section{Pipeline of Information Extraction}
 \end{table}
 
+The framework support three styles to create patterns, which gives developers big flexibility. The most common style is define pattern expression in a string, which is much like traditional regular expression. We give an example as follows:
+
 \begin{framed}
-    \begin{lstlisting}[language=Python]
-    seqMatcher =parser.parse(" aaa | bbb  ccc?  * ddd")
-    \end{lstlisting}
+\small
+\begin{lstlisting}[language=Python]
+seqMatcher =parser.parse("aaa | bbb ccc? * ddd")
+\end{lstlisting}
 \end{framed}
 
- The seconde style is use algebra operator to connect matchers, like this:
-
+The seconde style is using algebra operator to connect matchers, as follows:
 \begin{framed}
-    \begin{lstlisting}[language=Python]
-    seqMatcher =  TokenMatcher("aaa") +
-           TokenMatcher("bbb") | TokenMatcher("ccc")
-    \end{lstlisting}
+\small
+\begin{lstlisting}[language=Python]
+seqMatcher =  TokenMatcher("aaa") +
+    TokenMatcher("bbb") | TokenMatcher("ccc")
+\end{lstlisting}
 \end{framed}
 
-We also could create complex matcher in programming style, which just like we create some programming object, create some objects, and use them create a another object.
+We also could create complex matcher in programming style, which like we create and use some objects when programming, like this:
 
 \begin{framed}
-    \begin{lstlisting}[language=Python]
+\small
+\begin{lstlisting}[language=Python]
 matcher1 = TokenMatcher("aaa")
 matcher2 = TokenMatcher("bbb")
 matcher3 = TokenMatcher("ccc")
 matcher4 = AlternateMatcher([matcher1,matcher2])
 seqMatcher = SeqMatcher([matcher3,matcher4])
-    \end{lstlisting}
+\end{lstlisting}
 \end{framed}
-
-We support these programming styles, because we want to give developers more flexibility to create patterns. The flexibility are come from the that developers could define which part of sequence should match by assign lambda expressions to matcher's catchfun and outfun. Since the every token in the sequence is an array, which is shown table~\ref{tab:labeldsent}, the lambda expressions could decide which field should be used to match, and which one should be outputed. For example,  to match the labeled sentence, the lambda expression for catchfun is "lambda x:x[2] ", and the outfun is "lambda x:x[1]", which means we match the pattern with the semantic category, and output the  the value we want. We show some patterns used to match degree in table:
-
-\begin{table}[ht]
-\caption{Patterns match degree} % title of Table
-\centering % used for centering table
-\begin{tabular}{  | l  |  }
- \hline
- DE\_LEVEL,  DE\_LEVEL, OR  DE\_LEVEL DEGREE   \\
- DE\_LEVEL DEGREE ( IN  $\vert$  OF ) DT MAJOR   \\
- MAJOR\_DEGREE  ,  MAJOR\_DEGREE OR MAJOR \\
- DE\_LEVEL (, DE\_LEVEL)* (OR DE\_LEVEL)? BE? PERFER\_VBD   \\
- \hline
-
-
-\end{tabular}
-\label{tab:patterns} % is used to refer this table in the text\section{Pipeline of Information Extraction}
-\end{table}
 
 \section{Implementation of Finite Automata Matching Library }
 
@@ -199,4 +155,58 @@ We use the algorithm proposed by Thompson and Ken\cite{thompson1968programming} 
   \label{fig:fst}
 \end{figure}
 
+\section{Semantic Label}
 
+In the text of natural language, one concept always have some different expressions. Like bachelor's degree, the simple concept has several expression in job descriptions, like B.S., BA/BS, 4 years degree, and so on. We list the words that if followed with word "degree", have the meaning ``bachelor's degree'' is shown is table ~\ref{tab:multispelling}:
+
+\begin{table}[ht]
+\caption{All words have meaning bachelors } % title of Table
+\centering % used for centering table
+\begin{tabular}{  | p{8cm} |  }
+ \hline
+ "Baccalaureate","bachelors", "bachelor" ,"B.S.", "B.S","BS","BA","BA/BS", "BABS", "BSBA", "B.A." ,"4-year","4-year", "4 year", "four year","college","Undergraduate" , "University" \\
+  \hline
+\end{tabular}
+\label{tab:multispelling} % is used to refer this table in the text\section{Pipeline of Information Extraction}
+\end{table}
+
+
+The regular expression over tokens is a finite state machine (FSM) with states that are the tokens need to be matched with. If all above words are added to the regular expression, the FSM will have too many states, and the matching process will be very slow because of the problem of combinatorial explosion.
+
+To resolve this problem, we proposed an approach to use the patterns match the semantic label of the sentences, not the the original text. Because in this system, we don't care what the words the sentences really use, we want to extract the semantic value from the matching phrases.
+
+We propose a two layers labeling approach. In the first layer, we labeled the word with its semantic meaning, which is the value that we want to extract from the sentence. In the second layer, the labels are the semantic categories of the first layer labels. For example the word "bachelors" will be labeled in the first layer with label "BS LEVEL", which means bachelors degree level, and the word "PhD" will be labeled as "PHD LEVEL". In the second layer, they both be labeled with "DEGREE LEVEL". A labeled sentence is shown in ~\ref{tab:labeldsent}.
+
+\begin{table}[ht]
+\caption{Labeled sentence } % title of Table
+\centering % used for centering table
+\begin{tabular}{  | c | c | c | c | c |c | c |c | c | c |  }
+ \hline
+ layer 2 & DE LEVEL   & DEGREE & IN & MAJOR            & OR & MAJOR  &.  \\
+ \hline
+ layer 1 &  BS LEVEL   & DEGREE & IN & MAJOR CS         & OR & MAJOR INFO & .      \\
+ \hline
+   words & bachelors   & degree & in & computer science & or & information systems & .     \\
+  \hline
+\end{tabular}
+\label{tab:labeldsent} % is used to refer this table in the text\section{Pipeline of Information Extraction}
+\end{table}
+
+To resolve the problem of one concept with multiple expressions, we create a dictionary, in which the key is the different spellings an expressions, and the value is the meaning of the concept. For example the table ~\ref{tab:multispelling} shows all keys in the dictionary with and the values ``bachelors''.
+
+After labeling, the sentence become a sequence of arrays, each array includes the token and its labels in two layers. The flexibility of the tool also comes from that developers could determine which layer of of array should be matched, the original text or labels in the first or second layer.  Developers can assign lambda expressions to the matcher's catching function, which defines how to get the matching input,  and out function, which defines what should be outputed. For example,  to match the labeled sentence, we set the lambda expression for catching function to "lambda x:x[2] ", and the out function to "lambda x:x[1]", which make the matcher match the pattern with the semantic category, and output the  the value of semantic value. We show some patterns used to match degree phases in table ~\ref{tab:patterns}:
+
+\begin{table}[ht]
+\small
+\caption{Patterns match degree} % title of Table
+\centering % used for centering table
+\begin{tabular}{  | l  |  }
+ \hline
+ DE\_LEVEL,  DE\_LEVEL, OR  DE\_LEVEL DEGREE   \\
+ DE\_LEVEL DEGREE ( IN  $\vert$  OF ) DT MAJOR   \\
+ MAJOR\_DEGREE  ,  MAJOR\_DEGREE OR MAJOR \\
+ DE\_LEVEL (, DE\_LEVEL)* (OR DE\_LEVEL)? BE? PERFER\_VBD   \\
+ \hline
+\end{tabular}
+\label{tab:patterns} % is used to refer this table in the text\section{Pipeline of Information Extraction}
+\end{table}
