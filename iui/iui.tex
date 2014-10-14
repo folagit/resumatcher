@@ -443,11 +443,11 @@ For example, we extract the word  ''XSL'', which currently not in the terms list
 
 \section{EVALUATION}
 
-In this section, we will test the performance of key components of firstly, and then the whole system. The Information Extraction and the Ontology Similarity modules are two important part of the system.  We will evaluate them respectively.
+In this section, we will test the performance of key components of system, and then the whole system. The Information Extraction and the Ontology Similarity modules are two important part of the system.  We will evaluate them respectively.
 
-\subsection{Experiments of Information Extraction }
+\subsection{Experiments of Information Extraction}
 
-To evaluate the performance of information extraction, we get some sentences by the sentence filters, different sentence filter can extract different kinds of sentences. We use degree sentences to explain the process:
+To evaluate the performance of information extraction, we get some sentences by the sentence filters as the test data. Different sentence filter can extract different kinds of sentences. We use degree sentences to explain the process:
 
 In the experiment, we selected 100 sentences from job descriptions that are requirements of candidates' degree and major. The value of degree and major in the sentences are labeled manually. We use patterns to  match and extract the degree information from the sentences. The pattern is gotten from the observation of sentences. As we add more patterns, the accuracy of information increased as well. When we used 6 patterns, the accuracy of degree become 94\%. Figure \ref{fig:degree_accuracy} shows the accuracy with number of patterns. The accuracies of three fields are shown in \ref{tab:ieaccura}
 
@@ -483,7 +483,7 @@ We use $ Normalized~Discounted~Cumulative~Gain ( NDCG )$ to evaluate the statist
 
 where $Z_{kj}$ is a normalization factor calculated to make it so that a perfect ranking's NDCG at $k$ for query $j$ is 1. For queries for which $k' < k$ documents are retrieved, the last summation is done up to $k'$.
 
-Table ~\ref{tab:dismatrix1} shows similarity values between skills, which is calculated from  from 500 job descriptions. The values in the table are the similarities between skills, the higher the value, the greater of the similarity, so the similarity of one skill itself is one. We select one concept, rank other concepts by their similarity value to this concept. The ranked concepts are also be given relevance scores by human judge, so we can use NDCG to evaluate the effectiveness of our approach.
+Table ~\ref{tab:dismatrix1} shows similarity values between terms, which is calculated from  from 500 job descriptions. The values in the table are the similarities between terms, the higher the value, the greater of the similarity, so the similarity of one term itself is one. We select one concept, rank other concepts by their similarity value to this concept. The ranked concepts are also be given relevance scores by human judge, so we can use NDCG to evaluate the effectiveness of our approach.
 
 
 \begin{table}
@@ -545,13 +545,13 @@ The table ~\ref{tab:simcompare1} shows how we evaluate the similarity between th
 
 \subsection{Evaluation of the System}
 
-In the evaluation phrase, we created a data set of 100 job descriptions, which includes several kinds of jobs, like web developers, back-end developers, mobile developers and so on. The relevance value of job descriptions to each resume will be set manually. We would like to display jobs  that better match the candidate' resumes at the top.
+In the evaluation phrase, we created a data set of 100 job descriptions, which includes several kinds of jobs, like web developers, back-end developers, mobile developers and so on. The relevance value of job descriptions to each resume will be set manually. We would like to display jobs that better match the candidate' resumes at the top.
 
-We first used Precision@K to compare the performance our approach to classical information retrieval models, they are Okapi BM25~\cite{robertson2009probabilistic} ,   Kullback-Leibler divergence, and the TF-IDF. Precision@K is the proportion of relevant documents in the first K positions and is given below:
+We first used Precision@K to compare the performance our approach to classical information retrieval models. They are Okapi BM25~\cite{robertson2009probabilistic}, Kullback-Leibler divergence, and TF-IDF. Precision@K is the proportion of relevant documents in the first K positions and is given below:
 $$ P@k = \frac{1}{k} \sum^m_{i=1} l_i 1 \left(  r(i) \leq k  \right )  $$
 Where 1 is the indicator function: $1(A) = 1$ if A is true, 0 otherwise.
 
-For our experiments to compare the various retrieval methods. We used 5 candidate resumes  and retrieved the top 20 job descriptions,  each method and judged the relevance of these against the resumes. The resumes we chose had an average of 100 jobs per resume. We used a resume as query q, and treat the text of the job descriptions as documents d and apply all the retrieval techniques to rank the jobs. The result of Precision @ k is in table~\ref{tab:job_precision}.
+For our experiments to compare the various retrieval methods, we used 5 candidate resumes  and retrieved the top 20 job descriptions,  each method and judged the relevance of these against the resumes. The resumes we chose had an average of 100 jobs per resume. We used a resume as query q, and treat the text of the job descriptions as documents d and apply all the retrieval techniques to rank the jobs. The result of Precision @ k is in table~\ref{tab:job_precision}.
 
 
 \begin{table}[ht]
@@ -572,7 +572,7 @@ For our experiments to compare the various retrieval methods. We used 5 candidat
 \label{tab:job_precision} % is used to refer this table in the text
 \end{table}
 
-The other measure we used is NDCG, which is explained in last section. Table ~\ref{tab:job_ndcg} shows the NDCG¡¡value get from different information retrieval model. The result shows that Ontology Similarity  performs the best. This agrees with results in  where it was found that finding and weighting up important concepts in long queries can improve retrieval performance.
+The other measure we used is NDCG, which is explained in last section. Table ~\ref{tab:job_ndcg} shows the NDCG¡¡values get from different information retrieval model. The result shows that ontology similarity performs the best. This agrees with results in  where it was found that finding and weighting up important concepts in long queries can improve retrieval performance.
 
 \begin{table}[ht]
 \caption{NDCG of Job Ranking } % title of Table
@@ -597,7 +597,7 @@ In this paper£¬ we described JobFinder a personalized job-resume matching system
 
 In the system, job descriptions and resumes will be processed by pipeline; and a finite state transducer matching library will be used to extract the models from them. The models include fields like degree, major, skills. To find the appropriate jobs, similarities between resume model and job description models will be calculated. The result will be sorted by the ontology similarity score, which is the sum of weighted multiple similarities of fields.
 
-Since finding a job is a complex process, which includes some subjective and objective factors.  Our work is just a initial work to solving  this problem, there are still a lof of parts could be improved. First for the Information Extraction part, currently the method we used is pattern matching, we'l like try some machine learning approaches in future. In the resume-job matching part, we hope to include more information, like employment history and project experience of of the job seekers, and the company's reputation and industry of the job descriptions.
+Since finding a job is a complex process, which includes some subjective and objective factors.  Our work is just a initial work to solving  this problem, there are still a lot of parts could be improved. First for the information extraction part, currently the method we used is pattern matching, we'd like to try some machine learning approaches in future. In the resume-job matching part, we hope to include more information, like employment history and project experience of of the job seekers, and the company's reputation and industry of the job descriptions.
 
 
 \bibliographystyle{acm-sigchi}
