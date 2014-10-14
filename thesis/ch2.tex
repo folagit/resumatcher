@@ -38,10 +38,9 @@ Rafter et al. \cite{rafter2000personalised} began to use ACF (Automated Collabor
 The CASPER also allows user search jobs by a query which is a combination of some fields, like location, salary, and skill etc. The system use such query to find jobs, and the returned jobs will be ranked with above collaborative filtering algorithm.
 In their paper, they didn't give a detail description on how to detect the related fields they need and how to the transfer semi-structured job description to structured one. This system is helping job seeker to find jobs.
 
-The shortage of Collaborative Filtering:
- First since the searching result is huge, and the result is sorted randomly, even two very similar users may review different jobs,  or say the probability of two similar users reviewing the same job is low. The authors also noticed the such sparseness problem in users profile, so they try to user cluster-based solution to resolve this problem.
+The shortages of Collaborative Filtering: First since the searching result is huge, and the result is sorted randomly, even two very similar users may review different jobs,  or say the probability of two similar users reviewing the same job is low. The authors also noticed the such sparseness problem in users profile, so they try to user cluster-based solution to resolve this problem.
 
- Second because recommended jobs are from others users searching result, since the current quality of current searching result is low, so the quality of recommendation cannot be high.
+Second because recommended jobs are from others users searching result, since the current quality of current searching result is low, so the quality of recommendation cannot be high.
 
 F{\"a}rber et al \cite{farber2003automated}. presented a recommender system built on a hybrid approach. The system integrated two methods, content-based filtering and collaborative filtering, and tried to overcome the problem of rating data sparsity by leveraging synergies of a combined model, et. the  latent aspect model. The data they used were synthetic resume. The model they are shown in Figure
 
@@ -53,7 +52,7 @@ F{\"a}rber et al \cite{farber2003automated}. presented a recommender system buil
   \label{fig:la}
 \end{figure}
 
-In Malinowski et al. \cite{malinowski2006matching}, they classified the job recommender systems into two categories,  CV-recommender, which to recommend CVs to recruiter. The job-recommender, which recommend jobs to job seekers.
+In Malinowski et al. \cite{malinowski2006matching}, they classified the job recommender systems into two categories,  CV-recommender, which recommends CVs to recruiter, and the job-recommender, which recommends jobs to job seekers.
 
 The system collect the users' profile data by asking input their profiles to the web form based interface field by field. The input data collected are:
 
@@ -73,7 +72,7 @@ The system also asked the users upload their resumes, but that's for facilitatin
 From the paper we know, the model latent aspect model is statistical model, which need to be trained before be applied into recommendation. But training need user to label to data, since current quality of result of job searching is poor, it will take a lot of time for user to train model.
 
 
-Drigas* et al.\cite{malinowski2006matching} al presented a expert system to match jobs and job seekers, and recommend unemployed to  The expert system used Neuro-Fuzzy rule to evaluate the matching:
+Drigas* et al.\cite{malinowski2006matching} al presented a expert system to match jobs and job seekers, and recommend unemployed to the positions. The expert system used Neuro-Fuzzy rule to evaluate the matching:
 Candidate's X matches X Criterion
 
 
@@ -87,7 +86,7 @@ The system represent the job in six fields:
     \item  Computer Knowledge
 \end{enumerate}
 
- The system use a relation matrix to represent the fuzzy relation between these specialities. The system need the training data to train that Neuro-fuzzy network.
+The system use a relation matrix to represent the fuzzy relation between these specialities. The system need the training data to train that Neuro-fuzzy network.
 
 Both resume data and job info data were manually input into the system  . The fields they selected are relative small.
 
