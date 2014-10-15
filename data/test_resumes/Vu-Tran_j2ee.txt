@@ -1,0 +1,27 @@
+Vu Tran
+J2EE Team Lead - Raytheon
+Westminster, CA - Email me on Indeed: indeed.com/r/Vu-Tran/04f324248418dcd9
+Seeking a Southern California contract or fulltime position where I can utilize my 16 years of J2EE application development experience.
+WORK EXPERIENCE
+J2EE Team Lead
+Raytheon - El Segundo, CA - November 2008 to Present
+Working on a financial application called FACE that manages rates and pools data for Raytheon SAS. FACE is on the roadmap to becoming a Global application across all Raytheon business units. ?Helping to streamline Raytheon's finance groups from using error prone calculations in excel and centralizing business logic in reusable components. ?FACE is a web application utilizing J2EE on backend including EJBs, JPA Hibernate, Jersey (REST), and SmartGWT architecture on front end. Entirely Java. ?Collaborating between multiple groups including Users, SMEs, PM, SCM, and Developers to gather requirements, design, and implement code. ?Worked on Earned Value Management system with Raytheon RMS and helped to deploy in open and closed areas. ?Worked on Cost Value Analysis (CVA) project, which was used to analyze resource benefit/cost ROI.
+J2EE Development Lead
+Yamaha Motor Corporation - April 2002 to November 2008
+Worked on Supply Chain system (COMPASS) within J2EE layered architecture. COMPASS is a mission critical application that supports Yamaha Motorsports, Marine, and Watercraft divisions in USA, Canada, and Japan. ?Served as development lead for Compass' mission critical Allocation process. Allocation is the planning application used by Motorsports to allocate and distributes Yamaha motorcycles and ATVs for over 2000 dealers. ?Integrated Compass with SAP's Order Management module. Highly complex project that involves processing 2-way transactions across incompatible systems via Web Services and MQ Series. ?Development lead for Daily Wholesale, Order management, and Y-Pro project that provides testing and incentives for over 2000 dealers and 50 district managers. ?Serving on Compass' Board of code reviewer. QA group and Users have noticed a dramatic reduction in defects and improved efficiency as direct result of code reviews. ?Designed and developed Yamaha Dealer interfacing Web Service framework to use JAX-RPC, JAXB, and JAX-WS Java Architecture for XML Binding. ?Technical environment: Struts, JSP, Servlet, EJB 2.1, JMS, JDBC, Oracle TopLink (Java ORM persistence architecture), Websphere, IBM RAD 7, SOAP, WSDL, XML, JAXB, JAXWS, Castor, DOM, DHTML, CSS, Java Script, Oracle 9i, TOAD, SCRUM project management.
+Java Application Developer
+
+RELYON TECHNOLOGY - September 1997 to April 2002 Asia BioInnovations Corporation - Biotechnology Application for Gene Discovery Technologies: Java, Servlets, JSP, Websphere, DB2, Java Applets
+?Designed and developed Internet based bioinformatics and genomic application named eGenomix. ?eGenomix was designed as an environment to serve the biotechnology community for data mining, information management, and knowledge collaboration. ?Developed data mining tools to allow scientists to analyze gene data via the Internet. ?Developed information management and knowledge collaboration application to allow scientist to share gene discovery findings and to further speed up gene discovery.
+Disney Consumer Products & Corporate Compliance Group Technologies: Java, Websphere, SQL, Lotus Notes, and Domino, DB2, Dreamweaver
+International Labor Standards (ILS) Application ?Worked with team of contractors as well as Disney employees to design architecture, framework, documentation, and training for Disney Consumer Products Division ?Worked on International Labor Standards (ILS) system so that Disney can perform scheduled audits on more than 20,000 of their factories worldwide to ensure compliance with International labor laws.
+EDUCATION
+Java Certification
+UCI 2013 to 2013
+IBM e-Business Certification
+IBM 1998 to 1998
+Biochemistry
+University of California Los Angeles - Los Angeles, CA 1996
+ADDITIONAL INFORMATION
+TECHNICAL SKILLS
+Languages: Java 7, Javascript, SQL, HTML, UML Frameworks: JavaEE 6, GWT, Errai Framework, JPA (EclipseLink, Hibernate), STRUTS Web: JAX-RS, JAX-WS, SmartGWT, Sencha, Jersey, RestEasy, Semantic UI, App Dev Tools: Eclipse, NetBeans, Gradle, Jenkins, IBM RAD App Servers: JBoss, Weblogic, Glassfish, Websphere, Tomcat Database Systems: Oracle, SQLServer, PostGres, MySQL Tools: Git SCM, Pentaho, Enterprise Architect, Visio, Teamshare, SVN Dev Methodologies: SCRUM, XP Practices

@@ -6,6 +6,7 @@ Created on Sun Oct 05 13:40:34 2014
 """
 
 from baseir import BaseIr
+from baseir import loadResume
 import irutils
 from jobaly.db.dbclient import DbClient 
 import math
@@ -38,11 +39,13 @@ class KL(BaseIr):
              
 def main(): 
     #webJobInfoCollName: test_jobinfo
+    resumepath = "..\\..\\..\\data\\test_resumes\\Darin-Densley_web.txt"
+    resume = loadResume(resumepath)
+    print resume
 
     dbClient = DbClient('localhost', 27017, "jobaly")  
     jobCollection = dbClient.getCollection("test_jobinfo")  
     kl = KL(jobCollection)
-    resume = "I a am good java programmer, PHP, XML, hope juse c++, skill" 
     jobs = kl.matchResume(resume)
     
     for job in jobs:

@@ -1,0 +1,39 @@
+Darin Densley
+Freelance Web Developer - Web Sites and Internet Campaigns
+San Jacinto, CA - Email me on Indeed: indeed.com/r/Darin-Densley/99277ad86c74ed8a
+To seek the job with your company.
+WORK EXPERIENCE
+Freelance Web Developer
+Web Sites and Internet Campaigns - San Jacinto, CA - 2009 to Present
+While freelancing I have worked with different designers and agencies to develop a wide range of Web Sites and Internet Campaigns to best promote each clients brand. Below are examples of the various technologies I have used as a freelance web developer:
+ Wordpress: I have developed over 60 Wordpress sites using a custom Bootstrap responsive theme I developed, plugin customizations, depending on the needs of the client. I have developed several custom plugins expanding upon the power of the Wordpress framework. I have worked with integrating different user management solutions, caching solutions to improve performance, SEO plugins for better search rankings just to name a few.
+Wordpress development experience including custom Post Types, Plug-in Development, Theme Development, and database structure with custom queries. Implement custom shortcodes, functions and the loop. I also have or am currently developing a couple of plugins and themes for various clients needs. These range from an inventory management system for boat dealers to a custom theme solution with a wide range of theme options available in from with in the admin panel.  Magento: I have experience in developing responsive and non-responsive installations for clients using both desktop and mobile themes. The client base ranges from a couple hundred products to 20,000+ products. I have worked with integrating several different payment gateways and shipping solutions. I have customized both plugins and user interface to best fit the client requirements. I have experience with problem solving in live environments and performance issues that can occur on different hosting environments. I am currently working towards my Magento certifications.  Colfusion: I have developed several custom applications. I developed an application for a large marine organization to manage memberships and show application fees. Another examples, is an application to track inventory, leads and customer management for the marine industry.  Static Websites Developed from scratch to meet the clients requirements. I have created them using both static html and PHP.  Created several Bootstrap and HTML5 themes for responsive site on different platforms.  Mobile integration and themes for those clients that require a separate theme for mobile devices.  Google: I have experience in Google ad Words campaigns, Google Analytics and Google Webmaster Tools.  Design Apps for iPhone, iPad and Android.  SEO including site analysis, keyword research, implementing code to optimize site for SEO, Micro formats, content analysis and revisions, speed tests and social media integration. Experience with SEOmoz.  Geolocation and Local Search for those clients that need an increased presence in the local searches.  Email Campaigns.  Social Media Campaigns.  Facebook and Twitter Customization.
+
+ Web banner campaigns to help clients market their sites and products to the best demographics for their business.  LESS and SASS CSS Pre-Processor. Using LESS and SASS to generate CSS using Codekit.  Basic Linux Server Administration  Custom PHP applications  Company branding including logos and overall company presence  Magazine advertising  Catalogs and brochures
+Lead Developer/Creative Director
+Media Direction - Temecula, CA - 2003 to Present Worked with client representatives to maximize their needs while improving the client/user experience, which included the following:  Designed, developed and implemented customer web sites using static websites, database management, content management and ecommerce.  Designed all magazine ads, collateral media then communicated with magazines and printers to ensure accurate completion of the project. This includes magazine ads, posters, flyers, brochures, logos, counter cards, business cards, newspaper ads, billboards, bus advertising, banners, signs and point of sale.  Edited TV commercials and client promotional DVD's.
+Graphic Artist/Print Prepress
+Hemacinto Printing, city - 2002 to 2002 Managed and designed client projects  Prepared all jobs to go to print.  Output jobs for print, silkscreen and vinyl production.
+EDUCATION
+art and web development program
+Summit Career College 2001
+animal science
+Utah State University 1982 to 1985
+Bingham High School 1978 to 1982
+ADDITIONAL INFORMATION
+TECHNICAL SKILLS:  WordPress
+ Wordpress API
+ Photoshop
+ SEO
+
+ Magento
+ LAMP Stack
+ Illustrator
+ Google ad Words campaigns
+ Coldfusion  InDesign  Google Analytics  PHP  Dreamweaver  Google Webmaster Tools  HTML/HTML5  Fire Works  Studio Pro  XHTML  Flash  Power Point  CSS/CSS3  Final Cut Pro  Adobe Premier  JQuery
+ SEOmoz  Coda
+ Motion
+ LESS/SASS  Netbeans
+ Zencart
+ Zend Framework
+ 

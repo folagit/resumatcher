@@ -7,6 +7,11 @@ Created on Sat Oct 04 22:44:19 2014
 from tfgetter import TfGetter
 import irutils
 
+def loadResume(filepath):
+    with open (filepath, "r") as myfile:
+        data=myfile.read().replace('\n', '')
+        return data
+
 class BaseIr():
     
     def __init__(self, jobCollection):

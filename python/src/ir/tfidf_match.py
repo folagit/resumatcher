@@ -1,8 +1,14 @@
-
+import sys
+sys.path.append("..")
 from jobaly.db.dbclient import DbClient 
 from tfidf_getter import *
 import math
 import irutils
+
+def loadResume(filepath):
+    with open (filepath, "r") as myfile:
+        data=myfile.read().replace('\n', '')
+        return data
 
 def getQueryWtfIdf(wtf,idf):
     wtfidf = {} 
@@ -53,11 +59,13 @@ class TfIdfMatch():
 
 def main(): 
     #webJobInfoCollName: test_jobinfo
-
+    resumepath = ""
+    resume =  loadResume("..\\..\\..\\data\\test_resumes\\Darin-Densley_web.txt")
+    print resume
     dbClient = DbClient('localhost', 27017, "jobaly")  
     jobCollection = dbClient.getCollection("test_jobinfo")  
     tfIdfMatch = TfIdfMatch(jobCollection)
-    resume = "I a am good java programmer, PHP, XML, hope juse c++, skill" 
+    
     jobs = tfIdfMatch.matchResume(resume)
     
     for job in jobs:

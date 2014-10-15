@@ -4,6 +4,7 @@ Created on Sat Oct 04 22:42:06 2014
 
 @author: dlmu__000
 """
+from baseir import loadResume
 from baseir import BaseIr
 import irutils
 
@@ -45,11 +46,13 @@ class Okapi(BaseIr):
 
 def main(): 
     #webJobInfoCollName: test_jobinfo
+    resumepath = "..\\..\\..\\data\\test_resumes\\Darin-Densley_web.txt"
+    resume = loadResume(resumepath)
+    print resume
 
     dbClient = DbClient('localhost', 27017, "jobaly")  
     jobCollection = dbClient.getCollection("test_jobinfo")  
     okpai = Okapi(jobCollection)
-    resume = "I a am good java programmer, PHP, XML, hope juse c++, skill" 
     jobs = okpai.matchResume(resume)
     
     for job in jobs:
