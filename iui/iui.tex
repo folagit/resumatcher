@@ -126,26 +126,17 @@ Since people's resumes contain their most important background information, we b
 We had made three key contributions in this work. The first is creation of a Finite State Transducer-based matching tool, which is a lightweight and flexible library, can be extend in very easy ways. The second is is the introduction of a semi-automatic approach, which could collect technical terms from data sources. The third contribution is a statistical based Ontology similarity measure for comparing the job seeker's resumes and job descriptions.
 
 \section{Related Works}
-This section we survey the previous research on the job recommender systems. Recommender Systems are software tools and techniques providing suggestions for items to be of use to a user~\cite{ricci2011introduction}. There have been several attempts to use techniques of recommender system to improve the process of job finding. 
+This section we survey the previous research on the job recommender systems. Recommender Systems are software tools and techniques providing suggestions for items to be of use to a user~\cite{ricci2011introduction}. There have been several attempts to use techniques of recommender system to improve the process of job finding.
 
-Rafter et al. \cite{rafter2000personalised} began to use ACF (Automated Collaborative Filtering) in their Job Recommender system, ``CASPER''. In the system user profiles are gotten from server logs, from system logs, the system will recommend jobs to users that other similar users had reviewed. But since the searching result is huge, and the result is sorted randomly, even two very similar users may review different jobs. Some hybrid recommender systems had been presented, like F{\"a}rber et al \cite{farber2003automated},  presented a recommender system built on a hybrid approach. The system integrated two methods, content-based filtering and collaborative filtering. They tried to overcome the problem of rating data sparsity by leveraging synergies of a combined model, et. the  latent aspect model. Daramola et al. \ref{daramola2010fuzzy} proposed a fuzzy logic based expert system(FES) tool for online personnel recruitment. The system use a fuzzy distance metric to rank candidates' profile in the order of their eligibility for the job.
-
-
-
-\subsection{Information Extraction}
-
-
+Rafter et al. \cite{rafter2000personalised} began to use ACF (Automated Collaborative Filtering) in their Job Recommender system, ``CASPER''. In the system user profiles are gotten from server logs, from system logs, the system will recommend jobs to users that other similar users had reviewed. But since the searching result is huge, and the result is sorted randomly, even two very similar users may review different jobs. Some hybrid recommender systems had been presented, like F{\"a}rber et al \cite{farber2003automated},  presented a recommender system built on a hybrid approach. The system integrated two methods, content-based filtering and collaborative filtering. They tried to overcome the problem of rating data sparsity by leveraging synergies of a combined model, et. the  latent aspect model. Daramola et al. \cite{daramola2010fuzzy} proposed a fuzzy logic based expert system(FES) tool for online personnel recruitment. The system use a fuzzy distance metric to rank candidates' profile in the order of their eligibility for the job. However, most of these studies used synthetic data, and not on real resumes and job descriptions. 
+ 
 The content-based recommender systems need the structured information of items. But the items in JRS are resumes and job descriptions written in natural language, so how to get information from the documents is a big challenge. Information extraction (IE) is the task of automatically extracting structured information from unstructured and/or semi-structured machine-readable documents.
 
 Amit et al. in IBM presented a system, ``PROSPECT'', ~\cite{singh2010prospect} to aid in the shortlisting of candidates for jobs. The system uses CRF model to segment and label the resumes. Yu et al.~\cite{yu2005resume} used a cascaded Hidden Markov Modeling (HMM) model to get the detailed information from the job seeker¡¯s resume. Celik Duygua and Elci Atilla proposed a Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology}, which uses ontology to assistant the information extraction process.
 
-\subsection{Ontology-based Approaches}
+How calculate similarity between a resume and a job description is another important problem of content-based job recommender systems. 
 
-A domain-oriented ontology is used to represent knowledge, inference rules are defined based on the ontology knowledge base. When a detected term found, the system will search in external knowledge base, like DBpedia etc.
-
-Yao et al.~\cite{lu2013recommender} also presented a hybrid recommender system which integrated content-based and interaction-based relation. In content-based part, relations between job-job, job-job seeker, and job seeker - job seeker could be identified by their similarity of profiles.
-
-This system was build on the assumption: The users with similar profiles tend to have similar interests. But here we could find two problems: At first, people with similar profile may not have similar interest, this is a very common fact. For example two students both graduate from same department with the same degree at the same year, when they look for jobs, they may have different preference. Second, to job's part, the accuracy of similarity calculation will effect a lot on the result of the system, since two very similar job may be classified as different jobs in the system.
+S{\'a}nchez et al. \cite{sanchez2012ontology} summarized ontology-based similarity assessment into three kinds, and advantages and disadvantages of each approach. The three kinds of categories are: Edge-counting approaches, Feature-based measures, and Measures based on Information Content. The edge-counting approaches view the ontology as a directed graph in which concepts are nodes, so the method to calculate similarity is to compute the minimum path length between nodes. But when they meet multiple taxonomical inheritance, the several taxonomical paths are not taken into account. Feature based approaches assess similarity between concepts as a function of their properties. However properties of ontology are not always available, so the applicability of these approaches are limited. Measures based on Information Content depends on the amount of shared information between two terms, a dimension which is represented by their Least Common Subsumer (LCS) in an ontology. The approaches require big, and fine grained ontologies with a detailed taxonomical structure.
 
 \section{System Overview}
 The system uses rule based information extraction technique to parse job descriptions and resumes, and get information such as skill, degree and major. These information will be used to create the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching. When a job seeker searches the jobs by his resume, the system will calculate the similarity between the candidate model and the job models, give every job model a similarity score, and the return jobs will be ranked by the similarity value. The interface of job matching is shown in Figure ~\ref{fig:match_resume}.
@@ -187,7 +178,7 @@ In Nature Language Processing, especially in Information Extraction, pipeline is
 \begin{enumerate}
     \item The HTML parser will parse the web pages of job descriptions, which are obtained from web crawler. The parser will get the HTML element that contains the main content of the job description.
     \item Segment module will separate the job description into paragraphs according to HTML tags at first, then separate each paragraph into sentences.
-    \item The sentences will be tokenized into string arrays, and be sent to the classification module, which will determine the category of the sentence. 
+    \item The sentences will be tokenized into string arrays, and be sent to the classification module, which will determine the category of the sentence.
     \item The preprocessing module will delete unreadable characters, and correct some tokens spelling.
     \item The annotation module will annotate the tokens with semantic and ontology labels. After labeling, the sentences will have a multi-layered data structure.
     \item The layered sentences will be matched with pre-defined patterns with the FST library. If any pattern could be matched, the ontology information will be extracted and stored in the job model.
@@ -362,12 +353,8 @@ We noticed that simple keywords matching is far from satisfied, because the same
 
 If just looking at the text, we can find the resume has few common words with the job description.  But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use keywords matching, the system won't give a good matching result in this very common situation. So we use ontology as a knowledge base to store all the relations of concepts, and a measurement of similarity between two concepts.
 
-\subsection{Ontology-based semantic similarity}
-
-S{\'a}nchez et al. \ref{sanchez2012ontology} summarized ontology-based similarity assessment into three kinds, and advantages and disadvantages of each approach. The three kinds of categories are: Edge-counting approaches, Feature-based measures, and Measures based on Information Content. The edge-counting approaches view the ontology as a directed graph in which concepts are nodes, so the method to calculate similarity is to compute the minimum path length between nodes. Feature based approaches assess similarity between concepts as a function of their properties.  Measures based on Information Content depends on the amount of shared information between two terms, a dimension which is represented by their Least Common Subsumer (LCS) in an ontology.
-
 \subsection{Statistical-based Ontology Similarity Measure }
-In most of job descriptions, they will list many skills the job required. From observation, we found that related skills always exist in a job description simultaneously, and the positions of them are always close, e.g. HTML and CSS are always required together, and appear in the same sentence. We could see this phenomenon in table~\ref{tab:skillrequirement}, which include some skills requirement sentences from some job desertions.
+In most of job descriptions, they will list many skills the job required. From observation, we found that related skills always exist in a job description simultaneously, and the positions of them are always close, e.g. HTML and CSS are always required together, and appear in the same sentence. We could see this phenomenon in table \ref{tab:skillrequirement}, which include some skills requirement sentences from some job desertions.
 
 \begin{table}[ht]
 \caption{Some sentences Job Description} % title of Table
@@ -397,9 +384,9 @@ We set the restriction because the position of the concepts in the ontology are 
 
 \subsection{Ontology Construction}
 
-Before calculate the similarity between concepts, we need construct the ontology at first.  Semantic web have been a hot research topic in these years, thousands of domain ontologies had been created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, a general purpose thesaurus, which contains more than 100,00 general English concepts. ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area. 
+Before calculate the similarity between concepts, we need construct the ontology at first.  Semantic web have been a hot research topic in these years, thousands of domain ontologies had been created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, a general purpose thesaurus, which contains more than 100,00 general English concepts. ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area.
 
-The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. There is no such ontology be built for recruiting purpose. Furthermore there are new techniques invented everyday, so new technical terms will appear continuously, so we need to find a approach to extract new terms easily. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, ontology representation, construction tools, and so on.  Inspired by this paper, we proposed a semi-automatic approach to construct the ontology for technical terms.  
+The IT ontology for recruiting should include a lot detailed information, like programming language, programming library, commercial products and so on. There is no such ontology be built for recruiting purpose. Furthermore there are new techniques invented everyday, so new technical terms will appear continuously, so we need to find a approach to extract new terms easily. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, ontology representation, construction tools, and so on.  Inspired by this paper, we proposed a semi-automatic approach to construct the ontology for technical terms.
 
 \begin{figure}[htbp]
   \hspace{-20px}
@@ -429,7 +416,7 @@ From the observation, we found that skills requirement section of job descriptio
   \label{fig:gen_onto}
 \end{figure}
 
-For example, we extract the word  ''XSL'', which currently not in the terms list. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If any element in ``dcterms:subject'' has the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we can indicate that the word is a technical term, and add it to terms list. 
+For example, we extract the word  ''XSL'', which currently not in the terms list. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If any element in ``dcterms:subject'' has the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we can indicate that the word is a technical term, and add it to terms list.
 
 \section{EVALUATION}
 
