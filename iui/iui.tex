@@ -395,7 +395,7 @@ The IT ontology for recruiting should include a lot detailed information, like p
   \label{fig:ontology_pro}
 \end{figure}
 
-From the observation, we found that skills requirement section of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}. Based on this character£¬we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms from job descriptions, and add them to the term list. Then we use our pattern matching tools to find tokens matching some patterns in table \ref{tab:patterns}.  The terms we get have high probability to be technical terms. Then we check the words in Dbpedia to see whether they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as technical terms, and add them to the terms list. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}.
+From the observation, we found that skills requirement section of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}. Based on this character£¬we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms from job descriptions, and add them to the term list. Then we use our pattern matching tools to find tokens matching some patterns in table \ref{tab:onto_patterns}.  The terms we get have high probability to be technical terms. Then we check the words in Dbpedia to see whether they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as technical terms, and add them to the terms list. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}.
 
 
 \begin{table}[ht]
@@ -407,7 +407,7 @@ From the observation, we found that skills requirement section of job descriptio
      term  , * , *, and  term   \\
  \hline
 \end{tabular}
-\label{tab:patterns} % is used to refer this table in the text
+\label{tab:onto_patterns} % is used to refer this table in the text
 \end{table}
 
 \begin{figure}[htbp]
