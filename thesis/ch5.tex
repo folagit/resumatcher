@@ -33,7 +33,7 @@ If just looking at the text, we can find the resume has few common words with th
 \begin{enumerate}
     \item How to normalize one concept with different name or spelling
     \item If one concept in the job description but there is no the same one in the resume, how to calculate the similarity between its related concepts.
-    \item How to quantify the similarity between two concepts. 
+    \item How to quantify the similarity between two concepts.
 \end{enumerate}
 
 \section{Ontology Construction}
@@ -113,13 +113,11 @@ For example, we extract the word  ''XSL'', which currently not in the skill set.
 
 \section{Ontology-based semantic similarity}
 
-The Ontology technics had also been used in some JRSs, which provide a formal specification of a shared conceptualization~\cite{guarino1998formal}.
-
-There are three kinds Ontology-based similarity measure had been studied, they are Edge counting approaches, Feature-based measures, and Measures based on Information Content.
+The Ontology technics had also been used in some JRSs, which provide a formal specification of a shared conceptualization~\cite{guarino1998formal}. S{\'a}nchez et al. \cite{sanchez2012ontology} summarized ontology-based similarity assessment into three kinds, and advantages and disadvantages of each approach. The three kinds of categories are: Edge-counting approaches, Feature-based measures, and Measures based on Information Content.
 
 
 \subsection{Path-based approaches}
-We could view ontology as a directed graph, in which the nodes are the concepts, the edges are taxonomic relation, like (is-a). Rada, et al.,~\cite{rada1989development} measure the similarity by the distance of two nodes in the graph. So the semantic distance of two concepts a and b will be:
+In path-based approaches , the ontology is viewed as a directed graph, in which the nodes are the concepts, the edges are taxonomic relation, like (is-a). Rada, et al.,~\cite{rada1989development} measure the similarity by the distance of two nodes in the graph. So the semantic distance of two concepts a and b will be:
 $$ dis_{rad}(a,b) = min |path_i(a,b)| $$
 
 Wu and Palmer ~\cite{wu1994verbs} realized that the depth in the taxonomy will impact the similarity measure of two nodes, because the more deeper of the nodes are in the tree, the semantic distance is smaller. So they gave a new measure of ontology:
@@ -132,7 +130,8 @@ $$ sim_{l\&c}(a,b) = -\log (Np/ 2D) $$
 There are some limitations of path-based approaches. First it only consider the shortest path between concept pairs, when they meet complex situation like multiple taxonomical inheritance, the accuracy of them will be low.  Another problem of path-based measures assume that all links in the taxonomy have uniform distance.
 
 \subsection{Feature-based measures}
-Feature-based methods consider degree of overlapping between sets of ontological features, like Tversky's model~\cite{tverskyfeatures}, which subtract the non-common features from common features of two concepts.
+
+Feature based approaches assess similarity between concepts as a function of their properties. They consider degree of overlapping between sets of ontological features, like Tversky's model~\cite{tverskyfeatures}, which subtract the non-common features from common features of two concepts.
 $$  sim_{tve}(a,b) = \alpha \cdot F \left( \Psi(a) \cap   \Psi(b)  \right) - \beta  \cdot F \left( \Psi(a) \setminus   \Psi(b)  \right) - \gamma \cdot F \left( \Psi(b) \setminus   \Psi(a)  \right)  $$
 Where F is salience of a set features, and $\alpha, \beta$ and $\gamma$ are weights of the contribution of each component.
 
@@ -142,11 +141,11 @@ $$ sim_{re}(a,b) = w \cdot S_{synsets}(a,b) + u \cdot S_{features}(a,b) + v \cdo
 The feature-based methods consider more semantic knowledge than path-based methods. But only big ontologies/thesauri like Wordnet~\cite{miller1995wordnet} have this kind of information. Ding et al.~\cite{ding2004swoogle} had revealed that domain ontologies very occasionally model any semantic feature apart from taxonomical relationship.
 
 \subsection{Content-based measures}
-
-Resnik~\cite{resnik1995using} proposed similarity, which depends on the amount of shared information between two terms:
+Other approaches want to overcome the limitations of edge-counting approaches are Content-based measures. Resnik~\cite{resnik1995using} proposed similarity, which depends on the amount of shared information between two terms:
 $$ sim_{res}(a,b) = IC(LCS(a,b))$$
-LCS is the Least Common Subsumer of terms in a ontology, and IC is Information Content, which is the negative log of its probability of occurrence, $p(a)$.
-
+LCS is the Least Common Subsumer of terms in a ontology, and IC is Information Content, which is the negative log of its probability of occurrence, $p(a)$. Lin (1998) and Jiang and Conrath (1997) extended Resnik¡¯s work. They also considered the IC of each of the evaluated terms, and they proposed that the similarity between two terms should be measured as the ratio between the amount of information needed to state their commonality and the information needed to fully describe them.
+$$ sim_{lin}(a,b)=\frac{2 \times sim_{res}(a,b)}{(IC(a)+IC(b))}$$
+The are also two disadvantages of content-based measures. First these approaches cannot compute the concepts of leave nodes, because they don't have subsumers. Second if the concepts do not have enough common subsumers,their similarities are hard to be calculated. 
 
 \subsection{Ontology-based semantic similarity in JRSs}
 Proactive~\cite{lee2007fighting} used two kinds of ontology, job category and the company information. The system used ontology checker to classify the job information, stored the domain knowledge and calculated the weight value in recommendations.
