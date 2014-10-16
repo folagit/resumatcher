@@ -48,10 +48,10 @@ def main():
     #webJobInfoCollName: test_jobinfo
     resumepath = "..\\..\\..\\data\\test_resumes\\Darin-Densley_web.txt"
     resume = loadResume(resumepath)
-    print resume
+   # print resume
 
     dbClient = DbClient('localhost', 27017, "jobaly")  
-    jobCollection = dbClient.getCollection("test_jobinfo")  
+    jobCollection = dbClient.getCollection("job100")  
     okpai = Okapi(jobCollection)
     jobs = okpai.matchResume(resume)
     

@@ -15,7 +15,6 @@ K1 = 1.2
 B  = 0.75
 
 class KL(BaseIr):    
-     
          
     def calculateScores(self,resume):
         resume_content = irutils.processText(resume) 
@@ -25,26 +24,29 @@ class KL(BaseIr):
         resume_pq = {}
         for key in resumetf.keys():
             resume_pq[key] = float(resumetf[key])/resume_len
-        print "resume_pq=", resume_pq        
+    #    print "resume_len=" ,resume_len        
+    #    print "resume_pq=", resume_pq        
        
         for job in self.jobs:
              tf = job["tf"]
+             job_len = job["length"]
+             print "job_len=", job_len
              score = 0
              for key in resumetf.keys():
                  if tf.has_key(key):
-                     job_p =  float (tf[key]) / job["length"]
+                     job_p =  float (tf[key]) / job_len 
                 #     print "job_p=", job_p
-                     score += resume_pq[key] * math.log10 (resume_pq[key] / job_p  )  
+                     score += job_p * math.log (   job_p / resume_pq[key] )  
              job["score"] = score
              
 def main(): 
     #webJobInfoCollName: test_jobinfo
     resumepath = "..\\..\\..\\data\\test_resumes\\Darin-Densley_web.txt"
     resume = loadResume(resumepath)
-    print resume
-
+  #  print resume
+    resume = "I a am good java programmer, PHP, XML, hope juse c++, skill" 
     dbClient = DbClient('localhost', 27017, "jobaly")  
-    jobCollection = dbClient.getCollection("test_jobinfo")  
+    jobCollection = dbClient.getCollection("job100")  
     kl = KL(jobCollection)
     jobs = kl.matchResume(resume)
     

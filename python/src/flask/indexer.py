@@ -17,7 +17,7 @@ from whoosh.fields import *
 from whoosh.qparser import QueryParser
 
 from  webapp import dataHandler
-import indexer
+
 import re
 TAG_RE = re.compile(r'<[^>]+>')
 
