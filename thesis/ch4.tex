@@ -146,7 +146,67 @@ To transfer a token regular expression to a Finite Automata Transducers(FST), we
 
 We use PLY(Python Lex-Yacc) as the grammar parser, which  is a pure-Python implementation of the popular compiler construction tools lex and yacc. We defined  grammars of token regular expression in the parser, which can parse the token regular expression.
 
-We use the algorithm proposed by Thompson and Ken\cite{thompson1968programming} to construct the FST from the tree. The expression like ``DL (, DL])*  (or DL)? DEGREE'' could be transferred to an FST in Figure ~\ref{fig:fst}.
+We use the algorithm proposed by Thompson and Ken\cite{thompson1968programming} to construct the FST from the tree. The state for a regular expression is built up from partial NFAs for each subexpression, with a different construction for each operator. The partial NFAs have no matching states: instead they have one or more dangling arrows, pointing to nothing. The construction process will finish by connecting these arrows to a matching state.
+
+The NFAs for matching single characters is shown in Figure \ref{fig:nfa_single}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=1]{images/single_token.png}
+  \caption{Single-character NFA}
+  \label{fig:nfa_single}
+\end{figure}
+
+The NFA for the concatenation $e_1e_2$ connects the final arrow of the $e_1$ machine to the start of the $e_2$ machine, which is shown in Figure \ref{fig:nfa_cocat}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=1]{images/concatenation_tokens.png}
+  \caption{Concatenation NFA}
+  \label{fig:nfa_cocat}
+\end{figure}
+
+The NFA for the alternation $e_1\mid e_2$ adds a new start state with a choice of either the $e_1$ machine or the $e_2$ machine, which is shown in Figure \ref{fig:nfa_alternation}.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=1]{images/alternation.png}
+  \caption{Alternation NFA}
+  \label{fig:nfa_alternation}
+\end{figure}
+
+The NFA for e? alternates the e machine with an empty path, which is shown in Figure \ref{fig:nfa_question}.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=1]{images/question.png}
+  \caption{Zero or one NFA}
+  \label{fig:nfa_question}
+\end{figure}
+
+The NFA for e* uses the same alternation but loops a matching e machine back to the start, which is shown in Figure \ref{fig:nfa_star}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=1]{images/star.png}
+  \caption{Zero or more NFA}
+  \label{fig:nfa_star}
+\end{figure}
+
+The NFA for e+ also creates a loop, but one that requires passing through e at least once, which is shown in Figure \ref{fig:nfa_plus}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=1]{images/plus.png}
+  \caption{One or more NFA}
+  \label{fig:nfa_plus}
+\end{figure}
+
+ 
+
+The expression like ``DL (, DL])*  (or DL)? DEGREE'' could be transferred to an FST in Figure ~\ref{fig:fst}.
 
 \begin{figure}[htbp]
   \centering
