@@ -1,9 +1,9 @@
 \chapter{BACKGROUND}
 
+Some scholars found that current Boolean search and filtering techniques cannot satisfy the complexity of candidate-job matching requirement.~\cite{malinowski2006matching} They hope the system could understand the job requirement, determine which requirements are mandatory and which are optional but preferable. So they moved to use recommender systems technique to address the problem of information overflow. Recommender systems are broadly accepted in
+various areas to suggest products, services, and information items to latent customers.
 
-Some scholars found that current Boolean search and filtering techniques cannot satisfy the complexity of candidate-job matching requirement.~\cite{malinowski2006matching} They hope the system could understand the job requirement, determine which requirements are mandatory and which are optional but preferable. So they moved to use recommender systems technique to address the problem of information overflow.
 
-There are two main challenges in Content-Based Recommendation Systems: One is how to extract the information from the job descriptions and job seekers' resumes, the other is how to calculate similarity of them.
 
 \section{Job Recommender System}
 
@@ -17,6 +17,8 @@ Job searching is not a new topic in information retrieval, which has been the fo
     \item Collaborative Filtering Recommendation (CFR) Collaborative filtering recommendation, which finds  similar  users  who have  the same taste with the target user and recommends items based on what the similar users, like CASPER~\cite{rafter2000personalised}.
 
     \item Knowledge-based Recommendation (KBR) In the knowledge-based recommendation, rules and patterns obtained from the functional knowledge of how a specific item  meets the requirement of a particular user, are used for recommending items, like  Proactive~\cite{lee2007fighting}.
+    
+    \item Hybrid recommender systems combine two or more recommendation techniques to gain better performance, and overcome the drawbacks of any individual one. Usually, collaborative filtering is combined with some other technique in an attempt to avoid the ramp-up problem.
 
 \end{enumerate}
 
@@ -61,25 +63,9 @@ The system also asked the users upload their resumes, but that's for facilitatin
 From the paper we know, the model latent aspect model is statistical model, which need to be trained before be applied into recommendation. But training need user to label to data, since current quality of result of job searching is poor, it will take a lot of time for user to train model.
 
 
-Drigas* et al.\cite{malinowski2006matching} al presented a expert system to match jobs and job seekers, and recommend unemployed to the positions. The expert system used Neuro-Fuzzy rule to evaluate the matching:
-Candidate's X matches X Criterion
+Drigas* et al.\cite{drigas2004expert}  presented a expert system to match jobs and job seekers, and recommend unemployed to the positions. The expert system used Neuro-Fuzzy rule to evaluate the matching between user profile and job opening. The system use a relation matrix to represent the fuzzy relation between these specialities. The system need the training data to train that Neuro-fuzzy network. Both resume data and job info data were manually input into the system  . The fields they selected are relative small.
 
-
-The system represent the job in six fields:
-\begin{enumerate}
-    \item  Age
-    \item  Education
-    \item  Additional Education(Training)
-    \item  Previous Employment (Experience)
-    \item  Foreign Language
-    \item  Computer Knowledge
-\end{enumerate}
-
-The system use a relation matrix to represent the fuzzy relation between these specialities. The system need the training data to train that Neuro-fuzzy network.
-
-Both resume data and job info data were manually input into the system  . The fields they selected are relative small.
-
-Daramola et al.  also proposed a fuzzy logic based expert system(FES) tool for online personnel resctuitments. In the paper, the authors assumed that the information already be collected. The system use a fuzzy distance metric to rank candidates' profile in the order of their eligibility for the job. The fuzy hamming distance is given as:
+Daramola et al.\cite{daramola2010fuzzy}  also proposed a fuzzy logic based expert system(FES) tool for online personnel resctuitments. In the paper, the authors assumed that the information already be collected. The system use a fuzzy distance metric to rank candidates' profile in the order of their eligibility for the job. The fuzy hamming distance is given as:
 $$ \delta \left ( O,R \right )=\sum_{i=1}^{n}\left | \mu_O(x_i) - \mu_R(x_i)  \right | $$
 
 Ioannis et al. used a machine learned prediction model to recommend new jobs to job seekers~\cite{paparrizos2011machine}.  The features used by the prediction model includes:
@@ -107,7 +93,7 @@ Institution   &  industry        & String  \\
 \end{table}
 
 
-when applying a job, the common method is let the candidates upload their resumes, sometimes the company want user to enter details like personal information, education and experience details, skills. However, in real life, the candidates do not input a lot information in the on-line form. ~\cite{singh2010prospect}
+When applying a job, the common method is let the candidates upload their resumes, sometimes the company want user to enter details like personal information, education and experience details, skills. However, in real life, the candidates do not input a lot information in the on-line form ~\cite{singh2010prospect}.
 
 Some big IT companies had meet a similar problem of information overflow. Any position they published, will receive a lot applications, the recruiter need to screen the all the applications, but this task is also tedious and time consuming, highly cumbersome and inefficient. so these company tried to build the system to help screen the position candidates.
 
@@ -146,7 +132,7 @@ A domain-oriented ontology is used to represent knowledge, inference rules are d
     &  \begin{singlespace}
       \textbullet~Heuristic \par
        \textbullet~Requires tedious manual labor \par
-       \end{singlespace}  \\
+       \end{singlespace}   \\
 \hline
 ML-based &
     \begin{singlespace}
@@ -159,7 +145,7 @@ ML-based &
        \textbullet~Requires retraining  for domain adaptation \par
         \textbullet~Requires ML expertise  to use or maintain \par
        \textbullet~Opaque  \par
-       \end{singlespace} \\
+       \end{singlespace}  \\
 \hline %inserts single line
 \end{tabular}
 \label{tab:jrcom} % is used to refer this table in the text
@@ -175,9 +161,6 @@ This system was build on the assumption: The users with similar profiles tend to
 
 Yu et al.~\cite{yu2005resume} used a cascaded information extraction (IE) framework to get the detailed information from the job seeker¡¯s resume. In the first stage, the Hidden Markov Modeling (HMM) model is used to segment the resume into consecutive blocks. Based on the result, a SVM model is used to obtain the detailed information in the certain block, the information include: name, address, education etc.
 
- Celik Duygua and Elci Atilla proposed a Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology}, which uses ontology to assistant the information extraction process. The system process the resume in following steps: convert the resume files into plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts in the sentences, normalize all the terms, at last the system will classify the sentences to get the wanted terms.
-
-\section{Matching Algorithms}
-
-Lu et al~\cite{lu2013recommender}. used latent Semantic Analysis(LSA) to calculate similarities between jobs and candidates, but they only selected two factors ``interest'' and ``education''  to compare candidates. Xing et al. ~\cite{yi2007matching} used Structured Relevance Models (SRM) to  match resumes and jobs.
+Celik Duygua and Elci Atilla proposed a Ontology-based R¨¦sum¨¦ Parser (ORP) ~\cite{ccelik2013ontology}, which uses ontology to assistant the information extraction process. The system process the resume in following steps: convert the resume files into plain text, separate the text into  some segments, use Ontology Knowledge Base to find the concepts in the sentences, normalize all the terms, at last the system will classify the sentences to get the wanted terms.
+ 
 
