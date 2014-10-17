@@ -36,6 +36,27 @@ If just looking at the text, we can find the resume has few common words with th
     \item How to quantify the similarity between two concepts.
 \end{enumerate}
 
+\subsection{Semantic similarity in JRSs}
+We had studied previous work on similarity measures in JRSs, some of them use ontology to store knowledge and rules, also aid information extraction. Liu and Dew~\cite{liu2004using} used RDF to represent and store the expertise of experts , and a RDF-based Expertise Matcher could retrieves the experts whose expertise include the required concept.
+
+Proactive~\cite{lee2007fighting} used two kinds of ontology, job category and the company information. The system used ontology checker to classify the job information, stored the domain knowledge and calculated the weight value in recommendations. 
+
+
+Fazel \cite{fazel2009semantic} used a hybrid approach to matching job seekers and job postings, which takes advantage of the benefits of both logic-based and ontology-based matching. In his paper the description logics (DL) is used to represent the candidate and job opening, and the ontology is used to organize the skills in a skill taxonomy. He gave an equation to calculate  the matching degree:
+$$ sim\left(P ,j \right) = \sum x_{ij} \times u(ds_i) $$
+
+where, $x_{ji}$ is the Boolean variable indicating whether desire i is satisfied by applicant $A_{j}$ in the set of all qualified applications.
+
+Kumaran et al~\cite{kumaran2013towards} also used ontology to calculate the similarity between job criteria and candidates's resume in their system~\cite{kumaran2013towards}. The similarity equation they used are:
+$$ M\left ( i_1, i_2 \right ) = \frac{\sum_{k=1}^{n} Sim\left (p_{k}^{i1},  p_{k}^{i2} \right ) * W_{k}^{i2}}{\sum_{k=1}^{n} W_{k}^{i2}}  $$
+The similarity function $Sim(p_1, p_2)$ is defined as follows:
+$$ Sim(p1, p2) = \begin{Bmatrix}
+1, & if~similarity~of~p1~and~p2 \geqslant t\\
+0, & otherwise
+\end{Bmatrix} $$
+
+
+
 \section{Ontology Construction}
 
 \subsection{Domain Specific Ontology}
@@ -145,25 +166,7 @@ Other approaches want to overcome the limitations of edge-counting approaches ar
 $$ sim_{res}(a,b) = IC(LCS(a,b))$$
 LCS is the Least Common Subsumer of terms in a ontology, and IC is Information Content, which is the negative log of its probability of occurrence, $p(a)$. Lin (1998) and Jiang and Conrath (1997) extended Resnik¡¯s work. They also considered the IC of each of the evaluated terms, and they proposed that the similarity between two terms should be measured as the ratio between the amount of information needed to state their commonality and the information needed to fully describe them.
 $$ sim_{lin}(a,b)=\frac{2 \times sim_{res}(a,b)}{(IC(a)+IC(b))}$$
-The are also two disadvantages of content-based measures. First these approaches cannot compute the concepts of leave nodes, because they don't have subsumers. Second if the concepts do not have enough common subsumers,their similarities are hard to be calculated. 
-
-\subsection{Ontology-based semantic similarity in JRSs}
-Proactive~\cite{lee2007fighting} used two kinds of ontology, job category and the company information. The system used ontology checker to classify the job information, stored the domain knowledge and calculated the weight value in recommendations.
-
-Kumaran et al~\cite{kumaran2013towards} also used ontology to calculate the similarity between job criteria and candidates's resume in their system~\cite{kumaran2013towards}. The similarity equation they used are:
-$$ M\left ( i_1, i_2 \right ) = \frac{\sum_{k=1}^{n} Sim\left (p_{k}^{i1},  p_{k}^{i2} \right ) * W_{k}^{i2}}{\sum_{k=1}^{n} W_{k}^{i2}}  $$
-The similarity function $Sim(p_1, p_2)$ is defined as follows:
-$$ Sim(p1, p2) = \begin{Bmatrix}
-1, & if~similarity~of~p1~and~p2 \geqslant t\\
-0, & otherwise
-\end{Bmatrix} $$
-
-Fazel \cite{fazel2009semantic} used a hybrid approach to matching job seekers and job postings, which takes advantage of the benefits of both logic-based and ontology-based matching. In his paper the description logics (DL) is used to represent the candidate and job opening, and the ontology is used to organize the skills in a skill taxonomy. He gave an equation to calculate  the matching degree:
-$$ sim\left(P ,j \right) = \sum x_{ij} \times u(ds_i) $$
-
-where, $x_{ji}$ is the Boolean variable indicating whether desire i is satisfied by applicant $A_{j}$ in the set of all qualified applications.
-
-Liu and Dew~\cite{liu2004using} used RDF to represent and store the expertise of experts , and a RDF-based Expertise Matcher could retrieves the experts whose expertise include the required concept.
+The are also two disadvantages of content-based measures. First these approaches cannot compute the concepts of leave nodes, because they don't have subsumers. Second if the concepts do not have enough common subsumers,their similarities are hard to be calculated.
 
 
 \section{Statistical-based Ontology Similarity Measure }
