@@ -28,15 +28,9 @@ We notice that simple keywords matching is not a good similarity measure, becaus
 \label{tab:resume_jd} % is used to refer this table in the text
 \end{table}
 
-If just looking at the text, we can find the resume has few common words with the job description. But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use key word matching, the system won't give a good matching result in this very common situation. So when designing the ontology matching algorithm, we have such considerations:
+If just looking at the text, we can find the resume has few common words with the job description. But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use key word matching, the system won't give a good matching result in this very common situation. 
 
-\begin{enumerate}
-    \item How to normalize one concept with different name or spelling
-    \item If one concept in the job description but there is no the same one in the resume, how to calculate the similarity between its related concepts.
-    \item How to quantify the similarity between two concepts.
-\end{enumerate}
-
-\subsection{Semantic similarity in JRSs}
+\subsection{Semantic Similarity in JRSs}
 We had studied previous work on similarity measures in JRSs, some of them use ontology to store knowledge and rules, also aid information extraction. Liu and Dew~\cite{liu2004using} used RDF to represent and store the expertise of experts , and a RDF-based Expertise Matcher could retrieves the experts whose expertise include the required concept.
 
 Proactive~\cite{lee2007fighting} used two kinds of ontology, job category and the company information. The system used ontology checker to classify the job information, stored the domain knowledge and calculated the weight value in recommendations. 
@@ -62,27 +56,10 @@ $$ Sim(p1, p2) = \begin{Bmatrix}
 \subsection{Domain Specific Ontology}
 Before calculate the similarity between concepts, we need construct the Ontology at first. Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts. ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area. Currently, there is no IT technology ontology build for recruiting purpose.
 
-The IT ontology for recruiting should include a lot of technical terms, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, construction tools and so on.  Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology.
+The IT ontology for recruiting should include a lot of technical terms, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, and construction tools. Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology.
 
-We use Protege~\ref{noy2001creating}, an open source ontology editor, to create the skeleton of the ontology. It's interface is shown in Figure~\ref{fig:Protege}.
+From the observation, we found that  skills requirement part of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}. Based on this character, we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms from job descriptions, and add them to the term list. Then we use our pattern matching tools to find tokens matching some patterns in table \ref{tab:patterns}.  The terms we get have high probability to be technical terms. Then we could check the words in Dbpedia to check whether they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms, and add them to the terms list. 
 
-\begin{figure}[htbp]
-
-  \includegraphics[scale=0.5]{images/protege.png}
-  \caption{Interface of Protege}
-  \label{fig:Protege}
-\end{figure}
-
-\begin{figure}[htbp]
-
-  \includegraphics[scale=0.6]{images/ontology_pro.png}
-  \caption{Part of Ontology}
-  \label{fig:ontology_pro}
-\end{figure}
-
-\subsection{The Semi-automatic Approach}
-
-We use semi-automatic approach to get the skills' terms from the job descriptions. From the observation, we found that  skills requirement part of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}.
 \begin{table}[ht]
 \caption{Some sentences Job Description} % title of Table
 \centering % used for centering table
@@ -97,7 +74,7 @@ We use semi-automatic approach to get the skills' terms from the job description
 \label{tab:skillrequirement} % is used to refer this table in the text
 \end{table}
 
-Based on this character£¬we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms from job descriptions, and add them to the term list. Then we use our pattern matching tools to find tokens matching some patterns in table \ref{tab:patterns}.  The terms we get have high probability to be technical terms. Then we could check the words in Dbpedia to check whether they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms, and add them to the terms list. Part of the technical ontology is shown in Figure ~\ref{fig:ontology_pro}.
+
 
 \begin{table}[ht]
 \caption{Patterns to extract terms} % title of Table
@@ -124,12 +101,29 @@ Based on this character£¬we propose a bootstrap approach to collect IT terms in 
 \label{tab:termspattern} % is used to refer this table in the text
 \end{table}
 
-For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If any element in ``dcterms:subject'' has the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we can indicate taht the word is a technical term, and pop them up. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
+For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If any element in ``dcterms:subject'' has the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we can indicate that the word is a technical term, and pop them up. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
 
 \begin{figure}[htbp]
   \includegraphics[scale=0.6]{images/genonto.png}
   \caption{Find Technical Terms}
   \label{fig:gen_onto}
+\end{figure}
+
+After getting all terms, we use Protege~\cite{noy2001creating}, an open source ontology editor, to create the domain specific ontology, save as RDF format. It's interface of Protege is shown in Figure~\ref{fig:Protege}. Part of the technical ontology is shown in Figure ~\ref{fig:ontology_pro}.
+
+
+\begin{figure}[htbp]
+
+  \includegraphics[scale=0.5]{images/protege.png}
+  \caption{Interface of Protege}
+  \label{fig:Protege}
+\end{figure}
+
+\begin{figure}[htbp]
+
+  \includegraphics[scale=0.6]{images/ontology_pro.png}
+  \caption{Part of Ontology}
+  \label{fig:ontology_pro}
 \end{figure}
 
 \section{Ontology-based semantic similarity}

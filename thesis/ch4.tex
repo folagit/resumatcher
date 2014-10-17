@@ -1,6 +1,6 @@
 \chapter{Information Extraction}
 
-The content-based recommender systems need the structured information of items. But the items in JRS are resumes and job descriptions written in natural language, so how to get information from the documents is a big challenge. Information extraction (IE) is the task of automatically extracting structured information from unstructured and/or semi-structured machine-readable documents.
+The content-based recommender systems need the structured information of items, but the items in JRS are resumes and job descriptions are written in natural language, so how to get information from the documents is a big challenge. Information extraction (IE) is the task of automatically extracting structured information from unstructured and/or semi-structured machine-readable documents.
 
 \section{Text Processing Pipeline}
 
@@ -10,11 +10,11 @@ In Nature Language Processing, especially in Information Extraction, pipeline is
 \begin{enumerate}
     \item The HTML parser will parse the web pages of job descriptions, which are obtained from web crawler. The parser will get the HTML element that contains the main content of the job description.
     \item Segment module will separate the job description into paragraphs according to HTML tags at first, then separate each paragraph into sentences.
-    \item The sentences will be tokenized into string arrays, and be sent to the classification module. The classification module will determine the category of the sentence, and the sentence a category mark.
+    \item The sentences will be tokenized into string arrays, and be sent to the classification module. The classification module will determine the category of the sentence, and give the sentence a category mark.
     \item The preprocessing module will delete unreadable characters, and correct some tokens spelling.
     \item The annotation module will annotate the tokens with semantic and ontology labels. After labeling, the sentences will have a multi-layered data structure.
     \item The layered sentences will be matched with pre-defined patterns with the FST library. If any pattern could be matched, the ontology information will be extract and stored in the job model.
-    \item After every sentence has be processed in the pipeline, the job model will be stored into database.
+    \item After every sentence has be processed with the pipeline, the job model will be created and stored into the database.
 \end{enumerate}
 
 
@@ -28,7 +28,7 @@ In Nature Language Processing, especially in Information Extraction, pipeline is
 
 \section{Machine learning and Rule-based IE technologies}
 
-There are two completive techniques in Information Extraction, one is machine learning-based approach, the other is rule-based approach. Chiticariu et al. \cite{chiticariu2013rule}summarized the pros and cons of machine learning (ML) and rule-based IE technologies in Table \ref{tab:mlrb}.
+There are two completive techniques in Information Extraction, one is machine learning-based approach, the other is rule-based approach. Chiticariu et al. \cite{chiticariu2013rule} summarized the pros and cons of machine learning (ML) and rule-based IE technologies in Table \ref{tab:mlrb}.
 
 \begin{table}[ht]
 \caption{Pros and Cons of ML and Rule-Based IE technologies } % title of Table
@@ -81,7 +81,7 @@ In this work, we prefer the rule-based approach because:
 
 Cascaded Finite-State Transducer as a tool to match patterns and extract information for more than 20 years. This approach had been demonstrated very effective in extracting information from text like CIRCUS~\cite{lehnert1991university} and FASTUS~\cite{hobbs199713}.  In the widely used NLP toolkit GATE~\cite{cunningham2002framework}, the semantic tagger JAPE (Java Annotations Pattern Engine) could describe patterns that are used to match and annotate tokens. JAPE adopted a version of CPSL (Common Pattern  Specification Language)~\cite{appelt1998common}, which provides finite state transduction over annotations. Chang et al. presented cascaded regular expressions over tokens~\cite{chang2014tokensregex}, which proposed a cascaded pattern matching tool over token sequences.
 
-After studying these tools, we found most them are powerful, complex, but not very flexible. Because at first, developers need to learn some DSLs like CPSL, and second to integrate the pattern matching tool in  into the system need extra efforts. So here we proposed a more flexible and lightweight framework, which can do regular expression matching over labeled tokens. The difference between this library and regular expression is that the basic unit to be matched is token, not character. In the library, a pattern is a concatenation of matchers£¬ which can match a single token, or can be a wrapper of other matchers. Currently we support seven types of matchers, those are listed in table~\ref{tab:matchers}.
+After studying these tools, we found most them are powerful, complex, but not very flexible. One reason is that developers need to learn some DSLs like CPSL, and the other is  integrating the pattern matching tool into the system need extra efforts. So here we proposed a more flexible and lightweight framework, which can do regular expression matching over labeled tokens. The difference between this library and regular expression is that the basic unit to be matched is token, not character. In the library, a pattern is a concatenation of matchers£¬ which can match a single token, or can be a wrapper of other matchers. Currently we support seven types of matchers, those are listed in table~\ref{tab:matchers}.
 
 \begin{table}[ht]
 \caption{Matcher Class } % title of Table
@@ -109,7 +109,7 @@ After studying these tools, we found most them are powerful, complex, but not ve
 \label{tab:matchers} % is used to refer this table in the text\section{Pipeline of Information Extraction}
 \end{table}
 
-The framework support three styles to create patterns, which gives developers big flexibility. The most common style is define pattern expression in a string, which is much like traditional regular expression. We give an example as follows:
+The framework support three styles to create patterns, which gives developers great flexibility. The most common style is define pattern expression in a string, which is much like traditional regular expression. We give an example as follows:
 
 \begin{framed}
 \small
@@ -122,8 +122,10 @@ The seconde style is using algebra operator to connect matchers, as follows:
 \begin{framed}
 \small
 \begin{lstlisting}[language=Python]
+Pattern: " aaa (bbb | cccc)"
 seqMatcher =  TokenMatcher("aaa") +
-    TokenMatcher("bbb") | TokenMatcher("ccc")
+    TokenMatcher("bbb") | TokenMatcher("ccc")  
+
 \end{lstlisting}
 \end{framed}
 
@@ -132,6 +134,7 @@ We also could create complex matcher in programming style, which like we create 
 \begin{framed}
 \small
 \begin{lstlisting}[language=Python]
+Pattern: " ( aaa | bbb ) cccc "
 matcher1 = TokenMatcher("aaa")
 matcher2 = TokenMatcher("bbb")
 matcher3 = TokenMatcher("ccc")
@@ -142,18 +145,18 @@ seqMatcher = SeqMatcher([matcher3,matcher4])
 
 \section{Implementation of Finite Automata Matching Library }
 
-To transfer a token regular expression to a Finite Automata Transducers(FST), we need to steps: One is parsing  the expression to tree of structure of matchers, the other is transfer the tree of matchers to the Finite Automata Transducers.
+To transfer a token regular expression to a Finite Automata Transducers(FST), we need two steps: The first is parsing the expression to a tree of matchers, the second is transfer the tree of matchers to the Finite Automata Transducers.
 
-We use PLY(Python Lex-Yacc) as the grammar parser, which  is a pure-Python implementation of the popular compiler construction tools lex and yacc. We defined  grammars of token regular expression in the parser, which can parse the token regular expression.
+We use PLY(Python Lex-Yacc) as the grammar parser, which  is a pure-Python implementation of the popular compiler construction tools lex and yacc. We defined  grammars of token regular expression in the parser, which can parse the token regular expression to the tree structure.
 
 We use the algorithm proposed by Thompson and Ken\cite{thompson1968programming} to construct the FST from the tree. The state for a regular expression is built up from partial Nondeterministic Finite Automaton (NFA)  for each subexpression, with a different construction for each operator. The partial NFAs have no matching states: instead they have one or more dangling arrows, pointing to nothing. The construction process will finish by connecting these arrows to a matching state.
 
-The NFAs for matching single characters is shown in Figure \ref{fig:nfa_single}.
+The NFAs for matching single token is shown in Figure \ref{fig:nfa_single}.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[scale=1]{images/single_token.png}
-  \caption{Single-character NFA}
+  \caption{Single Token NFA}
   \label{fig:nfa_single}
 \end{figure}
 
@@ -210,14 +213,14 @@ The expression like ``DL (, DL])*  (or DL)? DEGREE'' could be transferred to an 
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[scale=0.4]{images/test_tokenre2_6.png}
+  \includegraphics[scale=0.6]{images/test_tokenre2_6.png}
   \caption{Finite Automata Transducers}
   \label{fig:fst}
 \end{figure}
 
 \section{Semantic Label}
 
-In the text of natural language, one concept always have some different expressions. Like bachelor's degree, the simple concept has several expression in job descriptions, like B.S., BA/BS, 4 years degree, and so on. We list the words that if followed with word "degree", have the meaning ``bachelor's degree'' is shown is table ~\ref{tab:multispelling}:
+In the text of natural language, one concept always have some different expressions. Like bachelor's degree, the simple concept has several expression in job descriptions, like B.S., BA/BS, 4 years degree, and so on. The table ~\ref{tab:multispelling} shows the words that if followed with word "degree", have the semantic value of ``bachelor's degree''. 
 
 \begin{table}[ht]
 \caption{All words have meaning bachelors } % title of Table
@@ -231,11 +234,11 @@ In the text of natural language, one concept always have some different expressi
 \end{table}
 
 
-The regular expression over tokens is a finite state machine (FSM) with states that are the tokens need to be matched with. If all above words are added to the regular expression, the FSM will have too many states, and the matching process will be very slow because of the problem of combinatorial explosion.
+The regular expression over tokens is a finite state transducer (FST) with states that are the tokens need to be matched with. If all above words are added to the regular expression, the FST will have too many states, and the matching process will be very slow because of the problem of combinatorial explosion.
 
 To resolve this problem, we proposed an approach to use the patterns match the semantic label of the sentences, not the the original text. Because in this system, we don't care what the words the sentences really use, we want to extract the semantic value from the matching phrases.
 
-We propose a two layers labeling approach. In the first layer, we labeled the word with its semantic meaning, which is the value that we want to extract from the sentence. In the second layer, the labels are the semantic categories of the first layer labels. For example the word "bachelors" will be labeled in the first layer with label "BS LEVEL", which means bachelors degree level, and the word "PhD" will be labeled as "PHD LEVEL". In the second layer, they both be labeled with "DEGREE LEVEL". A labeled sentence is shown in ~\ref{tab:labeldsent}.
+We transfer the sentences will be matched to a structure with two layers labels. In the first layer, we labeled the word with its semantic value, which is the value that we want to extract from the sentence. In the second layer, the labels are the ontology super class of the first layer labels. For example the word "bachelors" is labeled in the first layer with label "BS LEVEL", which means bachelors degree level, and the word "PhD" is labeled as "PHD LEVEL". In the second layer, they both are labeled with "DEGREE LEVEL", which is the ontology super class of the two labels. A labeled sentence is shown in ~\ref{tab:labeldsent}.
 
 \begin{table}[ht]
 \caption{Labeled sentence } % title of Table
@@ -252,9 +255,9 @@ We propose a two layers labeling approach. In the first layer, we labeled the wo
 \label{tab:labeldsent} % is used to refer this table in the text\section{Pipeline of Information Extraction}
 \end{table}
 
-To resolve the problem of one concept with multiple expressions, we create a dictionary, in which the key is the different spellings an expressions, and the value is the meaning of the concept. For example the table ~\ref{tab:multispelling} shows all keys in the dictionary with and the values ``bachelors''.
+We use a dictionary to store the words in sentences and their labels, in which the key is the different spellings an expressions, and the value is the meaning of the concept. For example the table ~\ref{tab:multispelling} shows all keys in the dictionary with and the values ``bachelors''.
 
-After labeling, the sentence become a sequence of arrays, each array includes the token and its labels in two layers. The flexibility of the tool also comes from that developers could determine which layer of of array should be matched, the original text or labels in the first or second layer.  Developers can assign lambda expressions to the matcher's catching function, which defines how to get the matching input,  and out function, which defines what should be outputed. For example,  to match the labeled sentence, we set the lambda expression for catching function to "lambda x:x[2] ", and the out function to "lambda x:x[1]", which make the matcher match the pattern with the semantic category, and output the  the value of semantic value. We show some patterns used to match degree phases in table ~\ref{tab:patterns}:
+After labeling, the sentence become a sequence of arrays, each array includes the token and its labels in two layers. The flexibility of the tool also comes from that developers could determine which layer of the array should be matched, the original text or labels in the first or second layer.  Developers can assign lambda expressions to the matcher's catching function, which defines how to get the matching input,  and out function, which defines what should be outputed. For example,  to match the labeled sentence, we set the lambda expression for catching function to "lambda x:x[2] ", and the out function to "lambda x:x[1]", which make the matcher match the pattern with second layer, and output the  the value of semantic value. We show some patterns used to match degree phases in table ~\ref{tab:patterns}:
 
 \begin{table}[ht]
 \small
