@@ -59,6 +59,8 @@ We use $ Normalized~Discounted~Cumulative~Gain ( NDCG )$ to evaluate the statist
 
 where $Z_{kj}$ is a normalization factor calculated to make it so that a perfect ranking's NDCG at $k$ for query $j$ is 1. For queries for which $k' < k$ documents are retrieved, the last summation is done up to $k'$.
 
+The table ~\ref{tab:simcompare1} shows how we evaluate the similarity between the concept ``Javascript'' and some other concepts. The first column is some skill names, the second column is their similarity values to Javascript, the third column is their positions ranked by the similarity values, and the fourth column is relevance value given by the judge. The NDCG value for concept Javascript is 0.94, and in table ~\ref{tab:simcompare2},  NDCG value for concept HTML is 0.97.
+
 \begin{table}
 \centering
 \caption{ Javascript Similarity Evaluation : NDCG = 0.94 }
