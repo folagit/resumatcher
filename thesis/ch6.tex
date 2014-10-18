@@ -4,7 +4,7 @@ In this section, we will evaluate the performance of the key components of the s
 
 \section{Experiments of Information Extraction }
 
-To evaluate the performance of information extraction, we get some sentences by the sentence filters, different sentence filter can extract different kinds of sentences. We use sentences taht have degree information to explain the process:
+To evaluate the performance of information extraction, we get some sentences by the sentence filters, different sentence filter can extract different kinds of sentences. We use the sentences that have degree information to explain the process:
 
 In the experiment, we selected 100 sentences from job descriptions that are requirements of candidates degree and major. The values of degree and major are labeled manually. We use patterns to  match and extract the degree information from the sentences. The patterns are gotten from the observation of sentences. The Figure~\ref{fig:degree_accuracy} shows that when the number of  patterns increases, the accuracy of information increases as well. When we used 6 patterns, the accuracy of degree became 94\%. The accuracies of three fields matching are shown in Table \ref{tab:ieaccura}
 
@@ -23,11 +23,11 @@ In the experiment, we selected 100 sentences from job descriptions that are requ
  \hline
                      Field   & Pattern Num & Accuracy     \\
  \hline
-                     Degree & 6         & 94\%         \\
+                     Degree & 6         & 0.94         \\
  \hline
-                     Major  & 10        & 0.85\%      \\
+                     Major  & 10        & 0.85      \\
  \hline
-                     Skill  & 6         & 0.82 \%      \\
+                     Skill  & 6         & 0.82      \\
  \hline
 \end{tabular}
 \label{tab:ieaccura} % is used to refer this table in the text
@@ -35,7 +35,7 @@ In the experiment, we selected 100 sentences from job descriptions that are requ
 
 \section{Experiments of Ontology Similarity}
 
-Table ~\ref{tab:dismatrix3} shows similarity values between skills, which is calculated from  from 500 job descriptions. The values in the table are the similarities between skills, the higher the value, the greater of the similarity, so the similarity of one skill itself is one. We select one concept, rank other concepts by their similarity value to this concept. The ranked concepts are also be given relevance scores by human judge, so we can use NDCG to evaluate the effectiveness of our approach.
+We select some very common skills from 500 job descriptions, table ~\ref{tab:dismatrix3} shows similarity values between these skills. The values in the table are the similarities between skills, the higher the value, the greater of the similarity, so the similarity of one skill itself is one. We select one concept, rank other concepts by their similarity value to this concept. The ranked concepts are also be given relevance scores by human judge, so we can use NDCG to evaluate the effectiveness of our approach.
 
 \begin{table}
 
@@ -104,12 +104,10 @@ In traditional information retrieval system, precision and NDCG are widely used 
 
 We first used Precision@K to compare the performance our approach to classical information retrieval models, they are Okapi BM25~\cite{robertson2009probabilistic} ,  Kullback-Leibler divergence, and the TF-IDF. Precision@K is the proportion of relevant documents in the first K positions and is given below:
 $$ P@k = \frac{1}{k} \sum^m_{i=1} l_i 1 \left(  r(i) \leq k  \right )  $$
-Where 1 is the indicator function: $1(A) = 1$ if A is true, 0 otherwise. 
+Where 1 is the indicator function: $1(A) = 1$ if A is true, 0 otherwise.
 
 
-In the evaluation phrase, we created a data set of 100 job descriptions, which includes several kinds of jobs, like web developers, back-end developers, mobile developers and so on. The relevance value of job descriptions to each resume will be set manually. We would like to return jobs that better match the candidate' resumes at the top. For our experiments to compare the various retrieval methods we used 5 candidate resumes  and retrieved the top 20 job descriptions  each method and judged the relevance of these against the resumes.
-
-We create a query q from the resume, and treat the text of the job descriptions as documents d and apply standard ad-hoc retrieval techniques to rank the jobs. For our experiments to compare the various retrieval methods. We used 5 candidate resumes  and retrieved the top 20 job descriptions,  each method and judged the relevance of these against the resumes. The resumes we chose had an average of 100 jobs per resume. We used a resume as query q, and treat the text of the job descriptions as documents d and apply all the retrieval techniques to rank the jobs. The result of Precision @ k is in table~\ref{tab:job_precision}.
+In the evaluation phrase, we created a data set of 100 job descriptions, which includes several kinds of jobs, like web developers, back-end developers, mobile developers and so on. The relevance value of job descriptions to each resume will be set manually. We would like to return jobs that better match the candidate' resumes at the top. We create a query q from the resume, and treat the text of the job descriptions as documents d and apply standard ad-hoc retrieval techniques to rank the jobs. For our experiments to compare the various retrieval methods. We used 5 candidate resumes  and retrieved the top 20 job descriptions,  each method and judged the relevance of these against the resumes. The resumes we chose had an average of 100 jobs per resume. We used a resume as query q, and treat the text of the job descriptions as documents d and apply all the retrieval techniques to rank the jobs. The result of Precision @ k is in table~\ref{tab:job_precision}.
 
 \begin{table}[ht]
 \caption{Precision of Job Ranking } % title of Table

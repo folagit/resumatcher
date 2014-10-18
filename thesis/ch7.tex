@@ -3,8 +3,7 @@
 \section{Conclusion}
 In this thesis£¬ we described JobFinder a personalized job-resume matching system, which could help job seeker to find appropriate jobs more easily. The key technical components of the system are information extraction and ontology matching module.
 
-In the system, job descriptions and resumes will be processed by pipeline; and a finite automated tool will be used to extract the models from them. The models include fields like degree, major, skills.
-To find the appropriate jobs, similarities between resume model and job description models will be calculated. The result will be sorted by the ontology similarity score, which is the sum of weighted multiple similarities of fields.
+In the system, job descriptions and resumes will be processed by pipeline; and a finite state transducer tool will be used to extract the models from them. The models include fields like degree, major, skills. To find the appropriate jobs, similarities between resume model and job description models will be calculated. The result will be sorted by the ontology similarity score, which is the sum of weighted multiple similarities of fields.
 
 We proposed a finite state transducer matching library to matching the patterns in the sentences and extraction the information. We designed the a semi-automated algorithm to construct the domain specific ontology of skill set. To get the similarity between the skills, we proposed a statistical-based Ontology similarity measure.
 
@@ -13,7 +12,7 @@ In the experiment phrase, we evaluated the accuracy  of information extraction. 
 
 \section{Future work}
 
-Since finding a job is a complex process, which includes some subjective and objective factors.  Our work is just a initial work to solving  this problem, there are still a lof of parts could be improved.
+Since finding a job is a complex process, which was affected by some subjective and objective factors.  Our work is just a initial work to solving  this problem, there are still a lot of parts could be improved.
 
 First for the Information Extraction part, currently the method we used is pattern matching, we could try some machine learning approaches in future. In the resume model part, we could build more complex model, like resume model, which should consider the hiring history and project experience of of job seekers, and for job description model, the company's reputation and industry should be put into the model as well.
 

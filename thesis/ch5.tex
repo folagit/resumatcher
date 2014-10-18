@@ -164,7 +164,7 @@ The are also two disadvantages of content-based measures. First these approaches
 
 
 \section{Statistical-based Ontology Similarity Measure }
-In this thesis, I proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required.  From observation, we found that related skills always exist in a job description simultaneously, and the positions of them are always close, e.g. HTML and CSS are always required together, and appear in the same sentence. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job desertions.
+In this thesis, I proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required.  From observation, we found that related skills always exist in the job description simultaneously, and the positions of them are always close, e.g. HTML and CSS are always required together, and appear in the same sentence. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job descriptions.
 
 \begin{table}[ht]
 \caption{Some sentences Job Description} % title of Table
@@ -180,7 +180,7 @@ In this thesis, I proposed a new statistical-based ontology similarity measure. 
 \label{tab:skillinsent} % is used to refer this table in the text
 \end{table}
 
-We could see from the table, the technical close related concepts are always have short distance. Based on such observation, we give a new statistical-based Ontology Similarity Measure. Similarity between two concepts can be calculated,  if the two concepts $a$ and $b$ have the same direct hypernym or one  is the hypernym of the other. Their similarity $S_{a,b}$ could be the ratio of two factors:
+We could see from the table, the technical close related concepts are always have short distance. Based on such observation, we give a new statistical-based ontology similarity measure. Similarity between two concepts can be calculated,  if the two concepts $a$ and $b$ have the same direct hypernym or one  is the hypernym of the other. Their similarity $S_{a,b}$ could be the ratio between two factors:
 
 \begin{enumerate}
     \item The ratio of the number of documents they exist together $N_{a \cap b}$ to the number of documents have a least one them $N_{a \cup b}$.
@@ -189,17 +189,7 @@ We could see from the table, the technical close related concepts are always hav
 
 $$ S(a,b) = \frac{  N_{a \cap b} / N_{a \cup b} }{avg(\log_2( mindis(doc,a,b) + 1 ))} $$
 
-We only apply this measure on the concepts pair if:
-\begin{enumerate}
-    \item The two concepts have the same direct
-    \item One concepts is the super  of another.
-\end{enumerate}
-
-If distance between two concepts are further than above situation we generally believe they are not related skills. We set the restriction because the position of the concepts in the ontology are based on their technical similarity to others. Similar techniques will assigned into a same category, they should share the same technology base, and one could be a alternate or similar to the other. For example, we put EJB and Hibernate in the same category, because they are both J2EE persistence layer technologies, and both have the O/R mapping concept. If the applicant is familiar one of them, they can master the other very quickly. Another example, like Grail and Django, they are both web frameworks, and share some web design philosophies, but one is  designed for Java web application and the other is created for Python web application. So if one developer has some some experience with one of them, he/she still need spend a lot of time to learn the other to overcome the gap between programming languages. We could see the two examples of in figure:
-
-Figure Figure FigureFigure Figure FigureFigure Figure FigureFigure Figure FigureFigure Figure FigureFigure Figure Figure
-
- The algorithm to calculate the similarity of two concepts is in algorithm ~\ref{alg:alg_similarity}.
+If distance between two concepts are further than above situation we generally believe they are not related skills. We set the restriction because the position of the concepts in the ontology are based on their technical similarity to others. Similar techniques will assigned into a same category, they should share the same technology base, and one could be a alternate or similar to the other. For example, we put EJB and Hibernate in the same category, because they are both J2EE persistence layer technologies, and both have the O/R mapping concept. If the applicant is familiar one of them, they can master the other very quickly. Another example, like Grail and Django, they are both web frameworks, and share some web design philosophies, but one is  designed for Java web application and the other is created for Python web application. So if one developer has some some experience with one of them, he/she still need spend a lot of time to learn the other to overcome the gap between programming languages. The algorithm to calculate the similarity of two concepts is in algorithm ~\ref{alg:alg_similarity}.
 
 \begin{algorithm}
 \caption{Get Stat Similarity}
@@ -228,7 +218,7 @@ return $factor1 ~/~ factor2$\;
 $ ~~ $
 \end{algorithm}
 
-We got the relevance matrix in table~\ref{tab:dismatrix} by using the algorithm from 500 job descritptions. Considering the skill HTML, the most relevance skills in order are CSS, Javascript, and jQuery,  which is the same from the perspective of a experienced developer. The other example is Java, the most relevant skill in the matrix is JSP, which is also agree with the general technical knowledge.
+We got the relevance matrix in table~\ref{tab:dismatrix1} by using the algorithm from 500 job descritptions. Considering the skill HTML, the most relevance skills in order are CSS, Javascript, and jQuery,  which is the same from the perspective of a experienced developer. The other example is Java, the most relevant skill in the matrix is JSP, which is also agree with the general technical knowledge.
 
 
 \begin{table}
@@ -270,4 +260,4 @@ We got the relevance matrix in table~\ref{tab:dismatrix} by using the algorithm 
 
 \section{Combine Keyword Search and Ontology Matching }
 
-Using ontology matching, the system can give job seekers some jobs appropriate to their background. But in some cases, job seekers have their own preference when choosing jobs. These cases are not very rare, for example, some people may want to try some new positions or industries they have no or few experience, because they are boring with current positions, or they want to learn perspective technology.  Considering such situation, we add a new search function to the system, which combine the traditional keyword searching and our ontology matching method. At first, users need to upload their resume, and then they can use keywords to search jobs. The system will jobs that contain the keywords, and the jobs are ranked by their similarity values to the users' resume. The keywords represent user's preference, that jobs satisfied this criteria will be returned, and the ontology similarity become the ranking algorithm, which make the top items of the searching result more remanence to user.
+Using ontology matching, the system can give job seekers some jobs appropriate to their background. But in some cases, job seekers have their own preference when choosing jobs. These cases are not very rare, for example, some people may want to try some new positions or industries they have no or few experience, because they are boring with current positions, or they want to learn some perspective technologies. Considering such situation, we add a new search function to the system, which combine the traditional keyword searching and our ontology matching approach. At first users need to upload their resume, and then they can use keywords to search jobs. The system will get the jobs that contain the keywords, and the jobs are ranked by their similarity values to the users' resume. The keywords represent user's preference, that jobs satisfied this criteria will be returned, and the ontology similarity become the ranking algorithm, which make the top items of the searching result more relevance to user.
