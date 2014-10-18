@@ -9,7 +9,7 @@ Currently the main channel for job seekers are online job finding web sites, lik
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[scale=0.4]{images/indeed1.png}
+  \includegraphics[scale=0.6]{images/indeed1.png}
   \caption{Search result of Indeed}
   \label{fig:Indeed}
 \end{figure}
@@ -31,15 +31,15 @@ Since the people's resumes contain the most important background information, we
 We make the following contributions in this work:
 
 \begin{enumerate}
-    \item  We created a finite state transducer based matching tool to extract information from unstructured data source.
-    \item  We created a domain specific ontology for recruitment.
-    \item  We proposed statistical-based ontology similarity measure.
+    \item  We proposed a finite state transducer based matching tool to extract information from unstructured data source, which is a lightweight and flexible library, and can be extend in very easy ways.
+    \item  We proposed a semi-automatic approach, which could collect technical terms from data sources, and by which we created a domain specific ontology for recruitment.
+    \item  We proposed statistical-based ontology similarity measure, which can measure the similarities between technical terms .
     \item  We proposed a approach which combine the keyword searching and model matching to retrieval jobs.
 \end{enumerate}
 
 \section{Organizations}
 The subsequent chapters are organized as follows: We first describe what has been done in terms of prior work.  We introduce some basic conception of recommender systems, and how to apply recommender technologies into Job Recommender Systems. Some previous Job Recommender Systems will be introduced,  their advantages and limits will be discussed as well.  Two import problems of content-based Job Recommender Systems, Information Extraction and Similarity Calculation, will be fully explained.
 
-Then we introduce our work, JobFinder, a the Personalized Resume-Job Matching System. At first we give a overview of the system the architecture and interface. Then we explained details of how we resolve the problems of information extraction and model similarity between job resumes and resumes. We proposed a finite state transducer tool which can match patterns in sentence, and extracts related information. Ontology play an important role in this system. We will present how to construct the domain specific ontology for recruitment. We also give a brief review of different ontology similarity measures, and explain   a statistical-based ontology similarity measure we used in this system.
+Then we introduce our work, JobFinder, a the Personalized Resume-Job Matching System. At first we give a overview of the system, which includes the architecture and the interfaces. Then we explained details of how we resolve the problems of information extraction and model similarity calculation. We proposed a finite state transducer library which can match patterns in sentence, and extracts related information. Ontology play an important role in this system. We will present how to construct the domain specific ontology for recruitment. We also give a brief review of different ontology similarity measures, and explain the statistical-based ontology similarity measure we used in this system.
 
-Finally, we evaluate the accuracy of our information extraction approach.  We also used NDCG to evaluate the accuracy of statistical-based ontology similarity measure. To evaluate the performance of the system, we compared our algorithm to some classical information retrieval approaches by precision@k and NDCG. We created a data set job descriptions as documents, and use resumes as query to retrieval documents. The result shows the ranking performance is better than other information retrieval approaches.
+Finally, we evaluate the accuracy of our information extraction approach. We used NDCG to evaluate the accuracy of statistical-based ontology similarity measure. To evaluate the performance of the system, we compared our algorithm to some classical information retrieval approaches by precision@k and NDCG. We created a data set job descriptions as documents, and use resumes as query to retrieval documents. The result shows the ranking performance is better than other information retrieval approaches.
