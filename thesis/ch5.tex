@@ -30,7 +30,7 @@ We notice that simple keywords matching is not a good similarity measure, becaus
 
 If just looking at the text, we can find the resume has few common words with the job description. But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use key word matching, the system won't give a good matching result in this very common situation. 
 
-\subsection{Semantic Similarity in JRSs}
+\section{Semantic Similarity in JRSs}
 We had studied previous work on similarity measures in JRSs, some of them use ontology to store knowledge and rules, also aid information extraction. Liu and Dew~\cite{liu2004using} used RDF to represent and store the expertise of experts , and a RDF-based Expertise Matcher could retrieves the experts whose expertise include the required concept.
 
 Proactive~\cite{lee2007fighting} used two kinds of ontology, job category and the company information. The system used ontology checker to classify the job information, stored the domain knowledge and calculated the weight value in recommendations. 
@@ -53,7 +53,6 @@ $$ Sim(p1, p2) = \begin{Bmatrix}
 
 \section{Ontology Construction}
 
-\subsection{Domain Specific Ontology}
 Before calculate the similarity between concepts, we need construct the Ontology at first. Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts. ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area. Currently, there is no IT technology ontology build for recruiting purpose.
 
 The IT ontology for recruiting should include a lot of technical terms, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, and construction tools. Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology.
