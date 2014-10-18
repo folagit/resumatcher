@@ -21,7 +21,7 @@ Job searching is not a new topic in information retrieval, which has been the fo
 
 \section{Job Recommender Systems}
 
-Rafter et al. \cite{rafter2000personalised} began to use ACF (Automated Collaborative Filtering) in their Job Recommender System, ``CASPER''. In the system user profiles are gotten from server logs, that included: revisit data, read time data, and activity data. All these factors were viewed as measure of relevance among users. The system recommend jobs in two steps. First the system find a set of user related to the target user, second the jobs that related users liked will be recommend to the target user. The system use cluster-based Collaborative Filtering strategy. The similarity between users are based on how many jobs they both reviewed, or applied.
+Rafter et al. began to use ACF (Automated Collaborative Filtering) in their Job Recommender System, ``CASPER''  \cite{rafter2000personalised}. In the system user profiles are gotten from server logs, that included: revisit data, read time data, and activity data. All these factors were viewed as measure of relevance among users. The system recommend jobs in two steps. First the system find a set of user related to the target user, second the jobs that related users liked will be recommend to the target user. The system use cluster-based Collaborative Filtering strategy. The similarity between users are based on how many jobs they both reviewed, or applied.
 
 The CASPER also allows user search jobs by a query which is a combination of some fields, like location, salary, and skill etc. The system use such query to find jobs, and the returned jobs will be ranked with above collaborative filtering algorithm.
 In their paper, they didn't give a detail description on how to detect the related fields they need and how to the transfer semi-structured job description to structured one.  
@@ -83,8 +83,6 @@ Institution   &  industry        & String  \\
 \label{tab:predictionmodel} % is used to refer this table in the text
 \end{table}
 
-
-When applying a job, the common method is let the candidates upload their resumes, sometimes the company want user to enter details like personal information, education and experience details, skills. However, in real life, the candidates do not input a lot information in the on-line form ~\cite{singh2010prospect}.
 
 \section{Information Extraction in Job Recommender System}
 
@@ -151,7 +149,7 @@ Celik Duygua and Elci Atilla proposed a Ontology-based R¨¦sum¨¦ Parser (ORP) ~\c
  
 \section{Matching Algorithms in Job Recommender Systems}
 
-Lu et al~\cite{lu2013recommender}. used latent Semantic Analysis(LSA) to calculate similarities between jobs and candidates, but they only selected two factors ``interest'' and ``education''  to compare candidates. Xing et al. ~\cite{yi2007matching} used Structured Relevance Models (SRM) to  match resumes and jobs.
+Lu et al.~\cite{lu2013recommender} used latent Semantic Analysis(LSA) to calculate similarities between jobs and candidates, but they only selected two factors ``interest'' and ``education''  to compare candidates. Xing et al.~\cite{yi2007matching} used Structured Relevance Models (SRM) to  match resumes and jobs.
 
 Drigas* et al.\cite{drigas2004expert}  presented a expert system to match jobs and job seekers, and recommend unemployed to the positions. The expert system used Neuro-Fuzzy rule to evaluate the matching between user profile and job opening. The system use a relation matrix to represent the fuzzy relation between these specialities. The system need the training data to train that Neuro-fuzzy network. Both resume data and job opening data were manually input into the system. 
 

@@ -1,6 +1,6 @@
 \chapter{PROBLEM}
 
-The basic problem in this thesis is how to found appropriate job descriptions by user's resume. The systems will parse the job descriptions to the job models, and store them in the database. When user searches the jobs by their resume in the system, the system will compare the similarity values between the resume and the job models, and return the job sorted by their similarity value.
+The basic problem in this thesis is how to found appropriate job descriptions by user's resume. If we take the resume as query, the job descriptions as documents, we need build a information retrieval model to get the most relevance documents.  The JobFinder will parse the job descriptions to the job models, and store them in the database. When a user searches the jobs by their resume in the system, the system will compare the similarity values between the resume and the job models, and return the job sorted by their similarity value.
 
 The core idea of our algorithm is calculate similarity between resume model and job model.
 We give a formal definition of our problem. All of the notations will be used frequently throughout the thesis.
@@ -18,9 +18,7 @@ The value of $sim(r, j)$ is summation of similarity value of different fields ti
 \section{System Overview}
 The system will use rule based information extraction technique to parse the job description and resume, and get information such as skill, specialties and background. These information will be used to create the model of job description and job seeker.  Ontology will be used to construct the knowledge base, which will include the taxonomy and rules, to support resume-job matching.
 
-The model of candidates will include their specialties, working experience and education background, all the them should be extracted from the resumes. The job model will be extracted from job description, the information will include: company name, location, job title, education requirement, skill requirements and working experiences etc. When a job seeker searches the jobs by his resume, the system will calculate the similarity between the candidate model and the job models, give every job model a similarity score.
-
-In the initial phase I will only focus on the positions of IT job, because IT jobs have a special character,  skill set oriented, which means the person that the company want to hire must have some special skills and knowledge, like some programming languages, databases or software etc.
+The models of resume will include job seekers' specialties, working experience and education background, all the fields will be extracted from their resumes. The job models will be extracted from job descriptions, and have the same information fields as the resume models.  When a job seeker searches the jobs by his resume, the system will calculate the similarity between the candidate model and the job models, give every job model a similarity score.
 
 \section{System Architecture}
 
