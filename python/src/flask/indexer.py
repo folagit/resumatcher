@@ -5,18 +5,13 @@ Created on Tue Sep 30 18:30:33 2014
 @author: dlmu__000
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Sep 30 18:04:51 2014
-
-@author: dlmu__000
-"""
-
 from whoosh import index 
 from whoosh.fields import *
 from whoosh.qparser import QueryParser
 
-from  webapp import dataHandler
+#from  webapp import dataHandler
+from jobaly.db.dbclient import DbClient 
+import os
 
 import re
 TAG_RE = re.compile(r'<[^>]+>')
@@ -28,17 +23,22 @@ schema = Schema(jobtitle=TEXT(stored=False), jobid=ID(stored=True), content=TEXT
 indexdir = "index"
 
 #searcher = myindex.searcher()
-jobColl = dataHandler.jobCollection
+#jobColl = dataHandler.jobCollection
 
-def removeHtml():
+def removeHtml(coll):
     
-     for job in jobColl.find():
+     for job in coll.find():
          content = remove_tags(job["summary"]).strip()
          job["notag"] = content
-         jobColl.save(job)
+         coll.save(job)
 
-def createIndex():
-    coll =  jobColl
+def createIndex(coll):
+    #coll =  jobColl
+    print "collname=", coll.name
+    indexdir = "index__"+coll.name
+    removeHtml(coll)
+    if not os.path.exists(indexdir):
+        os.makedirs(indexdir)  
     ix = index.create_in(indexdir, schema)
     writer = ix.writer()
     for job in coll.find():  
@@ -50,7 +50,7 @@ def createIndex():
          
     writer.commit()
 
-def search(keyoword):
+def search(indexdir, keyoword):
     ix = index.open_dir(indexdir)
     with ix.searcher() as searcher:
        query = QueryParser("content", ix.schema).parse(keyoword)
@@ -68,9 +68,16 @@ def search(keyoword):
         #   print result
            ids.append(result["jobid"])
        return ids
+       
+def searchColl(coll, keyoword):
+    indexdir = "index__"+coll.name
+    return search(indexdir, keyoword)
       
 def createJobIndex():
-    coll = dataHandler.jobCollection
+    dbClient = DbClient('localhost', 27017, "jobaly")  
+    collname = "job100"
+    coll = dbClient.getCollection(collname)
+     
     createIndex(coll)
     
 def test_search():
@@ -84,5 +91,5 @@ def test_search():
 if __name__ == '__main__':
     
   #  removeHtml()
-  # createIndex()
-    test_search()
+    createJobIndex()
+  #  test_search()

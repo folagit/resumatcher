@@ -17,6 +17,9 @@ dbinfo['dbname'] = "jobaly_daily_test"
 dbinfo['collname'] = "daily_job_webdev"
 dbinfo['modelcollname'] = dbinfo['collname']+"_model"
 
+dbinfo['dbname'] = "jobaly"  
+dbinfo['collname'] = "job100"
+
 app = Flask(__name__)     
 dataHandler = DataHandler()     
 dataHandler.connectJobColl(dbinfo['dbname'] , dbinfo['collname'])
@@ -142,7 +145,7 @@ def  searchjob():
 
 def ketword_search(keyword,  pageno):
    if app.config['keyword'] != keyword:
-       jids = indexer.search(keyword)
+       jids = indexer.searchColl( dataHandler.jobCollection, keyword)
        app.config['jids'] = jids
        app.config['keyword'] = keyword
    jids = app.config['jids'] 

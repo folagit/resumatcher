@@ -116,8 +116,8 @@ def processTitle(jobModel, sent ):
     pass    
 
 def processjobs():
-     srcBbClient = DbClient('localhost', 27017, "jobaly_daily_test")
-     jobCollName = "daily_job_webdev"
+     srcBbClient = DbClient('localhost', 27017, "jobaly")
+     jobCollName = "job100"
      
      jobmodelCollName = jobCollName+"_model"
      collection = srcBbClient.getCollection(jobCollName)
