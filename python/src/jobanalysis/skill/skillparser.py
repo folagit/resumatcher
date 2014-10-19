@@ -46,7 +46,7 @@ class SkillParser():
             if sent.find(term) != -1:
             #    print sent.encode("GBK", "ignore")   
                 ontoClass =      self.termDict[term.strip()]  
-                print "ontoClass=" , ontoClass
+            #    print "ontoClass=" , ontoClass
                 skillset.append(ontoClass)
                 sent = sent.replace(term, " " )
             #    print sent.encode("GBK", "ignore")

@@ -127,7 +127,8 @@ def  searchjob():
        
    elif qtype == "resume" :
        return resume_match(pageno)     
-       
+   elif qtype == "resume_keyword" :
+       return resume_search(query, pageno)
    else : 
        jobs, pageno, resultnum =  dataHandler.searchjobs(query,qtype )	
        pagerInfo["start"] = 1
@@ -280,7 +281,6 @@ def resume_match(pageno):
          job["score"] = value
          jobs.append(job)
           
-  #    return render_template('search_keyword.html', dbinfo=dbinfo, pagerInfo=pagerInfo,  jobs=jobs, query=query, qtype=qtype)
      pagerInfo = {} 
      resultnum = len(result) 
      pagerInfo["start"] = 1
@@ -300,29 +300,40 @@ def resume_keyword():
         print  "session resume name =>>=", session['resume_name']
     return render_template('resume_keyword.html', resume=content, filename=filename )
     
-@app.route('/resume_search')    
-def resume_search():         
-     query = request.args.get('query', '').strip()
-     session['query'] = query
-     jids = indexer.search(query)
-   #  jobs = dataHandler.get_job_ids(jids)
-     jobmodels = dataHandler.get_jobmodel_ids(jids)
-     resume = session['resume']               
-     resumeModel = resumeparser.parseResumeText(resume)           
-     result = similarity.match_jobModels(resumeModel , jobmodels  )
-     i = 0
-     jobs = []
-     for key, value in result:
-         i += 1
-         print i,key, value
+#@app.route('/resume_search')    
+def resume_search(keyword, pageno):       
+     if app.config['keyword'] != keyword:
+        jids = indexer.search(keyword)      
+        jobmodels = dataHandler.get_jobmodel_ids(jids)
+        resume = session['resume']               
+        resumeModel = resumeparser.parseResumeText(resume)           
+        result = similarity.match_jobModels(resumeModel , jobmodels) 
+        app.config['matchjids'] = result
+        print "resume_search len =", len(result)     
+         
+     result = app.config['matchjids']  
+     start = pageno*20
+     end = min ( start+20 , len(result) ) 
+     print "resume_search start end " , start , end
+     jobpage = result[start:end]    
+     jobs=[]
+     for key, value in jobpage:         
+  #       print  key, value
          job = dataHandler.get_job(key)
          job["score"] = value
-         jobs.append(job)
-         if i == 30 :
-             break
+         jobs.append(job)                 
+             
+     pagerInfo = {} 
+     resultnum = len(result) 
+     pagerInfo["start"] = 1
+     pagerInfo["end"]  =  int(math.ceil(float(resultnum) /20))  
+     pagerInfo["pageno"] = pageno
+     dbinfo["pageno"] = pageno
+     dbinfo['collsize'] =  resultnum
 
-     return render_template('job_resume_keyword.html', jobs=jobs, keyword=query)     
-    
+  #   return render_template('job_resume_keyword.html', jobs=jobs, keyword=query)     
+     return render_template('job_resume_keyword.html', dbinfo=dbinfo, pagerInfo=pagerInfo,  jobs=jobs, query=keyword, qtype="resume_keyword") 
+   
 
 if __name__ == '__main__':
     app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'

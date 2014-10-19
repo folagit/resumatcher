@@ -8,17 +8,18 @@
     
     <div style="width:820px" class="whitepaper" >
       
-       <div> Keyword is:  <span style="font-weight:bold" > {{keyword}} </span> </div>
-       <form action="/resume_search" >
+       <div> Keyword is:  <span style="font-weight:bold" > {{query}} </span> </div>
+       <form action="/searchjobs.html" >
             <input  name="query" type="input" style="margin-left:20px;float:left;width:200px"   />                      
-           
+            <input  name="qtype" type="hidden"  value="resume_keyword"  />  
             <input  style="margin-left:10px;" type="submit" value="Search Jobs" />
+            
        </form>
     </div>
       
    
     <div style="width:820px" class="whitepaper" >
-        
+         {% include 'search_pager.html' %}  
          <div id="joblist"   >
             <div   >
                 {% set i = 0 %}
@@ -49,6 +50,6 @@
                  
             </div>     
        </div> 
-       
+         {% include 'search_pager.html' %}  
     </div>
 {% endblock %}

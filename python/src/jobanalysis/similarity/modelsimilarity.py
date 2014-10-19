@@ -146,7 +146,8 @@ class ModelSimilarity():
              score = int (self.getSimilarity( resumeModel,  jobModel )*100) 
              
           #   print jid , "--->" ,score
-             jobscore[jid] = score
+             if score > 0 :
+                jobscore[jid] = score
          jobscore =  sorted(jobscore.items(), key=operator.itemgetter(1), reverse= True)     
          return jobscore
          
