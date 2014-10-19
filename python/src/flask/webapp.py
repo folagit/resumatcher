@@ -273,10 +273,14 @@ def resume_match(pageno):
          result = similarity.match_jobColl(resumeModel , modelColl  )
          app.config['matchjids'] = result
          print "match len =", len(result)     
-         
+     
+            
      result = app.config['matchjids']  
-     start = pageno*20
-     jobpage =  result[start:start+20]    
+     print "resume_match len =", len(result)   
+     start = (pageno-1)*20
+     end = min ( start+20 , len(result) ) 
+     jobpage =  result[start:end]    
+     print "resume_match len jobpage =", len(jobpage) , start, end  
      jobs=[]
      for key, value in jobpage:         
   #       print  key, value
@@ -306,7 +310,7 @@ def resume_keyword():
 #@app.route('/resume_search')    
 def resume_search(keyword, pageno):       
      if app.config['keyword'] != keyword:
-        jids = indexer.search(keyword)      
+        jids = indexer.searchColl( dataHandler.jobCollection, keyword)    
         jobmodels = dataHandler.get_jobmodel_ids(jids)
         resume = session['resume']               
         resumeModel = resumeparser.parseResumeText(resume)           
@@ -315,7 +319,7 @@ def resume_search(keyword, pageno):
         print "resume_search len =", len(result)     
          
      result = app.config['matchjids']  
-     start = pageno*20
+     start = (pageno-1) *20
      end = min ( start+20 , len(result) ) 
      print "resume_search start end " , start , end
      jobpage = result[start:end]    
