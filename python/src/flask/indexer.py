@@ -50,7 +50,7 @@ def createIndex():
          
     writer.commit()
 
-def search(keyoword,pageno):
+def search(keyoword):
     ix = index.open_dir(indexdir)
     with ix.searcher() as searcher:
        query = QueryParser("content", ix.schema).parse(keyoword)

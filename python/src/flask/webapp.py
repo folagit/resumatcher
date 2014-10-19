@@ -141,7 +141,7 @@ def  searchjob():
 
 def ketword_search(keyword,  pageno):
    if app.config['keyword'] != keyword:
-       jids = indexer.search(keyword,pageno)
+       jids = indexer.search(keyword)
        app.config['jids'] = jids
        app.config['keyword'] = keyword
    jids = app.config['jids'] 
