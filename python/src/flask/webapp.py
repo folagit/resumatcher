@@ -219,10 +219,12 @@ def  ajax_connectColl():
 def  set_resume():
     content = ""
     filename = ""
-    if session.has_key("resume"):    	    
-        content = session['resume']   
-        filename = session['resume_name']
-        print  "session resume name =>>=", session['resume_name']
+    
+  #  if session.has_key("resume"):    
+    if app.config.has_key("resume"):	    
+        content = app.config['resume']   
+        filename = app.config['resume_name']
+        print  "session resume name =>>=", app.config['resume_name']
     return render_template('set_resume.html', resume=content, filename=filename )
     
 def allowed_file(filename):
@@ -242,12 +244,14 @@ def upload():
         path = os.path.join(app.config['UPLOAD_FOLDER'] , filename)
         print "path=", path
         file.save( path )
+        print "session=", session
         resume = fileToTxt(path)
         session['resume'] = resume
         session['resume_name'] = filename
         app.config['matchjids'] = None 
+        app.config['resume'] = resume
         
-        print  "session resume name ===", session['resume_name']
+      #  print  "session resume name ===", resume
                         
         # Redirect the user to the uploaded_file route, which
         # will basicaly show on the browser the uploaded file
@@ -267,7 +271,7 @@ def resume_match(pageno):
      
      if ( app.config['matchjids'] == None ):  
          print "--- calculate similarity ----"
-         resume = session['resume']               
+         resume = app.config['resume']               
          resumeModel = resumeparser.parseResumeText(resume)                              
          modelColl = dataHandler.modelCollection  
          result = similarity.match_jobColl(resumeModel , modelColl  )
@@ -312,7 +316,7 @@ def resume_search(keyword, pageno):
      if app.config['keyword'] != keyword:
         jids = indexer.searchColl( dataHandler.jobCollection, keyword)    
         jobmodels = dataHandler.get_jobmodel_ids(jids)
-        resume = session['resume']               
+        resume = app.config['resume']             
         resumeModel = resumeparser.parseResumeText(resume)           
         result = similarity.match_jobModels(resumeModel , jobmodels) 
         app.config['matchjids'] = result
