@@ -1,15 +1,29 @@
 {% extends "simple_layout.html" %}
 
 {% block headerpart %}
-   {% include "header.html" %}    
+    {% include "header_withconn.html" %}    
 {% endblock %}	
 
 {% block mainpart %}
-      
    
-    <div style="width:820px" class="whitepaper" >
-         {% include 'search_pager.html' %}   
-         <div id="joblist"   >
+   
+   <div style="width:820px" class="whitepaper" >
+       <div id="searchbar" >
+        <form action="searchjobs.html" >
+            <input  name="query" type="input" style="margin-left:20px;float:left;width:200px"   />                      
+            <select style="float:left;margin-left:10px;width:120px;" name="qtype">
+             
+              <option value="jobtitle">Job Title</option>
+              <option value="jid">Job Id</option>
+              <option value="keyword">Keyword</option>
+               
+            </select>
+            <input  style="margin-left:10px;" type="submit" value="Search" />
+        </form>
+       </div>
+       
+       {% include "search_pager.html" %}    
+       <div id="joblist"   >
             <div   >
                 {% set i = 0 %}
                 {% for job in jobs %}
@@ -19,19 +33,19 @@
                          
                            <a class="jobtitle_a" target="_blank" href="jobdetail.html?jobid={{job._id}}" >{{job.jobtitle}}</a>
                            <span style="float:right" >
-                                 <div style="" class="score_block" > {{job.score}} </div>
-                                 <span   >  &nbsp;&nbsp; &nbsp;&nbsp; </span>
+                                <a href="/jobparas.html?jobid={{job._id}}" target="_blank" >Paragraph</a>
+                                <a href="/jobmodel.html?jobid={{job._id}}" target="_blank" >Model</a>
+                                <span style="float:right">ID: {{job._id}}</span>  
                            </span>
                            
                         </div>
                         <div>
                             <span style="width:200;"> Company: <b>{{job.company}} </b> </span>  
                             <span style="width:200;"> &nbsp;  &nbsp; &nbsp; Location : <b>{{job.location}}</b>  </span>  
-                             <span style="width:200;"> &nbsp;&nbsp; &nbsp;&nbsp; Score: <b>{{job.score}} </b> </span> 
                         </div>
                         <div>
                             {% autoescape false %}
-                              {{job.notag}}
+                             {{job.notag}}
                             {% endautoescape %}
                         </div>
                     </div>
@@ -39,6 +53,6 @@
                  
             </div>     
        </div> 
-          {% include 'search_pager.html' %}   
+       {% include 'search_pager.html' %}   
     </div>
 {% endblock %}

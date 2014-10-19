@@ -50,12 +50,19 @@ def createIndex():
          
     writer.commit()
 
-def search(keyoword):
+def search(keyoword,pageno):
     ix = index.open_dir(indexdir)
     with ix.searcher() as searcher:
        query = QueryParser("content", ix.schema).parse(keyoword)
        print "query =", query 
-       results = searcher.search(query, limit=20)
+   #    results = searcher.search(query, limit=20)
+   #    results = searcher.search(query )   
+      # results = searcher.search_page(query, pageno, pagelen=20)
+       results = searcher.search(query, limit=None)  
+     
+       length = results.scored_length()     
+       print "search length=", length
+      
        ids = []
        for result in results:
         #   print result

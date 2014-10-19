@@ -26,6 +26,8 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'doc', 'docx'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['resume'] = ""   
 app.config['resume_name'] = ""
+app.config['keyword'] = ""
+app.config['matchjids'] = None
 
 similarity = ModelSimilarity() 
      
@@ -110,22 +112,43 @@ def  jobModel():
 def  searchjob():    
    query = request.args.get('query', '').strip()
    qtype = request.args.get('qtype', '').strip()
-   print "qtype=", qtype
+   pageno = request.args.get('pageno', '').strip()
+   if pageno == "" :
+       pageno = 1 
+   else :
+       pageno = int(pageno)
+  
+   print "qtype=", qtype, " pageno = ", pageno 
+   pagerInfo= {}
    if qtype=="keyword" :
-       jids = indexer.search(query)
-       jobs = dataHandler.get_job_ids(jids)
-       pageno = 1
-       resultnum = len(jobs)
+       jobs, resultnum = ketword_search(query, pageno) 
+       pagerInfo["start"] = 1
+       pagerInfo["end"]  =  int(math.ceil(float(resultnum) /20))  
+       
+   elif qtype == "resume" :
+       return resume_match(pageno)     
+       
    else : 
        jobs, pageno, resultnum =  dataHandler.searchjobs(query,qtype )	
-       
+       pagerInfo["start"] = 1
+       pagerInfo["end"]  =  1  
+   
+   pagerInfo["pageno"] = pageno
    dbinfo["pageno"] = pageno
-   dbinfo['collsize'] =  resultnum
-   pagerInfo= {}
-   pagerInfo["start"] = 1
-   pagerInfo["end"]  =  1  
+   dbinfo['collsize'] =  resultnum  
   
-   return render_template('tag_index.html', dbinfo=dbinfo, pagerInfo=pagerInfo,  jobs=jobs)
+   return render_template('search_keyword.html', dbinfo=dbinfo, pagerInfo=pagerInfo,  jobs=jobs, query=query, qtype=qtype)
+
+def ketword_search(keyword,  pageno):
+   if app.config['keyword'] != keyword:
+       jids = indexer.search(keyword,pageno)
+       app.config['jids'] = jids
+       app.config['keyword'] = keyword
+   jids = app.config['jids'] 
+   start = (pageno - 1 ) * 20  
+   page = jids[start:start+20]
+   jobs = dataHandler.get_job_ids(page)
+   return jobs, len(jids)
 
 @app.route('/add_resume',  methods=['POST', 'GET'])     
 def add_resume():    
@@ -218,6 +241,8 @@ def upload():
         resume = fileToTxt(path)
         session['resume'] = resume
         session['resume_name'] = filename
+        app.config['matchjids'] = None 
+        
         print  "session resume name ===", session['resume_name']
                         
         # Redirect the user to the uploaded_file route, which
@@ -233,25 +258,37 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
                                
-@app.route('/resume_match')    
-def resume_match():         
-     resume = session['resume']               
-     resumeModel = resumeparser.parseResumeText(resume)                              
-     modelColl = dataHandler.modelCollection  
-
-     result = similarity.match_jobColl(resumeModel , modelColl  )
-     i = 0
-     jobs = []
-     for key, value in result:
-         i += 1
-         print i,key, value
+#@app.route('/resume_match')    
+def resume_match(pageno):         
+     
+     if ( app.config['matchjids'] == None ):  
+         print "--- calculate similarity ----"
+         resume = session['resume']               
+         resumeModel = resumeparser.parseResumeText(resume)                              
+         modelColl = dataHandler.modelCollection  
+         result = similarity.match_jobColl(resumeModel , modelColl  )
+         app.config['matchjids'] = result
+         print "match len =", len(result)     
+         
+     result = app.config['matchjids']  
+     start = pageno*20
+     jobpage =  result[start:start+20]    
+     jobs=[]
+     for key, value in jobpage:         
+  #       print  key, value
          job = dataHandler.get_job(key)
          job["score"] = value
          jobs.append(job)
-         if i == 30 :
-             break
-
-     return render_template('job_match2.html', jobs=jobs) 
+          
+  #    return render_template('search_keyword.html', dbinfo=dbinfo, pagerInfo=pagerInfo,  jobs=jobs, query=query, qtype=qtype)
+     pagerInfo = {} 
+     resultnum = len(result) 
+     pagerInfo["start"] = 1
+     pagerInfo["end"]  =  int(math.ceil(float(resultnum) /20))  
+     pagerInfo["pageno"] = pageno
+     dbinfo["pageno"] = pageno
+     dbinfo['collsize'] =  resultnum
+     return render_template('job_match2.html', dbinfo=dbinfo, pagerInfo=pagerInfo,  jobs=jobs, query="", qtype="resume") 
      
 @app.route('/resume_keyword.html')    
 def resume_keyword():

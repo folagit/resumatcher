@@ -1,0 +1,15 @@
+<div id="pager"  >
+    <div >
+        <span >There are {{dbinfo.collsize}} results, this is Page No. <b> {{pagerInfo.pageno}} </b>  </span>
+        <br/><br/>
+    </div>
+    <div>
+        {% for i in range( pagerInfo.start, pagerInfo.end+1) %}  
+            {% if i != pagerInfo.pageno %}
+                <a class="pager_block" target="_top" href="/searchjobs.html?query={{query}}&qtype={{qtype}}&pageno={{i}}"> {{i}} </a>            
+            {% else %}
+                <span class="pager_block" style="background-color:#ffffff;color:#8AC007;" > {{i}} </span> 
+            {% endif %}
+        {% endfor %}                     
+    </div>
+</div> 

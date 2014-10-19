@@ -91,7 +91,7 @@ class ModelSimilarity():
             return 1
         score = 0
         for skill in jobSkills :         
-            print "jobskill=", skill
+  #          print "jobskill=", skill
             if skill in resumeSkills :
                 score += 1
             else :                
@@ -105,17 +105,17 @@ class ModelSimilarity():
         
     def getOntoDistance(self, jobskill,reskill):
          if self.pairDict.has_key((jobskill,reskill)) :
-             print "pairvalue=", self.pairDict[(jobskill,reskill)]
+ #            print "pairvalue=", self.pairDict[(jobskill,reskill)]
              return self.pairDict[(jobskill,reskill)]
          if self.pairDict.has_key((reskill, jobskill )) :
-             print "pairvalue=", self.pairDict[(reskill, jobskill )] 
+ #            print "pairvalue=", self.pairDict[(reskill, jobskill )] 
              return self.pairDict[(reskill, jobskill )] 
          
          ref_jobskill =  self.ontology.toURIRef(jobskill)
          ref_reskill = self.ontology.toURIRef(reskill)
          
          if self.ontology.isSuperClass(ref_reskill,ref_jobskill ):
-             print reskill, jobskill , "superclass"
+  #           print reskill, jobskill , "superclass"
              return 1
          else: 
              return 0
@@ -131,7 +131,8 @@ class ModelSimilarity():
              score = int (self.getSimilarity( resumeModel,  jobModel )*100) 
              
           #   print jid , "--->" ,score
-             jobscore[jid] = score
+             if (score > 0):
+               jobscore[jid] = score
          jobscore =  sorted(jobscore.items(), key=operator.itemgetter(1), reverse= True)     
          return jobscore
          
