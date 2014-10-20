@@ -1,6 +1,6 @@
 \chapter{Information Extraction}
 
-The content-based recommender systems need the structured information of items, but the items in JRS are resumes and job descriptions are written in natural language, so how to get information from the documents is a big challenge. In some JRSs the users are asked to input personal information, like education and experience details, skills to the system. However, in real life, the job seekers do not input a lot information in the on-line form ~\cite{singh2010prospect}, but like to upload their resumes. To the company's side, the recruiters do not like input the job information in the web form either, but prefer to post the whole job description to the web site. Information extraction (IE) is the task of automatically extracting structured information from unstructured and/or semi-structured machine-readable documents.
+The content-based recommender systems need the structured information of items, but the items in JRSs are resumes and job descriptions are written in natural language, so how to get information from the documents is a big challenge. In some JRSs the users are asked to input personal information, like education and experience details, skills to the system. However, in real life, the job seekers do not input a lot information in the on-line form ~\cite{singh2010prospect}, but like to upload their resumes. To the company's side, the recruiters do not like input the job information in the web form either, but prefer to post the whole job description to the web site. Information extraction (IE) is the task of automatically extracting structured information from unstructured and/or semi-structured machine-readable documents.
 
 \section{Text Processing Pipeline}
 
@@ -42,7 +42,7 @@ There are two kinds of competitive techniques in Information Extraction, one is 
 Rule-based &
     \begin{singlespace}
        \textbullet~Declarative  \par
-       \textbullet~Easy to comprehend  \par
+       \textbullet~Easy to comprehend\par
        \textbullet~Easy to maintain\par
        \textbullet~Easy to incorporate domain knowledge\par
        \textbullet~Easy to trace and fix the cause of errors  \par
@@ -79,9 +79,9 @@ In this work, we prefer the rule-based approach because:
 
 \section{Regular Expression Over Labeled Tokens}
 
-Cascaded Finite-State Transducer as a tool to match patterns and extract information for more than 20 years. This approach had been demonstrated very effective in extracting information from text like CIRCUS~\cite{lehnert1991university} and FASTUS~\cite{hobbs199713}.  In the widely used NLP toolkit GATE~\cite{cunningham2002framework}, the semantic tagger JAPE (Java Annotations Pattern Engine) could describe patterns that are used to match and annotate tokens. JAPE adopted a version of CPSL (Common Pattern  Specification Language)~\cite{appelt1998common}, which provides finite state transduction over annotations. Chang et al. presented cascaded regular expressions over tokens~\cite{chang2014tokensregex}, which proposed a cascaded pattern matching tool over token sequences.
+Cascaded Finite-State Transducer is used as a tool to match patterns and extract information for more than 20 years. This approach have been demonstrated very effective in extracting information from text like CIRCUS~\cite{lehnert1991university} and FASTUS~\cite{hobbs199713}.  In the widely used NLP toolkit GATE~\cite{cunningham2002framework}, the semantic tagger JAPE (Java Annotations Pattern Engine) could describe patterns that are used to match and annotate tokens. JAPE adopts a version of CPSL (Common Pattern  Specification Language)~\cite{appelt1998common}, which provides finite state transduction over annotations. Chang et al. presented cascaded regular expressions over tokens~\cite{chang2014tokensregex}, which proposed a cascaded pattern matching tool over token sequences.
 
-After studying these tools, we found most them are powerful, complex, but not very flexible. One reason is that developers need to learn some DSLs like CPSL, and the other is  integrating the pattern matching tool into the system need extra efforts. So here we proposed a more flexible and lightweight framework, which can do regular expression matching over labeled tokens. The difference between this library and regular expression is that the basic unit to be matched is token, not character. In the library, a pattern is a concatenation of matchers£¬ which can match a single token, or can be a wrapper of other matchers. Currently we support seven types of matchers, those are listed in table~\ref{tab:matchers}.
+After studying these tools, we found most of them are powerful, complex, but not very flexible. One reason is that developers need to learn some DSLs like CPSL, and the other is  integrating the pattern matching tool into the system need extra efforts. So here we proposed a more flexible and lightweight framework, which can do regular expression matching over labeled tokens. The difference between this library and regular expression is that the basic unit to be matched is token, not character. In the library, a pattern is a concatenation of matchers that can match a single token, or a wrapper of other matchers. Currently the library supports seven types of matchers, those are listed in Table~\ref{tab:matchers}.
 
 \begin{table}[ht]
 \caption{Matcher Class } % title of Table
@@ -109,7 +109,7 @@ After studying these tools, we found most them are powerful, complex, but not ve
 \label{tab:matchers} % is used to refer this table in the text\section{Pipeline of Information Extraction}
 \end{table}
 
-The framework support three styles to create patterns, which gives developers great flexibility. The most common style is define pattern expression in a string, which is much like traditional regular expression. We give an example as follows:
+The framework supports three styles to create patterns, which gives developers great flexibility. The most common style is defining pattern expression in a string, which is much like traditional regular expression. We give an example as follows:
 
 \begin{framed}
 \small
@@ -124,12 +124,12 @@ The seconde style is using algebra operator to connect matchers, as follows:
 \begin{lstlisting}[language=Python]
 Pattern: " aaa (bbb | cccc)"
 seqMatcher =  TokenMatcher("aaa") +
-    TokenMatcher("bbb") | TokenMatcher("ccc")  
+    TokenMatcher("bbb") | TokenMatcher("ccc")
 
 \end{lstlisting}
 \end{framed}
 
-We also could create complex matcher in programming style, which like we create and use some objects when programming, like this:
+We also could create complex matcher in programming style, which is like we creating and using some objects when programming, as follows:
 
 \begin{framed}
 \small
@@ -207,7 +207,7 @@ The NFA for e+ also creates a loop, but one that requires passing through e at l
   \label{fig:nfa_plus}
 \end{figure}
 
- 
+
 
 The expression like ``DL (, DL])*  (or DL)? DEGREE'' could be transferred to an FST in Figure ~\ref{fig:fst}.
 
@@ -220,7 +220,7 @@ The expression like ``DL (, DL])*  (or DL)? DEGREE'' could be transferred to an 
 
 \section{Semantic Label}
 
-In the text of natural language, one concept always have some different expressions. For example, the simple concept bachelor's degree,  has several expression in job descriptions, like B.S., BA/BS, 4 years degree, and so on. The table ~\ref{tab:multispelling} shows the words that if followed with word "degree", have the semantic value of ``bachelor's degree''.
+In the text of natural language, one concept always have some different expressions. For example, the simple concept bachelor's degree,  has several expression in job descriptions, like B.S., BA/BS, 4 years degree, and so on. The Table~\ref{tab:multispelling} shows the words that if followed with word "degree", have the semantic value of ``bachelor's degree''.
 
 \begin{table}[ht]
 \caption{All words have meaning bachelors } % title of Table
@@ -255,9 +255,9 @@ We transfer the sentences will be matched to a structure with two layers labels.
 \label{tab:labeldsent} % is used to refer this table in the text\section{Pipeline of Information Extraction}
 \end{table}
 
-We use a dictionary to store the words in sentences and their labels, in which the key is the different spellings an expressions, and the value is the meaning of the concept. For example the table ~\ref{tab:multispelling} shows all keys in the dictionary with and the values ``bachelors''.
+We use a dictionary to store the words in sentences and their labels, in which the key is the different spellings an expressions, and the value is the meaning of the concept. For example the Table~\ref{tab:multispelling} shows all keys in the dictionary with and the values ``bachelors''.
 
-After labeling, the sentence become a sequence of arrays, each array includes the token and its labels in two layers. The flexibility of the tool also comes from that developers could determine which layer of the array should be matched, the original text or labels in the first or second layer.  Developers can assign lambda expressions to the matcher's catching function, which defines how to get the matching input,  and out function, which defines what should be outputed. For example,  to match the labeled sentence, we set the lambda expression for catching function to "lambda x:x[2] ", and the out function to "lambda x:x[1]", which make the matcher match the pattern with second layer, and output the  the value of semantic value. We show some patterns used to match degree phases in table ~\ref{tab:patterns}:
+After labeling, the sentence become a sequence of arrays, each array includes the original token and its labels in the other two layers. The flexibility of the tool also comes from that developers could determine which layer of the array should be matched, the original text or labels in the first or second layer.  Developers can assign lambda expressions to the matcher's catching function, which defines how to get the matching input,  and out function, which defines what should be outputed. For example, to match the labeled sentence, we set the lambda expression for catching function to ``lambda x:x[2]'', and the out function to ``lambda x:x[1]'', which make the matcher match the label in second layer, and output the the value of semantic value in the first layer. We show some patterns used to match degree phases in Table ~\ref{tab:patterns}.
 
 \begin{table}[ht]
 \small
