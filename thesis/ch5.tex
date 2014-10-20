@@ -1,7 +1,7 @@
 \chapter{Ontology Construction and Similarity}
 
 
-We notice that simple keywords matching is not a good similarity measure, because job description and resume are both written in human language, even one concept, they could be written in different ways, and and some different concepts have a close relationship. For example, Table~\ref{tab:resume_jd}  is part of the resume of a job seeker, and part of a job description:
+We notice that simple keywords matching is not a good similarity measure, because job description and resume are both written in human language. In these documents, even one concept can be written in different ways, and and some different concepts have close relationship. For example, Table~\ref{tab:resume_jd}  is part of the resume of a job seeker, and part of a job description:
 
 \begin{table}[ht]
 \caption{Resume and Job Description} % title of Table
@@ -28,20 +28,19 @@ We notice that simple keywords matching is not a good similarity measure, becaus
 \label{tab:resume_jd} % is used to refer this table in the text
 \end{table}
 
-If just looking at the text, we can find the resume has few common words with the job description. But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use key word matching, the system won't give a good matching result in this very common situation. 
+If just looking at the text, we can find that the resume has few common words with the job description. But from the view of an experienced engineer, the candidate is pretty matching the job. Because relational databases Oracle and Mysql are very similar, OOA/OOD is the same meaning of many years of Java and C++ experience, and Tomcat and JBOSS are two Java web applications servers.  If we use key word matching, the system won't give a good matching result in this very common case.
 
 \section{Semantic Similarity in JRSs}
-We had studied previous work on similarity measures in JRSs, some of them use ontology to store knowledge and rules, also aid information extraction. Liu and Dew~\cite{liu2004using} used RDF to represent and store the expertise of experts , and a RDF-based Expertise Matcher could retrieves the experts whose expertise include the required concept.
+We had studied previous work on similarity measures in JRSs, some of them use ontology as knowledge base to store knowledge and rules, which could help compare the similarity between different concepts. Liu and Dew~\cite{liu2004using} used RDF to represent and store the expertise of experts, and they used a RDF-based Expertise Matcher to retrieve the experts whose expertise include the required concept.
 
-Proactive~\cite{lee2007fighting} used two kinds of ontology, job category and the company information. The system used ontology checker to classify the job information, stored the domain knowledge and calculated the weight value in recommendations. 
+Proactive~\cite{lee2007fighting} used two kinds of ontology, job category and the company information. The system used ontology checker to classify the job information, stored the domain knowledge and calculated the weight value in recommendations.
 
-
-Fazel \cite{fazel2009semantic} used a hybrid approach to matching job seekers and job postings, which takes advantage of the benefits of both logic-based and ontology-based matching. In his paper the description logics (DL) is used to represent the candidate and job opening, and the ontology is used to organize the skills in a skill taxonomy. He gave an equation to calculate  the matching degree:
+Fazel \cite{fazel2009semantic} used a hybrid approach to matching job seekers and job postings, which takes advantage of the benefits of both logic-based and ontology-based matching. In his paper the description logics (DL) is used to represent the candidate and job opening, and the ontology is used to organize the skills in a skill taxonomy. He gave an equation to calculate the matching degree:
 $$ sim\left(P ,j \right) = \sum x_{ij} \times u(ds_i) $$
 
 where, $x_{ji}$ is the Boolean variable indicating whether desire i is satisfied by applicant $A_{j}$ in the set of all qualified applications.
 
-Kumaran et al~\cite{kumaran2013towards} also used ontology to calculate the similarity between job criteria and candidates's resume in their system~\cite{kumaran2013towards}. The similarity equation they used are:
+Kumaran et al.~\cite{kumaran2013towards} also used ontology to calculate the similarity between job criteria and candidates's resume in their system~\cite{kumaran2013towards}. The similarity equation they used are:
 $$ M\left ( i_1, i_2 \right ) = \frac{\sum_{k=1}^{n} Sim\left (p_{k}^{i1},  p_{k}^{i2} \right ) * W_{k}^{i2}}{\sum_{k=1}^{n} W_{k}^{i2}}  $$
 The similarity function $Sim(p_1, p_2)$ is defined as follows:
 $$ Sim(p1, p2) = \begin{Bmatrix}
@@ -53,11 +52,11 @@ $$ Sim(p1, p2) = \begin{Bmatrix}
 
 \section{Ontology Construction}
 
-Before calculate the similarity between concepts, we need construct the Ontology at first. Semantic web have been a hot research topic in these years, thousands of domain ontologies had created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts. ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area. Currently, there is no IT technology ontology build for recruiting purpose.
+Before calculate the similarity between concepts, we need construct the Ontology at first. Semantic web have been a hot research topic in these years, as the same time thousands of domain ontologies had been created~\cite{ding2004swoogle}. A paradigmatic example is WordNet~\cite{fellbaum1998wordnet}, is a general purpose thesaurus, that contains more than 100,00 general English concepts. ACM has created a poly-hierarchical ontology that can be utilized in semantic web applications~\cite{acm2012class}, but it is mostly used in academic area. Currently, there is domain specific technology ontology built for recruiting purpose.
 
-The IT ontology for recruiting should include a lot of technical terms, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, and construction tools. Inspiring on this paper, we used semi-automatic approach to construct the IT skill ontology.
+The domain specific technology ontology for recruiting should include a lot of technical terms, like programming language, programming library, commercial products and so on. Furthermore there are new techniques invented everyday, so new IT terms will appear continuously. Ding et al.~\cite{ding2002ontology} give a survey of current ontology generation approaches, such as manual, semi-automatic, and automatic. Some aspects the approaches had been discussed in the paper, like the source data, concept extraction methods, Ontology representation, and construction tools. Inspiring on this paper, we propose a semi-automatic approach to construct the IT skill ontology.
 
-From the observation, we found that  skills requirement part of job description always list several skills in one the sentence, which is shown in table ~\ref{tab:skillrequirement}. Based on this character, we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms from job descriptions, and add them to the term list. Then we use our pattern matching tools to find tokens matching some patterns in table \ref{tab:patterns}.  The terms we get have high probability to be technical terms. Then we could check the words in Dbpedia to check whether they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms, and add them to the terms list. 
+From the observation, we found that  skills requirement part of job descriptions always list several skills in one the sentence, which is shown in Table ~\ref{tab:skillrequirement}. Based on this character, we propose a bootstrap approach to collect IT terms in job descriptions. We first manually collect about fifty terms from job descriptions, and add them to the term list. Then we use our pattern matching tools to find tokens matching some patterns in Table \ref{tab:patterns}.  The terms we get have high probability to be technical terms. Then we could check the words in Dbpedia to check whether they are under the categories like software, programming language or any other technical related ones. If they are, we could classify them as terms, and add them to the terms list.
 
 \begin{table}[ht]
 \caption{Some sentences Job Description} % title of Table
@@ -100,7 +99,7 @@ From the observation, we found that  skills requirement part of job description 
 \label{tab:termspattern} % is used to refer this table in the text
 \end{table}
 
-For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If any element in ``dcterms:subject'' has the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we can indicate that the word is a technical term, and pop them up. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}
+For example, we extract the word  ''XSL'', which currently not in the skill set. We check the word on DBpedia, get the XML formatted description from URL : http://dbpedia.org/page/XSL. If any element in ``dcterms:subject'' has the value which is the technical category,  like ``Programming languages'', ``Markup languages'', we can indicate that the word is a technical term, and pop them up. Such iteration will continue until the number of new terms getting below a threshold. The process is shown Figure ~\ref{fig:gen_onto}.
 
 \begin{figure}[htbp]
   \includegraphics[scale=0.6]{images/genonto.png}
@@ -108,7 +107,7 @@ For example, we extract the word  ''XSL'', which currently not in the skill set.
   \label{fig:gen_onto}
 \end{figure}
 
-After getting all terms, we use Protege~\cite{noy2001creating}, an open source ontology editor, to create the domain specific ontology, save as RDF format. It's interface of Protege is shown in Figure~\ref{fig:Protege}. Part of the technical ontology is shown in Figure ~\ref{fig:ontology_pro}.
+But not all the extracted terms can be verified in DBpedia, because some terms have multiple meaning in English, and the URLs of DBpedia page in are unpredictable. For example, the word ``Python'' could be an animal name or a programming language. The meaning we want, the programming language, has the DBpedia URL http://dbpedia.org/page/Python_(programming_language). In such case, we have to check the terms manually.  After getting all terms, we use Protege~\cite{noy2001creating}, an open source ontology editor, to create the domain specific ontology which is saved in RDF format. The interface of Protege is shown in Figure~\ref{fig:Protege}. Part of the technical ontology is shown in Figure ~\ref{fig:ontology_pro}.
 
 
 \begin{figure}[htbp]
@@ -119,7 +118,6 @@ After getting all terms, we use Protege~\cite{noy2001creating}, an open source o
 \end{figure}
 
 \begin{figure}[htbp]
-
   \includegraphics[scale=0.6]{images/ontology_pro.png}
   \caption{Part of Ontology}
   \label{fig:ontology_pro}
@@ -131,17 +129,17 @@ The Ontology technics had also been used in some JRSs, which provide a formal sp
 
 
 \subsection{Path-based approaches}
-In path-based approaches , the ontology is viewed as a directed graph, in which the nodes are the concepts, the edges are taxonomic relation, like (is-a). Rada, et al.,~\cite{rada1989development} measure the similarity by the distance of two nodes in the graph. So the semantic distance of two concepts a and b will be:
+In path-based approaches , the ontology is viewed as a directed graph, in which the nodes are the concepts, the edges are taxonomic relation, like (is-a). Rada, et al.,~\cite{rada1989development} measure the similarity by the distance of two nodes in the graph. So the semantic distance of two concepts $a$ and $b$ will be:
 $$ dis_{rad}(a,b) = min |path_i(a,b)| $$
 
-Wu and Palmer ~\cite{wu1994verbs} realized that the depth in the taxonomy will impact the similarity measure of two nodes, because the more deeper of the nodes are in the tree, the semantic distance is smaller. So they gave a new measure of ontology:
+Wu and Palmer~\cite{wu1994verbs} realized that the depth in the taxonomy will impact the similarity measure of two nodes, because the more deeper of the nodes are in the tree, the semantic distance is smaller. So they gave a new measure of ontology:
 $$ sim_{w\&p}(a,b) = \frac{2 \times N_3}{N_1 + N_2 + 2 \times N_3} $$
 $N_1$ and $N_2$ is the numbers of is-a links from each term to their Least Common Subsumer(LCS), $N_3$ is the number of is-a links of the LCS to the root of the ontology.
 
-Based on the same idea, Leacock and Chodorow~ \cite{leacock1998combining} also proposed similarity measure that combined distance Np between terms a and b and the depth $D$ of the taxonomy.
+Based on the same idea, Leacock and Chodorow~\cite{leacock1998combining} also proposed a similarity measure that combined distance $Np$ between terms $a$ and $b$ and the depth $D$ of the taxonomy.
 $$ sim_{l\&c}(a,b) = -\log (Np/ 2D) $$
 
-There are some limitations of path-based approaches. First it only consider the shortest path between concept pairs, when they meet complex situation like multiple taxonomical inheritance, the accuracy of them will be low.  Another problem of path-based measures assume that all links in the taxonomy have uniform distance.
+There are some limitations of path-based approaches. First it only consider the shortest path between concept pairs, when they meet complex situation like multiple taxonomical inheritance, the accuracy of them will be low. Another problem of path-based approaches is that they assume that all links in the taxonomy have uniform distance.
 
 \subsection{Feature-based measures}
 
@@ -163,7 +161,7 @@ The are also two disadvantages of content-based measures. First these approaches
 
 
 \section{Statistical-based Ontology Similarity Measure }
-In this thesis, I proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required.  From observation, we found that related skills always exist in the job description simultaneously, and the positions of them are always close, e.g. HTML and CSS are always required together, and appear in the same sentence. We could see this phenomenon in table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job descriptions.
+In this thesis, I proposed a new statistical-based ontology similarity measure. In most of job descriptions, they will list many skills the positions required. From observation, we found that related skills always exist in the job description simultaneously, and the positions of them are always close, e.g. HTML and CSS are always required together, and appear in the same sentence. We could see this phenomenon in Table~\ref{tab:skillinsent}, which include some skills requirement sentences from some job descriptions.
 
 \begin{table}[ht]
 \caption{Some sentences Job Description} % title of Table
@@ -179,7 +177,7 @@ In this thesis, I proposed a new statistical-based ontology similarity measure. 
 \label{tab:skillinsent} % is used to refer this table in the text
 \end{table}
 
-We could see from the table, the technical close related concepts are always have short distance. Based on such observation, we give a new statistical-based ontology similarity measure. Similarity between two concepts can be calculated,  if the two concepts $a$ and $b$ have the same direct hypernym or one  is the hypernym of the other. Their similarity $S_{a,b}$ could be the ratio between two factors:
+We could see from the Table~\ref{tab:skillinsent}, the closely related concepts are always have short distance. Based on such observation, we give a new statistical-based ontology similarity measure. Similarity between two concepts can be calculated, if the two concepts $a$ and $b$ have the same direct hypernym or one  is the hypernym of the other. Their similarity $S_{a,b}$ could be the ratio between two factors:
 
 \begin{enumerate}
     \item The ratio of the number of documents they exist together $N_{a \cap b}$ to the number of documents have a least one them $N_{a \cup b}$.
