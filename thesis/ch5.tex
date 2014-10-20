@@ -1,6 +1,5 @@
 \chapter{Ontology Construction and Similarity}
 
-
 We notice that simple keywords matching is not a good similarity measure, because job description and resume are both written in human language. In these documents, even one concept can be written in different ways, and and some different concepts have close relationship. For example, Table~\ref{tab:resume_jd}  is part of the resume of a job seeker, and part of a job description:
 
 \begin{table}[ht]
@@ -107,7 +106,7 @@ For example, we extract the word  ''XSL'', which currently not in the skill set.
   \label{fig:gen_onto}
 \end{figure}
 
-But not all the extracted terms can be verified in DBpedia, because some terms have multiple meaning in English, and the URLs of DBpedia page in are unpredictable. For example, the word ``Python'' could be an animal name or a programming language. The meaning we want, the programming language, has the DBpedia URL http://dbpedia.org/page/Python_(programming_language). In such case, we have to check the terms manually.  After getting all terms, we use Protege~\cite{noy2001creating}, an open source ontology editor, to create the domain specific ontology which is saved in RDF format. The interface of Protege is shown in Figure~\ref{fig:Protege}. Part of the technical ontology is shown in Figure ~\ref{fig:ontology_pro}.
+But not all the extracted terms can be verified in DBpedia, because some terms have multiple meaning in English, and the URLs of DBpedia page in are unpredictable. For example, the word ``Python'' could be an animal name or a programming language. The meaning we want, the programming language, has the DBpedia URL http://dbpedia.org/page/Python\_(programming\_language). In such case, we have to check the terms manually.  After getting all terms, we use Protege~\cite{noy2001creating}, an open source ontology editor, to create the domain specific ontology which is saved in RDF format. The interface of Protege is shown in Figure~\ref{fig:Protege}. Part of the technical ontology is shown in Figure ~\ref{fig:ontology_pro}.
 
 
 \begin{figure}[htbp]
@@ -257,4 +256,5 @@ We got the relevance matrix with the algorithm ~\ref{alg:alg_similarity} from 50
 
 \section{Combine Keyword Search and Ontology Matching }
 
-Using ontology matching, the system can give job seekers some jobs appropriate to their background. But in some cases, job seekers have their own preference when choosing jobs. These cases are not very rare, for example, some people may want to try some new positions or industries they have no or few experience, because they are boring with current positions, or they want to learn some perspective technologies. Considering such situation, we add a new searching feature to the system, which combine the traditional keyword searching and our ontology matching approach. At first users need to upload their resume, and then they can use keywords to search jobs. The system will get the jobs that contain the keywords, and the jobs are ranked by their similarity values to the users' resume. The keywords represent user's preference, that jobs satisfied this criteria will be returned, and the ontology similarity become the ranking algorithm, which make the top items of the searching result more relevance to user.
+Using ontology matching, the system can give job seekers some jobs appropriate to their background. But in some cases, job seekers have their own preference when choosing jobs. These cases are not very rare, for example, some people may want to try some new positions or industries they have no or few experience, because they are boring with current positions, or they want to learn some perspective technologies. Considering such situation, we add a new searching feature
+ to the system, which combine the traditional keyword searching and our ontology matching approach. At first users need to upload their resume, and then they can use keywords to search jobs. The system will get the jobs that contain the keywords, and the jobs are ranked by their similarity values to the users' resume. The keywords represent user's preference, that jobs satisfied this criteria will be returned, and the ontology similarity become the ranking algorithm, which make the top items of the searching result more relevance to user.
