@@ -305,10 +305,10 @@ def resume_match(pageno):
 def resume_keyword():
     content = ""
     filename = ""
-    if session.has_key("resume"):    	    
-        content = session['resume']   
-        filename = session['resume_name']
-        print  "session resume name =>>=", session['resume_name']
+    if app.config.has_key("resume"):    	    
+        content = app.config['resume']   
+        filename = app.config['resume_name']
+     #   print  "session resume name =>>=", session['resume_name']
     return render_template('resume_keyword.html', resume=content, filename=filename )
     
 #@app.route('/resume_search')    

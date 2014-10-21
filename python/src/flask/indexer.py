@@ -42,7 +42,8 @@ def createIndex(coll):
     ix = index.create_in(indexdir, schema)
     writer = ix.writer()
     for job in coll.find():  
-        
+        if job.has_key("job_title"):
+            job["jobtitle"] = job["job_title"]
  #       print    job["_id"] , ">>" , job["jobtitle"].encode("GBK", "ignore")
        # print     job["notag"].encode("GBK", "ignore")
         writer.add_document(jobtitle= job["jobtitle"], jobid=job["_id"],
@@ -75,7 +76,7 @@ def searchColl(coll, keyoword):
       
 def createJobIndex():
     dbClient = DbClient('localhost', 27017, "jobaly")  
-    collname = "job100"
+    collname = "job1000"
     coll = dbClient.getCollection(collname)
      
     createIndex(coll)
