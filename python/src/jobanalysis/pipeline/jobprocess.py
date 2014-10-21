@@ -115,9 +115,9 @@ def parseSkill(jobModel, sent ):
 def processTitle(jobModel, sent ):
     pass    
 
-def processjobs():
-     srcBbClient = DbClient('localhost', 27017, "jobaly")
-     jobCollName = "job100"
+def processjobs(dbname, collname):
+     srcBbClient = DbClient('localhost', 27017, dbname)
+     jobCollName = collname
      
      jobmodelCollName = jobCollName+"_model"
      collection = srcBbClient.getCollection(jobCollName)
