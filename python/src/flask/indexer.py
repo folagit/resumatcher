@@ -25,8 +25,7 @@ indexdir = "index"
 #searcher = myindex.searcher()
 #jobColl = dataHandler.jobCollection
 
-def removeHtml(coll):
-    
+def removeHtml(coll):    
      for job in coll.find():
          content = remove_tags(job["summary"]).strip()
          job["notag"] = content

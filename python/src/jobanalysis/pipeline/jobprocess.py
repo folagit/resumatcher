@@ -115,6 +115,17 @@ def parseSkill(jobModel, sent ):
 def processTitle(jobModel, sent ):
     pass    
 
+TAG_RE = re.compile(r'<[^>]+>')
+
+def remove_tags(text):
+    return TAG_RE.sub(' ', text)
+
+def removeHtml(coll):    
+     for job in coll.find():
+         content = remove_tags(job["summary"]).strip()
+         job["notag"] = content
+         coll.save(job)
+
 def processjobs(dbname, collname):
      srcBbClient = DbClient('localhost', 27017, dbname)
      jobCollName = collname

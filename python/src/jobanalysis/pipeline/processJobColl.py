@@ -11,7 +11,6 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from jobaly.db.dbclient import DbClient
-from jobaly.db.collutils import copyCollection
 from flask.indexer import createIndex
 from jobprocess import processjobs
 
@@ -22,20 +21,7 @@ def createJobIndex():
      
     createIndex(coll)
 
-def copyColl():
-    targetDb = "jobaly"
-    targetClient = DbClient('localhost', 27017, targetDb) 
-    srcDb = "jobaly_daily" 
-    srcClient = DbClient('localhost', 27017, srcDb)
-    
-    targetCollName = "job1000"     
-    srcCollnames = "daily_job_info_2014-06-16"
-    
-    srcColl = srcClient.getCollection(srcCollnames)
-    targetColl = targetClient.getCollection(targetCollName)
-    
-    size = 1000 
-    
+def copyColl(srcColl,  targetColl, size ):
     result = srcColl.find()
     i = 1
     for item in result:
@@ -49,13 +35,33 @@ def copyColl():
 
 def createModelColl():
     dbname = "jobaly"
-    collname = "job1000"
+    collname = "job100"
     processjobs( dbname, collname )
      
-def main(): 
-   # copyColl()
-    createModelColl()
-  # createJobIndex()
+def processJobColl(): 
+    
+    
+    srcDb = "jobaly_daily" 
+    srcCollnames = "daily_job_info_2014-06-16"    
+    srcDb = "jobaly_daily_test" 
+    srcCollnames = "daily_job_webdev" 
+    srcClient = DbClient('localhost', 27017, srcDb)
+    srcCollnames = "daily_job_info_2014-06-16"    
+    srcColl = srcClient.getCollection(srcCollnames)
+    
+    targetDb = "jobaly"
+    targetCollName = "job100" 
+    targetClient = DbClient('localhost', 27017, targetDb)
+           
+    targetColl = targetClient.getCollection(targetCollName)
+    
+    size = 15 
+  #  copyColl(srcColl,  targetColl, size)
+    processjobs( targetDb, targetCollName )
+   # createIndex(targetColl) 
+    
+def main():
+    processJobColl()
      
 if __name__ == "__main__": 
     main() 
