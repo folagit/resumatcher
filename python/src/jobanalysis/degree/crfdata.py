@@ -48,55 +48,44 @@ def tagSentence(sent):
   #  print posTags
     return (tokens, posTags)
 
-def labelDegreeSet(matchers, data_set_name, outfileName,failfilename):
-   
-    for matcher in matchers:       
-            matcher.matchNum = 0     
-     
+def labelDegreeSet( data_set_name, outfileName ):
+    
     data = datautils.loadJson(data_set_name)
    
-    f = open(outfileName, "w")
-    f2 = open(failfilename, "w")
-    total = 0
-    m = 0
+    f = open(outfileName, "w")     
+    total = 0    
     for item in data:
-    #    print item
+      #  print item
         sent = item[2]    
-        sid = item[0]         
-        matcher = None
-        degreeSent, matcher = labelSentByMatchers(matchers, sent) 
-     
-        if matcher is not None:
-            output = matcher.output()
-            found = matcher.found
-        else:
-            output = None
-            found = None
+     #   sid = item[0]        
         
-        print sid ,found, output 
+        print sent 
+        labeledSent = labelSent( sent )
+      #  print labeledSent.getCrfFormat()
+        f.write(labeledSent.getCrfFormat())
         total += 1
-        if matcher is not None :
-            m+=1
-            f.write( sent +"\n\n" )
-            f.write( degreeSent.printLabeledArray().get_string() +"\n\n" )
-            f.write( str(found) + "   " + str(output) +"\n\n" )
-        else :
-            f2.write( sent +"\n\n" )
-            f2.write( degreeSent.printLabeledArray().get_string() +"\n\n" )
-             
-    f2.write( "\n\n match="+ str( m) + "  total="+ str( total) + "  radio=" + str (float(m)/total) +"\n" )
-             
-    print "match=", m, "  total=", total, "  radio=", float(m)/total
+        
+def labelExampleSet( data_set_name, outfileName, start, end ):
     
-    i = 0
-    for matcher in matchers :
-        i+=1
-        print "matcher ", i, ":", matcher.matchNum
-        f2.write( "\n matcher " + str( i) + ":" + str( matcher.matchNum ) )
-
-
+    data = datautils.loadJson(data_set_name)
+   
+    f = open(outfileName, "w")     
+    total = 0    
+    r = 100
+    for i in range(end-start):
+      #  print item
+        item = data[i+start]
+        sent = item[2]    
+     #   sid = item[0]        
+        
+        print sent 
+        labeledSent = labelSent( sent )
+      #  print labeledSent.getCrfFormat()
+        f.write(labeledSent.getCrfFormat())
+        total += 1
+        
 def labelSent( sent):
-    tokens, posTags =  tagSentence(sent4)   
+    tokens, posTags =  tagSentence(sent)   
     degreeSent = JobSentence(tokens, posTags)
     labeler.labelSentence(degreeSent)
  #   print degreeSent.printSentenct()  
@@ -108,13 +97,17 @@ def labelSent( sent):
 def main():       
 
    target_set_name = "output\\degree_3"
-   outfileName = "output\\data3_degree_array.txt"
-   failfilename =  "output\\data3_degree_array_fail.txt"   
+   outfileName = "output\\data3_degree_crf.txt"
+  # failfilename =  "output\\data3_degree_array_fail.txt"   
   
-  # labelDegreeSet(degree_matchers, target_set_name,outfileName, failfilename) 
+ #  labelDegreeSet( target_set_name,outfileName ) 
  #  tagSentence(sent4)  
-   labeledSent = labelSent( sent4 )
-   print labeledSent.getCrfFormat()
+ #  labeledSent = labelSent( sent4 )
+ #  print labeledSent.getCrfFormat()
+   trainfile = "output\\data3_100_crf.txt"
+   testfile = "output\\data3_200_crf.txt"
+ #  labelExampleSet( target_set_name,trainfile, 600, 700 )
+   labelExampleSet( target_set_name,testfile, 700, 900 )
    
 if __name__ == "__main__": 
     main() 

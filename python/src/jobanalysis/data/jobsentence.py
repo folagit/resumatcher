@@ -184,10 +184,17 @@ class JobSentence():
     def getCrfFormat(self): 
         result = ""
         for i in range(len(self.words)):
-            lable, begin =  self.tags[i]
+            if self.tags[i] is not None:
+                lable, begin =  self.tags[i]
+                if begin :
+                    lable+="_B"
+                else :
+                    lable+="_I"
+            else :
+                lable = "NONE"
             
             result += ( self.words[i] + " "+ self.pos[i] + " " + lable + "\n")
-        return result
+        return result+"\n"
    
 def test_sentence1():
     words = "I am ok or not , with you and me .".split()  
