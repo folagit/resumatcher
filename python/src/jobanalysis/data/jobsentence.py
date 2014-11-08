@@ -13,10 +13,14 @@ class JobSentence():
     puncts = [".", ",", ";","?", "!", ":", "(", ")" ,"-","+" ,"/" ]
     
     
-    def __init__(self, words):
+    def __init__(self, words, pos = None):
         self.words = words
         self.lower_words = [word.lower() for word in self.words]
         self.tags = [None] * len(self.words)
+        if pos is None:
+            self.pos  = [None] * len(self.words)
+        else:
+            self.pos  = pos
         self.tagPuncts()
     
     def tagDigit(self):
@@ -176,6 +180,14 @@ class JobSentence():
       x.add_row(lists[1])
       x.add_row(lists[2])
       return x
+      
+    def getCrfFormat(self): 
+        result = ""
+        for i in range(len(self.words)):
+            lable, begin =  self.tags[i]
+            
+            result += ( self.words[i] + " "+ self.pos[i] + " " + lable + "\n")
+        return result
    
 def test_sentence1():
     words = "I am ok or not , with you and me .".split()  
