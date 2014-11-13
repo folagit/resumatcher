@@ -84,6 +84,26 @@ def labelExampleSet( data_set_name, outfileName, start, end ):
         f.write(labeledSent.getCrfFormat())
         total += 1
         
+def labelMajorSet( data_set_name, outfileName, start, num ):
+    
+    data = datautils.loadJson(data_set_name)
+   
+    f = open(outfileName, "w")     
+    total = 0    
+    r = 100
+    i = 0 
+    while i < num:
+      #  print item
+        item = data[i+start]
+        sent = item[2]    
+     #   sid = item[0]        
+        
+        print sent 
+        labeledSent = labelSent( sent )
+      #  print labeledSent.getCrfFormat()
+        f.write(labeledSent.getCrfFormat())
+        total += 1
+        
 def labelSent( sent):
     tokens, posTags =  tagSentence(sent)   
     degreeSent = JobSentence(tokens, posTags)
@@ -98,6 +118,7 @@ def main():
 
    target_set_name = "output\\degree_3"
    outfileName = "output\\data3_degree_crf.txt"
+   outfileName = "output\\data3_degree_crf.txt"
   # failfilename =  "output\\data3_degree_array_fail.txt"   
   
  #  labelDegreeSet( target_set_name,outfileName ) 
@@ -107,7 +128,7 @@ def main():
    trainfile = "output\\data3_100_crf.txt"
    testfile = "output\\data3_200_crf.txt"
  #  labelExampleSet( target_set_name,trainfile, 600, 700 )
-   labelExampleSet( target_set_name,testfile, 700, 900 )
+   labelMajorSet( target_set_name,testfile, 700, 900 )
    
 if __name__ == "__main__": 
     main() 
