@@ -269,3 +269,5 @@ iui/*.out
 python/src/jobanalysis/titles/output
 
 
+python/src/jobanalysis/titles/parser.out
+python/src/jobanalysis/titles/parsetab.py
