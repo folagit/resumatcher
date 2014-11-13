@@ -219,7 +219,6 @@ pip-log.txt
 *.spyderproject
 
 python/src/cronjob/data
-python/src/jobanalysis/titles
 python/src/jobanalysis/sents
 python/src/try/dot/outfiles
 python/src/jobaly/fst/outfiles
@@ -266,5 +265,7 @@ data/lemur/
 iui/images/
 iui/*.pdf
 iui/*.out
+
+python/src/jobanalysis/titles/output
 
 
