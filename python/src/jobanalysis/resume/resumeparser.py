@@ -18,6 +18,12 @@ from jobaly.ontology.ontologylib import OntologyLib
 from skill.skillparser import SkillParser
 from model.resumemodel import ResumeModel
 from pattern.en import tokenize   
+from titles.titleprocess import preProcessTitle
+from titles.titleprocess import getTitleModel
+
+
+dev_roles=["Intern","Engineer","Architect","Development","Developer",
+       "Programmer", "Programmer","lead","CONSULTANT" ]
 
 
 def splitSentences(text):
@@ -33,10 +39,10 @@ def replaceCode(line):
   #  print "line ===", line 
     line =  re.sub (ur"\u2022|\u00b7|\uf09f|\uf0a7|\u0080|\u0099|\u00a2|\u0095|\u00d8|\u00bf|\u00c2|\u2219|\u20ac|\u2122", "",line)
     line =  re.sub ("·", "",line, re.UNICODE) 
-    line = re.sub (ur"\u2013", "-", line)
+    line =  re.sub (ur"\u2013", "-", line)
     line =  re.sub ("\*", "",line)
     line =  re.sub(ur"\u2019|\u2018|\u00e2|\u0092|\u2020" , "\'", line)
-    line = re.sub(ur"\u00ae", "", line)
+    line =  re.sub(ur"\u00ae", "", line)
     line =  re.sub(ur"\&", "and", line)
     
     line = line.strip()
@@ -92,13 +98,16 @@ def preprocess( sents ) :
     
 def processSents(resumeModel,  sents ):  
     for sent in sents:
-      #  print "sent==" , sent
+    #    print "sent==" , sent
         if isDegreeSent(sent):
-            print "degree = ",  sent
+    #        print "degree = ",  sent
             parseDegree(resumeModel, sent )
         if isSkillSent(sent):
       #      print "skill = ",  sent
             parseSkill(resumeModel, sent )
+            
+        if isJobTitleSent(sent):
+             parseTitle(resumeModel, sent )
             
     return resumeModel 
 
@@ -117,6 +126,16 @@ def isDegreeSent(sent):
 
 def isSkillSent(sent):    
     return skillParser.isSkillSent(sent)   
+    
+def isJobTitleSent(sent):
+    words = word_tokenize(sent)
+    lw = len(words)
+    if lw < 8:
+        for token in dev_roles: 
+            if token in sent:
+                return True
+                
+    return False
 
 def parseDegree(jobModel, sent ):
     degreeparser.parseDegreeSent(jobModel, sent )
@@ -124,8 +143,11 @@ def parseDegree(jobModel, sent ):
 def parseSkill(jobModel, sent ):
     skillParser.parseSkill(jobModel, sent)    
 
-def processTitle(jobModel, sent ):
-    pass 
+def parseTitle(resumeModel, sent ):
+    print "title=", sent
+    title = preProcessTitle(sent)
+    titleModel = getTitleModel( title )
+    resumeModel.titleModels.append(titleModel)
 
 def getResumeSents(content):
     newlines = []

@@ -11,8 +11,10 @@ class ResumeModel(CommonModel):
     def __init__(self, resumeid=None):
         CommonModel.__init__(self)
         self.resumeid = resumeid
+        self.titleModels = []
             
     def serialize(self):
         objDict = CommonModel.serialize(self)
-        objDict["_id"] = self.resumeid        
+        objDict["_id"] = self.resumeid  
+        objDict["titleModels"] = self.titleModels
         return objDict
