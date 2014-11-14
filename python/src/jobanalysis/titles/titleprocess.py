@@ -14,6 +14,7 @@ from titlelabler import createTitleLabeler
 from commonLabelfuns import matchSent
 from commonLabelfuns import LabelMatcher
 from nltk.tokenize import word_tokenize
+from pipeline.jobprocess import replaceCode
 
 
 dev_roles=["Intern","Engineer","Architect","Development","Developer",
@@ -22,11 +23,18 @@ dev_roles=["Intern","Engineer","Architect","Development","Developer",
 common_dev_roles = [ "Engineer", "Development","Developer",
        "Programmer","dev","Computer Programmer", "Eng"]
 
-pro_lang = ["java", "c++", "python", ".net", "javascript", "PHP", "ruby" ]
+pro_lang = ["java", "c++", "python", ".net", "javascript", 
+            "PHP", "ruby", "c#", "Ruby on Rails", "SQL" ]
 
-dev_domain = ["web", "mobile", "db", "cloud" , "database", "Middleware"]    
+skill_set = ["jsp", "asp", "html", "css"]
 
-dev_platform = ["ios", "android", "linux" ]
+dev_domain = ["web", "mobile", "UI" , "db", "cloud" , "database", "Middleware", "full stack"]    
+
+dev_platform = ["ios", "android", "linux", "j2ee" ]
+
+software = ["oracle", "sas"]
+
+job_type = ["software" , "test" , "administrator","Analyst"]
  
 
 def tokensIn(tokens, words, lower=True):
@@ -38,18 +46,18 @@ def tokensIn(tokens, words, lower=True):
      
 
 def preProcessTitle(sent):
+    sent = replaceCode(sent)
     sent = sent.replace("/"," ") 
     return sent
 
-def processTitle(title ):
+def getTitleModel(title ):
     model = {}
     words = word_tokenize(title.lower() )
     processRole(words, model)
     processLevel(words, model)
     processDomain(words, model)
     
-    return model
-    
+    return model  
     
     
 def processRole(words, model):
@@ -92,28 +100,28 @@ def processDomain(words, model):
     platform = tokensIn(dev_platform, words)
     if platform is not None:
         model["platform"] = platform  
-        
+ 
+def processTitle(job):
+    sid = job["_id"]        
+    title = job["jobtitle"]
+    title = preProcessTitle(title)
+    titleModel = getTitleModel( title )
+    print sid ,  "---->>>" , title
+    print titleModel    
     
+    return  titleModel        
 
 def processTitles(dbname, collname):
      srcBbClient = DbClient('localhost', 27017, dbname)
      jobCollName = collname
      collection = srcBbClient.getCollection(jobCollName)      
      for job in collection.find(): 
-        sid = job["_id"]
-        
-        title = job["jobtitle"]
-        title = preProcessTitle(title)
-        titleModel = processTitle( title ) 
-        
-        print sid ,  "---->>>" , title
-        print titleModel
-     #   print   found, output 
-   
+        titleModel = processTitle(job)        
+ 
      
 def main(): 
     targetDb = "jobaly"
-    targetCollName = "job100" 
+    targetCollName = "job1000" 
     processTitles( targetDb, targetCollName )
      
 if __name__ == "__main__": 
