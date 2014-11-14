@@ -14,8 +14,7 @@ from titlelabler import createTitleLabeler
 from commonLabelfuns import matchSent
 from commonLabelfuns import LabelMatcher
 from nltk.tokenize import word_tokenize
-from pipeline.jobprocess import replaceCode
-
+from pipeline.preprocess import replaceCode
 
 dev_roles=["Intern","Engineer","Architect","Development","Developer",
        "Programmer","dev","Computer Programmer","lead","CONSULTANT","Eng."]
