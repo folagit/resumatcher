@@ -22,8 +22,8 @@ from titles.titleprocess import preProcessTitle
 from titles.titleprocess import getTitleModel
 
 
-dev_roles=["Intern","Engineer","Architect","Development","Developer",
-       "Programmer", "Programmer","lead","CONSULTANT" ]
+dev_roles=["intern","engineer","architect", "developer",
+       "programmer", "programmer","lead", "consultant" ]
 
 
 def splitSentences(text):
@@ -107,6 +107,7 @@ def processSents(resumeModel,  sents ):
             parseSkill(resumeModel, sent )
             
         if isJobTitleSent(sent):
+             print "title sent ==", sent
              parseTitle(resumeModel, sent )
             
     return resumeModel 
@@ -128,11 +129,11 @@ def isSkillSent(sent):
     return skillParser.isSkillSent(sent)   
     
 def isJobTitleSent(sent):
-    words = word_tokenize(sent)
+    words = word_tokenize(sent.lower())
     lw = len(words)
     print "lw=", lw
     if lw < 1008:
-        for token in dev_roles: 
+        for token in words: 
             if token in sent:
                 return True
                 
@@ -157,7 +158,7 @@ def getResumeSents(content):
     content = content.replace("<br>", "\n")
     lines = content.split("\n")
     for line in lines:
-        print "line =" , line
+     #   print "line =" , line
         linelist = splitSentences(line)
         for newline in linelist:
             newline = newline.strip()

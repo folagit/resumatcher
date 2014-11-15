@@ -36,6 +36,7 @@ class ModelSimilarity():
     
     def __init__(self):
         self.weightVector = [ 0.1, 0.1, 0.4, 0.4 ]
+        self.weightVector = [ 0.05, 0.05, 0.4, 0.5 ]
         self.ontology = ontologylib.createOntology()
         self.pairDict = pairdistance.loadPairValues()
 
@@ -89,7 +90,8 @@ class ModelSimilarity():
     def getTitleSim(self, resumeModel,  jobModel):        
         maxvalue = 0
         jobTitle = jobModel.titleModel
-        print "jobTitle=", jobTitle
+    #    print "jobTitle=", jobTitle
+        print " resumeModel.titleModels len =" , len(resumeModel.titleModels)
         for resumeTitle in resumeModel.titleModels:
             print "resumeTitle=", resumeTitle
             value = titleSim(jobTitle, resumeTitle)

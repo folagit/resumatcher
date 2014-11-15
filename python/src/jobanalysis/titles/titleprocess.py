@@ -50,6 +50,10 @@ def preProcessTitle(sent):
     return sent
     
 def titleSim(jobTitle, resumeTitle):
+    if  not resumeTitle.has_key("role")  :
+        return 0
+    if  not jobTitle.has_key("role") :
+        return 0
     if jobTitle["role"] != resumeTitle["role"]:
         return 0
     level = 20 - 2*abs( resumeTitle["level"] - jobTitle["level"] )
@@ -68,7 +72,7 @@ def titleSim(jobTitle, resumeTitle):
        and resumeTitle["platform"] == jobTitle["platform"]:    
         platform = 10     
         
-    value = float(level + domain + pro_lang + platform) / 80   
+    value = float(level + domain + pro_lang + platform) / 70   
     print "title_value=" ,value
     return value
 
