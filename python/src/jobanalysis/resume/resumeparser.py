@@ -130,7 +130,8 @@ def isSkillSent(sent):
 def isJobTitleSent(sent):
     words = word_tokenize(sent)
     lw = len(words)
-    if lw < 8:
+    print "lw=", lw
+    if lw < 1008:
         for token in dev_roles: 
             if token in sent:
                 return True
@@ -148,11 +149,15 @@ def parseTitle(resumeModel, sent ):
     title = preProcessTitle(sent)
     titleModel = getTitleModel( title )
     resumeModel.titleModels.append(titleModel)
+    
 
 def getResumeSents(content):
+  #  print "resume content=", content
     newlines = []
+    content = content.replace("<br>", "\n")
     lines = content.split("\n")
     for line in lines:
+        print "line =" , line
         linelist = splitSentences(line)
         for newline in linelist:
             newline = newline.strip()

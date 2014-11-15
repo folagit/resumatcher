@@ -53,19 +53,23 @@ def titleSim(jobTitle, resumeTitle):
     if jobTitle["role"] != resumeTitle["role"]:
         return 0
     level = 20 - 2*abs( resumeTitle["level"] - jobTitle["level"] )
-    if resumeTitle["domain"] == jobTitle["domain"]:
+    domain =  pro_lang = platform = 0
+    if resumeTitle.has_key("domain") and jobTitle.has_key("domain") \
+       and  resumeTitle["domain"] == jobTitle["domain"]:
         domain = 40
     else:
         domain = 10
         
-    if resumeTitle["pro_lang"] == jobTitle["pro_lang"]:    
+    if resumeTitle.has_key("pro_lang") and jobTitle.has_key("pro_lang") \
+       and resumeTitle["pro_lang"] == jobTitle["pro_lang"]:    
         pro_lang = 10  
         
-    if resumeTitle["platform"] == jobTitle["platform"]:    
+    if resumeTitle.has_key("platform") and jobTitle.has_key("platform") \
+       and resumeTitle["platform"] == jobTitle["platform"]:    
         platform = 10     
         
     value = float(level + domain + pro_lang + platform) / 80   
-    print value
+    print "title_value=" ,value
     return value
 
 def getTitleModel(title ):

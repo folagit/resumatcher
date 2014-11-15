@@ -224,7 +224,7 @@ def  set_resume():
     if app.config.has_key("resume"):	    
         content = app.config['resume']   
         filename = app.config['resume_name']
-        print  "session resume name =>>=", app.config['resume_name']
+    #    print  "session resume name =>>=", app.config['resume_name']
     return render_template('set_resume.html', resume=content, filename=filename )
     
 def allowed_file(filename):
@@ -244,7 +244,7 @@ def upload():
         path = os.path.join(app.config['UPLOAD_FOLDER'] , filename)
         print "path=", path
         file.save( path )
-        print "session=", session
+      #  print "session=", session
         resume = fileToTxt(path)
         session['resume'] = resume
         session['resume_name'] = filename

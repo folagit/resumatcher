@@ -89,7 +89,9 @@ class ModelSimilarity():
     def getTitleSim(self, resumeModel,  jobModel):        
         maxvalue = 0
         jobTitle = jobModel.titleModel
+        print "jobTitle=", jobTitle
         for resumeTitle in resumeModel.titleModels:
+            print "resumeTitle=", resumeTitle
             value = titleSim(jobTitle, resumeTitle)
             if ( value > maxvalue ):
                    maxvalue = value 
