@@ -5,7 +5,7 @@ Created on Sat Sep 20 18:17:56 2014
 @author: dlmu__000
 """
 
-class CommonModel():
+class CommonModel(object):
     
     def __init__(self):       
         self.majors = set()

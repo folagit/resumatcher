@@ -199,7 +199,8 @@ def processResumes():
      saveResumeModels(resumeColl, modelColl)
     
 def saveResumeModels(resumeColl, modelColl):
-     for resume in resumeColl.find():           
+     for resume in resumeColl.find():    
+         print "--------id=", resume["_id"]
          resumeModel = parseResume(resume)   
          modelColl.save(resumeModel.serialize())
      

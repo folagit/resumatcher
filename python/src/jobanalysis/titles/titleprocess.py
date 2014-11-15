@@ -48,6 +48,25 @@ def preProcessTitle(sent):
     sent = replaceCode(sent)
     sent = sent.replace("/"," ") 
     return sent
+    
+def titleSim(jobTitle, resumeTitle):
+    if jobTitle["role"] != resumeTitle["role"]:
+        return 0
+    level = 20 - 2*abs( resumeTitle["level"] - jobTitle["level"] )
+    if resumeTitle["domain"] == jobTitle["domain"]:
+        domain = 40
+    else:
+        domain = 10
+        
+    if resumeTitle["pro_lang"] == jobTitle["pro_lang"]:    
+        pro_lang = 10  
+        
+    if resumeTitle["platform"] == jobTitle["platform"]:    
+        platform = 10     
+        
+    value = float(level + domain + pro_lang + platform) / 80   
+    print value
+    return value
 
 def getTitleModel(title ):
     model = {}

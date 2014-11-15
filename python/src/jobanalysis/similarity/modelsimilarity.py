@@ -17,6 +17,7 @@ from jobaly.ontology import ontologylib
 from model.jobmodel import JobModel
 from model.resumemodel import ResumeModel
 import pairdistance
+from titles.titleprocess import titleSim
 
 
 degreeDict = {"HS_LEVEL": 1,  "AS_LEVEL": 2,  "BS_LEVEL": 3, "MS_LEVEL": 4, "PHD_LEVEL": 5, "GRAD_LEVEL": 6 }
@@ -34,15 +35,17 @@ def transferDegree(degees):
 class ModelSimilarity():
     
     def __init__(self):
-        self.weightVector = [ 0.1, 0.1, 0.8 ]
+        self.weightVector = [ 0.1, 0.1, 0.4, 0.4 ]
         self.ontology = ontologylib.createOntology()
         self.pairDict = pairdistance.loadPairValues()
 
     def getSimilarity(self, resumeModel,  jobModel):
-        simVector = [0] * 3
+        simVector = [0] * 4
         simVector[0] = self.getDegreeSim(resumeModel,  jobModel)    
         simVector[1] = self.getMajorSim (resumeModel,  jobModel)  
         simVector[2] = self.getSkillSim (resumeModel,  jobModel)  
+        simVector[3] = self.getTitleSim (resumeModel,  jobModel)  
+        
         
         sumValue = 0
         for i in range(len(simVector)):
@@ -82,6 +85,15 @@ class ModelSimilarity():
                 return 0.5
         
         return 0 
+        
+    def getTitleSim(self, resumeModel,  jobModel):        
+        maxvalue = 0
+        jobTitle = jobModel.titleModel
+        for resumeTitle in resumeModel.titleModels:
+            value = titleSim(jobTitle, resumeTitle)
+            if ( value > maxvalue ):
+                   maxvalue = value 
+        return maxvalue
         
     def getSkillSim(self, resumeModel,  jobModel):
         resumeSkills =  resumeModel.skills

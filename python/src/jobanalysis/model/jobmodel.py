@@ -18,3 +18,7 @@ class JobModel(CommonModel):
         objDict["_id"] = self.jobid    
         objDict["title"] = self.titleModel
         return objDict
+        
+    def deserialize(self, dictModel):
+        super(JobModel,self).deserialize(dictModel)
+        self.titleModel = dictModel["title"]

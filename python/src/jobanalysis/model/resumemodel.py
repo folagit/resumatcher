@@ -18,3 +18,7 @@ class ResumeModel(CommonModel):
         objDict["_id"] = self.resumeid  
         objDict["titleModels"] = self.titleModels
         return objDict
+   
+    def deserialize(self, dictModel):
+        super(ResumeModel,self).deserialize(dictModel)
+        self.titleModels = dictModel["titleModels"]

@@ -11,7 +11,7 @@ class A(object):
         
 class B(A):
    def method1(self):
-      print "bbbb"
+   #   print "bbbb"
       super(B, self).method1()
       print "bbbb"
         
