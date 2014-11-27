@@ -16,8 +16,12 @@ from commonLabelfuns import LabelMatcher
 from nltk.tokenize import word_tokenize
 from pipeline.preprocess import replaceCode
 
-dev_roles=["Intern","Engineer","Architect","Development","Developer",
-       "Programmer","dev","Computer Programmer","lead","CONSULTANT","Eng."]
+dev_roles=[ "Engineer","Architect","Development","Developer",
+       "Programmer","dev","Computer Programmer","lead", "Eng."]
+
+consultant_role = ["consultant"]
+
+scientist_roles = ["scientist", "analyst"]
 
 common_dev_roles = [ "Engineer", "Development","Developer",
        "Programmer","dev","Computer Programmer", "Eng"]
@@ -27,8 +31,7 @@ pro_lang = ["java", "c++", "python", ".net", "javascript",
 
 skill_set = ["jsp", "asp", "html", "css"]
 
-dev_domain = ["web", "mobile", "UI" , "db", "cloud" , "database", "Middleware", "full stack"]    
-
+dev_domain = ["web", "mobile", "UI" , "db", "cloud" , "database", "Middleware", "full stack", "data" ]
 dev_platform = ["ios", "android", "linux", "j2ee" ]
 
 software = ["oracle", "sas"]
@@ -91,6 +94,12 @@ def processRole(words, model):
     if role is not None:
         model["role"] = "DEV"
         model["level"] = 3
+        
+    role = tokensIn(scientist_roles, words)
+    if role is not None and "data" in words:
+        print "...data...",  words
+        model["role"] = "DATA"
+        model["level"] = 2     
   
 # intern: 1, Jr.:2, Eng:3, Sr.:4, Lead:5, architect:6, CTO:7
 def processLevel(words, model):
@@ -98,10 +107,10 @@ def processLevel(words, model):
     if tokensIn(["intern"], words) is not None:
         model["level"] = 1
     
-    if tokensIn(["jr.", "Junior"], words) is not None:
+    if tokensIn(["jr.", "Junior", "I"], words) is not None:
         model["level"] = 2
         
-    if tokensIn(["sr.", "Senior"], words) is not None:
+    if tokensIn(["sr.", "Senior", "III"], words) is not None:
         model["level"] = 4
         
     if tokensIn([ "Lead" ], words) is not None:

@@ -133,7 +133,7 @@ def processjobs(dbname, collname):
          
      
 def main(): 
-     processjobs()
+     processjobs("jobaly","job100")
      
 if __name__ == "__main__": 
     main() 

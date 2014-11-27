@@ -929,6 +929,14 @@
 
 
 
+###  http://www.jobaly.com/ontology/web_dev#T-SQL
+
+:T-SQL rdf:type owl:Class ;
+       
+       rdfs:subClassOf :SQL .
+
+
+
 ###  http://www.jobaly.com/ontology/web_dev#Tomcat
 
 :Tomcat rdf:type owl:Class ;
