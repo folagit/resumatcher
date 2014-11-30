@@ -1,0 +1,24 @@
+Fong Kuo
+Seasoned Analyst
+San Pedro, CA - Email me on Indeed: indeed.com/r/Fong-Kuo/d91deecdc93f4129
+Seasoned Analyst with strength in data management and quantitative analysis with hands-on experience in developing and implementing processes.
+WORK EXPERIENCE
+Data Analyst
+Molina Healthcare of CA, Inc - Long Beach, CA - December 2013 to Present Responsibilities · Providing healthcare analysis for the State Health Plans, including generation and distribution of standard reports monthly and quarterly. · Assisting with completion of special projects, in support of requests from various internal departments, regulatory agencies, and contracting agencies. · Developing ad-hoc reports and performing data analysis as requested. · Participating in the identification of data clean-up process that hinders accurate data capture, and creates batch load queries to help facilitate the accurate reflection of providers' information for all LOBs in the systems.
+Skills Used Excel (Lookups, Pivots, Macros), MS Access, MS SQL Server, SQL Queries, Stored Procedures, MS Word, data ETL.
+MIS/Financial Analyst
+JPMorgan Chase - Columbus, OH - October 2012 to August 2013 Responsibilities
+· Worked as an Essbase Administrator/Analyst of the MIS Platform and Data Management team within Asset Management to support business processes. · Developed, updated, and maintained new and existing EAS databases in supporting Investment Management Profitability Team for accurate, flexible and timely reporting and analytics. · Developed documentation of Profitability and Metric productions; performing metric data ETL and indentifying data reject resolutions in support of monthly processes. · Updated, executed, and maintained SQL scripts for monthly Actual and Forecast processes. · Designed and created ad hoc multi-scenario Essbase cubes in support of analyses for CFOs.
+Skills Used SQL Queries, MS Excel, MS Access, MS Word, data ETL, Hyperion Essbase, SSMS, SSIS
+Compensation Analyst - Consultant
+Sprint Nextel Corporation - Overland Park, KS - October 2009 to July 2012 · Analyzed production data to ensure proper calculation of compensation for various products and services using MS Excel (Lookups, Macros), MS Access, and Oracle SQL Developer. · Researched and evaluated data designed and generated reports, exports and imports data, using Ensemble, NDW and True Resolutions.
+
+· Calculated vendor commissions based upon multiple plan/service types, equipment types, and commission matrix tables.
+IT Assistant - Consultant
+JP Morgan Retirement Plan Services - Overland Park, KS - April 2009 to August 2009 · Generated daily payroll reports to senior officers using SQL, Excel, and TSO. · Coordinated and communicated with cross functional team project managers/tech leads for operational support activities of the department, served as a liaison between VP and team managers in the resolution of day-to-day operational problems.
+EDUCATION
+BA in Computer Information Systems (Cum Laude, 2001)
+Washburn University - Topeka, KS 2001
+SKILLS
+MS Office Suite including MS Excel (Lookups, Pivots, Macros), MS Access, MS SQL Server, Stored Procedures, SQL Queries, Hyperion Essbase Administrator/Analyst, Data ETL, Ad hoc reporting, MS Navision, Peach Tree.
+

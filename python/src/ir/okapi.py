@@ -46,8 +46,13 @@ class Okapi(BaseIr):
 
 def main(): 
     #webJobInfoCollName: test_jobinfo
-    resumepath = "..\\..\\..\\data\\test_resumes\\Darin-Densley_web.txt"
-    resume = loadResume(resumepath)
+    resume =  loadResume( "..\\..\\..\\data\\test_resumes\\Darin-Densley_web.txt" )
+    resume =  loadResume("..\\..\\..\\data\\test_resumes\\Java-Developer.txt")
+    resume =  loadResume("..\\..\\..\\data\\test_resumes\\Fong-Kuo_data.txt")
+
+   
+   
+   # resume = loadResume(resumepath)
    # print resume
 
     dbClient = DbClient('localhost', 27017, "jobaly")  

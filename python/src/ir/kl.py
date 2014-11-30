@@ -30,7 +30,7 @@ class KL(BaseIr):
         for job in self.jobs:
              tf = job["tf"]
              job_len = job["length"]
-             print "job_len=", job_len
+        #     print "job_len=", job_len
              score = 0
              for key in resumetf.keys():
                  if tf.has_key(key):
@@ -41,10 +41,12 @@ class KL(BaseIr):
              
 def main(): 
     #webJobInfoCollName: test_jobinfo
-    resumepath = "..\\..\\..\\data\\test_resumes\\Darin-Densley_web.txt"
-    resume = loadResume(resumepath)
+    resume =  loadResume("..\\..\\..\\data\\test_resumes\\Darin-Densley_web.txt")
+  #  resume =  loadResume("..\\..\\..\\data\\test_resumes\\Java-Developer.txt")
+  #  resume =  loadResume("..\\..\\..\\data\\test_resumes\\Fong-Kuo_data.txt")
+
   #  print resume
-    resume = "I a am good java programmer, PHP, XML, hope juse c++, skill" 
+  #  resume = "I a am good java programmer, PHP, XML, hope juse c++, skill" 
     dbClient = DbClient('localhost', 27017, "jobaly")  
     jobCollection = dbClient.getCollection("job100")  
     kl = KL(jobCollection)

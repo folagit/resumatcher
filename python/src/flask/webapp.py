@@ -311,6 +311,33 @@ def resume_keyword():
      #   print  "session resume name =>>=", session['resume_name']
     return render_template('resume_keyword.html', resume=content, filename=filename )
     
+
+@app.route('/listids.html')    
+def listids():
+    jobs=[]
+    query = request.args.get('ids', '').strip()
+    if  query == "":
+        return render_template('listids.html', query=query, jobs=jobs)
+    
+   # print  query
+    lines = query.split("\n")
+  #  print lines 
+    ids = []    
+    for line in lines:
+       a = line.split(" ")
+       ids.append(a)
+    print ids
+       
+    
+    for key, value  in ids:         
+  #       print  key, value
+         job = dataHandler.get_job(key)
+         job["score"] = value
+         jobs.append(job)
+        
+    return render_template('listids.html', query=query, jobs=jobs)
+        
+
 #@app.route('/resume_search')    
 def resume_search(keyword, pageno):       
      if app.config['keyword'] != keyword:

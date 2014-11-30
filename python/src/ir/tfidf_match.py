@@ -61,6 +61,11 @@ def main():
     #webJobInfoCollName: test_jobinfo
     resumepath = ""
     resume =  loadResume("..\\..\\..\\data\\test_resumes\\Darin-Densley_web.txt")
+    resume =  loadResume("..\\..\\..\\data\\test_resumes\\Java-Developer.txt")
+    resume =  loadResume("..\\..\\..\\data\\test_resumes\\Fong-Kuo_data.txt")
+
+
+
    # print resume
     dbClient = DbClient('localhost', 27017, "jobaly")  
     jobCollection = dbClient.getCollection("job100")  
