@@ -21,7 +21,7 @@ dev_roles=[ "Engineer","Architect","Development","Developer",
 
 consultant_role = ["consultant"]
 
-scientist_roles = ["scientist", "analyst"]
+scientist_roles = ["scientist", "analyst", "Engineer","Architect", "specialist"]
 
 common_dev_roles = [ "Engineer", "Development","Developer",
        "Programmer","dev","Computer Programmer", "Eng"]
@@ -138,11 +138,14 @@ def processDomain(words, model):
  
 def processTitle(job):
     sid = job["_id"]        
-    title = job["jobtitle"]
+    if job.has_key("jobtitle") :
+        title = job["jobtitle"]
+    else :
+        title = job["job_title"]
     title = preProcessTitle(title)
     titleModel = getTitleModel( title )
-    print sid ,  "---->>>" , title
-    print titleModel    
+  #  print sid ,  "---->>>" , title
+ #   print titleModel    
     
     return  titleModel        
 

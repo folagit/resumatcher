@@ -112,6 +112,12 @@ def removeHtml(coll):
          content = remove_tags(job["summary"]).strip()
          job["notag"] = content
          coll.save(job)
+         
+def copyTitle(coll):
+     for job in coll.find():
+         if job.has_key("job_title"):
+             job["jobtitle"] = job["job_title"]
+             coll.save(job)
 
 def processjobs(dbname, collname):
      srcBbClient = DbClient('localhost', 27017, dbname)
@@ -121,7 +127,8 @@ def processjobs(dbname, collname):
      collection = srcBbClient.getCollection(jobCollName)
      modelColl = srcBbClient.getCollection(jobmodelCollName)
    #  newCol = srcBbClient.getCollection("daily_job_info_2014-06-16")
-      
+     removeHtml(collection) 
+     copyTitle(collection) 
      for job in collection.find():       
          sents = preprocess(job)
          jobModel = JobModel(job["_id"])       
@@ -133,7 +140,8 @@ def processjobs(dbname, collname):
          
      
 def main(): 
-     processjobs("jobaly","job100")
+    # processjobs("jobaly","job100")
+     processjobs("jobaly_daily","daily_job_info_2014-07-08")
      
 if __name__ == "__main__": 
     main() 

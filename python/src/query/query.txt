@@ -16,3 +16,8 @@ db.job_list_merge.aggregate([
 db.job_list_merge.find({jobtitle: "Diesel Mechanic"})
 
 db['daily_job_list_2014-06-16'].find({jobtitle:"Principal Software Engineer"})
+
+daily_job_list_2014-06-16.find({"jobtitle" : {$regex : ".*data*"}});
+
+db.['daily_job_list_2014-06-16'].runCommand( "jobtitle", {search: "data"})
+
