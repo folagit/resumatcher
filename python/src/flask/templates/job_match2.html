@@ -12,11 +12,13 @@
          <div id="joblist"   >
             <div   >
                 {% set i = 0 %}
+                {% set n = 0 %}
                 {% for job in jobs %}
                     {% set i=(i+1)%2 %} 
+                    {% set n = n + 1 %}
                     <div class="jobitem " jobid="{{job._id}}" >
                         <div>
-                         
+                           <span style="fontsize:14;fontstyle:bold;">  {{n}}  </span> 
                            <a class="jobtitle_a" target="_blank" href="jobdetail.html?jobid={{job._id}}" >{{job.jobtitle}}</a>
                            <span style="float:right" >
                                  <div style="" class="score_block" > {{job.score}} </div>
