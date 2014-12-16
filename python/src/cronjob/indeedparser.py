@@ -13,7 +13,8 @@ class IndeedParser:
     
     def __init__(self,  html_doc, from_encoding='utf-8' ):
         self.soup = BeautifulSoup(html_doc)
-        self.totalResultNum = self._getResultNum()        
+        self.totalResultNum = self._getResultNum()  
+        self.adjobs = False
         
     def _getResultNum(self):        
     
@@ -40,7 +41,7 @@ class IndeedParser:
          
          return False
         
-    def getJobs(self):        
+    def getJobs( self ):        
 
         if self.totalResultNum == 0 :
             return []
@@ -53,9 +54,10 @@ class IndeedParser:
                continue
            if jobdiv.has_attr("id"):   
                job = self.parseJobDiv(jobdiv) 
-           else :
+           elif   self.adjobs :
                job = self.parseAdJobDiv(jobdiv)
-               
+           else: 
+               continue
            self.completeJob(job)
            joblist.append( job )
         

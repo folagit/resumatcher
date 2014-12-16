@@ -101,6 +101,7 @@ class IndeedCrawler:
         return i
     
     def makeOneQuery(self, resultFunc):
+        self.pos = 1
         pageNo = 1
         hasMore = True
         while hasMore:
@@ -117,10 +118,11 @@ class IndeedCrawler:
         for job in   joblist :           
             job["_q_loc"] = self.base_params["l"]
             job["_q"] = self.base_params["q"]
-            
+            job["pos"] = self.pos
             try:
                 self.collection.insert(job)
                 n+=1
+                self.pos+=1
             except pymongo.errors.DuplicateKeyError as e: 
                 #print e
                 pass
