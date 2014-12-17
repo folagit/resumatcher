@@ -58,6 +58,9 @@ def main():
      print "start at:" , t  
      today = datetime.date.today()  
      keyword = "web developer"
+     keyword = "python"
+     keyword = "web"
+     keyword = "javascript"
      name = keyword.split()[0]
      listCollectionName = "keyword_job_"+name
      print "list collection name:", listCollectionName
@@ -65,7 +68,7 @@ def main():
      print "info collection name:", infoCollectionName
      
      dbClient = DbClient('localhost', 27017, "jobaly")
-     getJobList( dbClient, listCollectionName, 5, keyword )
+     getJobList( dbClient, listCollectionName, 6, keyword )
      getJobInfo( dbClient, listCollectionName, infoCollectionName )      
   
    

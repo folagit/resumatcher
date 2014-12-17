@@ -144,8 +144,10 @@ def main():
      collname = "daily_job_info_2014-07-08"
      
      dbname = "jobaly"
-     collname = "keyword_info_java"
+     collname = "keyword_info_java"     
+     collname = "keyword_info_python"
      collname = "keyword_info_web"
+     collname = "keyword_info_javascript"
      
     # processjobs("jobaly","job100")
      processjobs(dbname,collname)
