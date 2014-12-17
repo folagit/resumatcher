@@ -29,7 +29,7 @@ class JobGetter(threading.Thread):
          self.getter.processPage(page,pageNo)
          self.queue.task_done()       
 
-def getJobInfo(dbClient, listCollection, infoCollection):
+def getJobInfo(dbClient, listCollection, infoCollection, threadNum = 10):
    
      pageSize = 20 
      pageNo = 1
@@ -38,7 +38,6 @@ def getJobInfo(dbClient, listCollection, infoCollection):
      find_sort = None
      find_spec=None
 
-     threadNum = 10
      queue = Queue.Queue()
      for i in range(threadNum):
         t = JobGetter(queue,infoCollection)

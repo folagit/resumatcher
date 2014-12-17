@@ -26,8 +26,8 @@ def crawlIndeed(collection, keyList, locList, days=1):
     
 
 
-def getJobList( dbClient, listCollectionName, days ):
-     lang_names =  ["python"]
+def getJobList( dbClient, listCollectionName, days, keyword ):
+     lang_names =  [keyword]
      cities = ["Austin, TX"]
      
   #   lang_names = jobaly.utils.loadArrayFromFile("test_lang_list.txt")  
@@ -49,21 +49,23 @@ def getJobInfo(dbClient, listCollectionName, infoCollectionName ):
      infoCollection = dbClient.getCollection(infoCollectionName)
      start_time = time.time()     
      print "---- start get job info ----"
-     jobinfo_daily.getJobInfo(dbClient, listCollection, infoCollection)
+     jobinfo_daily.getJobInfo(dbClient, listCollection, infoCollection,1)
      t =  time.time() - start_time
      print "---- finish get job info, use %s seconds  ----" %t
 
 def main():
      t =  datetime.datetime.now()
      print "start at:" , t  
-     today = datetime.date.today()    
-     listCollectionName = "keyword_job_"+"python"
+     today = datetime.date.today()  
+     keyword = "web developer"
+     name = keyword.split()[0]
+     listCollectionName = "keyword_job_"+name
      print "list collection name:", listCollectionName
-     infoCollectionName = "keyword_info_"+"python"
+     infoCollectionName = "keyword_info_"+name
      print "info collection name:", infoCollectionName
      
      dbClient = DbClient('localhost', 27017, "jobaly")
-     getJobList( dbClient, listCollectionName, 10 )
+     getJobList( dbClient, listCollectionName, 5, keyword )
      getJobInfo( dbClient, listCollectionName, infoCollectionName )      
   
    

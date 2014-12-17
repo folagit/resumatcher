@@ -140,8 +140,15 @@ def processjobs(dbname, collname):
          
      
 def main(): 
+     dbname = "jobaly_daily"
+     collname = "daily_job_info_2014-07-08"
+     
+     dbname = "jobaly"
+     collname = "keyword_info_java"
+     collname = "keyword_info_web"
+     
     # processjobs("jobaly","job100")
-     processjobs("jobaly_daily","daily_job_info_2014-07-08")
+     processjobs(dbname,collname)
      
 if __name__ == "__main__": 
     main() 
