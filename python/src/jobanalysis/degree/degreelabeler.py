@@ -73,7 +73,7 @@ def addMajorLabels(labelDict):
                      "Marketing", "Business", "Finance" , "Economics", "accounting", \
                      "Communications", "Communication Sciences",  "Journalism", "Geoscience", \
                      "transportation engineering","Anthropology","Sociology" ,"Behavioral Science", \
-                     "Fine Arts", "Behavioral Sciences", "nursing"]
+                     "Fine Arts", "Behavioral Sciences", "nursing" , "bioengineering", "Veterinary Medicine"]
    
     MAJOR_GENERAL = ["engineering", "science", "numerical", "Management", "Art", "design", "technical" , "Technology" ]
     
@@ -251,7 +251,9 @@ def labelDegreeSet(matchers, data_set_name, outfileName,failfilename):
         total += 1
         if matcher is not None :
             m+=1
-            f.write( sent +"\n\n" )
+       #     print sent.encode("GBK", "ignore")
+
+            f.write( sent.encode("GBK", "ignore") +"\n\n" )
             f.write( degreeSent.printLabeledArray().get_string() +"\n\n" )
             f.write( str(found) + "   " + str(output) +"\n\n" )
         else :
