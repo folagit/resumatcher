@@ -26,9 +26,9 @@ def crawlIndeed(collection, keyList, locList, days=1):
     
 
 
-def getJobList( dbClient, listCollectionName, days, keyword ):
+def getJobList( dbClient, listCollectionName, days, cities, keyword ):
      lang_names =  [keyword]
-     cities = ["Austin, TX"]
+     
      
   #   lang_names = jobaly.utils.loadArrayFromFile("test_lang_list.txt")  
   #   cities = jobaly.utils.loadArrayFromFile("test_loc_list.txt") 
@@ -56,11 +56,18 @@ def getJobInfo(dbClient, listCollectionName, infoCollectionName ):
 def main():
      t =  datetime.datetime.now()
      print "start at:" , t  
-     today = datetime.date.today()  
+   
+     
+     cities = ["Austin, TX"]
+     cities = ["Mountain View, CA"]
+     
      keyword = "web developer"
+     keyword = "java"
      keyword = "python"
      keyword = "web"
      keyword = "javascript"
+     keyword = "PHP"
+     keyword = "Hadoop"
      name = keyword.split()[0]
      listCollectionName = "keyword_job_"+name
      print "list collection name:", listCollectionName
@@ -68,7 +75,7 @@ def main():
      print "info collection name:", infoCollectionName
      
      dbClient = DbClient('localhost', 27017, "jobaly")
-     getJobList( dbClient, listCollectionName, 6, keyword )
+     getJobList( dbClient, listCollectionName, 5, cities, keyword )
      getJobInfo( dbClient, listCollectionName, infoCollectionName )      
   
    
