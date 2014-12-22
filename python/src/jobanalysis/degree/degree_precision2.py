@@ -21,7 +21,7 @@ pattern5 = matcherCompiler.parse("DE_LEVEL OR (HIGHER_JJ)? (DEGREE_JJ)? DEGREE")
 pattern6 = matcherCompiler.parse("DE_LEVEL (, DE_LEVEL)* (OR DE_LEVEL)?  DEGREE")
 
 degree_matchers_local = [ pattern1, pattern2, pattern3, pattern4, pattern5, pattern6 ] 
-
+degree_matchers_local = [ pattern3]
 def getRadom(srcname, n):      
       data = datautils.loadJson(srcname)
       randomData = []

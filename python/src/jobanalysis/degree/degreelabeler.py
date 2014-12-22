@@ -257,7 +257,7 @@ def labelDegreeSet(matchers, data_set_name, outfileName,failfilename):
             f.write( degreeSent.printLabeledArray().get_string() +"\n\n" )
             f.write( str(found) + "   " + str(output) +"\n\n" )
         else :
-            f2.write( sent +"\n\n" )
+            f2.write( sent.encode("GBK", "ignore") +"\n\n" )
             f2.write( degreeSent.printLabeledArray().get_string() +"\n\n" )
              
     f2.write( "\n\n match="+ str( m) + "  total="+ str( total) + "  radio=" + str (float(m)/total) +"\n" )
