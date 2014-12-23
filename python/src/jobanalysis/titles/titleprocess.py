@@ -31,8 +31,8 @@ pro_lang = ["java", "c++", "python", ".net", "javascript",
 
 skill_set = ["jsp", "asp", "html", "css"]
 
-dev_domain = ["web", "mobile", "UI" , "db", "cloud" , "database", "Middleware", "full stack", "data" ]
-dev_platform = ["ios", "android", "linux", "j2ee" ]
+dev_domain = ["web", "mobile", "UI" , "db", "cloud" , "database", "Middleware", "full stack", "data", "bigdata" ]
+dev_platform = ["ios", "android", "linux", "j2ee", "hadoop" ]
 
 software = ["oracle", "sas"]
 
@@ -76,7 +76,7 @@ def titleSim(jobTitle, resumeTitle):
         platform = 10     
         
     value = float(level + domain + pro_lang + platform) / 70   
-    print "title_value=" ,value
+  #  print "title_value=" ,value
     return value
 
 def getTitleModel(title ):

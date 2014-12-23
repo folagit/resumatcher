@@ -107,7 +107,7 @@ def processSents(resumeModel,  sents ):
             parseSkill(resumeModel, sent )
             
         if isJobTitleSent(sent):
-             print "title sent ==", sent
+           #  print "title sent ==", sent
              parseTitle(resumeModel, sent )
             
     return resumeModel 
@@ -131,7 +131,7 @@ def isSkillSent(sent):
 def isJobTitleSent(sent):
     words = word_tokenize(sent.lower())
     lw = len(words)
-    print "lw=", lw
+ #   print "lw=", lw
     if lw < 1008:
         for token in words: 
             if token in sent:
@@ -146,7 +146,7 @@ def parseSkill(jobModel, sent ):
     skillParser.parseSkill(jobModel, sent)    
 
 def parseTitle(resumeModel, sent ):
-    print "title=", sent
+  #  print "title=", sent
     title = preProcessTitle(sent)
     titleModel = getTitleModel( title )
     resumeModel.titleModels.append(titleModel)

@@ -91,7 +91,7 @@ class ModelSimilarity():
         maxvalue = 0
         jobTitle = jobModel.titleModel
     #    print "jobTitle=", jobTitle
-        print " resumeModel.titleModels len =" , len(resumeModel.titleModels)
+    #    print " resumeModel.titleModels len =" , len(resumeModel.titleModels)
         for resumeTitle in resumeModel.titleModels:
          #   print "resumeTitle=", resumeTitle
             value = titleSim(jobTitle, resumeTitle)
