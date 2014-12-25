@@ -11,14 +11,17 @@ class JobModel(CommonModel):
     def __init__(self, jobid):
         CommonModel.__init__(self)
         self.jobid = jobid
+        self.summary = {}
         
             
     def serialize(self):
         objDict = CommonModel.serialize(self)
         objDict["_id"] = self.jobid    
         objDict["title"] = self.titleModel
+        objDict["summary"] = self.summary
         return objDict
         
     def deserialize(self, dictModel):
         super(JobModel,self).deserialize(dictModel)
         self.titleModel = dictModel["title"]
+        self.summary = dictModel["summary"]

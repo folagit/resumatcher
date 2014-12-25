@@ -19,6 +19,7 @@ from skill.skillparser import SkillParser
 from model.jobmodel import JobModel
 from titles.titleprocess import processTitle   
 from preprocess import replaceCode
+from jobtype.jobclassifier import jobclassifier
 
 skillParser = SkillParser()
 
@@ -136,6 +137,8 @@ def processjobs(dbname, collname):
          
          titleModel = processTitle(job)
          jobModel.titleModel = titleModel
+         jobclassifier.classifyJob(jobModel)         
+         
          modelColl.save(jobModel.serialize())
          
      
