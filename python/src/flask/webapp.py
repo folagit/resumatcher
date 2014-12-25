@@ -250,6 +250,8 @@ def upload():
         session['resume_name'] = filename
         app.config['matchjids'] = None 
         app.config['resume'] = resume
+        resumeModel = resumeparser.parseResumeText(resume)                              
+        app.config['resumeModel'] = resumeModel
         
       #  print  "session resume name ===", resume
                         
@@ -310,7 +312,12 @@ def resume_keyword():
         filename = app.config['resume_name']
      #   print  "session resume name =>>=", session['resume_name']
     return render_template('resume_keyword.html', resume=content, filename=filename )
-    
+ 
+@app.route('/resume_model.html')    
+def resume_model():
+    resumeModel = app.config['resumeModel']  
+    return render_template('resume_model.html', resumeModel=resumeModel )
+     
 
 @app.route('/listids.html')    
 def listids():

@@ -1,0 +1,56 @@
+{% extends "simple_layout.html" %}
+
+{% block headerpart %}
+   {% include "header.html" %}    
+{% endblock %}	
+
+{% block mainpart %}
+    <div> 
+    <span style="font-size: 22px" >Resume Model </span>
+    </div>        
+    <hr/>
+    <div> 
+      Major
+      {{resumeModel.majors}}
+   </div> 
+   <div> 
+      Degree
+      {{resumeModel.degrees}}
+      
+   </div> 
+   <div> 
+      skills<br>
+      
+       <ol>
+            {% for skill in resumeModel.skills %}
+             <li>{{skill}}</li>
+            {% endfor %}
+        </ol> 
+   </div> 
+   <div> 
+      titles<br>
+      <table border="1">
+          <tr>
+            <td>No</td>
+            <td>Role</td> 
+            <td>Level</td>
+            <td>Platform</td>
+            <td>Pro_lang</td>
+          </tr>
+          {% set i = 0 %}
+          {% for title in resumeModel.titleModels %}
+          {% set i = i + 1 %}
+          <tr>
+            <td>{{i}}</td>
+            <td>{{title.role}}</td> 
+            <td>{{title.level}}</td>
+            <td>{{title.platform}}</td>
+            <td>{{title.pro_lang}}</td>
+           </tr>
+          {% endfor %}
+     </table>
+      
+                 
+   </div> 
+   
+{% endblock %}
