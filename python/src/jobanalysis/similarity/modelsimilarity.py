@@ -137,7 +137,7 @@ class ModelSimilarity():
              return 0
           
             
-    def match_jobColl(self, resumeModel, jobColl):
+    def match_jobColl_old(self, resumeModel, jobColl):
          jobscore = {}
          for jobModelDict in jobColl.find():
              jid = str(jobModelDict["_id"])
@@ -151,6 +151,82 @@ class ModelSimilarity():
                jobscore[jid] = score
          jobscore =  sorted(jobscore.items(), key=operator.itemgetter(1), reverse= True)     
          return jobscore
+    
+    def match_jobColl(self, resumeModel, jobColl):
+        jobmodels = self.markByTitle( resumeModel, jobColl )
+        jobs  =  [[]  for x in xrange(4)]
+        print ">>>> len jobs = ", len(jobs)    
+        for jobModel in jobmodels:
+            jobModel.score = int (self.getSimilarity( resumeModel,  jobModel )*100)
+            if jobModel.same_pro_lang and jobModel.same_domain :
+                jobs[0].append([jobModel.jobid, jobModel.score])
+            elif jobModel.same_pro_lang :
+                jobs[1].append([jobModel.jobid, jobModel.score])
+            elif jobModel.same_domain:
+                jobs[2].append([jobModel.jobid, jobModel.score])
+            else :
+                jobs[3].append([jobModel.jobid, jobModel.score])
+        sortedlist = []        
+        for joblist in jobs:
+            if len(joblist) > 0 :
+                jobscore =  sorted(joblist, key=lambda tup: tup[1], reverse= True)     
+                sortedlist.extend(jobscore)
+                
+        return sortedlist
+            
+       
+    def markByTitle(self,  resumeModel, jobColl):
+        titleModel = resumeModel.titleModels[0] 
+        jobmodels = []
+        pro_lang = None
+        domain = None
+        level = None
+        role = None
+        if titleModel.has_key("pro_lang") :
+             pro_lang = titleModel["pro_lang"]         
+        if titleModel.has_key("domain") :
+             domain = titleModel["domain"]
+        if titleModel.has_key("level") :
+             level = titleModel["level"]         
+        if titleModel.has_key("role") :
+             role = titleModel["role"]             
+             
+        for jobModelDict in jobColl.find():
+             jid = str(jobModelDict["_id"])
+             # print "jid=", jid
+             jobModel = JobModel(jid)
+             jobModel.deserialize(jobModelDict)
+             jobSummary = jobModel.summary
+             jobmodels.append(jobModel)
+             if pro_lang is not None and \
+               jobSummary.has_key("pro_lang") and \
+               jobSummary["pro_lang"] == pro_lang :
+               jobModel.same_pro_lang = True  
+             else :
+               jobModel.same_pro_lang = False  
+               
+             if level is not None and \
+               jobSummary.has_key("level") and \
+               jobSummary["level"] == pro_lang :
+               jobModel.same_level = True  
+             else :
+               jobModel.same_level = False               
+                            
+             if domain is not None and \
+               jobSummary.has_key("domain") and \
+               jobSummary["domain"] == domain :
+               jobModel.same_domain = True  
+             else :
+               jobModel.same_domain = False 
+               
+             if role is not None and \
+               jobSummary.has_key("role") and \
+               jobSummary["role"] == pro_lang :
+               jobModel.same_role = True  
+             else :
+               jobModel.same_role = False 
+                 
+        return jobmodels
          
     def match_jobModels(self, resumeModel, jobModels):
          jobscore = {}

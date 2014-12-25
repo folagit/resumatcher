@@ -22,9 +22,20 @@ from titles.titleprocess import preProcessTitle
 from titles.titleprocess import getTitleModel
 
 
-dev_roles=["intern","engineer","architect", "developer",
-       "programmer", "programmer","lead", "consultant" ]
+dev_roles=["intern", "internship", "engineer","architect", "developer",
+           "programmer", "programmer"]
 
+consultant_roles = ["consultant"]
+
+scientist_roles = ["scientist" ]
+
+other_roles = ["lead", "analyst",  "specialist" ]
+ 
+roles = []
+roles.extend(dev_roles)
+roles.extend(consultant_roles)
+roles.extend(scientist_roles)
+roles.extend(other_roles)
 
 def splitSentences(text):
   #  print "text=", text
@@ -129,12 +140,15 @@ def isSkillSent(sent):
     return skillParser.isSkillSent(sent)   
     
 def isJobTitleSent(sent):
+    
     words = word_tokenize(sent.lower())
     lw = len(words)
- #   print "lw=", lw
-    if lw < 1008:
-        for token in words: 
-            if token in sent:
+  #  print "lw=", lw
+   
+    if lw < 6:
+        for token in roles: 
+            if token in words:
+                print sent
                 return True
                 
     return False
@@ -209,9 +223,17 @@ def saveResumeModels(resumeColl, modelColl):
          print "--------id=", resume["_id"]
          resumeModel = parseResume(resume)   
          modelColl.save(resumeModel.serialize())
-     
+
+def processReusmeText(txtfile):
+     with open(txtfile, 'r') as resume_file:
+        resume = resume_file.read()
+        resumeModel = parseResumeText(resume)  
+    
 def main(): 
-     processResumes()
+  #   processResumes()
+    resumefile = "resumes\\java.txt"
+  #  resumefile = "resumes\\test1.txt"
+    processReusmeText(resumefile)
      
 if __name__ == "__main__": 
     main() 

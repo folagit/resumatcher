@@ -19,7 +19,7 @@ from skill.skillparser import SkillParser
 from model.jobmodel import JobModel
 from titles.titleprocess import processTitle   
 from preprocess import replaceCode
-from jobtype.jobclassifier import jobclassifier
+from jobtype import jobclassifier
 
 skillParser = SkillParser()
 
@@ -146,13 +146,15 @@ def main():
      dbname = "jobaly_daily"
      collname = "daily_job_info_2014-07-08"
      
-     dbname = "jobaly"
-     collname = "keyword_info_java"     
      collname = "keyword_info_python"
      collname = "keyword_info_web"
      collname = "keyword_info_javascript"
      collname = "keyword_info_PHP"
      collname = "keyword_info_Hadoop"
+     
+     dbname = "jobaly"
+     collname = "keyword_info_java"     
+     
      
     # processjobs("jobaly","job100")
      processjobs(dbname,collname)
