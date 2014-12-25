@@ -13,12 +13,11 @@ import indexer
 
 dbinfo = {}
 dbinfo["pagesize"] = 20
-dbinfo['dbname'] = "jobaly_daily_test"  
-dbinfo['collname'] = "daily_job_webdev"
-dbinfo['modelcollname'] = dbinfo['collname']+"_model"
 
 dbinfo['dbname'] = "jobaly"  
-dbinfo['collname'] = "job100"
+dbinfo['collname'] = "keyword_info_java"
+dbinfo['modelcollname'] = dbinfo['collname']+"_model"
+
 
 app = Flask(__name__)     
 dataHandler = DataHandler()     

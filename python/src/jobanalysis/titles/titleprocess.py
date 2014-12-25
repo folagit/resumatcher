@@ -48,8 +48,11 @@ def tokensIn(tokens, words, lower=True):
      
 
 def preProcessTitle(sent):
-    sent = replaceCode(sent)
-    sent = sent.replace("/"," ") 
+    sent = replaceCode(sent.lower())
+    sent = sent.replace("//"," ") 
+    sent = sent.replace("\/"," ") 
+    sent = sent.replace("front end","web") 
+    sent = sent.replace("front-end","web")
     return sent
     
 def titleSim(jobTitle, resumeTitle):

@@ -166,11 +166,24 @@ class ModelSimilarity():
                 jobs[2].append([jobModel.jobid, jobModel.score])
             else :
                 jobs[3].append([jobModel.jobid, jobModel.score])
-        sortedlist = []        
+       
+        lists = []
         for joblist in jobs:
             if len(joblist) > 0 :
                 jobscore =  sorted(joblist, key=lambda tup: tup[1], reverse= True)     
-                sortedlist.extend(jobscore)
+                lists.append(jobscore)                
+        
+        if len(lists) > 1:
+            n = len(lists)
+            pad = 100/n
+            for i in range(0, len(lists)): 
+                for jobscore in lists[i]:
+                    jobscore[1] = int(jobscore[1]/n+(n-i-1)*pad)
+        
+            
+        sortedlist = []  
+        for joblist in lists: 
+            sortedlist.extend(joblist)
                 
         return sortedlist
             
