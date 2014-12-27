@@ -274,3 +274,5 @@ python/src/jobanalysis/titles/parsetab.py
 python/src/jobanalysis/degree/output2/
 python/src/testmatch/parser.out
 python/src/testmatch/parsetab.py
+python/src/testmatch/pages/
+

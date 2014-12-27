@@ -31,7 +31,7 @@ padding-top: 30px;
 padding-right: 0px;  
 padding-bottom: 20px;  
 padding-left: 50px;  
-width:800px;
+width:580px;
 }
 </style>
 
@@ -87,7 +87,7 @@ def main():
      keyword = "web developer"
      keyword = "java"
      keyword = "python"
-     keyword = "javascript"
+    # keyword = "javascript"
      
      name = keyword.split()[0]
      jobCollectionName = "keyword_info_"+name

@@ -37,6 +37,7 @@ class ModelSimilarity():
     def __init__(self):
         self.weightVector = [ 0.1, 0.1, 0.4, 0.4 ]
         self.weightVector = [ 0.05, 0.05, 0.4, 0.5 ]
+        self.weightVector = [ 0.1, 0.1, 0.6, 0.2 ]
         self.ontology = ontologylib.createOntology()
         self.pairDict = pairdistance.loadPairValues()
 
@@ -155,8 +156,10 @@ class ModelSimilarity():
     def match_jobColl(self, resumeModel, jobColl):
         jobmodels = self.markByTitle( resumeModel, jobColl )
         jobs  =  [[]  for x in xrange(4)]
-        print ">>>> len jobs = ", len(jobs)    
+     #   print ">>>> len jobs = ", len(jobs)    
         for jobModel in jobmodels:
+            if not jobModel.same_role: 
+                continue
             jobModel.score = int (self.getSimilarity( resumeModel,  jobModel )*100)
             if jobModel.same_pro_lang and jobModel.same_domain :
                 jobs[0].append([jobModel.jobid, jobModel.score])
@@ -202,7 +205,8 @@ class ModelSimilarity():
         if titleModel.has_key("level") :
              level = titleModel["level"]         
         if titleModel.has_key("role") :
-             role = titleModel["role"]             
+             role = titleModel["role"]      
+             
              
         for jobModelDict in jobColl.find():
              jid = str(jobModelDict["_id"])
@@ -210,6 +214,7 @@ class ModelSimilarity():
              jobModel = JobModel(jid)
              jobModel.deserialize(jobModelDict)
              jobSummary = jobModel.summary
+             
              jobmodels.append(jobModel)
              if pro_lang is not None and \
                jobSummary.has_key("pro_lang") and \
@@ -234,7 +239,7 @@ class ModelSimilarity():
                
              if role is not None and \
                jobSummary.has_key("role") and \
-               jobSummary["role"] == pro_lang :
+               jobSummary["role"] == role :
                jobModel.same_role = True  
              else :
                jobModel.same_role = False 
