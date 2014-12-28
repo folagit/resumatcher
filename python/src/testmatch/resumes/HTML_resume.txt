@@ -1,0 +1,27 @@
+Mario Garcia
+Austin, TX - Email me on Indeed: indeed.com/r/Mario-Garcia/76fb586c422c7b1a
+WORK EXPERIENCE
+Web Developer
+The New Office, Inc. - Austin, TX - September 2013 to Present
+Responsibilities Responsible for developing and updating dynamic ecommerce websites for clients using NetSuite SuiteCommerce advanced platform
+Accomplishments · Developed custom designed responsive ecommerce websites for TNO clients, such as Insperity, TxSmartbuy and Origin Acoustics · Responsible for hand-coding of both CSS and standards-compliant HTML · Use JavaScript libraries to support the functionality and creative needs of websites · Assist in QA testing and troubleshooting, including browser compatibility and web accessibility standards · Developed client-side user event SuiteScripts to customize the customers workflow experience · Developed and maintained the company's WordPress website
+Skills Used · HTML + CSS + Bootstrap · JavaScript and jQuery, including Backbone.js and Underscore.js · Web Accessibility Standards · NetSuite SuiteCommerce Advanced
+Web Developer and Web Designer
+The University of Texas at Brownsville and Texas Southmost College - Brownsville, TX - June 2012 to August 2013
+Responsibilities Supported and created web pages and web graphics for the university and maintained visual consistency
+Accomplishments · Worked on a team to create, build and launch UTB 2.0's new design · Designed UTB 2.0 secondary layouts and created MS SharePoint 2010 page layouts/templates using MS SharePoint Designer 2010 utilizing custom CSS · Designed and developed the visual elements of the UTB Degree & Scholarship Finder and TSC Degree & Scholarship Finder · Sketched wireframes and designed web layout graphics in Adobe Photoshop for demonstration and approval before development · Created custom web pages using web graphics to university and web standards (CSS layouts) · Created jQuery scripts to modernize the design of the UTB site, including animations (e.g. UTB 2012 Holiday Greeting Card, scripts to add/remove CSS classes) · Designed, hand coded and delivered HTML email templates and HTML email marketing campaigns for the university president and general university campaigns · Provided customer service, training and web support to all schools and colleges
+
+· Continue to learn web technologies daily to expand professional knowledge
+Skills Used · HTML + CSS · jQuery, C# · Adobe PhotoShop, Illustrator, Dreamweaver, InDesign · SharePoint 2007 and SharePoint 2010 · SharePoint Designer 2007 and SharePoint Designer 2010 · Visual Studio 2010 · Microsoft Office
+Computer User Services Specialist I
+The University of Texas at Brownsville and Texas Southmost College - Brownsville, TX - February 2008 to May 2012 Responsibilities Created and maintained all Economic Development and Community Services Division and UTB and TSC Arts Center web pages to UTB standards, including graphics.
+Accomplishments · Generated dynamic images and web content · Created print ready brochures using InDesign, dynamic online PDF forms and user tutorials · Created websites using MS SharePoint Designer 2007 and developed complex CSS · Established JS enabled web forms to submit registrations with PayPal integration · Provided customer service and computer support to 12 departments · Scheduled meetings with WTCE personnel to complete all web-related projects
+Skills Used · HTML + CSS · JavaScript, ASP, C# · Adobe PhotoShop, InDesign · SharePoint 2007 · SharePoint Designer 2007 · Microsoft Office
+EDUCATION
+BS in Computer Science
+The University of Texas at Brownsville and Texas Southmost College - Brownsville, TX 2004 to 2010
+SKILLS
+HTML5, CSS3, Bootstrap, jQuery, JavaScript, UI Development, WordPress
+LINKS
+http://themariogarcia.com
+

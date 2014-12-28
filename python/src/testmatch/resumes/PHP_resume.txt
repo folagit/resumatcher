@@ -1,0 +1,19 @@
+Albert Vinizhanau
+PHP Developer - ActavaTV Inc
+Brooklyn, NY - Email me on Indeed: indeed.com/r/Albert-Vinizhanau/dd84b28c4b1aba86
+WORK EXPERIENCE
+PHP Developer
+ActavaTV Inc - New York, NY - March 2014 to Present Developed website for MasterCall Mobile - www.mastercallmobile.com - with Yii framework (PHP 5.5) + Microsoft SQL. For Front-end: Bootstrap, CSS3. Developed website for ActavaTV - actava.tv - with WordPress. MySQL + Microsoft SQL. Developed core for TV system. Narive PHP without any frameworks. MySQL + Microsoft sql.
+PHP Developer
+MegaIndex LTD - Minsk - September 2012 to March 2014 Developed complex online advertising system. Completed several projects for context and RTB advertising. Developed core for DSP\RTB system (more than 200M requests per day) with PHP 5.3 + MySQL + Memcache..
+PHP Developer
+Atlantic Silicon Inc - Minsk - May 2012 to September 2012 Developed plugins for WordPress and phpBB. Developed several sites with WordPress + MySQL.
+PHP Developer
+Altoros Development - Minsk - August 2011 to May 2012 Developed internal blog with Joomla 1.6 + MySQL. Developed modules for SugarCRM.
+PHP Developer
+Biznes-postavka LTD - Minsk - December 2010 to August 2011 Developed B2B systems and reporting website with Zend Framework + MySQL.
+PHP Developer
+Sovershennye sistemy LTD - Minsk - September 2010 to December 2010 Developed sites with Joomla + MySQL. Developed online shops with TomatoCart and OpenCart.
+SKILLS
+PHP5, JavaScript, HTML5, CSS3, Java, MySQL, Microsoft SQL, Zend Framework, LiveStreet Framework, Yii Framework, CodeIgniter, Joomla, WordPress, TomatoCart, OpenCart, Android
+

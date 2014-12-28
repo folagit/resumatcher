@@ -1,0 +1,29 @@
+Justine Antony Joseph
+Java/J2ee Developer
+Santa Clara, CA - Email me on Indeed: indeed.com/r/Justine-Antony-Joseph/12f6b820253b6e6b
+· Currently Working as a j2ee Developer at Hotwire.com · 8 years of java/J2ee web application development experience(2.9 years in US which includes 2.5 years in Apple Inc. and 3 months in Hotwire.com) · Doing the development of customer facing web applications using j2ee technologies. · Experience on j2ee technologies like Spring, Struts, Hibernate, JSF, Maven, Tomcat · Strong Knowledge of Core Java, Web Application Basics and Data Structures · Experience in test driven development with Agile methodology
+WORK EXPERIENCE
+Software Engineer
+Hotwire.com (CarRentals.com) - San Francisco, CA - November 2014 to Present
+Responsibilities · Working as a J2ee developer for CarRentals.com · Involved in Requirement Analysis, Design, Coding , Code Review · Application performance analysis and optimization
+Skills Used Core java, J2ee, REST, MySQL
+Java Developer
+Apple Inc - Sunnyvale, CA - May 2012 to October 2014
+Working for the development and maintenance of a customer facing Web Application. · Doing Client Side and Server Side development of the project · Using Agile Development · Responsibilities: Requirement Analysis, UML Design, Coding, Mentoring team members, Code review, Coordination with Other Onsite teams and offshore teams and Release planning.
+Technology Analyst
+Infosys - July 2011 to May 2012
+Worked as a Module Lead for Web Applications using J2ee technologies. · Responsibilities: Requirement Analysis, UML Design, Coding, Onsite Coordination, Code Review, Mentoring team members
+Senior Software Engineer
+IBS Software Services, India - July 2006 to June 2011
+Project: Access Control · Worked for the development of a Web Application from scratch using technologies like Struts, Hibernate and other web technologies · Worked on design and development of both client and server side software · Involved in All the phases of the project development from requirement Analysis to production deployment and maintenance
+
+· Responsibilities: requirement Analysis, Design (UML), Coding, Code review, Mentoring junior team members, Co-ordination with onsite team
+Project: iCargo · The project was developed as a web application used for an Airline's end-to-end cargo management · Worked for different modules of the project · Involved in the client side and server side development using struts and Hibernate with customized framework. · Involved in design, bug fixing, mentoring of junior members,
+EDUCATION
+B-Tech in Tech/Computer Science And Engineering
+Kerala University - Kerala, India 2002 to 2006
+SKILLS
+Java, HTML, Java Script, jQuery, CSS, Servlets, JSP, Maven,Struts, JSF, Hibernate, Spring,Apache tomcat,JMeter
+ADDITIONAL INFORMATION
+Technical Knowledge · Language: Java · Web technologies/Frameworks: HTML, Java Script, jQuery, CSS, Servlets, JSP, Maven · Frameworks: Struts, JSF, Hibernate, Spring · IDE/Tools: Eclipse, Intellij, SVN, Clearcase, Star UML · Application Server: Apache tomcat
+

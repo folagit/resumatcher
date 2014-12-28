@@ -1,0 +1,29 @@
+Timothy Thompson
+Manor, TX - Email me on Indeed: indeed.com/r/Timothy-Thompson/61d3f162a743dc56
+Web Developer who loves outside the box thinking and coming up with elegant solutions to complex problems.
+WORK EXPERIENCE
+JavaScript Developer
+GM - Austin, TX - June 2014 to Present
+Responsibilities Support and maintain existing global websites using JavaScript and Adobe CQ. Develop build process used to compile SASS files, minify JavaScript, CSS and HTML and perform checkins of code to git. Become competent in the use of AEM 6.0. Attend daily Scrum meeting. Help decide what tools would be used in our development process.
+Web Application Developer
+Kinnser Software - November 2011 to June 2014
+Coded industry leading home health care software, for medicare/managed care and hospice using Coldfusion 9/10  Developed dynamic user interfaces using JQuery/AngularJS/Bootstrap  SVN and Git experience  Lead developer for my team, one of six teams total  Familiar with Kanban and Scrum processes
+Web Application Developer
+Acme Truck Line, Inc - Austin, TX - November 2006 to November 2011
+Coded various web applications using XHTML, ColdFusion 7, 8 & 9, AJAX, SQL, XML, Flex, Grails, ExtJS 2, 3 & 4  Vastly improved existing intranet site by converting a largely static web site into a dynamic web portal capable of pulling in live information updates from various locations such as Google Maps, Google Calendar, and SQL Servers.  Developed new web portal for company drivers and truck owners providing live up-to-date information about corporate policies, live alerts when physicals, drivers licenses, or vehicle inspections needed to be renewed as well as allowing drivers to track their financial information, such as fuel expenses, delivery invoices and quarterly earnings.  Developed company wide enterprise chat wall allowing real time communication between geographically separate offices  Constantly working multiple simultaneous projects under tight deadlines keeping open communication channels with company management, clients and vendors in order to make sure final product met everyones expectations.
+Tinker AFB Contractor
+LCI - Midwest City, OK - 2005 to 2006
+Provided computer support and web development for department  Used HTML, CSS and AJAX technologies for web development
+
+ Created script to allow department heads to share selected events to each others Outlook calendars
+PC Support, Web Developer
+Holloman AFB - Alamogordo, NM - 2003 to 2005
+In charge of group help desk / servers  Supervised multiple help desk personnel  Given a $100,000 annual budget for tech purchases  Used HTML, ASP, CSS, JavaScript for group web pages
+Network Manager, Web Dev
+Tinker AFB - Midwest City, OK - 1998 to 2003
+Lead developer for base website - both intranet and public site  Utilized HTML, CSS, ASP, VBScript, & JavaScript  Received leadership recognition for work on web based Metrics reporting software  Created a web based configuration application for Cisco Switches and Routers  Supervised multiple Airmen as an Air Force Staff Sergeant
+SKILLS
+Scrum Master certified - 2013
+ADDITIONAL INFORMATION
+Qualifications  14+ Years as a Web Developer, HTML / JavaScript / CSS  9+ Years as an XHTML / AJAX Developer  8+ Years as a ColdFusion Developer ( 7, 8, 9 & 10 )  3+ Years using ExtJS AJAX JavaScript Library  1+ Years using AngularJS and JQuery
+
