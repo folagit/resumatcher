@@ -27,7 +27,7 @@ common_dev_roles = [ "Engineer", "Development","Developer",
        "Programmer","dev","Computer Programmer", "Eng"]
 
 pro_lang = ["java", "c++", "python", ".net", "javascript", 
-            "PHP", "ruby", "c#", "Ruby on Rails", "SQL" ]
+            "PHP", "ruby", "c#", "Ruby on Rails", "SQL", "hadoop" ]
 
 skill_set = ["jsp", "asp", "html", "css"]
 

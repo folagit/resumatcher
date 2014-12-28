@@ -87,7 +87,9 @@ def main():
      keyword = "web developer"
      keyword = "java"
      keyword = "python"
-    # keyword = "javascript"
+     keyword = "javascript"
+     keyword = "PHP"
+     keyword = "HTML"
      
      name = keyword.split()[0]
      jobCollectionName = "keyword_info_"+name

@@ -58,8 +58,13 @@ def getOntology(resumefile, dbname, modelCollName):
 
 def main():
      dbname = "jobaly"       
-     keyword = "java"     
-     resumefile = keyword + "_resume.txt"
+     keyword = "java"
+     keyword = "python"    
+     keyword = "javascript"
+     keyword = "PHP"
+     keyword = "HTML"
+    
+     resumefile = "resumes\\" + keyword + "_resume.txt"
      name = keyword.split()[0]
      jobCollectionName = "keyword_info_"+name
      modelCollName = jobCollectionName+"_model"

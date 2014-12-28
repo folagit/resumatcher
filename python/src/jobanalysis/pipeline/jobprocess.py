@@ -153,8 +153,13 @@ def main():
      collname = "keyword_info_Hadoop"
      
      dbname = "jobaly"
-     collname = "keyword_info_java"     
-     
+     collname = "keyword_info_java"   
+     collname = "keyword_info_python"
+     collname = "keyword_info_javascript"   
+     collname = "keyword_info_HTML"
+     collname = "keyword_info_PHP"
+   #  collname = "keyword_info_Hadoop"
+   #  
      
     # processjobs("jobaly","job100")
      processjobs(dbname,collname)

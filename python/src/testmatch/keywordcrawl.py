@@ -51,6 +51,7 @@ def getJobInfo(dbClient, listCollectionName, infoCollectionName ):
      t =  time.time() - start_time
      print "---- finish get job info, use %s seconds  ----" %t
 
+
 def main():
      t =  datetime.datetime.now()
      print "start at:" , t  
@@ -66,7 +67,12 @@ def main():
      keyword = "javascript"
      keyword = "PHP"
      keyword = "Hadoop"
-     keyword = "mysql"     
+     keyword = "HTML"
+   #  keyword = "mysql"   
+     keyword = "python"
+     
+     keyword = "PHP"
+     keyword = "javascript"
      
      name = keyword.split()[0]
      listCollectionName = "keyword_job_"+name
@@ -75,10 +81,10 @@ def main():
      print "info collection name:", infoCollectionName
      
      dbClient = DbClient('localhost', 27017, "jobaly")
-     getJobList( dbClient, listCollectionName, 5, cities, keyword )
+  #   getJobList( dbClient, listCollectionName, 5, cities, keyword )
      getJobInfo( dbClient, listCollectionName, infoCollectionName )      
-  
-   
+    
+      
   #   os.environ["LIST_COLL_NAME"] = listCollectionName
   #   os.environ["INFO_COLL_NAME"] = infoCollectionName
   #   os.system("bash")     
