@@ -224,7 +224,8 @@ class JobDescParser():
         jobpage = re.sub("<span.*?>|</span>", " ", jobpage)
         
         jobpage = re.sub("\n", "", jobpage)
-        
+        jobpage = re.sub("C\+\+|VC\+\+|c\+\+|vc\+\+", "cpp", jobpage)
+      
   #      print jobpage.encode("GBK", "ignore")
         
         soup = BeautifulSoup(jobpage)
