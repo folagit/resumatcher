@@ -86,20 +86,33 @@ def printDisMatrix(terms, matrix):
 def getDisMatrixFromColletion(): 
      srcBbClient = DbClient('localhost', 27017, "jobaly_daily_test")
      collection = srcBbClient.getCollection("daily_job_webdev")
+     f = open('sents.txt','w')
+      # python will convert \n to os.linesep
      
      docs = []
      for job in collection.find(): 
-      #   print "\n\n\n======",job["_id"],"============================\n"
+      #  print "\n\n\n======",job["_id"],"============================\n"
+     #   f.write(job["summary"].encode("GBK", "ignore")+"\n")
         jobDesc = JobDescParser.parseJobDesc(job)
+        
         sents = jobDesc.listAllSentences() 
         doc =[]
         for sent in sents:
+           # print sent.encode("GBK", "ignore")
+            f.write(sent.encode("GBK", "ignore")+"\n")
             tokens = [ token.lower() for token in word_tokenize(sent)]              
+            for token in tokens:
+                if token == 'c':
+                #    print token
+                    pass
             doc.extend(tokens)        
         docs.append(doc)
-        
-     terms=["javascript", "jquery", "html", "css", "java", "jsp", "python", "ruby", "ror"  ]
-    # terms=["java","jdbc","spring","hibernate","mysql","oracle"]
+     f.close()
+     terms=["javascript", "jquery", "html", "css", "java", "python", "ruby", "mysql", "jdbc" , "cpp"  ]
+  #   terms=["javascript", "jquery", "html", "css", "java", "jsp", "python", "ruby", "ror"  ]
+  
+
+   # terms=["java","jdbc","spring","hibernate","mysql","oracle"]
      matrix = getDistanceMatrix(docs, terms)   
      printDisMatrix(terms, matrix)   
      matrix_dump = json.dumps(matrix)
